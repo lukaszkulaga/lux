@@ -22,7 +22,7 @@ class Test
 
     /**
      * @var string
-     *
+     **
      * @ORM\Column(name="Imie", type="string", length=255)
      */
     private $imie;
