@@ -44,8 +44,13 @@
                             <div class="inputBox">
                                 <input id="drugieHaslo" type="password" placeholder="Powtórz hasło" required>
                             </div>
-                            <div class="inputBox">
-                                <input id="submitRejestracja" type="submit" value="Zarejestruj">
+{#                            <div class="inputBox">#}
+{#                                <input id="submitRejestracja" type="submit" value="Zarejestruj">#}
+{#                            </div>#}
+                            <div class="container1" style="margin-left: -30%">
+                                <div class="btn1">
+                                    <button id="submitRejestracja" type ="submit">Zarejestruj</button>
+                                </div>
                             </div>
                             <p class="nawigacjaUwierzytelnienia">Masz konto?&nbsp<a href="{{ baseUrl }}logowanie">Zaloguj się</a></p>
                         </div>
@@ -54,6 +59,11 @@
                             <p id="image_drop_area_text">przeciągnij lub dodaj swoje zdjęcie</p>
                             <div id="image_drop_area"><output id="list"></output></div>
                             <p id="file_name"></p>
+
+                            {# tutaj wpada adres foto drag and drop #}
+                            <input style="display: none" type="text" id="filesDropAndDrag" name="filesDropAndDrag" multiple />
+
+                            {# tutaj wpada adres foto otwórz plik - chyba #}
                             <input type="file" id="files" name="files[]" multiple />
                         </div>
 

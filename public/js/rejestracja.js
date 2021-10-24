@@ -14,7 +14,7 @@ $(document).ready(function () {
       * */
 
     const image_drop_area = document.querySelector("#image_drop_area");
-    var uploaded_image;
+    var uploaded_image; // możemy odczytac ten plik/zdjecie w tagu <img  src="scieżka zapisana w uploaded_image" />
 
 // Event listener for dragging the image over the div
     image_drop_area.addEventListener('dragover', (event) => {
@@ -47,7 +47,10 @@ $(document).ready(function () {
 
 
 
+$('#submitRejestracja').click(function(){
 
+    $('#filesDropAndDrag').val(uploaded_image);
+})
 
 
     /*

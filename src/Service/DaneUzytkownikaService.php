@@ -15,10 +15,10 @@ class DaneUzytkownikaService
      $this->daneUzytkownikaRepository = $daneUzytkownikaRepository;
     }
 
-    public function daneUzytkownikaService( $imie ) {
+    public function daneUzytkownikaService( $adresUriZdjecia) {
 
         $daneUzytkownika = new DaneUzytkownikaEntity();
-        $daneUzytkownika->setImie( $imie );
+        $daneUzytkownika->setZdjecie( $adresUriZdjecia );
 
         $this->daneUzytkownikaRepository->daneUzytkownikaRepo( $daneUzytkownika );
     }
