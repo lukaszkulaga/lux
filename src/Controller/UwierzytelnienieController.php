@@ -62,10 +62,12 @@ class UwierzytelnienieController extends AbstractController
     /**
      * @Route("/rejestracja", methods={"POST"})
      */
-    public function rejestracjaPost() {
+    public function rejestracjaPost(Request $request ):Response {
 
 
-        $this->daneUzytkownikaService->daneUzytkownikaService('cyce');
+        $adresUriZdjecia = $request->request->get('filesDropAndDrag');
+
+        $this->daneUzytkownikaService->daneUzytkownikaService($adresUriZdjecia);
 
 
         return $this->redirect(parent::getParameter('baseUrl')."logowanie");

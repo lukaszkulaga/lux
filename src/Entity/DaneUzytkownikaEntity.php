@@ -56,6 +56,13 @@ class DaneUzytkownikaEntity
     private $haslo;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="Zdjecie", type="string", length=255)
+     */
+    private $zdjecie;
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -181,12 +188,7 @@ class DaneUzytkownikaEntity
         return $this;
     }
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="Zdjecie", type="string", length=255)
-     */
-    private $zdjecie;
+
 
 
 

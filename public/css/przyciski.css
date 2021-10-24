@@ -55,7 +55,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba(255,255,255,0.005);
+    /*background: rgba(255,255,255,0.005);*/
+    background: rgb(118, 140, 162);
     box-shadow: 0 15px 35px rgba(0,0,0,0.2);
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 30px;
