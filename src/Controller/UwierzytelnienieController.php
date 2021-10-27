@@ -43,7 +43,7 @@ class UwierzytelnienieController extends AbstractController
 
 
 
-        return $this->render('logowanie.html.twig', array() );
+        return $this->redirect(parent::getParameter('baseUrl')."stronaUzytkownika");
 
     }
 
