@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Service\DaneUzytkownikaService;
+use App\Service\LoginService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,19 +17,21 @@ class UwierzytelnienieController extends AbstractController
 
 
     private $daneUzytkownikaService;
+    private $loginService;
 
-    public function  __construct(DaneUzytkownikaService $daneUzytkownikaService) {
+    public function  __construct(DaneUzytkownikaService $daneUzytkownikaService,LoginService $loginService) {
 
         $this->daneUzytkownikaService = $daneUzytkownikaService;
+        $this->loginService = $loginService;
     }
+
+
 
 
     /**
      * @Route("/logowanie", methods={"GET"})
      */
     public function logowanieGet() {
-
-
 
 
         return $this->render('logowanie.html.twig', array() );
@@ -38,13 +41,20 @@ class UwierzytelnienieController extends AbstractController
     /**
      * @Route("/logowanie", methods={"POST"})
      */
-    public function logowaniePost() {
+    public function logowaniePost( Request $request  ) {
 
+        $login = $request->request->get('nazwaUzytkownika');
+        $haslo = $request->request->get('haslo');
 
+        $rezultat = $this->loginService->loginService( $login,$haslo );
 
+        if ( $rezultat ) {
 
-        return $this->redirect(parent::getParameter('baseUrl')."stronaUzytkownika");
+            return $this->redirect(parent::getParameter('baseUrl')."stronaUzytkownika");
+        } else {
 
+            return $this->redirect(parent::getParameter('baseUrl')."logowanie");
+        }
     }
 
     /**
@@ -62,16 +72,30 @@ class UwierzytelnienieController extends AbstractController
     /**
      * @Route("/rejestracja", methods={"POST"})
      */
-    public function rejestracjaPost(Request $request ):Response {
-
+    public function rejestracjaPost( Request $request ):Response {
 
         $adresUriZdjecia = $request->request->get('filesDropAndDrag');
+        $imie = $request->request->get('imie');
+        $nazwisko = $request->request->get('nazwisko');
+        $nazwaUzytkownika = $request->request->get('nazwaUzytkownika');
+        $email = $request->request->get('email');
+        $haslo = $request->request->get('haslo');
 
-        $this->daneUzytkownikaService->daneUzytkownikaService($adresUriZdjecia);
+        $nazwaUzytkownikaService = $this->daneUzytkownikaService->sprawdzNazweUzytkownikaService($nazwaUzytkownika);
+        $emailService = $this->daneUzytkownikaService->sprawdzEmailService($email);
 
+        if ($nazwaUzytkownikaService != "") {
+            //komunikat
+            echo 'bledna nazwa';
+        } else if ($emailService != "") {
+            //komunikat
+            echo 'bledna email';
+        } else {
+
+            $this->daneUzytkownikaService->daneUzytkownikaService($adresUriZdjecia,$imie,$nazwisko,$nazwaUzytkownika,$email,$haslo);
+        }
 
         return $this->redirect(parent::getParameter('baseUrl')."logowanie");
-
     }
 
     /**
@@ -83,7 +107,5 @@ class UwierzytelnienieController extends AbstractController
 
 
         return $this->render('przypomnijHaslo.html.twig', array() );
-
     }
-
 }

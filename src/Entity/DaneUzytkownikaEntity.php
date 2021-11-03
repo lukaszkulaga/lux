@@ -14,11 +14,11 @@ class DaneUzytkownikaEntity
     /**
      * @var int
      *
-     * @ORM\Column(name="Id", type="integer")
+     * @ORM\Column(name="IdUzytkownika", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    private $idUzytkownika;
 
     /**
      * @var string
@@ -26,6 +26,13 @@ class DaneUzytkownikaEntity
      * @ORM\Column(name="Imie", type="string", length=255)
      */
     private $imie;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Rola", type="string", length=255)
+     */
+    private $rola;
 
     /**
      * @var string
@@ -65,18 +72,18 @@ class DaneUzytkownikaEntity
     /**
      * @return int
      */
-    public function getId(): int
+    public function getIdUzytkownika(): int
     {
-        return $this->id;
+        return $this->idUzytkownika;
     }
 
     /**
-     * @param int $id
+     * @param int $idUzytkownika
      * @return DaneUzytkownikaEntity
      */
-    public function setId(int $id): DaneUzytkownikaEntity
+    public function setIdUzytkownika(int $idUzytkownika): DaneUzytkownikaEntity
     {
-        $this->id = $id;
+        $this->idUzytkownika = $idUzytkownika;
         return $this;
     }
 
@@ -95,6 +102,24 @@ class DaneUzytkownikaEntity
     public function setImie(string $imie): DaneUzytkownikaEntity
     {
         $this->imie = $imie;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRola(): string
+    {
+        return $this->rola;
+    }
+
+    /**
+     * @param string $rola
+     * @return DaneUzytkownikaEntity
+     */
+    public function setRola(string $rola): DaneUzytkownikaEntity
+    {
+        $this->rola = $rola;
         return $this;
     }
 
@@ -187,10 +212,6 @@ class DaneUzytkownikaEntity
         $this->zdjecie = $zdjecie;
         return $this;
     }
-
-
-
-
 
 
 

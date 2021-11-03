@@ -22,12 +22,32 @@ class DaneUzytkownikaRepository extends ServiceEntityRepository
         parent::__construct($managerRegistry, DaneUzytkownikaEntity::class);
     }
 
-    public function daneUzytkownikaRepo(DaneUzytkownikaEntity $object): void {
+    public function daneUzytkownikaRepo(DaneUzytkownikaEntity $daneUzytkownika): void {
 
-        $this->getEntityManager()->persist($object);
+        $this->getEntityManager()->persist($daneUzytkownika);
         $this->getEntityManager()->flush();
     }
 
+    public function pobierzDaneUzytkownikaRepo( $idUzytkownika ) {
+
+        $daneUzytkownika = $this->findOneBy(array( 'idUzytkownika'=>$idUzytkownika ));
+
+        return $daneUzytkownika;
+    }
+
+    public function sprawdzNazweUzytkownikaRepo( $nazwaUzytkownika ) {
+
+        $sprawdzNazweUzytkownika = $this->findOneBy(array( 'nazwaUzytkownika'=>$nazwaUzytkownika ));
+
+        return $sprawdzNazweUzytkownika;
+    }
+
+    public function sprawdzEmailRepo( $email ) {
+
+        $sprawdzEmail = $this->findOneBy(array( 'email'=>$email ));
+
+        return $sprawdzEmail;
+    }
 }
 
 
