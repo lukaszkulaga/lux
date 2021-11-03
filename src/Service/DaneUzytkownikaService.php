@@ -15,11 +15,42 @@ class DaneUzytkownikaService
      $this->daneUzytkownikaRepository = $daneUzytkownikaRepository;
     }
 
-    public function daneUzytkownikaService( $adresUriZdjecia) {
+    public function daneUzytkownikaService( $adresUriZdjecia,$imie,$nazwisko,$nazwaUzytkownika,$email,$haslo ) {
+
+
+
 
         $daneUzytkownika = new DaneUzytkownikaEntity();
         $daneUzytkownika->setZdjecie( $adresUriZdjecia );
+        $daneUzytkownika->setImie( $imie );
+        $daneUzytkownika->setNazwisko( $nazwisko );
+        $daneUzytkownika->setNazwaUzytkownika( $nazwaUzytkownika );
+        $daneUzytkownika->setEmail( $email );
+        $daneUzytkownika->setHaslo( $haslo );
 
         $this->daneUzytkownikaRepository->daneUzytkownikaRepo( $daneUzytkownika );
     }
+
+    public function pobierzDaneUzytkownikaService( $idUzytkownika ) {
+
+        $daneUzytkownika = $this->daneUzytkownikaRepository->pobierzDaneUzytkownikaRepo( $idUzytkownika );
+
+        return $daneUzytkownika;
+    }
+
+    public function sprawdzNazweUzytkownikaService( $nazwaUzytkownika ) {
+
+        $nazwaUzytkownika = $this->daneUzytkownikaRepository->sprawdzNazweUzytkownikaRepo( $nazwaUzytkownika );
+
+        return $nazwaUzytkownika;
+    }
+
+    public function sprawdzEmailService( $email ) {
+
+        $email = $this->daneUzytkownikaRepository->sprawdzEmailRepo( $email );
+
+        return $email;
+    }
+
+
 }
