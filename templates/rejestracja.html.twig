@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="widht=device=widht, initial-scale=1.8">
+    <script type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <link rel="stylesheet"  href="{{ asset('css/uwierzytelnienie.css') }}" media="screen">
+    <link rel="stylesheet"  href="{{ asset('css/elementyWspolne.css') }}" media="screen">
+    <link rel="stylesheet"  href="{{ asset('css/przyciski.css') }}" media="screen">
+
+    <script src="{{ asset('js/rejestracja.js') }}" async></script>
+
+    <title> rejestracja </title>
+</head>
+
+<body>
+
+    <section>
+        <div class="color"></div>
+        <div class="color"></div>
+        <div class="color"></div>
+        <div class="box">
+            <div id="containerRejestracja">
+                <div class="form">
+                    <h2> Rejestracja</h2>
+                    <form id="formId" name="formName" method="POST" action="{{ baseUrl }}rejestracja">
+
+                        <div class='section-left-registry'>
+                            <div class="inputBox">
+                                <input class="daneZFormularza" type="text" placeholder="Imię" name="imie" required>
+                            </div>
+                            <div class="inputBox">
+                                <input class="daneZFormularza" type="text" placeholder="Nazwisko" name="nazwisko" required>
+                            </div>
+                            <div class="inputBox">
+                                <input class="daneZFormularza" type="text" placeholder="Nazwa użytkownika" name="nazwaUzytkownika" required>
+                            </div>
+                            <div class="inputBox">
+                                <input type="email" placeholder="e-mail" name="email" required>
+                            </div>
+                            <div class="inputBox">
+                                <input id="pierwszeHaslo" type="password" placeholder="Hasło" name="haslo" required>
+                            </div>
+                            <div class="inputBox">
+                                <input id="drugieHaslo" type="password" placeholder="Powtórz hasło" name="drugieHaslo" required>
+                            </div>
+{#                            <div class="inputBox">#}
+{#                                <input id="submitRejestracja" type="submit" value="Zarejestruj">#}
+{#                            </div>#}
+                            <div class="container1" style="margin-left: -30%">
+                                <div class="btn1">
+                                    <button id="submitRejestracja" type ="submit">Zarejestruj</button>
+                                </div>
+                            </div>
+                            <p class="nawigacjaUwierzytelnienia">Masz konto?&nbsp<a href="{{ baseUrl }}logowanie">Zaloguj się</a></p>
+                        </div>
+
+                        <div class="section-right-registry" >
+                            <p id="image_drop_area_text">przeciągnij lub dodaj swoje zdjęcie</p>
+                            <div id="image_drop_area"><output id="list"></output></div>
+                            <p id="file_name"></p>
+
+                            {# tutajj wpada adres foto drag and drop #}
+                            <input style="display: none" type="text" id="filesDropAndDrag" name="filesDropAndDrag" multiple />
+
+                            {# tutaj wpada adres foto otwórz plik - chyba #}
+                            <input type="file" id="files" name="files[]" multiple />
+                        </div>
+
+    {#                    wersja bez przycisku otwórz plik samo upuszczanie zdjecia #}
+
+    {#                    <div class="section-right-registry" >#}
+    {#                        <p id="image_drop_area_text">przeciągnij lub dodaj swoje zdjęcie</p>#}
+    {#                        <div id="image_drop_area"></div>#}
+    {#                        <p id="file_name"></p>#}
+    {#                    </div>#}
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+</body>
+
+</html>

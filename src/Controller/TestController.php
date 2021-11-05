@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-
+     
 use App\Service\TestService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -58,7 +58,7 @@ class TestController extends AbstractController
     public function myFirstPageEverPost( Request $request ):Response {
 
         $a = $request->request->get('ajaj');
-        $b = $request->request->get('ajaj');
+
 
         $this->testService->testService($a);
 

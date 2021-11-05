@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+{#    <link rel="stylesheet"  href="{{ asset('css/uwierzytelnienie.css') }}" media="screen">#}
+{#    <link rel="stylesheet"  href="{{ asset('css/elementyWspolne.css') }}" media="screen">#}
+    <link rel="stylesheet"  href="{{ asset('css/przyciski.css') }}">
+    <link rel="stylesheet"  href="{{ asset('css/budowaStrony.css') }}" >
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+    <script src="{{ asset('js/rejestracja.js') }}" async></script>
+
+    <title>Strona Użytkownika</title>
+</head>
+<body>
+
+{#<section id="sekcjaGlowna" style="">#}
+
+{#    <header id="belkaGorna">#}
+{#        <nav id="menu">#}
+{#            {% include 'globalHtml/menuGorne.html.twig' %}#}
+{#        </nav>#}
+{#    </header>#}
+{#    <aside id="panelBoczny">#}
+{#        {% include 'globalHtml/menuBoczneUzytkownika.html.twig' %}#}
+{#    </aside>#}
+{#    <div id="poleGlowne">#}
+
+{#        <form id="formId" name="formName" method="POST" action="{{ baseUrl }}stronaUzytkownika">#}
+
+
+{#            <input type="text" value="{{ daneUzytkownikaArr.Nazwisko }}" >#}
+
+
+{#        </form>#}
+
+{#    </div>#}
+{#    <footer id="belkaDolna">#}
+
+{#    </footer>#}
+
+{#</section>#}
+
+
+<section>
+    <nav>
+        {% include 'globalHtml/menuGorne.html.twig' %}
+    </nav>
+    <aside>
+        Sidebar
+    </aside>
+    <main>
+        Main
+    </main>
+    <footer>
+        Footer
+    </footer>
+</section>
+
+</body>
+</html>
