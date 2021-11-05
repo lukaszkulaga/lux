@@ -26,7 +26,16 @@ class UwierzytelnienieController extends AbstractController
     }
 
 
+    /**
+     * @Route("/wyloguj", methods={"GET"})
+     */
+    public function wylogujGet() {
 
+        session_start();
+        session_destroy();
+
+        return $this->redirect(parent::getParameter('baseUrl')."logowanie");
+    }
 
     /**
      * @Route("/logowanie", methods={"GET"})
