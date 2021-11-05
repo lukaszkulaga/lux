@@ -17,18 +17,25 @@ class LoginRepository extends ServiceEntityRepository
         $this->session = $session;
     }
 
-    public function pobierzLoginHaslo ( $login,$haslo ){
+    public function pobierzLoginHaslo ( $login,$haslo ) {
 
         $rezultat = $this->findOneBy(array( 'nazwaUzytkownika'=> $login,'haslo'=>$haslo ));
 
-        if ($rezultat) {
+        if ( $rezultat ) {
 
             $rola = $rezultat->getRola();
 
-            if ($rola == "uzytkownik"){
+            if ( $rola == "uzytkownik" ) {
 
                 session_start();
                 $this->session->set('uzytkownik',$login);
+
+                return true;
+            }
+            if ( $rola == "admin" ) {
+
+                session_start();
+                $this->session->set('admin',$login);
 
                 return true;
             }
@@ -37,6 +44,7 @@ class LoginRepository extends ServiceEntityRepository
             return false;
         }
     }
+
 
 
 }

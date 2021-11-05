@@ -30,7 +30,7 @@ class StronaUzytkownikaController extends AbstractController
 
         $dostepUzytkownika = $this->loginService->dostepUzytkownikaService();
 
-        if ($dostepUzytkownika==false){
+        if ( $dostepUzytkownika==false ) {
 
             return $this->redirect(parent::getParameter('baseUrl')."logowanie");
         }
