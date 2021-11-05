@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Service\DaneUzytkownikaService;
+use App\Service\LoginService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,10 +15,12 @@ class StronaUzytkownikaController extends AbstractController
 {
 
     private $daneUzytkownikaService;
+    private $loginService;
 
-    public function  __construct(DaneUzytkownikaService $daneUzytkownikaService) {
+    public function  __construct(DaneUzytkownikaService $daneUzytkownikaService, LoginService $loginService) {
 
         $this->daneUzytkownikaService = $daneUzytkownikaService;
+        $this->loginService = $loginService;
     }
 
     /**
@@ -25,6 +28,12 @@ class StronaUzytkownikaController extends AbstractController
      */
     public function stronaUzytkownikaGet() {
 
+        $dostepUzytkownika = $this->loginService->dostepUzytkownikaService();
+
+        if ($dostepUzytkownika==false){
+
+            return $this->redirect(parent::getParameter('baseUrl')."logowanie");
+        }
 
         $daneUzytkownikaArr = $this->daneUzytkownikaService->pobierzDaneUzytkownikaService( 1 );
 

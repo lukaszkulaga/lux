@@ -5,12 +5,16 @@ namespace App\Repository;
 use App\Entity\DaneUzytkownikaEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class LoginRepository extends ServiceEntityRepository
 {
-    public function  __construct(ManagerRegistry $managerRegistry)
+    private $session;
+
+    public function  __construct(ManagerRegistry $managerRegistry,SessionInterface $session)
     {
         parent::__construct($managerRegistry, DaneUzytkownikaEntity::class);
+        $this->session = $session;
     }
 
     public function pobierzLoginHaslo ( $login,$haslo ){
@@ -18,7 +22,17 @@ class LoginRepository extends ServiceEntityRepository
         $rezultat = $this->findOneBy(array( 'nazwaUzytkownika'=> $login,'haslo'=>$haslo ));
 
         if ($rezultat) {
-            return true;
+
+            $rola = $rezultat->getRola();
+
+            if ($rola == "uzytkownik"){
+
+                session_start();
+                $this->session->set('uzytkownik',$login);
+
+                return true;
+            }
+
         } else {
             return false;
         }
