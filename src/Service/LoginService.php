@@ -17,7 +17,7 @@ class LoginService
         $this->session = $session;
     }
 
-    public function loginService($login,$haslo){
+    public function loginService($login,$haslo) {
 
         $rezultat = $this->loginRepository->pobierzLoginHaslo( $login,$haslo );
 
@@ -25,11 +25,12 @@ class LoginService
 
     }
 
-    public function dostepUzytkownikaService(){
+    public function dostepUzytkownikaService() {
 
-        $sesja = $this->session->get('uzytkownik');
+        $uzytkownik = $this->session->get('uzytkownik');
+        $admin = $this->session->get('admin');
 
-        if( isset($sesja) ){
+        if( isset($uzytkownik) || isset($admin) ){
 
             return true;
         } else {
@@ -38,6 +39,17 @@ class LoginService
         }
     }
 
+    public function dostepAdministratoraService() {
 
+        $admin = $this->session->get('admin');
+
+        if  ( isset($admin) ) {
+
+            return true;
+        } else {
+
+            return false;
+        }
+    }
 
 }

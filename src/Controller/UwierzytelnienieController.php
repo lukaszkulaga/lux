@@ -31,8 +31,9 @@ class UwierzytelnienieController extends AbstractController
      */
     public function wylogujGet() {
 
-        session_start();
-        session_destroy();
+        if (session_start()) {
+            session_destroy();
+        }
 
         return $this->redirect(parent::getParameter('baseUrl')."logowanie");
     }
@@ -42,9 +43,11 @@ class UwierzytelnienieController extends AbstractController
      */
     public function logowanieGet() {
 
+       if (session_start()) {
+            session_destroy();
+        }
 
         return $this->render('logowanie.html.twig', array() );
-
     }
 
     /**
