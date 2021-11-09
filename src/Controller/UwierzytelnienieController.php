@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Service\DaneUzytkownikaService;
 use App\Service\LoginService;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,28 +12,36 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Route as ROUTING;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
+use App\Entity\DaneUzytkownikaEntity;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
+
+
 
 class UwierzytelnienieController extends AbstractController
 {
 
-
     private $daneUzytkownikaService;
     private $loginService;
+    private $session;
+    private $logger;
 
-    public function  __construct(DaneUzytkownikaService $daneUzytkownikaService,LoginService $loginService) {
+    public function  __construct(DaneUzytkownikaService $daneUzytkownikaService,LoginService $loginService,SessionInterface $session, LoggerInterface $logger) {
 
         $this->daneUzytkownikaService = $daneUzytkownikaService;
         $this->loginService = $loginService;
+        $this->session = $session;
+        $this->logger = $logger;
     }
-
 
     /**
      * @Route("/wyloguj", methods={"GET"})
      */
     public function wylogujGet() {
 
-        if (session_start()) {
-            session_destroy();
+        if ($this->session->start()) {
+            $this->logger->info('/////////////////////////////////////// sesja koniec wyloguj   ');
+            $this->session->invalidate();
         }
 
         return $this->redirect(parent::getParameter('baseUrl')."logowanie");
@@ -43,8 +52,9 @@ class UwierzytelnienieController extends AbstractController
      */
     public function logowanieGet() {
 
-       if (session_start()) {
-            session_destroy();
+        if ($this->session->start()) {
+           $this->logger->info('/////////////////////////////////////// sesja koniec logowanie   ');
+           $this->session->invalidate();
         }
 
         return $this->render('logowanie.html.twig', array() );
@@ -62,7 +72,9 @@ class UwierzytelnienieController extends AbstractController
 
         if ( $rezultat ) {
 
-            return $this->redirect(parent::getParameter('baseUrl')."stronaUzytkownika");
+            $Id = $rezultat->getIdUzytkownika();
+
+            return $this->redirect(parent::getParameter('baseUrl')."stronaUzytkownika/".$Id);
         } else {
 
             return $this->redirect(parent::getParameter('baseUrl')."logowanie");
@@ -78,7 +90,6 @@ class UwierzytelnienieController extends AbstractController
 
 
         return $this->render('rejestracja.html.twig', array() );
-
     }
 
     /**

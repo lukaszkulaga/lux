@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Service\DaneUzytkownikaService;
 use App\Service\LoginService;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,15 +12,18 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Route as ROUTING;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
+
 class StronaAdministratoraController extends AbstractController
 {
     private $daneUzytkownikaService;
     private $loginService;
+    private $logger;
 
-   public function __construct(DaneUzytkownikaService $daneUzytkownikaService, LoginService $loginService) {
+   public function __construct(DaneUzytkownikaService $daneUzytkownikaService, LoginService $loginService, LoggerInterface $logger) {
 
        $this->daneUzytkownikaService = $daneUzytkownikaService;
        $this->loginService = $loginService;
+       $this->logger = $logger;
    }
 
     /**
@@ -29,12 +33,25 @@ class StronaAdministratoraController extends AbstractController
 
         $dostepAdministratora = $this->loginService->dostepAdministratoraService();
 
-        if ( $dostepAdministratora==false ) {
+        $this->logger->info('/////////////////////////////////////// strona admina '.$dostepAdministratora);
 
-            return $this->redirect(parent::getParameter('baseUrl')."stronaUzytkownika");
+        if ( $dostepAdministratora==true ) {
+
+            return $this->render('administrator/stronaAdministratora.html.twig', array( ) );
+          //  return $this->redirect(parent::getParameter('baseUrl')."stronaAdministratora");
+
+        } else {
+
+            //return $this->redirect(parent::getParameter('baseUrl')."stronaUzytkownika");
+            return $this->render('stronaUzytkownika.html.twig', array( ) );
         }
+    }
 
-        return $this->render('administrator/stronaAdministratora.html.twig', array( ) );
+    /**
+     * @Route("/stronaAdministratora", methods={"POST"})
+     */
+    public function stronaAdministratoraPOST() {
 
+        return $this->redirect(parent::getParameter('baseUrl')."stronaAdministratora");
     }
 }
