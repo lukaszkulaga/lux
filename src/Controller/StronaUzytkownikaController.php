@@ -24,9 +24,9 @@ class StronaUzytkownikaController extends AbstractController
     }
 
     /**
-     * @Route("/stronaUzytkownika", methods={"GET"})
+     * @Route("/stronaUzytkownika/{Id}", methods={"GET"})
      */
-    public function stronaUzytkownikaGet() {
+    public function stronaUzytkownikaGet($Id) {
 
         $dostepUzytkownika = $this->loginService->dostepUzytkownikaService();
 
@@ -35,10 +35,9 @@ class StronaUzytkownikaController extends AbstractController
             return $this->redirect(parent::getParameter('baseUrl')."logowanie");
         }
 
-        $daneUzytkownikaArr = $this->daneUzytkownikaService->pobierzDaneUzytkownikaService( 1 );
+        $daneUzytkownikaArr = $this->daneUzytkownikaService->pobierzDaneUzytkownikaService( $Id );
 
         return $this->render('stronaUzytkownika.html.twig', array( 'daneUzytkownikaArr'=>$daneUzytkownikaArr ) );
-
     }
 
     /**
@@ -50,6 +49,5 @@ class StronaUzytkownikaController extends AbstractController
 
 
         return $this->redirect(parent::getParameter('baseUrl')."");
-
     }
 }
