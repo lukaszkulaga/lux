@@ -5,7 +5,7 @@ doctrine:
         dbname: lukinia
         user: sa
         password: lukinia
-        port: 1433
+        port: 1434
         #host: .\SQLEXPRESS
         driver: sqlsrv
         charset: UTF-8

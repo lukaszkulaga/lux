@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Controller;
-
 use App\Service\DaneUzytkownikaService;
 use App\Service\LoginService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,9 +10,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Route as ROUTING;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
-class StronaUzytkownikaController extends AbstractController
+class StronaBudynkiController extends AbstractController
 {
-
     private $daneUzytkownikaService;
     private $loginService;
 
@@ -24,9 +22,9 @@ class StronaUzytkownikaController extends AbstractController
     }
 
     /**
-     * @Route("/stronaUzytkownika", methods={"GET"})
+     * @Route("/stronaBudynki", methods={"GET"})
      */
-    public function stronaUzytkownikaGet() {
+    public function stronaBudynkiGet() {
 
         $Id = $this->loginService->dostepUzytkownikaService();
 
@@ -37,13 +35,13 @@ class StronaUzytkownikaController extends AbstractController
 
         $daneUzytkownikaArr = $this->daneUzytkownikaService->pobierzDaneUzytkownikaService( $Id );
 
-        return $this->render('stronaUzytkownika.html.twig', array( 'daneUzytkownikaArr'=>$daneUzytkownikaArr ) );
+        return $this->render('stronaBudynki.html.twig', array( 'daneUzytkownikaArr'=>$daneUzytkownikaArr ) );
     }
 
     /**
-     * @Route("/stronaUzytkownika", methods={"POST"})
+     * @Route("/stronaBudynki", methods={"POST"})
      */
-    public function stronaUzytkownikaPost() {
+    public function stronaBudynkiPost() {
 
 
 

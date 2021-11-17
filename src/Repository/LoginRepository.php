@@ -29,15 +29,14 @@ class LoginRepository extends ServiceEntityRepository
         if ( $rezultat ) {
 
             $rola = $rezultat->getRola();
+            $id = $rezultat->getIdUzytkownika();
 
             if ( $rola == "uzytkownik" ) {
 
                 $this->logger->info('/////////////////////////////////////// rola uzytkownika');
                 //session_start();
                 $this->session->start();
-                $this->session->set('uzytkownik',$login);
-
-
+                $this->session->set('uzytkownik',$id);
 
                 return $rezultat;
             }
@@ -46,7 +45,7 @@ class LoginRepository extends ServiceEntityRepository
                 $this->logger->info('++++++++++++++++++++++++++++++++++++++ rola admina');
                 //session_start();
                 $this->session->start();
-                $this->session->set('admin',$login);
+                $this->session->set('admin',$id);
 
                 return $rezultat;
             }

@@ -1,0 +1,39 @@
+.ulMenuBoczne{
+    border: solid green;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr; /* 50px ponieważ sekcja nav ma 0.5fr co odpowiada 50px, 1fr - jeden wiersz ( w tym przypadku ) */
+    padding: 0px;
+    margin: 0px;
+    grid-row-gap: 10px;
+    list-style: none;
+
+    /* wysrodkowanie li  - nie potrzebny display: flex */
+    /*justify-content: center;*/
+    /*align-items: center;*/
+}
+
+/* li dostosowuje sie do ul */
+.liMenuBoczne{
+    border: solid red;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height: 25px;
+}
+
+.aMenuBoczne {
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 10px;
+    text-decoration: none;
+    outline: none;
+    letter-spacing: 1px;
+    color: rgba(85, 85, 85, 1);
+}
+
+@media only screen and (max-width: 840px) {
+    .aMenuBoczne {
+        font-size: 10px;
+    }
+}
