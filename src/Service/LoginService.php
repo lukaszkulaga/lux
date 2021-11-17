@@ -35,11 +35,15 @@ class LoginService
 
         $this->logger->info('/////////////////////////////////////// uzyt    '.$uzytkownik);
 
-        if( isset($uzytkownik) || isset($admin) ){
+        if( isset($uzytkownik) ) {
 
             $this->logger->info('/////////////////////////////////////// uzyt   true ');
-            return true;
-        } else {
+            return $uzytkownik;
+        }
+        else if ( isset($admin) ) {
+            return $admin;
+        }
+        else {
             $this->logger->info('/////////////////////////////////////// uzyt   false ');
             return false;
         }

@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Route as ROUTING;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
-class StronaUzytkownikaController extends AbstractController
+class StronaZgloszeniaController extends AbstractController
 {
 
     private $daneUzytkownikaService;
@@ -24,9 +24,9 @@ class StronaUzytkownikaController extends AbstractController
     }
 
     /**
-     * @Route("/stronaUzytkownika", methods={"GET"})
+     * @Route("/stronaZgloszenia", methods={"GET"})
      */
-    public function stronaUzytkownikaGet() {
+    public function stronaZgloszeniaGet() {
 
         $Id = $this->loginService->dostepUzytkownikaService();
 
@@ -37,13 +37,13 @@ class StronaUzytkownikaController extends AbstractController
 
         $daneUzytkownikaArr = $this->daneUzytkownikaService->pobierzDaneUzytkownikaService( $Id );
 
-        return $this->render('stronaUzytkownika.html.twig', array( 'daneUzytkownikaArr'=>$daneUzytkownikaArr ) );
+        return $this->render('stronaZgloszenia.html.twig', array( 'daneUzytkownikaArr'=>$daneUzytkownikaArr ) );
     }
 
     /**
-     * @Route("/stronaUzytkownika", methods={"POST"})
+     * @Route("/stronaZgloszenia", methods={"POST"})
      */
-    public function stronaUzytkownikaPost() {
+    public function stronaZgloszeniaPost() {
 
 
 

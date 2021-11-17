@@ -71,10 +71,8 @@ class UwierzytelnienieController extends AbstractController
         $rezultat = $this->loginService->loginService( $login,$haslo );
 
         if ( $rezultat ) {
-
-            $Id = $rezultat->getIdUzytkownika();
-
-            return $this->redirect(parent::getParameter('baseUrl')."stronaUzytkownika/".$Id);
+            
+            return $this->redirect(parent::getParameter('baseUrl')."stronaUzytkownika");
         } else {
 
             return $this->redirect(parent::getParameter('baseUrl')."logowanie");

@@ -4,10 +4,10 @@
         ul {
             border: solid green;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
             grid-template-rows: minmax(50px, 1fr); /* 50px ponieważ sekcja nav ma 0.5fr co odpowiada 50px, 1fr - jeden wiersz ( w tym przypadku ) */
-            padding: 0;
-            margin: 0;
+            padding: 0px;
+            margin: 0px;
             list-style: none;
 
             /* wysrodkowanie li  - nie potrzebny display: flex */
@@ -36,7 +36,7 @@
 
         @media only screen and (max-width: 840px) {
             a {
-                font-size: 10px;
+                font-size: 75%;
             }
         }
 
@@ -46,16 +46,16 @@
     <li><a id="a" href="{{ baseUrl }}stronaUzytkownika">Użytkownik
         <i class="fas fa-user"></i></a>
     </li>
-    <li><a href="link">Zgłoszenia
+    <li><a href="{{ baseUrl }}stronaZgloszenia">Zgłoszenia
         <i class="fas fa-envelope-open-text"></i></a>
     </li>
-    <li><a href="link">Budynki
+    <li><a href="{{ baseUrl }}stronaBudynki">Budynki
         <i class="fas fa-building"></i></a>
     </li>
     <li><a href="link">Ustawienia
         <i class="fas fa-cog"></i></a>
     </li>
-    <li><a href="{{ baseUrl }}stronaAdministratora">Administrator
+    <li><a href="{{ baseUrl }}stronaAdministratora">Admin
             <i class="fas fa-cog"></i></a>
     </li>
 </ul>
