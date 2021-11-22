@@ -1,0 +1,24 @@
+<svg id="Warstwa_1" data-name="Warstwa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+
+
+<defs>
+
+
+
+<style>
+
+        .cls-1{
+          fill:rgba(232, 225, 17,0.5);
+          stroke:rgba(232, 225, 17,0.5);
+          stroke-width:5px;
+        }
+
+        #Warstwa_1{
+          width: 1.5vw;
+          height: 3vh;
+        }
+</style>
+
+
+
+</defs><title>menu</title><path class="cls-1" d="M98.5,19.83H1.5a1.5,1.5,0,0,1,0-3h97a1.5,1.5,0,0,1,0,3Z"/><path class="cls-1" d="M98.5,51.92H1.5a1.5,1.5,0,0,1,0-3h97a1.5,1.5,0,0,1,0,3Z"/><path class="cls-1" d="M98.5,84H1.5a1.5,1.5,0,0,1,0-3h97a1.5,1.5,0,0,1,0,3Z"/></svg>
