@@ -8,6 +8,8 @@
 {#    <link rel="stylesheet"  href="{{ asset('css/elementyWspolne.css') }}" media="screen">#}
     <link rel="stylesheet"  href="{{ asset('css/przyciski.css') }}">
     <link rel="stylesheet"  href="{{ asset('css/budowaStrony.css') }}" >
+    <link rel="stylesheet"  href="{{ asset('css/stronaUzytkownika.css') }}" >
+    <link rel="stylesheet"  href="{{ asset('css/przyciski.css') }}" >
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
           integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
@@ -19,7 +21,7 @@
 
 <section>
     <header>
-        header
+        {% include 'globalHtml/naglowek.html.twig' %}
     </header>
     <nav>
         {% include 'globalHtml/menuGorne.html.twig' %}
@@ -28,7 +30,57 @@
         {% include 'globalHtml/menuBoczneUzytkownika.html.twig' %}
     </aside>
     <main>
-        Main
+
+
+       <div id="glownaSekcjaMain">
+           <div id="tytulSekcji"> Dane użytkownika</div>
+           <form id="formUzytkownik">
+
+
+
+               <div id="dostosujPole">
+                   <div class="field-wrapper">
+                       <input  class="daneUzytkownika" type="text" name="nazwaUzytkownika" placeholder=" " value={{ daneUzytkownikaArr.IdUzytkownika }} />
+                       <div class="field-placeholder"><span>Nazwa użytkownika</span></div>
+                   </div>
+                   <div class="field-wrapper">
+                       <input  class="daneUzytkownika" type="text" name="imie" placeholder=" " value="" />
+                       <div class="field-placeholder"><span>Imię</span></div>
+                   </div>
+                   <div class="field-wrapper">
+                       <input  class="daneUzytkownika" type="text" name="nazwisko" placeholder=" " value="" />
+                       <div class="field-placeholder"><span>Nazwisko</span></div>
+                   </div>
+                   <div class="field-wrapper">
+                       <input  class="daneUzytkownika" type="text" name="e-mail" placeholder=" " value="" />
+                       <div class="field-placeholder"><span>e-mail</span></div>
+                   </div>
+                   <div class="container1" style="margin-left:-18%">
+                       <div class="btn1" style="width: 50%">
+                           <button  type ="submit">Edytuj dane</button>
+                       </div>
+                   </div>
+               </div>
+
+               <div id="zdjecie">
+
+
+               </div>
+
+           </form>
+
+
+
+
+
+
+
+
+
+
+       </div>
+
+
     </main>
     <footer>
         Footer

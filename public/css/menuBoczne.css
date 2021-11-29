@@ -5,8 +5,8 @@
     padding-top: 30px;
     grid-row-gap: 20px;
     list-style: none;
-    border-right: solid 0.5px rgba(232, 225, 17,0.5);
-    /*box-shadow: 1px 1px 8px;*/
+    /*border-right: solid 0.5px rgba(7, 74, 155,1);*/
+    box-shadow: 1px 1px 5px rgba(7, 74, 155,1);
     left: -99%;
     position: relative;
     z-index: 1;
@@ -47,7 +47,8 @@
     height: 0vh;
     background-color: transparent;
     top: 0;
-    left: 100%
+    left: 100%;
+
 }
 
 .Handler svg{

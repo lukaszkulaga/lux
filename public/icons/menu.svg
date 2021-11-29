@@ -8,9 +8,11 @@
 <style>
 
         .cls-1{
-          fill:rgba(232, 225, 17,0.5);
-          stroke:rgba(232, 225, 17,0.5);
-          stroke-width:5px;
+          fill:rgba(7, 74, 155,1);
+          stroke:rgba(7, 74, 155,0.5);
+<!--          box-shadow: 1px 1px 5px rgba(7, 74, 155,1)-->
+          stroke-width:2px;
+          stroke-radius: 2px;
         }
 
         #Warstwa_1{
