@@ -6,6 +6,7 @@ body {
     font-family: 'Work Sans', sans-serif;
     margin: 0;
     padding: 0;
+    background: rgba(249, 249, 249,1);
 }
 
 section {
@@ -24,7 +25,7 @@ section {
     font-size: 12px;
     text-align: center;
     row-gap: 0px;
-    background: #F9F9F9;
+
 }
 
 header {
@@ -32,6 +33,7 @@ header {
     background: transparent;
     display: flex;
     align-items: center;
+    justify-content: right;
     /*border-bottom: solid 0.5px red;*/
     box-shadow: 1px 1px 5px rgba(7, 74, 155,1);
 
@@ -45,7 +47,11 @@ nav {
 
 main {
     grid-area: main;
-    /*background: green;*/
+    background: transparent;
+    display: flex;
+    /*align-items: center;*/
+    justify-content: center;
+
 }
 
 aside {
@@ -55,7 +61,7 @@ aside {
 
 footer {
     grid-area: footer;
-    background: blue;
+
 }
 
 @media only screen and (max-width: 840px) {
@@ -71,3 +77,175 @@ footer {
     }
 }
 
+/*wspólne style dla inputów, selectów textarea*/
+
+.field-wrapper{
+    position: relative;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    text-align:center
+}
+
+.field-wrapper input{
+    width: 80% !important;
+    height: 25px !important;
+    padding: 8px !important;
+    border: 1px solid rgb(209, 205, 205);
+    border-radius: 8px !important;
+    background: transparent;
+    text-align: left !important;
+    outline: none;
+    box-shadow: none;
+    z-index: 1;
+    position: relative;
+}
+.field-wrapper select{
+    width: 87% ;
+    height: 42px !important;
+    padding: 8px !important;
+    border: 1px solid rgb(209, 205, 205) ! important;
+    border-radius: 8px !important;
+    background: transparent;
+    text-align: left !important;
+    outline: none;
+    box-shadow: none;
+    z-index: 1;
+    position: relative;
+}
+
+.field-wrapper textarea{
+    width: 96% !important;
+    height: 60px !important;
+    padding: 20px !important;
+    border: 1px solid rgb(209, 205, 205) ! important;
+    border-radius: 8px !important;
+    background: transparent;
+    text-align: left !important;
+    outline: none;
+    box-shadow: none;
+}
+
+.textarea-field-placeholder{
+    font-size: 13px;
+    position: absolute;
+    width: 0% !important;
+    height: 0% !important;
+    top: -9px;
+    color: #80868b;
+    left: 7%;
+    z-index: 1 !important;
+}
+
+.textarea-field-placeholder span{
+    /*background: rgb(248, 248, 248) !important;*/
+    background: red;
+    z-index: 2 !important;
+    padding: 0px 8px;
+    width: 0%;
+}
+
+.field-wrapper input:focus,
+.field-wrapper select:focus,
+.field-wrapper textarea:focus
+{
+    border: 1px solid rgb(96, 19, 108); ! important;
+}
+
+.field-wrapper .field-placeholder{
+    font-size: 13px;
+    position: absolute;
+    width: 100% !important;
+    bottom: 13px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #80868b;
+    left: 7%;
+    padding: 0 8px;
+    -webkit-transition: transform 150ms cubic-bezier(0.4,0,0.2,1),opacity 150ms cubic-bezier(0.4,0,0.2,1);
+    transition: transform 150ms cubic-bezier(0.4,0,0.2,1),opacity 150ms cubic-bezier(0.4,0,0.2,1);
+    z-index: 0;
+    text-align: left;
+}
+
+.field-wrapper .field-placeholder span{
+    background: rgb(248, 248, 248) !important;
+    padding: 0px 8px;
+    width: 0%;
+    z-index: 5;
+    position: relative;
+}
+
+.field-wrapper input:not([disabled]):focus~.field-placeholder,
+.field-wrapper select:not([disabled]):focus~.field-placeholder,
+.field-wrapper textarea:not([disabled]):focus~.field-placeholder
+{
+    color:rgb(96, 19, 108);
+}
+
+.field-wrapper input:not([disabled]):focus~.field-placeholder,
+.field-wrapper input:not(:placeholder-shown)  + .field-placeholder
+{
+    -webkit-transform: scale(.75) translateY(-28px) translateX(-35px);
+    transform: scale(.75) translateY(-29px) translateX(-35px);
+    z-index: 1;
+}
+.field-wrapper select:not([disabled]):focus~.field-placeholder,
+.field-wrapper select:not(:placeholder-shown)  + .field-placeholder
+{
+    -webkit-transform: scale(.75) translateY(-28px) translateX(-35px);
+    transform: scale(.75) translateY(-29px) translateX(-35px);
+    z-index: 1;
+}
+
+input[type="date"]::-webkit-datetime-edit-text,
+input[type="date"]::-webkit-datetime-edit-month-field,
+input[type="date"]::-webkit-datetime-edit-day-field,
+input[type="date"]::-webkit-datetime-edit-year-field,
+option,select, textarea {
+    color: #80868b;
+    font-family: 'Maven Pro', sans-serif !important;
+
+}
+
+
+/* modyfikacja inputów */
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px rgba(249, 249, 249,1) inset;
+}
+
+/* stylizacja włącz_wyłącz */
+
+.ikonaWyloguj {
+    background-color: transparent;
+    /*border: solid green;*/
+}
+
+.ikonaWyloguj svg{
+    width: 2vw;
+    height: 3vh;
+    cursor: pointer;
+}
+
+.wlacz_wylacz {
+    background: url('../icons/09.05_wlacz_wylacz.svg') no-repeat;
+}
+
+.nazwaStrony {
+    width: 30%;
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: rgb(96, 19, 108);
+    text-shadow:5px 5px 8px rgba(7, 74, 155,1);
+    text-transform: none;
+    /*border: solid orange;*/
+    margin-right: 42%;
+    text-align: left;
+}
+#wyswietlLogin {
+    /*border: solid black;*/
+    font-size: 14px;
+    text-align: right;
+    width: 20%;
+    margin-right: 2%;
+}
