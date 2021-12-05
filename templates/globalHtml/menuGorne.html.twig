@@ -8,24 +8,11 @@
             padding: 0px;
             margin: 0px;
             list-style: none;
-
             /* wysrodkowanie li  - nie potrzebny display: flex */
             justify-content: center;
             align-items: center;
-
-
-
+            /*border:solid red;*/
         }
-
-        /* li dostosowuje sie do ul */
-        /*li {*/
-        /*    border: inset #455A64;*/
-        /*    display:flex;*/
-        /*    justify-content: center;*/
-        /*    align-items: center;*/
-        /*    height: 40px;*/
-        /*    box-shadow: 1px 1px 10px #607D8B;*/
-
 
         li {
             cursor: pointer;
@@ -37,20 +24,13 @@
             display: flex;
             justify-content: center;
             align-items: center;
-
-        }
-
-        li:hover{
-
-            /*color:green;*/
-
-
+            /*border:solid black;*/
         }
 
         a {
             font-weight: 800;
             text-transform: uppercase;
-            font-size: 16px;
+            font-size: 1.5vh;
             text-decoration: none;
             outline: none;
             letter-spacing: 1px;
@@ -58,9 +38,7 @@
         }
 
         a:hover {
-            color: rgba(7, 74, 155,1);
-
-
+            color: rgb(96, 19, 108);
         }
 
         @media only screen and (max-width: 840px) {
@@ -73,18 +51,77 @@
 
 <ul id="ulMenu">
     <li>
-        <a id="a" href="{{ baseUrl }}stronaUzytkownika">Użytkownik</a>
+        <div class="container1" style="">
+            <div class="btn1" style="">
+                <button  type ="submit"> <a id="stronaUzytkownika" href="{{ baseUrl }}stronaUzytkownika">Użytkownik</a></button>
+            </div>
+        </div>
     </li>
     <li>
-        <a href="{{ baseUrl }}stronaZgloszenia">Zgłoszenia</a>
+        <div class="container1" style="">
+            <div class="btn1" style="">
+                <button  type ="submit"><a id="stronaZgloszenia" href="{{ baseUrl }}stronaZgloszenia">Zgłoszenia</a></button>
+            </div>
+        </div>
     </li>
     <li>
-        <a href="{{ baseUrl }}stronaBudynki">Budynki</a>
+        <div class="container1" style="">
+            <div class="btn1" style="">
+                <button  type ="submit"><a href="{{ baseUrl }}stronaBudynki">Budynki</a></button>
+            </div>
+        </div>
     </li>
     <li>
-        <a href="link">Ustawienia</a>
+        <div class="container1" style="">
+            <div class="btn1" style="">
+                <button  type ="submit"><a href="link">Ustawienia</a></button>
+            </div>
+        </div>
     </li>
     <li>
-        <a href="{{ baseUrl }}stronaAdministratora">Admin</a>
+        <div class="container1" style="">
+            <div class="btn1" style="">
+                <button  type ="submit"><a href="{{ baseUrl }}stronaAdministratora">Admin</a></button>
+            </div>
+        </div>
     </li>
 </ul>
+
+
+<script>
+    $(document).ready(function(){
+
+        let sciezka = window.location.href;
+        if (sciezka.indexOf("stronaUzytkownika") != -1) {
+            $('#stronaUzytkownika').css("color", "rgb(96, 19, 108)");
+        };
+        if (sciezka.indexOf("stronaZgloszenia") != -1) {
+            $('#stronaZgloszenia').css("color", "rgb(96, 19, 108)");
+        };
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

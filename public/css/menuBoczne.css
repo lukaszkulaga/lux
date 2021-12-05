@@ -1,45 +1,57 @@
-.ulMenuBoczne{
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr; /* 50px ponieważ sekcja nav ma 0.5fr co odpowiada 50px, 1fr - jeden wiersz ( w tym przypadku ) */
-    padding-top: 30px;
-    grid-row-gap: 20px;
-    list-style: none;
-    /*border-right: solid 0.5px rgba(7, 74, 155,1);*/
-    box-shadow: 1px 1px 5px rgba(7, 74, 155,1);
-    left: -99%;
-    position: relative;
+
+
+@media only screen and (max-width: 840px) {
+    .aMenuBoczne {
+        font-size: 10px;
+    }
+}
+
+
+/* menu boczne */
+
+.left-menu {
+    position: fixed;
+    left: -10%;
+    height: 91vh;
+    background-color: transparent;
+    width: 10%;
     z-index: 1;
     transition: 1s;
-
-    /* wysrodkowanie li  - nie potrzebny display: flex */
-    /*justify-content: center;*/
-    /*align-items: center;*/
+     /*border-right:solid 1px rgba(0,60,125,0.5);*/
 }
 
-.ulMenuBoczne:hover{
-    left: 0%;
+.left-menu:hover {
+    left: 0;
 }
 
-/* li dostosowuje sie do ul */
-.liMenuBoczne{
-    display:flex;
-    justify-content: center;
+.left-menu-button {
+    background-color: transparent;
+    box-shadow: 10px 10px 12px 0 rgba(85,85,85,0.3), -6px -6px 8px 0 hsla(0, 0%, 100%, .1);
+    border-radius: 2vh;
+    /*display: flex;*/
     align-items: center;
-    height: 30px;
-
-
+    justify-content: center;
+    height: 12vh;
+    margin-right: 5.5rem;
+    width: 12vh;
+    margin-top: 3vh;
+    margin-left: 3vh;
+    cursor: pointer;
+    font-size: 1.3vh;
 }
 
-.aMenuBoczne {
-    font-weight: 800;
-    text-transform: uppercase;
-    font-size: 10px;
-    text-decoration: none;
-    outline: none;
-    letter-spacing: 1px;
+.left-menu-button:hover {
+    box-shadow: 10px 10px 12px 0 rgba(0,60,125,0.2), -6px -6px 8px 0 hsla(0, 0%, 100%, .1);
 }
 
+.left-menu-button svg {
+    margin-top: 10%;
+    width: 2.5vw;
+    height: 5vh;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+}
 
 .Handler {
     position: absolute;
@@ -48,7 +60,6 @@
     background-color: transparent;
     top: 0;
     left: 100%;
-
 }
 
 .Handler svg{
@@ -61,60 +72,32 @@
     background: url('../icons/menu.svg') no-repeat;
 }
 
-@media only screen and (max-width: 840px) {
-    .aMenuBoczne {
-        font-size: 10px;
-    }
+.daneUzytkownikaIcons {
+    background: url('../icons/daneUzytkownika.svg') no-repeat;
+}
+.listaObecnosciIcons {
+    background: url('../icons/listaObecnosci.svg') no-repeat;
+}
+.urlopyIcons {
+    background: url('../icons/urlopy.svg') no-repeat;
 }
 
-/* menu boczne */
 
-/*.left-menu {*/
-/*    position: absolute;*/
-/*    top: calc(2% + 65px);*/
-/*    left: -5%;*/
-/*    height: 85vh;*/
-/*    background-color: transparent;*/
-/*    width: 5%;*/
-/*    z-index: 1;*/
-/*    transition: 1s;*/
-/*    font-size: 3vh;*/
-/*    border-right:solid 1px rgba(0,60,125,0.5);*/
-/*}*/
 
-/*.left-menu:hover {*/
-/*    left: 0;*/
-/*}*/
 
-/*.Handler {*/
-/*    position: absolute;*/
-/*    height: 10%;*/
-/*    width: 0%;*/
-/*    background-color: rgba(0,60,125,0.2);*/
-/*    top: 0;*/
-/*    left: 100%*/
-/*}*/
-/*.Handler svg {*/
-/*    height: 95%;*/
-/*    width: 95%;*/
-/*}*/
 
-/*.left-menu-button {*/
-/*    align-items: center;*/
-/*    background-color: transparent;*/
-/*    box-shadow: 10px 10px 12px 0 rgba(85,85,85,0.3), -6px -6px 8px 0 hsla(0, 0%, 100%, .1);*/
-/*    border-radius: 2vh;*/
-/*    display: flex;*/
-/*    height: 8vh;*/
-/*    justify-content: center;*/
-/*    margin-right: 4rem;*/
-/*    width: 8vh;*/
-/*    margin-top: 3vh;*/
-/*    margin-left: 1vh;*/
-/*    cursor: pointer;*/
-/*}*/
 
-/*.left-menu-button:hover {*/
-/*    box-shadow: 10px 10px 12px 0 rgba(0,60,125,0.2), -6px -6px 8px 0 hsla(0, 0%, 100%, .1);*/
-/*}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
 

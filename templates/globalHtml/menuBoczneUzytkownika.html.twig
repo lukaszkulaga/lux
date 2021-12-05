@@ -8,31 +8,62 @@
 <body>
 
 
-
-<ul class ="ulMenuBoczne">
-    <li class="liMenuBoczne">
-        <a class = "aMenuBoczne" href="link">Dane użytkownika</a>
-    </li>
-    <li class="liMenuBoczne">
-        <a class = "aMenuBoczne" href="link">Zgłaszanie obecności</a>
-    </li>
-    <li class="liMenuBoczne">
-        <a class = "aMenuBoczne" style="" href="link">Wnioski o urlop</a>
-    </li>
+<div class="left-menu">
+    <a id="daneUzytkownika" href="{{ baseUrl }}stronaUzytkownika">
+        <div class="left-menu-button">
+            <svg class="daneUzytkownikaIcons"></svg>
+            <div>Dane użytkownika</div>
+        </div>
+    </a>
+    <a id="listaObecnosci">
+        <div class="left-menu-button">
+            <svg class="listaObecnosciIcons"></svg>
+            <div>Zgłoszenie obecności</div>
+        </div>
+    </a>
+    <a>
+        <div class="left-menu-button">
+            <svg class="urlopyIcons"></svg>
+            <div>Wniosek o urlop</div>
+        </div>
+    </a>
     <div class="Handler">
         <svg class="menuIcons"></svg>
     </div>
-</ul>
+</div>
 
-
-{#<div class="left-menu">#}
-{#    <div class="left-menu-button">#}
-{#    </div>#}
-{#    <div class="left-menu-button">#}
-{#    </div>#}
-{#    <div class="left-menu-button">#}
-{#    </div>#}
-{#    <div class="Handler"></div>#}
-{#</div>#}
 </body>
+
+<script>
+    $(document).ready(function(){
+
+        let sciezka = window.location.href;
+        if (sciezka.indexOf("stronaUzytkownika") != -1) {
+            $('#daneUzytkownika').css("color", "rgba(7, 74, 155,1)");
+        };
+
+        $('.left-menu').on('mouseenter',function(){
+            $('main,header,nav,footer').css('opacity', '0.5');
+        });
+        $('.left-menu').on('mouseleave',function(){
+            $('main,header,nav,footer').css('opacity', 'unset');
+        });
+
+    });
+</script>
+
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

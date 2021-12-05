@@ -17,9 +17,6 @@ class DaneUzytkownikaService
 
     public function daneUzytkownikaService( $adresUriZdjecia,$imie,$nazwisko,$nazwaUzytkownika,$email,$haslo ) {
 
-
-
-
         $daneUzytkownika = new DaneUzytkownikaEntity();
         $daneUzytkownika->setZdjecie( $adresUriZdjecia );
         $daneUzytkownika->setImie( $imie );
@@ -52,5 +49,31 @@ class DaneUzytkownikaService
         return $email;
     }
 
+    public function edycjaDanychUzytkownikaService( $tablicaZDanymi, $Id ) {
+
+        $edycjaDanychUzytkownikaRepo = $this->daneUzytkownikaRepository->edycjaDanychUzytkownikaRepo( $tablicaZDanymi, $Id );
+
+        return $edycjaDanychUzytkownikaRepo;
+
+    }
+
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

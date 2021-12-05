@@ -5,11 +5,15 @@ namespace App\Controller;
 use App\Service\DaneUzytkownikaService;
 use App\Service\LoginService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Route as ROUTING;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 
 class StronaUzytkownikaController extends AbstractController
 {
@@ -31,7 +35,6 @@ class StronaUzytkownikaController extends AbstractController
         $Id = $this->loginService->dostepUzytkownikaService();
 
         if ( $Id==false ) {
-
             return $this->redirect(parent::getParameter('baseUrl')."logowanie");
         }
 
@@ -40,14 +43,45 @@ class StronaUzytkownikaController extends AbstractController
         return $this->render('stronaUzytkownika.html.twig', array( 'daneUzytkownikaArr'=>$daneUzytkownikaArr ) );
     }
 
+
     /**
-     * @Route("/stronaUzytkownika", methods={"POST"})
+     * @Route("/stronaUzytkownika/ajax", methods={"POST"})
      */
-    public function stronaUzytkownikaPost() {
+    public function stronaUzytkownikaPostAjax(Request $request) {
+
+        $tablicaZDanymi = $request->request->get('tab');
+
+        $Id = $this->loginService->dostepUzytkownikaService();
+        $edycjaDanychUzytkownikaService = $this->daneUzytkownikaService->edycjaDanychUzytkownikaService( $tablicaZDanymi, $Id );
 
 
+        $daneUzytkownika = ['daneUzytkownika'=>$edycjaDanychUzytkownikaService];
 
-
-        return $this->redirect(parent::getParameter('baseUrl')."");
+        return new JsonResponse($daneUzytkownika);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

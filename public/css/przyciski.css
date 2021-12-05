@@ -34,7 +34,7 @@
     box-shadow: 0 15px 35px rgba(0,0,0,0.2);
     border-top: 1px solid rgba(255,255,255,0.1);
     border-bottom: 1px solid rgba(255,255,255,0.1);
-    border-radius: 30px;
+    border-radius: 8px;
     color: #fff;
     z-index: 1;
     font-weight: 400;
@@ -57,9 +57,9 @@
     align-items: center;
     /*background: rgba(255,255,255,0.005);*/
     background: rgb(118, 140, 162);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
     border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 30px;
+    border-radius: 8px;
     color: #fff;
     z-index: 1;
     font-weight: 100;
@@ -73,11 +73,11 @@
 }
 
 .container1 .btn1:hover a {
-    letter-spacing: 3px;
+    /*color: rgba(96, 69, 108,1);*/
 }
 
 .container1 .btn1:hover button {
-    letter-spacing: 3px;
+    /*color: rgb(96, 19, 108);*/
 }
 
 .container1 .btn1 a::before {

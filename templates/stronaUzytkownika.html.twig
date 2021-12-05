@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-{#    <link rel="stylesheet"  href="{{ asset('css/uwierzytelnienie.css') }}" media="screen">#}
-{#    <link rel="stylesheet"  href="{{ asset('css/elementyWspolne.css') }}" media="screen">#}
     <link rel="stylesheet"  href="{{ asset('css/przyciski.css') }}">
     <link rel="stylesheet"  href="{{ asset('css/budowaStrony.css') }}" >
     <link rel="stylesheet"  href="{{ asset('css/stronaUzytkownika.css') }}" >
     <link rel="stylesheet"  href="{{ asset('css/przyciski.css') }}" >
+
+    <link rel="stylesheet"  href="{{ asset('css/uwierzytelnienie.css') }}" media="screen">
+{#    <script src="{{ asset('js/rejestracja.js') }}" async></script>#}
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
           integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
-    <script src="{{ asset('js/rejestracja.js') }}" async></script>
+{#    <script src="{{ asset('js/rejestracja.js') }}" async></script>#}
+    <script src="{{ asset('js/stronaUzytkownika.js') }}" async></script>
 
     <title>Strona Użytkownika</title>
 </head>
@@ -32,54 +34,56 @@
     <main>
 
 
+        <input style="display: none" id="baseUrl" type="text" value={{ baseUrl }} />
+
        <div id="glownaSekcjaMain">
            <div id="tytulSekcji"> Dane użytkownika</div>
-           <form id="formUzytkownik">
-
-
+           <form id="formUzytkownik" >
 
                <div id="dostosujPole">
                    <div class="field-wrapper">
-                       <input  class="daneUzytkownika" type="text" name="nazwaUzytkownika" placeholder=" " value={{ daneUzytkownikaArr.IdUzytkownika }} />
+                       <input  class="daneUzytkownika" type="text" id="nazwaUzytkownika" placeholder=" " value={{ daneUzytkownikaArr.NazwaUzytkownika }} />
                        <div class="field-placeholder"><span>Nazwa użytkownika</span></div>
                    </div>
                    <div class="field-wrapper">
-                       <input  class="daneUzytkownika" type="text" name="imie" placeholder=" " value="" />
+                       <input  class="daneUzytkownika" type="text" id="imie" placeholder=" " value="{{ daneUzytkownikaArr.Imie }}" />
                        <div class="field-placeholder"><span>Imię</span></div>
                    </div>
                    <div class="field-wrapper">
-                       <input  class="daneUzytkownika" type="text" name="nazwisko" placeholder=" " value="" />
+                       <input  class="daneUzytkownika" type="text" id="nazwisko" placeholder=" " value="{{ daneUzytkownikaArr.Nazwisko }}" />
                        <div class="field-placeholder"><span>Nazwisko</span></div>
                    </div>
                    <div class="field-wrapper">
-                       <input  class="daneUzytkownika" type="text" name="e-mail" placeholder=" " value="" />
+                       <input  class="daneUzytkownika" type="text" id="email" placeholder=" " value="{{ daneUzytkownikaArr.Email }}" />
                        <div class="field-placeholder"><span>e-mail</span></div>
                    </div>
                    <div class="container1" style="margin-left:-18%">
                        <div class="btn1" style="width: 50%">
-                           <button  type ="submit">Edytuj dane</button>
+                           <button id="edycjaDanych" type ="button">Edytuj dane</button>
                        </div>
                    </div>
                </div>
 
                <div id="zdjecie">
 
+                   <p id="image_drop_area_text">przeciągnij lub dodaj swoje zdjęcie</p>
+                   <div id="image_drop_area"><output id="list"> </output></div>
+                   <p id="file_name"></p>
 
+                   {# tutajj wpada adres foto drag and drop #}
+                   <input style="display: none" type="text" id="filesDropAndDrag" name="filesDropAndDrag"  multiple />
+
+                   <img alt=""  src="{{ daneUzytkownikaArr.Zdjecie }}" />
+
+                   {# tutaj wpada adres foto otwórz plik - chyba #}
+                   <input type="file" id="files" name="files[]" multiple />
                </div>
+
+
 
            </form>
 
-
-
-
-
-
-
-
-
-
        </div>
-
 
     </main>
     <footer>
