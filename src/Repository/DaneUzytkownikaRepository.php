@@ -48,6 +48,42 @@ class DaneUzytkownikaRepository extends ServiceEntityRepository
 
         return $sprawdzEmail;
     }
+
+    public function edycjaDanychUzytkownikaRepo( $tablicaZDanymi, $Id ) {
+
+        $daneUzytkownika = $this->findOneBy(array( 'idUzytkownika'=>$Id ));
+
+        $daneUzytkownika->setImie($tablicaZDanymi['imie']);
+        $daneUzytkownika->setNazwisko('fff');
+        $daneUzytkownika->setZdjecie($tablicaZDanymi['zdjecie']);
+
+        $this->getEntityManager()->persist($daneUzytkownika);
+        $this->getEntityManager()->flush();
+
+        $sql ="select * from daneUzytkownika where IdUzytkownika = $Id";
+
+        $zedytowaneDaneUzytkownika = $this->getEntityManager()->getConnection()->fetchAllAssociative($sql);
+
+        return $zedytowaneDaneUzytkownika;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

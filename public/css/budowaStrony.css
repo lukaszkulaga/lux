@@ -57,6 +57,7 @@ main {
 aside {
     grid-area: aside;
     border: none;
+    /*background: blue;*/
 }
 
 footer {
@@ -227,7 +228,7 @@ input:-webkit-autofill {
 }
 
 .wlacz_wylacz {
-    background: url('../icons/09.05_wlacz_wylacz.svg') no-repeat;
+    background: url('../icons/wyloguj.svg') no-repeat;
 }
 
 .nazwaStrony {
