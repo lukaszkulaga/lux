@@ -100,6 +100,7 @@ class UwierzytelnienieController extends AbstractController
         $nazwisko = $request->request->get('nazwisko');
         $nazwaUzytkownika = $request->request->get('nazwaUzytkownika');
         $email = $request->request->get('email');
+        $nrTelefonu = $request->request->get('telefon');
         $haslo = $request->request->get('haslo');
 
         $nazwaUzytkownikaService = $this->daneUzytkownikaService->sprawdzNazweUzytkownikaService($nazwaUzytkownika);
@@ -113,10 +114,13 @@ class UwierzytelnienieController extends AbstractController
             echo 'bledna email';
         } else {
 
-            $this->daneUzytkownikaService->daneUzytkownikaService($adresUriZdjecia,$imie,$nazwisko,$nazwaUzytkownika,$email,$haslo);
+            $this->daneUzytkownikaService->daneUzytkownikaService($adresUriZdjecia,$imie,$nazwisko,$nazwaUzytkownika,$email,$nrTelefonu,$haslo);
+
+            return $this->redirect(parent::getParameter('baseUrl')."logowanie");
         }
 
-        return $this->redirect(parent::getParameter('baseUrl')."logowanie");
+        return $this->redirect(parent::getParameter('baseUrl')."rejestracja");
+
     }
 
     /**

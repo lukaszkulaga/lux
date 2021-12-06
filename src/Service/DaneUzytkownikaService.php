@@ -15,14 +15,16 @@ class DaneUzytkownikaService
      $this->daneUzytkownikaRepository = $daneUzytkownikaRepository;
     }
 
-    public function daneUzytkownikaService( $adresUriZdjecia,$imie,$nazwisko,$nazwaUzytkownika,$email,$haslo ) {
+    public function daneUzytkownikaService( $adresUriZdjecia,$imie,$nazwisko,$nazwaUzytkownika,$email,$nrTelefonu,$haslo ) {
 
         $daneUzytkownika = new DaneUzytkownikaEntity();
+        $daneUzytkownika->setRola('uzytkownik');
         $daneUzytkownika->setZdjecie( $adresUriZdjecia );
         $daneUzytkownika->setImie( $imie );
         $daneUzytkownika->setNazwisko( $nazwisko );
         $daneUzytkownika->setNazwaUzytkownika( $nazwaUzytkownika );
         $daneUzytkownika->setEmail( $email );
+        $daneUzytkownika->setNumerTelefonu( $nrTelefonu );
         $daneUzytkownika->setHaslo( $haslo );
 
         $this->daneUzytkownikaRepository->daneUzytkownikaRepo( $daneUzytkownika );

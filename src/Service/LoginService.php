@@ -60,7 +60,7 @@ class LoginService
             //$this->session->invalidate();
             $this->logger->info('++++++++++++++++++++++++++ admin   true ');
 
-            return true;
+            return $admin;
         } else {
 
             return false;
