@@ -53,8 +53,8 @@ class DaneUzytkownikaRepository extends ServiceEntityRepository
 
         $daneUzytkownika = $this->findOneBy(array( 'idUzytkownika'=>$Id ));
 
-        $daneUzytkownika->setImie($tablicaZDanymi['imie']);
-        $daneUzytkownika->setNazwisko('fff');
+        $daneUzytkownika->setEmail($tablicaZDanymi['email']);
+        $daneUzytkownika->setNumerTelefonu($tablicaZDanymi['telefon']);
         $daneUzytkownika->setZdjecie($tablicaZDanymi['zdjecie']);
 
         $this->getEntityManager()->persist($daneUzytkownika);

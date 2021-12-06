@@ -70,6 +70,14 @@ class DaneUzytkownikaEntity
     private $zdjecie;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="NumerTelefonu", type="string", length=255)
+     */
+    private $numerTelefonu;
+
+
+    /**
      * @return int
      */
     public function getIdUzytkownika(): int
@@ -212,6 +220,27 @@ class DaneUzytkownikaEntity
         $this->zdjecie = $zdjecie;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getNumerTelefonu(): ?string // dzieki znakowi ? przyjmuje każdy typ danych
+    {
+        return $this->numerTelefonu;
+    }
+
+    /**
+     * @param string $numerTelefonu
+     * @return DaneUzytkownikaEntity
+     */
+    public function setNumerTelefonu(string $numerTelefonu): DaneUzytkownikaEntity
+    {
+        $this->numerTelefonu = $numerTelefonu;
+        return $this;
+    }
+
+
+
 
 
 

@@ -81,13 +81,10 @@ document.getElementById('files').addEventListener('change', handleFileSelect, fa
     $("#edycjaDanych").on('click',function() {
 
         $zdjecie = uploaded_image;
+        $email = $('#email').val();
+        $nrTelefonu= $('#telefon').val();
 
-        $nazwaUzytkownika = $('#nazwaUzytkownika').val();
-        $imie = $('#imie').val();
-        $nazwisko = $('#nazwisko').val();
-        $email = $('email').val();
-
-        let arr = {'nazwaUzytkownika':$nazwaUzytkownika, 'imie':$imie, 'nazwisko':$nazwisko, 'email':$email, 'zdjecie':$zdjecie};
+        let arr = {'email':$email, 'zdjecie':$zdjecie, 'telefon':$nrTelefonu};
 
         $url = $baseUrl + 'stronaUzytkownika/ajax';
         $.ajax({
@@ -103,12 +100,13 @@ document.getElementById('files').addEventListener('change', handleFileSelect, fa
 
                         console.log(el);
 
-                        $imie= el.Imie;
-                        $zdjecie = el.Zdjecie;
+                        $edycjaEmail = el.Email;
+                        $edycjaTelefon = el.NumerTelefonu;
+                        $edycjaZdjecie = el.Zdjecie;
 
-                        $('#imie').val($imie);
-                        document.querySelector("#image_drop_area").style.backgroundImage = `url(${$zdjecie})`;
-
+                        $('#email').val($edycjaEmail);
+                        $('#telefon').val($edycjaTelefon);
+                        document.querySelector("#image_drop_area").style.backgroundImage = `url(${$edycjaZdjecie})`;
 
                     })
             }

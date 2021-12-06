@@ -32,18 +32,19 @@ class StronaAdministratoraController extends AbstractController
     public function stronaAdministratoraGet() {
 
         $dostepAdministratora = $this->loginService->dostepAdministratoraService();
+        $daneUzytkownikaArr = $this->daneUzytkownikaService->pobierzDaneUzytkownikaService( $dostepAdministratora );
 
         $this->logger->info('/////////////////////////////////////// strona admina '.$dostepAdministratora);
 
         if ( $dostepAdministratora==true ) {
 
-            return $this->render('administrator/stronaAdministratora.html.twig', array( ) );
+            return $this->render('administrator/stronaAdministratora.html.twig', array( 'daneUzytkownikaArr'=>$daneUzytkownikaArr) );
           //  return $this->redirect(parent::getParameter('baseUrl')."stronaAdministratora");
 
         } else {
 
-            //return $this->redirect(parent::getParameter('baseUrl')."stronaUzytkownika");
-            return $this->render('stronaUzytkownika.html.twig', array( ) );
+            return $this->redirect(parent::getParameter('baseUrl')."stronaUzytkownika");
+            //return $this->render('stronaUzytkownika.html.twig', array( 'daneUzytkownikaArr'=>$daneUzytkownikaArr ) );
         }
     }
 
@@ -55,3 +56,16 @@ class StronaAdministratoraController extends AbstractController
         return $this->redirect(parent::getParameter('baseUrl')."stronaAdministratora");
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

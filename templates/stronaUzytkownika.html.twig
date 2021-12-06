@@ -42,20 +42,24 @@
 
                <div id="dostosujPole">
                    <div class="field-wrapper">
-                       <input  class="daneUzytkownika" type="text" id="nazwaUzytkownika" placeholder=" " value={{ daneUzytkownikaArr.NazwaUzytkownika }} />
+                       <input  class="daneUzytkownika" type="text" id="nazwaUzytkownika" placeholder=" " value="{{ daneUzytkownikaArr.NazwaUzytkownika }}" disabled="disabled"/>
                        <div class="field-placeholder"><span>Nazwa użytkownika</span></div>
                    </div>
                    <div class="field-wrapper">
-                       <input  class="daneUzytkownika" type="text" id="imie" placeholder=" " value="{{ daneUzytkownikaArr.Imie }}" />
+                       <input  class="daneUzytkownika" type="text" id="imie" placeholder=" " value="{{ daneUzytkownikaArr.Imie }}" disabled="disabled"/>
                        <div class="field-placeholder"><span>Imię</span></div>
                    </div>
                    <div class="field-wrapper">
-                       <input  class="daneUzytkownika" type="text" id="nazwisko" placeholder=" " value="{{ daneUzytkownikaArr.Nazwisko }}" />
+                       <input  class="daneUzytkownika" type="text" id="nazwisko" placeholder=" " value="{{ daneUzytkownikaArr.Nazwisko }}" disabled="disabled" />
                        <div class="field-placeholder"><span>Nazwisko</span></div>
                    </div>
                    <div class="field-wrapper">
                        <input  class="daneUzytkownika" type="text" id="email" placeholder=" " value="{{ daneUzytkownikaArr.Email }}" />
                        <div class="field-placeholder"><span>e-mail</span></div>
+                   </div>
+                   <div class="field-wrapper">
+                       <input  class="numerTelefonu" type="text" id="telefon" placeholder=" " value="{{ daneUzytkownikaArr.NumerTelefonu }}" />
+                       <div class="field-placeholder"><span>Numer telefonu</span></div>
                    </div>
                    <div class="container1" style="margin-left:-18%">
                        <div class="btn1" style="width: 50%">
