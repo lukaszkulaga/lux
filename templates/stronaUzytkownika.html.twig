@@ -18,6 +18,7 @@
     <script src="{{ asset('js/stronaUzytkownika.js') }}" async></script>
 
     <title>Strona Użytkownika</title>
+
 </head>
 <body>
 
@@ -56,10 +57,18 @@
                    <div class="field-wrapper">
                        <input  class="daneUzytkownika" type="text" id="email" placeholder=" " value="{{ daneUzytkownikaArr.Email }}" />
                        <div class="field-placeholder"><span>e-mail</span></div>
+                       <div class="komunikat">Zobacz jak działa Progress bar
+                           <div class="progressBar">
+                           </div>
+                       </div>
                    </div>
-                   <div class="field-wrapper">
-                       <input  class="numerTelefonu" type="text" id="telefon" placeholder=" " value="{{ daneUzytkownikaArr.NumerTelefonu }}" />
+                   <div class="field-wrapper" style =''>
+                       <input  class="numerTelefonu" type="tel" id="telefon" maxlength="11" placeholder=" " value="{{ daneUzytkownikaArr.NumerTelefonu }}" />
                        <div class="field-placeholder"><span>Numer telefonu</span></div>
+                       <div class="komunikat">Zobacz jak działa Progress bar
+                           <div class="progressBar">
+                           </div>
+                       </div>
                    </div>
                    <div class="container1" style="margin-left:-18%">
                        <div class="btn1" style="width: 50%">
@@ -96,4 +105,91 @@
 </section>
 
 </body>
+
+<style>
+    .komunikat{
+        visibility: hidden;
+        /*min-width: 250px;*/
+        background-color:rgb(52, 152, 219);
+        color: white;
+        text-align: center;
+        border-radius: 3px;
+        position: absolute;
+        z-index: 1;
+        font-size: 10px;
+        top:43px;
+        width: 85%;
+        margin-left: 8%;
+    }
+
+    .komunikat {
+        visibility: visible;
+        -webkit-animation: fadein 1s, fadeout 1s 4s;
+        animation: fadein 1s, fadeout 1s 4s;
+    }
+    @-webkit-keyframes fadein {
+        from {top: 0; opacity: 0;}
+        to {top: 43px; opacity: 1;}
+    }
+    @keyframes fadein {
+        from {top: 0; opacity: 0;}
+        to {top:43px; opacity: 1;}
+    }
+    @-webkit-keyframes fadeout {
+        from {top: 43px; opacity: 1;}
+        to {top: 0; opacity: 0;}
+    }
+    @keyframes fadeout {
+        from {top: 43px; opacity: 1;}
+        to {top: 0; opacity: 0;}
+    }
+    .progressBar {
+        height: 3px;
+        background-color: rgb(25, 126, 194);
+        border-radius: 3px;
+
+    }
+
+
+</style>
+
+
+
+<script>
+
+    $(".komunikat").hide();
+
+    function komunikatProgres() {
+
+
+        $(".komunikat").show();
+
+        setTimeout(function(){
+            $(".komunikat").hide();
+        }, 4000);
+
+        $elem = $(".progressBar");
+
+        $width = 1;
+        $id = setInterval(frame, 40);
+        function frame() {
+            if ($width >= 100) {
+                clearInterval($id);
+            } else {
+                $width++;
+                $elem.css('width',$width + '%')
+            }
+        }
+
+    }
+    document.getElementById("edycjaDanych").addEventListener("click", komunikatProgres, true);
+
+</script>
+
+
+
+
+
+
+
 </html>

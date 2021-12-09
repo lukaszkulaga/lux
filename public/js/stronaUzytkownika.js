@@ -78,23 +78,52 @@ document.getElementById('files').addEventListener('change', handleFileSelect, fa
 
 
 
+    let walidacjaTelefonu = false;
+    let walidacjaEmail = false;
+
+    $('#telefon').keyup(function() {
+
+        $getTel = $('#telefon').val();
+
+        if($getTel.length === 3){
+            $getTel = $getTel + '-';
+            $('#telefon').val($getTel);
+        }
+        if($getTel.length === 7){
+            $getTel = $getTel + '-';
+            $('#telefon').val($getTel);
+        }
+
+        let pattern = /[0-9]{3}-[0-9]{3}-[0-9]{3}/;
+        let validacjaTelefonuPattern = pattern.test($getTel);
+
+
+        if(validacjaTelefonuPattern === true){
+            walidacjaTelefonu = true;
+        }
+    });
+
+
+
     $("#edycjaDanych").on('click',function() {
 
-        $zdjecie = uploaded_image;
-        $email = $('#email').val();
-        $nrTelefonu= $('#telefon').val();
+        if ( walidacjaTelefonu === true ) {
 
-        let arr = {'email':$email, 'zdjecie':$zdjecie, 'telefon':$nrTelefonu};
+            $zdjecie = uploaded_image;
+            $email = $('#email').val();
+            $nrTelefonu= $('#telefon').val();
 
-        $url = $baseUrl + 'stronaUzytkownika/ajax';
-        $.ajax({
-            url: $url,
-            type: 'POST',
-            data: {tab: arr},
-            format: 'json',
-            dataType: 'text',
-            success: function (response) {
-                var json = JSON.parse(response);
+            let arr = {'email':$email, 'zdjecie':$zdjecie, 'telefon':$nrTelefonu};
+
+            $url = $baseUrl + 'stronaUzytkownika/ajax';
+            $.ajax({
+                url: $url,
+                type: 'POST',
+                data: {tab: arr},
+                format: 'json',
+                dataType: 'text',
+                success: function (response) {
+                    var json = JSON.parse(response);
 
                     json.daneUzytkownika.forEach(el => {
 
@@ -109,11 +138,19 @@ document.getElementById('files').addEventListener('change', handleFileSelect, fa
                         document.querySelector("#image_drop_area").style.backgroundImage = `url(${$edycjaZdjecie})`;
 
                     })
-            }
-        });
+                }
+            });
+        }
     });
-    
+
+
+
 });
+
+
+
+
+
 
 
 
