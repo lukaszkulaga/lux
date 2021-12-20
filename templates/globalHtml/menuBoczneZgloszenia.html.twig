@@ -4,23 +4,53 @@
     <meta charset="UTF-8">
     <title>Zgłoszenia</title>
     <link rel="stylesheet"  href="{{ asset('css/menuBoczne.css') }}">
+    <link rel="stylesheet"  href="{{ asset('css/stronaZgloszenia.css') }}">
 </head>
 <body>
 
 
-<ul class="ulMenuBoczne">
-    <li class="liMenuBoczne">
-        <a class="aMenuBoczne" href="link">Nowe zgłoszenia</a>
-    </li>
-    <li class="liMenuBoczne">
-        <a class="aMenuBoczne" href="link">Dodaj zgłoszenie</a>
-    </li>
-    <li class="liMenuBoczne">
-        <a class="aMenuBoczne" style="" href="link">Historia</a>
-    </li>
+<div class="left-menu">
+    <a id="daneUzytkownika" href="{{ baseUrl }}stronaUzytkownika">
+        <div class="left-menu-button">
+            <svg class="daneUzytkownikaIcons"></svg>
+            <div>Nowe zgłoszenia</div>
+        </div>
+    </a>
+    <a id="listaObecnosci">
+        <div class="left-menu-button">
+            <svg class="listaObecnosciIcons"></svg>
+            <div>Dodaj zgłoszenie</div>
+        </div>
+    </a>
+    <a>
+        <div class="left-menu-button">
+            <svg class="urlopyIcons"></svg>
+            <div>Historia</div>
+        </div>
+    </a>
     <div class="Handler">
         <svg class="menuIcons"></svg>
     </div>
-</ul>
+</div>
+
 </body>
+
+<script>
+    $(document).ready(function(){
+
+        let sciezka = window.location.href;
+        if (sciezka.indexOf("stronaZgloszenia") != -1) {
+            $('#daneUzytkownika').css("color", "rgba(7, 74, 155,1)");
+        };
+
+        $('.left-menu').on('mouseenter',function(){
+            $('main,header,nav,footer').css('opacity', '0.5');
+        });
+        $('.left-menu').on('mouseleave',function(){
+            $('main,header,nav,footer').css('opacity', 'unset');
+        });
+
+    });
+</script>
+
 </html>
