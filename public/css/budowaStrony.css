@@ -82,15 +82,15 @@ footer {
 
 .field-wrapper{
     position: relative;
-    margin-bottom: 20px;
-    margin-top: 20px;
+    margin-bottom: 2vh;
+    margin-top: 2vh;
     text-align:center
 }
 
 .field-wrapper input{
     width: 80% !important;
-    height: 25px !important;
-    padding: 8px !important;
+    height: 2.4vh !important;
+    padding: 0.8vh !important;
     border: 1px solid rgb(209, 205, 205);
     border-radius: 8px !important;
     background: transparent;
@@ -102,8 +102,8 @@ footer {
 }
 .field-wrapper select{
     width: 87% ;
-    height: 42px !important;
-    padding: 8px !important;
+    height: 4.2vh!important;
+    padding: 0.8vh !important;
     border: 1px solid rgb(209, 205, 205) ! important;
     border-radius: 8px !important;
     background: transparent;
@@ -116,8 +116,8 @@ footer {
 
 .field-wrapper textarea{
     width: 96% !important;
-    height: 60px !important;
-    padding: 20px !important;
+    height: 6vh !important;
+    padding: 2vh !important;
     border: 1px solid rgb(209, 205, 205) ! important;
     border-radius: 8px !important;
     background: transparent;
@@ -127,11 +127,11 @@ footer {
 }
 
 .textarea-field-placeholder{
-    font-size: 13px;
+    font-size: 1.3vh;
     position: absolute;
-    width: 0% !important;
-    height: 0% !important;
-    top: -9px;
+    width: 0 !important;
+    height: 0 !important;
+    top: -0.9vh;
     color: #80868b;
     left: 7%;
     z-index: 1 !important;
@@ -141,8 +141,8 @@ footer {
     /*background: rgb(248, 248, 248) !important;*/
     background: red;
     z-index: 2 !important;
-    padding: 0px 8px;
-    width: 0%;
+    padding: 0 0.8vh;
+    width: 0;
 }
 
 .field-wrapper input:focus,
@@ -153,15 +153,15 @@ footer {
 }
 
 .field-wrapper .field-placeholder{
-    font-size: 13px;
+    font-size: 1.5vh;
     position: absolute;
     width: 100% !important;
-    bottom: 13px;
+    bottom: 1.3vh;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     color: #80868b;
     left: 7%;
-    padding: 0 8px;
+    padding: 0 0.8vh;
     -webkit-transition: transform 150ms cubic-bezier(0.4,0,0.2,1),opacity 150ms cubic-bezier(0.4,0,0.2,1);
     transition: transform 150ms cubic-bezier(0.4,0,0.2,1),opacity 150ms cubic-bezier(0.4,0,0.2,1);
     z-index: 0;
@@ -170,8 +170,8 @@ footer {
 
 .field-wrapper .field-placeholder span{
     background: rgb(248, 248, 248) !important;
-    padding: 0px 8px;
-    width: 0%;
+    padding: 0 0.8vh;
+    width: 0;
     z-index: 5;
     position: relative;
 }
@@ -186,27 +186,19 @@ footer {
 .field-wrapper input:not([disabled]):focus~.field-placeholder,
 .field-wrapper input:not(:placeholder-shown)  + .field-placeholder
 {
-    -webkit-transform: scale(.75) translateY(-28px) translateX(-35px);
-    transform: scale(.75) translateY(-29px) translateX(-35px);
+    -webkit-transform: scale(.75) translateY(-2.8vh) translateX(-3.5vw);
+    transform: scale(.75) translateY(-2.9vh) translateX(-2.5vw);
     z-index: 1;
 }
 .field-wrapper select:not([disabled]):focus~.field-placeholder,
 .field-wrapper select:not(:placeholder-shown)  + .field-placeholder
 {
-    -webkit-transform: scale(.75) translateY(-28px) translateX(-35px);
-    transform: scale(.75) translateY(-29px) translateX(-35px);
+    -webkit-transform: scale(.75) translateY(-2.8vh) translateX(-3.5vw);
+    transform: scale(.75) translateY(-2.9vh) translateX(-2.5vw);
     z-index: 1;
 }
 
-input[type="date"]::-webkit-datetime-edit-text,
-input[type="date"]::-webkit-datetime-edit-month-field,
-input[type="date"]::-webkit-datetime-edit-day-field,
-input[type="date"]::-webkit-datetime-edit-year-field,
-option,select, textarea {
-    color: #80868b;
-    font-family: 'Maven Pro', sans-serif !important;
 
-}
 
 
 /* modyfikacja inputów */

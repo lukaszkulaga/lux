@@ -197,7 +197,7 @@
 #image_drop_area{
     width: 50%;
     height: 170px;
-    border:  white dotted;
+    border:  rgba(7, 74, 155,1) dotted;
     background-position: center;
     background-size: cover;
     box-sizing: border-box;

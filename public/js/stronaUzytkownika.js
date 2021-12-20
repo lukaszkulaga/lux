@@ -4,7 +4,7 @@ $(document).ready(function () {
     *    zmienne globalne
     * */
     $baseUrl = $('#baseUrl').val();
-
+    $(".komunikat").hide();
 
     /*
         *    drag and drop
@@ -104,8 +104,30 @@ document.getElementById('files').addEventListener('change', handleFileSelect, fa
     });
 
 
+    function komunikatProgres() {
 
+        $(".komunikat").show();
+
+        setTimeout(function(){
+            $(".komunikat").hide();
+        }, 4000);
+
+        $elem = $(".progressBar");
+
+        $width = 1;
+        $id = setInterval(frame, 40);
+        function frame() {
+            if ($width >= 100) {
+                clearInterval($id);
+            } else {
+                $width++;
+                $elem.css('width',$width + '%')
+            }
+        }
+    }
     $("#edycjaDanych").on('click',function() {
+
+        komunikatProgres();
 
         if ( walidacjaTelefonu === true ) {
 
@@ -142,6 +164,7 @@ document.getElementById('files').addEventListener('change', handleFileSelect, fa
             });
         }
     });
+
 
 
 
