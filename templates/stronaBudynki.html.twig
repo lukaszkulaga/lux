@@ -3,15 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    {#    <link rel="stylesheet"  href="{{ asset('css/uwierzytelnienie.css') }}" media="screen">#}
-    {#    <link rel="stylesheet"  href="{{ asset('css/elementyWspolne.css') }}" media="screen">#}
     <link rel="stylesheet"  href="{{ asset('css/przyciski.css') }}">
     <link rel="stylesheet"  href="{{ asset('css/budowaStrony.css') }}" >
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet"  href="{{ asset('css/stronaUzytkownika.css') }}" >
+    <link rel="stylesheet"  href="{{ asset('css/stronaKontrahenci.css') }}" >
 
-    <script src="{{ asset('js/rejestracja.js') }}" async></script>
+
+    <link rel="stylesheet"  href="{{ asset('css/uwierzytelnienie.css') }}" media="screen">
 
     <title>Strona Użytkownika</title>
 </head>
@@ -29,7 +27,54 @@
         {% include 'globalHtml/menuBoczneBudynki.html.twig' %}
     </aside>
     <main>
-        Main
+        <input style="display: none" id="baseUrl" type="text" value={{ baseUrl }} />
+
+        <div id="glownaSekcjaMain">
+            <div id="tytulSekcji"> Kontrahenci</div>
+            <form id="formKontrahenci">
+
+                <div id="tableRaport">
+                    <table class="reportTable">
+                        <thead>
+                            <tr>
+                                <th>AAAAA</th>
+                                <th>AAAAA</th>
+                                <th>AAAAA</th>
+                                <th>AAAAA</th>
+                                <th>AAAAA</th>
+                                <th>AAAAA</th>
+                                <th>AAAAA</th>
+                                <th>AAAAA</th>
+                                <th>AAAAA</th>
+                                <th>AAAAA</th>
+                                <th>AAAAA</th>
+                                <th>AAAAA</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">bbb</th>
+                                <td>ttt</td>
+                                <td>ttt</td>
+                                <td>ttt</td>
+                                <td>ttt</td>
+                                <td>ttt</td>
+                                <td>ttt</td>
+                                <td>ttt</td>
+                                <td>ttt</td>
+                                <td>ttt</td>
+                                <td>ttt</td>
+                                <td>ttt</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+
+            </form>
+
+        </div>
     </main>
     <footer>
         Footer
