@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Budynki</title>
+    <link rel="stylesheet"  href="{{ asset('css/menuBoczne.css') }}">
+</head>
+<body>
+
+
+<div class="left-menu">
+    <a id="daneUzytkownika" href="{{ baseUrl }}stronaUzytkownika">
+        <div class="left-menu-button">
+            <svg class="daneUzytkownikaIcons"></svg>
+            <div>Użytkownik</div>
+        </div>
+    </a>
+    <a id="daneKontrahenta" href="{{ baseUrl }}stronaKontrahenci">
+        <div class="left-menu-button">
+            <svg class="daneUzytkownikaIcons"></svg>
+            <div>Kontrahenci</div>
+        </div>
+    </a>
+    <a id="daneZgloszenia" href="{{ baseUrl }}stronaZgloszenia">
+        <div class="left-menu-button">
+            <svg class="daneUzytkownikaIcons"></svg>
+            <div>Zgłoszenia</div>
+        </div>
+    </a>
+    <a id="stronaAdministratora" href="{{ baseUrl }}stronaAdministratora">
+        <div class="left-menu-button">
+            <svg class="daneUzytkownikaIcons"></svg>
+            <div>Administrator</div>
+        </div>
+    </a>
+
+    <div class="Handler">
+        <svg class="menuIcons"></svg>
+    </div>
+</div>
+
+</body>
+
+<script>
+    $(document).ready(function(){
+
+        let sciezka = window.location.href;
+        if (sciezka.indexOf("stronaUzytkownika") != -1) {
+            $('#daneUzytkownika').css("color", "rgb(96, 19, 108)");
+        };
+        if (sciezka.indexOf("stronaKontrahenci") != -1) {
+            $('#daneKontrahenta').css("color", "rgb(96, 19, 108)");
+        };
+        if (sciezka.indexOf("stronaZgloszenia") != -1) {
+            $('#daneZgloszenia').css("color", "rgb(96, 19, 108)");
+        };
+        if (sciezka.indexOf("stronaAdministratora") != -1) {
+            $('#stronaAdministratora').css("color", "rgb(96, 19, 108)");
+        };
+
+        $('.left-menu').on('mouseenter',function(){
+            $('main,header,nav,footer').css('opacity', '0.5');
+        });
+        $('.left-menu').on('mouseleave',function(){
+            $('main,header,nav,footer').css('opacity', 'unset');
+        });
+
+    });
+</script>
+
+
+</html>

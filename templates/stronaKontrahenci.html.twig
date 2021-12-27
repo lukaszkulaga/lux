@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet"  href="{{ asset('css/przyciski.css') }}">
+    <link rel="stylesheet"  href="{{ asset('css/budowaStrony.css') }}" >
+    <link rel="stylesheet"  href="{{ asset('css/elementyWspolne.css') }}" >
+    <link rel="stylesheet"  href="{{ asset('css/stronaKontrahenci.css') }}" >
+    <script src="{{ asset('js/stronaKontrahenci.js') }}" async></script>
+
+    <title>Strona Kontrahenci</title>
+</head>
+<body>
+
+
+<section>
+    <header>
+        {% include 'globalHtml/naglowek.html.twig' %}
+    </header>
+    <nav>
+        {% include 'globalHtml/menuGorne.html.twig' %}
+    </nav>
+    <aside>
+        {% include 'globalHtml/menuBoczne.html.twig' %}
+    </aside>
+    <main>
+        <input style="display: none" id="baseUrl" type="text" value={{ baseUrl }} />
+
+        <div id="glownaSekcjaMain">
+
+                <div class="sekcjaFiltrow" style="position: absolute;margin-left: 2%">
+                    <form>
+                        <div style="width:10vw;float: left">
+                            <div class="field-wrapper" >
+                                <input  class="" type="text" id="" placeholder=" " value="" />
+                                <div class="field-placeholder"><span>Nazwa</span></div>
+                            </div>
+                        </div>
+                        <div style="width:10vw;float: left">
+                            <div class="field-wrapper" >
+                                <input  class="" type="text" id="" placeholder=" " value="" />
+                                <div class="field-placeholder"><span>NIP</span></div>
+                            </div>
+                        </div>
+                        <div style="width:10vw;float: left">
+                            <div class="field-wrapper" >
+                                <input  class="" type="text" id="" placeholder=" " value="" />
+                                <div class="field-placeholder"><span>Podmiot</span></div>
+                            </div>
+                        </div>
+
+                        <div style="width:10vw;float: left">
+                            <div class="field-wrapper" >
+                                <button id="" style="height: 4.2vh;" type ="reset">Wyczyść</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="tableRaportKontrahenci">
+                    <table class="reportTableKontrahenci">
+                        <thead>
+                            <tr>
+                                <th scope="row">Nazwa</th>
+                                <th scope="row">NIP</th>
+                                <th scope="row">Podmiot</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for daneKontrahenta in daneKontrahentowArr %}
+                            <tr>
+                                <th scope="row">{{daneKontrahenta.Nazwa}}</th>
+                                <td>{{daneKontrahenta.NIP}}</td>
+                                <td>{{daneKontrahenta.Opis}}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+            <div style="margin-left:2vw;width: 30vw;height:4vh;margin-top: 72vh;float: left;">
+                <div class="container1" style="height: 3vh;width: 30%;margin-top: 0">
+                    <div class="btn1" style="width: 100%;height: 3vh">
+                        <button style="width: 9vw;height: 3vh" id="edycjaDanych" type ="button">dodaj kontrahenta</button>
+                    </div>
+                </div>
+            </div>
+
+
+
+                <div class="" style="border:solid black;width: 24%;max-height:60%;margin-left:60%;margin-top:5%;position: absolute;overflow-y: scroll">
+                    <form id="formKontrahenci" style="">
+
+                        <div style=";width:10vw;float: left">
+                            <div class="field-wrapper" >
+                                <button id="test" style="height: 4.2vh;" type ="button">Edytuj</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+
+
+
+        </div>
+    </main>
+    <footer>
+        Footer
+    </footer>
+</section>
+
+</body>
+</html>

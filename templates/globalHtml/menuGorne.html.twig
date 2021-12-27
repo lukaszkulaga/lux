@@ -1,110 +1,27 @@
 
 <style>
 
-        ul {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
-            grid-template-rows: minmax(50px, 1fr); /* 50px ponieważ sekcja nav ma 0.5fr co odpowiada 50px, 1fr - jeden wiersz ( w tym przypadku ) */
-            padding: 0;
-            margin: 0;
-            list-style: none;
-            /* wysrodkowanie li  - nie potrzebny display: flex */
-            justify-content: center;
-            align-items: center;
-            /*border:solid red;*/
-        }
+    #tytulSekcji {
+        height: 5vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        text-transform: uppercase;
+        font-size: 20px;
+        color:rgb(86, 86, 86);
+    }
 
-        li {
-            cursor: pointer;
-            height: 6vh;
-            line-height: 4vh;
-            padding: 0 0;
-            background: transparent;
-            text-align: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            /*border:solid black;*/
-
-        }
-
-        a {
-            font-weight: 400;
-            text-transform: uppercase;
-            font-size: 1.5vh;
-            text-decoration: none;
-            outline: none;
-            letter-spacing: 1px;
-            color: rgb(86, 86, 86);
-        }
-
-        a:hover {
-            color: rgb(96, 19, 108);
-        }
-
-        @media only screen and (max-width: 840px) {
-            a {
-                font-size: 75%;
-            }
-
-        }
 
 </style>
 
-<ul id="ulMenu">
-    <li>
-        <div class="container1" style="">
-            <div class="btn1" style="">
-                <button  type ="submit"> <a id="stronaUzytkownika" href="{{ baseUrl }}stronaUzytkownika">Użytkownik</a></button>
-            </div>
-        </div>
-    </li>
-    <li>
-        <div class="container1" style="">
-            <div class="btn1" style="">
-                <button  type ="submit"><a id="stronaZgloszenia" href="{{ baseUrl }}stronaZgloszenia">Zgłoszenia</a></button>
-            </div>
-        </div>
-    </li>
-    <li>
-        <div class="container1" style="">
-            <div class="btn1" style="">
-                <button  type ="submit"><a id="stronaBudynki" href="{{ baseUrl }}stronaBudynki">Kontrahenci</a></button>
-            </div>
-        </div>
-    </li>
-{#    <li>#}
-{#        <div class="container1" style="">#}
-{#            <div class="btn1" style="">#}
-{#                <button  type ="submit"><a href="link">Ustawienia</a></button>#}
-{#            </div>#}
-{#        </div>#}
-{#    </li>#}
-    <li>
-        <div class="container1" style="">
-            <div class="btn1" style="">
-                <button  type ="submit"><a href="{{ baseUrl }}stronaAdministratora">Admin</a></button>
-            </div>
-        </div>
-    </li>
-</ul>
 
 
-<script>
-    $(document).ready(function(){
+<div id="tytulSekcji"> Kontrahenci</div>
 
-        let sciezka = window.location.href;
-        if (sciezka.indexOf("stronaUzytkownika") != -1) {
-            $('#stronaUzytkownika').css("color", "rgb(96, 19, 108)");
-        };
-        if (sciezka.indexOf("stronaZgloszenia") != -1) {
-            $('#stronaZgloszenia').css("color", "rgb(96, 19, 108)");
-        };
-        if (sciezka.indexOf("stronaBudynki") != -1) {
-            $('#stronaBudynki').css("color", "rgb(96, 19, 108)");
-        };
-    });
-</script>
+
+
+
 
 
 

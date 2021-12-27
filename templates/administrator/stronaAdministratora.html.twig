@@ -8,6 +8,7 @@
     {#    <link rel="stylesheet"  href="{{ asset('css/elementyWspolne.css') }}" media="screen">#}
     <link rel="stylesheet"  href="{{ asset('css/przyciski.css') }}">
     <link rel="stylesheet"  href="{{ asset('css/budowaStrony.css') }}" >
+    <link rel="stylesheet"  href="{{ asset('css/elementyWspolne.css') }}" >
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
           integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
@@ -23,7 +24,7 @@
             {% include 'globalHtml/menuGorne.html.twig' %}
         </nav>
         <aside>
-
+            {% include 'globalHtml/menuBoczne.html.twig' %}
         </aside>
         <main>
             Main
@@ -35,42 +36,3 @@
 </body>
 </html>
 
-
-{#<div class="left-menu">#}
-{#    <a id="daneKontrahenta" href="{{ baseUrl }}stronaUzytkownika">#}
-{#        <div class="left-menu-button">#}
-{#            <svg class="daneUzytkownikaIcons"></svg>#}
-{#            <div>Kontrahenci</div>#}
-{#        </div>#}
-{#    </a>#}
-{#    <a id="dodowanieKontrahenta">#}
-{#        <div class="left-menu-button">#}
-{#            <svg class="listaObecnosciIcons"></svg>#}
-{#            <div>Dodowanie kontrahenta</div>#}
-{#        </div>#}
-{#    </a>#}
-
-{#    <div class="Handler">#}
-{#        <svg class="menuIcons"></svg>#}
-{#    </div>#}
-{#</div>#}
-
-{#</body>#}
-
-{#<script>#}
-{#    $(document).ready(function(){#}
-
-{#        let sciezka = window.location.href;#}
-{#        if (sciezka.indexOf("stronaBudynki") != -1) {#}
-{#            $('#daneKontrahenta').css("color", "rgba(7, 74, 155,1)");#}
-{#        };#}
-
-{#        $('.left-menu').on('mouseenter',function(){#}
-{#            $('main,header,nav,footer').css('opacity', '0.5');#}
-{#        });#}
-{#        $('.left-menu').on('mouseleave',function(){#}
-{#            $('main,header,nav,footer').css('opacity', 'unset');#}
-{#        });#}
-
-{#    });#}
-{#</script>#}
