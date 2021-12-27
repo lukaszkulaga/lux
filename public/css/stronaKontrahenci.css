@@ -1,68 +1,53 @@
-#tableRaport{
+#tableRaportKontrahenci{
 
-    /* border: solid purple; */
-    width: 90%;
-    margin-left: 5%;
-    /* height: 50%; */
+     /*border: solid purple;*/
+    /*width: 70%;*/
+    max-width: 55%;
+    max-height: 60%;
+    margin-left: 2%;
+    margin-top: 5%;
     overflow-y: scroll;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    /*display: flex;*/
+    /*align-items: center;*/
+    /*justify-content: center;*/
+    position: absolute;
 }
-.reportTable {
+.reportTableKontrahenci {
     background: transparent;
     font-size:14px;
     border-collapse: separate;
     border-spacing: 0;
 }
-.reportTable th,
-.reportTable td {
-    padding: 1rem;
+.reportTableKontrahenci th,
+.reportTableKontrahenci td {
+    /*padding: 1rem;*/
+    padding: 1vh;
     text-align: left;
     white-space: nowrap;
+    /*border:solid yellow;*/
 }
-.reportTable td {
+.reportTableKontrahenci td {
     border-top: 1px solid rgb(212, 210, 210);
 }
-.reportTable th {
+.reportTableKontrahenci th {
     background-color: rgb(248, 248, 248);
     color:rgba(0, 60, 125,0.8);
 }
-.reportTable thead th {
+.reportTableKontrahenci thead th {
     position: sticky;
     top: 0;
     z-index: 10;
 }
-.reportTable tbody th[scope=row] {
+.reportTableKontrahenci tbody th[scope=row] {
     position: sticky;
     left: 0;
     z-index: 9;
     border-top: 1px solid rgb(212, 210, 210);
 }
-.reportTable thead th[scope=row] {
+.reportTableKontrahenci thead th[scope=row] {
     position: sticky;
     left: 0;
     z-index: 11;
 }
 
 
-/* scrollbar */
-::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-}
-::-webkit-scrollbar-track {
-    border-radius: 10px;
-}
-::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background-color: rgba(0, 80, 158,0.1);
-    position: relative;
-}
-::-webkit-scrollbar-track-piece {
-    background-color: rgba(0, 80, 158,0.1);
-
-}
-::-webkit-scrollbar-thumb:hover {
-    background: rgba(85, 85, 85,0.5);
-}

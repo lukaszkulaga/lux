@@ -1,28 +1,10 @@
-#glownaSekcjaMain {
-    /*border: solid 0.5px rgba(7, 74, 155,1);*/
-    /*box-shadow:1px 1px 1px 2px rgba(7, 74, 155,1);*/
-    box-shadow: 1px 1px 5px rgba(7, 74, 155,1);
-    width: 80%;
-    margin: 5%;
-
-}
-
-#tytulSekcji {
-    height: 5vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 800;
-    text-transform: uppercase;
-    font-size: 20px;
-    color:rgb(86, 86, 86);
-}
 
 #dostosujPole {
     width: 25%;
     margin-left: 25%;
     margin-top: 3%;
     float: left;
+    /*border:solid green;*/
 }
 
 #zdjecie {
@@ -31,46 +13,16 @@
     float: left;
 }
 
-.komunikat{
-    visibility: hidden;
-    /*min-width: 250px;*/
-    background-color:rgb(52, 152, 219);
+#image_drop_area_text {
     color: white;
-    text-align: center;
-    border-radius: 3px;
-    position: absolute;
-    z-index: 5;
-    font-size: 12px;
-    top:43px;
-    width: 85%;
-    margin-left: 8%;
-    height: 20px;
+    padding-bottom: 5%;
 }
-.komunikat {
-    visibility: visible;
-    -webkit-animation: fadein 1s, fadeout 1s 4s;
-    animation: fadein 1s, fadeout 1s 4s;
-}
-@-webkit-keyframes fadein {
-    from {top: 0; opacity: 0;}
-    to {top: 43px; opacity: 1;}
-}
-@keyframes fadein {
-    from {top: 0; opacity: 0;}
-    to {top:43px; opacity: 1;}
-}
-@-webkit-keyframes fadeout {
-    from {top: 43px; opacity: 1;}
-    to {top: 0; opacity: 0;}
-}
-@keyframes fadeout {
-    from {top: 43px; opacity: 1;}
-    to {top: 0; opacity: 0;}
-}
-.progressBar {
-    height: 5px;
-    background-color: rgb(25, 126, 194);
-    border-radius: 3px;
-    position: absolute;
-    bottom: 0;
+
+#image_drop_area{
+    width: 50%;
+    height: 170px;
+    border:  rgba(7, 74, 155,1) dotted;
+    background-position: center;
+    background-size: cover;
+    box-sizing: border-box;
 }

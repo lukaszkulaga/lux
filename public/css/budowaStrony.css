@@ -28,6 +28,15 @@ section {
 
 }
 
+#glownaSekcjaMain {
+    /*border: solid 0.5px rgba(7, 74, 155,1);*/
+    /*box-shadow:1px 1px 1px 2px rgba(7, 74, 155,1);*/
+    box-shadow: 1px 1px 5px rgba(7, 74, 155,1);
+    width: 96%;
+    margin: 2%;
+    /*border:solid purple;*/
+}
+
 header {
     grid-area: header;
     background: transparent;
@@ -36,13 +45,13 @@ header {
     justify-content: right;
     /*border-bottom: solid 0.5px red;*/
     box-shadow: 1px 1px 5px rgba(7, 74, 155,1);
-
+    /*border:solid red;*/
 }
 
 nav {
     grid-area: nav;
     background: transparent;
-
+    /*border:solid blue;*/
 }
 
 main {
@@ -51,18 +60,19 @@ main {
     display: flex;
     /*align-items: center;*/
     justify-content: center;
-
+    /*border:solid orange;*/
 }
 
 aside {
     grid-area: aside;
     border: none;
     /*background: blue;*/
+    /*border:solid purple;*/
 }
 
 footer {
     grid-area: footer;
-
+    /*border:solid black;*/
 }
 
 @media only screen and (max-width: 840px) {
@@ -78,167 +88,3 @@ footer {
     }
 }
 
-/*wspólne style dla inputów, selectów textarea*/
-
-.field-wrapper{
-    position: relative;
-    margin-bottom: 2vh;
-    margin-top: 2vh;
-    text-align:center
-}
-
-.field-wrapper input{
-    width: 80% !important;
-    height: 2.4vh !important;
-    padding: 0.8vh !important;
-    border: 1px solid rgb(209, 205, 205);
-    border-radius: 8px !important;
-    background: transparent;
-    text-align: left !important;
-    outline: none;
-    box-shadow: none;
-    z-index: 1;
-    position: relative;
-}
-.field-wrapper select{
-    width: 87% ;
-    height: 4.2vh!important;
-    padding: 0.8vh !important;
-    border: 1px solid rgb(209, 205, 205) ! important;
-    border-radius: 8px !important;
-    background: transparent;
-    text-align: left !important;
-    outline: none;
-    box-shadow: none;
-    z-index: 1;
-    position: relative;
-}
-
-.field-wrapper textarea{
-    width: 96% !important;
-    height: 6vh !important;
-    padding: 2vh !important;
-    border: 1px solid rgb(209, 205, 205) ! important;
-    border-radius: 8px !important;
-    background: transparent;
-    text-align: left !important;
-    outline: none;
-    box-shadow: none;
-}
-
-.textarea-field-placeholder{
-    font-size: 1.3vh;
-    position: absolute;
-    width: 0 !important;
-    height: 0 !important;
-    top: -0.9vh;
-    color: #80868b;
-    left: 7%;
-    z-index: 1 !important;
-}
-
-.textarea-field-placeholder span{
-    /*background: rgb(248, 248, 248) !important;*/
-    background: red;
-    z-index: 2 !important;
-    padding: 0 0.8vh;
-    width: 0;
-}
-
-.field-wrapper input:focus,
-.field-wrapper select:focus,
-.field-wrapper textarea:focus
-{
-    border: 1px solid rgb(96, 19, 108); ! important;
-}
-
-.field-wrapper .field-placeholder{
-    font-size: 1.5vh;
-    position: absolute;
-    width: 100% !important;
-    bottom: 1.3vh;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    color: #80868b;
-    left: 7%;
-    padding: 0 0.8vh;
-    -webkit-transition: transform 150ms cubic-bezier(0.4,0,0.2,1),opacity 150ms cubic-bezier(0.4,0,0.2,1);
-    transition: transform 150ms cubic-bezier(0.4,0,0.2,1),opacity 150ms cubic-bezier(0.4,0,0.2,1);
-    z-index: 0;
-    text-align: left;
-}
-
-.field-wrapper .field-placeholder span{
-    background: rgb(248, 248, 248) !important;
-    padding: 0 0.8vh;
-    width: 0;
-    z-index: 5;
-    position: relative;
-}
-
-.field-wrapper input:not([disabled]):focus~.field-placeholder,
-.field-wrapper select:not([disabled]):focus~.field-placeholder,
-.field-wrapper textarea:not([disabled]):focus~.field-placeholder
-{
-    color:rgb(96, 19, 108);
-}
-
-.field-wrapper input:not([disabled]):focus~.field-placeholder,
-.field-wrapper input:not(:placeholder-shown)  + .field-placeholder
-{
-    -webkit-transform: scale(.75) translateY(-2.8vh) translateX(-3.5vw);
-    transform: scale(.75) translateY(-2.9vh) translateX(-2.5vw);
-    z-index: 1;
-}
-.field-wrapper select:not([disabled]):focus~.field-placeholder,
-.field-wrapper select:not(:placeholder-shown)  + .field-placeholder
-{
-    -webkit-transform: scale(.75) translateY(-2.8vh) translateX(-3.5vw);
-    transform: scale(.75) translateY(-2.9vh) translateX(-2.5vw);
-    z-index: 1;
-}
-
-
-
-
-/* modyfikacja inputów */
-input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0 30px rgba(249, 249, 249,1) inset;
-}
-
-/* stylizacja włącz_wyłącz */
-
-.ikonaWyloguj {
-    background-color: transparent;
-    /*border: solid green;*/
-}
-
-.ikonaWyloguj svg{
-    width: 2vw;
-    height: 3vh;
-    cursor: pointer;
-}
-
-.wlacz_wylacz {
-    background: url('../icons/wyloguj.svg') no-repeat;
-}
-
-.nazwaStrony {
-    width: 30%;
-    font-weight: 800;
-    font-size: 18px;
-    letter-spacing: 1px;
-    color: rgb(96, 19, 108);
-    text-shadow:5px 5px 8px rgba(7, 74, 155,1);
-    text-transform: none;
-    /*border: solid orange;*/
-    margin-right: 42%;
-    text-align: left;
-}
-#wyswietlLogin {
-    /*border: solid black;*/
-    font-size: 14px;
-    text-align: right;
-    width: 20%;
-    margin-right: 2%;
-}

@@ -2,6 +2,10 @@
 
 /* przyciski css */
 
+a{
+    text-decoration: none;
+    color:rgb(86, 86, 86);
+}
 
 .container1{
     width: 100%;
@@ -10,15 +14,17 @@
     flex-wrap: wrap;
     justify-content: space-around;
     margin-top: 2%;
-    margin-left: 2%;
+    /*margin-left: 2%;*/
     font-size: 1.9vh;
+    /*border:solid red;*/
 }
 
 .container1 .btn1{
     position: relative;
     width: 40%;
-    height: 70%;
-    margin: 3%;
+    height: 100%;
+    /*margin: 3%;*/
+    /*border:solid green;*/
 }
 
 .container1 .btn1 a{
@@ -68,7 +74,7 @@
     overflow: hidden;
     transition: 0.5s ;
     backdrop-filter: blur(15px);
-    font-size: 1.5vh;
+    font-size: 1.6vh;
     cursor: pointer;
 }
 

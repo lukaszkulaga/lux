@@ -8,8 +8,8 @@
     <style>
 
         .cls-1{
-        fill:rgb(96, 19, 108);;
-        stroke:rgb(96, 19, 108);;
+        fill:rgb(96, 19, 108);
+        stroke:rgb(96, 19, 108);
         <!--          box-shadow: 1px 1px 5px rgba(7, 74, 155,1)-->
         stroke-width:2px;
         stroke-radius: 2px;
