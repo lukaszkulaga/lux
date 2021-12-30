@@ -72,19 +72,22 @@
                <div id="zdjecie">
 
                    <p id="image_drop_area_text">przeciągnij lub dodaj swoje zdjęcie</p>
-                   <div id="image_drop_area"><output id="list"> </output></div>
+                   <div id="image_drop_area" style="background-image:url('{{ daneUzytkownikaArr.Zdjecie }}')"></div>
                    <p id="file_name"></p>
 
                    {# tutajj wpada adres foto drag and drop #}
                    <input style="display: none" type="text" id="filesDropAndDrag" name="filesDropAndDrag"  multiple />
 
-                   <img alt=""  src="{{ daneUzytkownikaArr.Zdjecie }}" />
+                   <!--
+
+                   html dla opcji wybierz plik
 
                    {# tutaj wpada adres foto otwórz plik - chyba #}
                    <input type="file" id="files" name="files[]" multiple />
+                   <output id="list"></output>
+                   -->
+
                </div>
-
-
 
            </form>
 

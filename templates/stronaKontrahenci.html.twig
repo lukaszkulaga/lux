@@ -62,47 +62,112 @@
                     <table class="reportTableKontrahenci">
                         <thead>
                             <tr>
+                                <th style="display: none" scope="row">Id Kontrahenta</th>
                                 <th scope="row">Nazwa</th>
                                 <th scope="row">NIP</th>
                                 <th scope="row">Podmiot</th>
-
+                                <th style="display:none" scope="row">idPodmiot</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="resultsBody">
                         {% for daneKontrahenta in daneKontrahentowArr %}
-                            <tr>
-                                <th scope="row">{{daneKontrahenta.Nazwa}}</th>
-                                <td>{{daneKontrahenta.NIP}}</td>
-                                <td>{{daneKontrahenta.Opis}}</td>
+                            <tr class="daneKontrahentaPokaz">
+                                <td style="display: none" class="IdKlienta">{{ daneKontrahenta.IdKlienta }}</td>
+                                <th class="nazwaTab" scope="row">{{daneKontrahenta.Nazwa}}</th>
+                                <td class ="nipTab">{{daneKontrahenta.NIP}}</td>
+                                <td class="podmiotTab">{{daneKontrahenta.Opis}}</td>
+                                <td style="display:none" class="podmiotIdTab">{{daneKontrahenta.IdPodmiot}}</td>
                             </tr>
                         {% endfor %}
                         </tbody>
                     </table>
                 </div>
 
-            <div style="margin-left:2vw;width: 30vw;height:4vh;margin-top: 72vh;float: left;">
-                <div class="container1" style="height: 3vh;width: 30%;margin-top: 0">
-                    <div class="btn1" style="width: 100%;height: 3vh">
-                        <button style="width: 9vw;height: 3vh" id="edycjaDanych" type ="button">dodaj kontrahenta</button>
-                    </div>
-                </div>
-            </div>
+                <div class="daneAdresowe"  style="border:solid black;width: 24%;max-height:60%;margin-left:60%;margin-top:5%;position: absolute;overflow-y: scroll">
+                    <form id="formKontrahenciEdycja" style="">
 
+                        <input id="idKontrahentaEdycja" type="text" value="" style="display: none"/>
 
+                        <div style="width:10vw;float: left">
+                            <div class="field-wrapper" >
+                                <input id="nazwaEdycja" class="" type="text" placeholder=" " value="" required/>
+                                <div class="field-placeholder"><span>Nazwa</span></div>
+                            </div>
+                        </div>
+                        <div style="width:10vw;float: left">
+                            <div class="field-wrapper" >
+                                <input id="nipEdycja"  class="" type="text" placeholder=" " value="" required/>
+                                <div class="field-placeholder"><span>NIP</span></div>
+                            </div>
+                        </div>
+                        <div style="width:10vw;float: left">
+                            <div class="field-wrapper" >
 
-                <div class="" style="border:solid black;width: 24%;max-height:60%;margin-left:60%;margin-top:5%;position: absolute;overflow-y: scroll">
-                    <form id="formKontrahenci" style="">
+                                <select id="podmiotEdycja" required>
+                                    <option selected="selected" disabled>--wybierz--</option>
+                                    {% for podmiot in podmiotArr %}
+                                        <option id="podmiotOpcjeEdycja" value="{{ podmiot.IdPodmiot }}">{{podmiot.Opis}}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="field-placeholder"><span>Podmiot</span></div>
+                            </div>
+                        </div>
 
                         <div style=";width:10vw;float: left">
                             <div class="field-wrapper" >
-                                <button id="test" style="height: 4.2vh;" type ="button">Edytuj</button>
+                                <button id="edycjaDanychPodstawowych" style="height: 4.2vh;" type ="button">Edytuj</button>
                             </div>
                         </div>
 
                     </form>
                 </div>
 
+            <div class="dodawanieKontrahenta" style="border:solid black;width: 24%;max-height:60%;margin-left:60%;margin-top:5%;position: absolute;overflow-y: scroll">
+                <form id="formKontrahenciDodawanie" style="">
 
+                    <div id="test" style="width:10vw;float: left;">
+                        <div class="field-wrapper" >
+                            <input  class="" type="text" id="nazwa" placeholder=" " value="" />
+                            <div class="field-placeholder"><span>Nazwa</span></div>
+                        </div>
+                        <p class="errorDodajKontrahenta"></p>
+                    </div>
+                    <div style="width:10vw;float: left">
+                        <div class="field-wrapper" >
+                            <input  class="" type="text" id="nip" placeholder=" " value="" />
+                            <div class="field-placeholder"><span>NIP</span></div>
+                        </div>
+                        <p class="errorDodajKontrahenta"></p>
+                    </div>
+                    <div style="width:10vw;float: left">
+                        <div class="field-wrapper" >
+                            <select id="podmiot" >
+                                <option selected="selected" value="0" disabled>--wybierz--</option>
+                                {% for podmiot in podmiotArr %}
+                                    <option value="{{ podmiot.IdPodmiot }}">{{podmiot.Opis}}</option>
+                                {% endfor %}
+                            </select>
+                            <div class="field-placeholder"><span>Podmiot</span></div>
+                        </div>
+                        <p class="errorDodajKontrahenta"></p>
+                    </div>
+
+                    <div style=";width:10vw;float: left">
+                        <div class="field-wrapper" >
+                            <button id="zapiszDanePodstawowe" style="height: 4.2vh;" type ="button">Zapisz</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+            <div style="margin-left:2vw;width: 30vw;height:4vh;margin-top: 72vh;float: left;">
+                <div class="container1" style="height: 3vh;width: 30%;margin-top: 0">
+                    <div class="btn1" style="width: 100%;height: 3vh">
+                        <button style="width: 9vw;height: 3vh" class="dodajKontrahenta" type ="button">dodaj kontrahenta</button>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </main>
