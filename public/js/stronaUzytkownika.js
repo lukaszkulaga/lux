@@ -45,36 +45,44 @@ $(document).ready(function () {
 
 /* wersja z otwórz plik   -  dodawanie zdjecia */
 
-function handleFileSelect(evt) {
-    var files = evt.target.files; // FileList object
 
-    // Loop through the FileList and render image files as thumbnails.
-    for (var i = 0, f; f = files[i]; i++) {
-
-        // Only process image files.
-        if (!f.type.match('image.*')) {
-            continue;
-        }
-
-        var reader = new FileReader();
-
-        // Closure to capture the file information.
-        reader.onload = (function(theFile) {
-            return function(e) {
-                // Render thumbnail.
-                var span = document.createElement('span');
-                span.innerHTML = ['<img class="thumb" src="', e.target.result,
-                    '" title="', escape(theFile.name), '"/>'].join('');
-                document.getElementById('list').insertBefore(span, null);
-            };
-        })(f);
-
-        // Read in the image file as a data URL.
-        reader.readAsDataURL(f);
-    }
-}
-
-document.getElementById('files').addEventListener('change', handleFileSelect, false);
+// function handleFileSelect(evt) {
+//     var files = evt.target.files; // FileList object
+//
+//     // Loop through the FileList and render image files as thumbnails.
+//     for (var i = 0, f; f = files[i]; i++) {
+//
+//
+//
+//         // Only process image files.
+//         if (!f.type.match('image.*')) {
+//             continue;
+//         }
+//
+//         var reader = new FileReader();
+//
+//         // Closure to capture the file information.
+//         reader.onload = (function(theFile) {
+//             return function(e) {
+//
+//                 var span = document.createElement('span');
+//                 span.innerHTML = ['<img class="thumb" style="" src="', e.target.result,
+//                     '" title="', escape(theFile.name), '"/>'].join('');
+//                 document.getElementById('list').insertBefore(span, null);
+//
+//                 uploaded_image = e.target.result;
+//             };
+//         })(f);
+//
+//         // Read in the image file as a data URL.
+//         reader.readAsDataURL(f);
+//
+//     }
+//
+//
+// }
+//
+// document.getElementById('files').addEventListener('change', handleFileSelect, false);
 
 
 
@@ -131,7 +139,11 @@ document.getElementById('files').addEventListener('change', handleFileSelect, fa
 
         if ( walidacjaTelefonu === true ) {
 
-            $zdjecie = uploaded_image;
+            $('#filesDropAndDrag').val(uploaded_image);
+            $zdjecie = $('#filesDropAndDrag').val();
+
+             // alert($zdjecie);
+
             $email = $('#email').val();
             $nrTelefonu= $('#telefon').val();
 
@@ -149,28 +161,18 @@ document.getElementById('files').addEventListener('change', handleFileSelect, fa
 
                     json.daneUzytkownika.forEach(el => {
 
-                        console.log(el);
-
                         $edycjaEmail = el.Email;
                         $edycjaTelefon = el.NumerTelefonu;
-                        $edycjaZdjecie = el.Zdjecie;
 
                         $('#email').val($edycjaEmail);
                         $('#telefon').val($edycjaTelefon);
-                        document.querySelector("#image_drop_area").style.backgroundImage = `url(${$edycjaZdjecie})`;
-
                     })
                 }
             });
         }
     });
 
-
-
-
 });
-
-
 
 
 

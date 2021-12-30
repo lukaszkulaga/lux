@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Service\DaneKontrahentowService;
 use App\Service\DaneUzytkownikaService;
 use App\Service\LoginService;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,16 +18,19 @@ class StronaKontrahenciController extends AbstractController
     private $daneUzytkownikaService;
     private $loginService;
     private $daneKontrahentowService;
+    private $logger;
 
     public function  __construct (
         DaneUzytkownikaService $daneUzytkownikaService,
         LoginService $loginService,
-        DaneKontrahentowService $daneKontrahentowService
+        DaneKontrahentowService $daneKontrahentowService,
+        LoggerInterface $logger
     )
     {
         $this->daneUzytkownikaService = $daneUzytkownikaService;
         $this->loginService = $loginService;
         $this->daneKontrahentowService = $daneKontrahentowService;
+        $this->logger = $logger;
     }
 
     /**
@@ -45,8 +49,11 @@ class StronaKontrahenciController extends AbstractController
 
         $daneKontrahentowArr = $this->daneKontrahentowService->daneKontrahentowService();
 
+        //słowniki
+        $slownikPodmiot = $this->daneKontrahentowService->slownikPodmiotService();
+
         return $this->render('stronaKontrahenci.html.twig',
-            array( 'daneUzytkownikaArr'=>$daneUzytkownikaArr,'daneKontrahentowArr'=>$daneKontrahentowArr ) );
+            array( 'daneUzytkownikaArr'=>$daneUzytkownikaArr,'daneKontrahentowArr'=>$daneKontrahentowArr,'podmiotArr'=>$slownikPodmiot ) );
     }
 
     /**
@@ -59,15 +66,37 @@ class StronaKontrahenciController extends AbstractController
 
     /**
      *
-     * do dodawania nowego budynku
+     * dodaj budynek
      *
-     * @Route("/stronaKontrahenci/ajax", methods={"POST"})
+     * @Route("/zapiszDanePostawoweKontrahenta/ajax", methods={"POST"})
      */
-    public function stronaKontrahenciPostAjax(Request $request) {
+    public function zapiszDanePostawoweKontrahenta(Request $request) {
 
-        $tablicaZDanymiKontrahentow = $request->request->get('tab');
-        $test="z ajaks";
+        $danePodstawoweKontrahentaArr = $request->request->get('tab');
 
-        return new JsonResponse($test);
+        $danePodstawoweKontrahenta = $this->daneKontrahentowService->danePodstawoweKontrahentaService($danePodstawoweKontrahentaArr);
+
+        $arr = ['danePodstawoweKontrahentaArr'=>$danePodstawoweKontrahenta];
+
+        return new JsonResponse($arr);
+    }
+
+    /**
+     *
+     * edycja budynku
+     *
+     * @Route("/edytujDanePostawoweKontrahenta/ajax", methods={"POST"})
+     */
+    public function edytujDanePostawoweKontrahenta(Request $request) {
+
+        $danePodstawoweEdycjaArr = $request->request->get('tab');
+
+        $this->logger->info('!!!!!!!!!!!!!!!!!!!!   kontroler');
+
+        $danePodstawoweEdycja = $this->daneKontrahentowService->edytujDanePodstawoweKontrahentaService($danePodstawoweEdycjaArr);
+
+        $arr = ['danePodstawoweEdycjaArr'=>$danePodstawoweEdycja];
+
+        return new JsonResponse($arr);
     }
 }
