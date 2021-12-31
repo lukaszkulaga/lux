@@ -3,7 +3,7 @@
      /*border: solid purple;*/
     /*width: 70%;*/
     max-width: 55%;
-    max-height: 60%;
+    max-height: 55%;
     margin-left: 2%;
     margin-top: 5%;
     overflow-y: scroll;
@@ -50,4 +50,14 @@
     z-index: 11;
 }
 
+
+.errorSuccess {
+    width: 1.3vw;
+    height: 2.5vh;
+    margin-left: 15vw;
+    margin-top: -5.4vh;
+    position: absolute;
+    cursor: pointer;
+    /*border: solid yellow;*/
+}
 
