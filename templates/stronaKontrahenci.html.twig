@@ -83,7 +83,7 @@
                     </table>
                 </div>
 
-                <div class="daneAdresowe"  style="border:solid black;width: 24%;max-height:60%;margin-left:60%;margin-top:5%;position: absolute;overflow-y: scroll">
+                <div class="edycjaKontrahenta"  style="box-shadow: 0 15px 35px rgba(0,0,0,0.2);border-left:1px solid rgb(212, 210, 210);width: 24%;max-height:55%;margin-left:60%;margin-top:5%;position: absolute;overflow-y: scroll">
                     <form id="formKontrahenciEdycja" style="">
 
                         <input id="idKontrahentaEdycja" type="text" value="" style="display: none"/>
@@ -122,24 +122,24 @@
                     </form>
                 </div>
 
-            <div class="dodawanieKontrahenta" style="border:solid black;width: 24%;max-height:60%;margin-left:60%;margin-top:5%;position: absolute;overflow-y: scroll">
+            <div class="dodawanieKontrahenta" style=" box-shadow: 0 15px 35px rgba(0,0,0,0.2);border-left:1px solid rgb(212, 210, 210);width: 24%;max-height:55%;margin-left:60%;margin-top:5%;position: absolute;overflow-y: scroll">
                 <form id="formKontrahenciDodawanie" style="">
 
-                    <div id="test" style="width:10vw;float: left;">
+                    <div id="test" style="width:15vw;float: left;">
                         <div class="field-wrapper" >
                             <input  class="" type="text" id="nazwa" placeholder=" " value="" />
                             <div class="field-placeholder"><span>Nazwa</span></div>
                         </div>
-                        <p class="errorDodajKontrahenta"></p>
+                        <div class="errorSuccess"></div>
                     </div>
-                    <div style="width:10vw;float: left">
+                    <div style="width:15vw;float: left">
                         <div class="field-wrapper" >
-                            <input  class="" type="text" id="nip" placeholder=" " value="" />
+                            <input  class="" type="text" id="nip" placeholder=" " maxlength="10" />
                             <div class="field-placeholder"><span>NIP</span></div>
                         </div>
-                        <p class="errorDodajKontrahenta"></p>
+                        <p class="errorSuccess"></p>
                     </div>
-                    <div style="width:10vw;float: left">
+                    <div style="width:15vw;float: left">
                         <div class="field-wrapper" >
                             <select id="podmiot" >
                                 <option selected="selected" value="0" disabled>--wybierz--</option>
@@ -149,12 +149,14 @@
                             </select>
                             <div class="field-placeholder"><span>Podmiot</span></div>
                         </div>
-                        <p class="errorDodajKontrahenta"></p>
+                        <p class="errorSuccess"></p>
                     </div>
 
-                    <div style=";width:10vw;float: left">
-                        <div class="field-wrapper" >
-                            <button id="zapiszDanePodstawowe" style="height: 4.2vh;" type ="button">Zapisz</button>
+                    <div style="margin-left:1vw;width: 10vw;height:4vh;margin-top: 2vh;float: left;">
+                        <div class="container1" style="height: 3vh;width: 30%;margin-top: 0">
+                            <div class="btn1" style="width: 100%;height: 3vh">
+                                <button style="width: 9vw;height: 3vh" id="zapiszDanePodstawowe" type ="button">Zapisz</button>
+                            </div>
                         </div>
                     </div>
 

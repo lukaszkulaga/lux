@@ -107,6 +107,7 @@ $(document).ready(function () {
 
 
         if(validacjaTelefonuPattern === true){
+            alert('ok');
             walidacjaTelefonu = true;
         }
     });

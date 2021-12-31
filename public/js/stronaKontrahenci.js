@@ -2,8 +2,10 @@
 $(document).ready(function () {
 
     $baseUrl = $('#baseUrl').val();
-    $('.daneAdresowe').hide();
+    // przy każdym przeładowaniu strony te obiekty muszą byc ukryte
+    $('.edycjaKontrahenta').hide();
     $('.dodawanieKontrahenta').hide();
+    $('.errorSuccess').hide();
 
 
 
@@ -20,16 +22,26 @@ $(document).ready(function () {
 
     $('.dodajKontrahenta').on('click',function() {
 
+        // za kazdym razem gdy klikniemy aby dodac nowgo kontrahenta -  czyscimy wartosci w polach
         $('#nazwa').val('');
         $('#nip').val('');
-        $('#podmiot').val(0);
+        $('#podmiot').val(0); // ustawiamy na  -- wybierz --
 
-        // potrzebne do walidacji - po ponownym dodaniu klienta trzeba ustawić zmienne dla walidacji
+        // potrzebne do walidacji - po ponownym kliknieciu aby dodac nowego klienta trzeba ustawić zmienne dla walidacji na false
         $nazwaErr = false;
         $nipErr = false;
         $podmiotErr = false;
 
-        $('.daneAdresowe').hide();
+        // ustawiamy css dla pól i ikonek po ponownym kliknieciu
+        $('#nazwa').css('border','1px solid rgb(209, 205, 205)');
+        $('#nazwa').parent().parent().find('.errorSuccess').show().css('background','').attr('title','');
+        $('#nip').css('border','1px solid rgb(209, 205, 205)');
+        $('#nip').parent().parent().find('.errorSuccess').show().css('background','').attr('title','');
+        $('#podmiot').css('border','1px solid rgb(209, 205, 205)');
+        $('#podmiot').parent().parent().find('.errorSuccess').show().css('background','').attr('title','');
+
+        // ukrywanie sekcji po kazdym kliknieciu
+        $('.edycjaKontrahenta').hide();
         $('.dodawanieKontrahenta').show();
     });
 
@@ -39,11 +51,11 @@ $(document).ready(function () {
 
         if($('#nazwa').val().length > 0){
             $('#nazwa').css('border','1px solid rgb(209, 205, 205)');
-            $(this).parent().parent().find('.errorDodajKontrahenta').text('');
+            $(this).parent().parent().find('.errorSuccess').show().css('background','url("../icons/success.svg") no-repeat').attr('title','');
             $nazwaErr = true;
         } else{
             $('#nazwa').css('border','1px solid red');
-            $('#nazwa').parent().parent().find('.errorDodajKontrahenta').text('wprowadź nazwę').css('color','red');
+            $('#nazwa').parent().parent().find('.errorSuccess').show().css('background','url("../icons/error.svg") no-repeat').attr('title','wprowadz nazwe');
             $nazwaErr = false;
         }
     });
@@ -51,14 +63,32 @@ $(document).ready(function () {
     // walidacja dla pola nip
     $('#nip').on('keyup', function() {
 
-        if($('#nip').val().length > 0){
+        let nipVal = $('#nip').val();
+        let pattern = /[0-9]{10}/;
+        let validacjaNIPPattern = pattern.test(nipVal);
+
+        if( $('#nip').val().length === 10 && validacjaNIPPattern === true ){
             $('#nip').css('border','1px solid rgb(209, 205, 205)');
-            $(this).parent().parent().find('.errorDodajKontrahenta').text('');
+            $(this).parent().parent().find('.errorSuccess').show().css('background','url("../icons/success.svg") no-repeat').attr('title','');
             $nipErr = true;
         } else{
             $('#nip').css('border','1px solid red');
-            $('#nip').parent().parent().find('.errorDodajKontrahenta').text('wprowadź nip').css('color','red');
+            $('#nip').parent().parent().find('.errorSuccess').show().css('background','url("../icons/error.svg") no-repeat').attr('title','wprowadz 10 cyfr NIP');
             $nipErr = false;
+        }
+    });
+
+    // walidacja dla pola podmiot
+    $('#podmiot').on('change', function() {
+
+        if($('#podmiot').val() !== 0){
+            $('#podmiot').css('border','1px solid rgb(209, 205, 205)');
+            $(this).parent().parent().find('.errorSuccess').show().css('background','url("../icons/success.svg") no-repeat').attr('title','');
+            $podmiotErr = true;
+        } else{
+            $('#podmiot').css('border','1px solid red');
+            $('#podmiot').parent().parent().find('.errorSuccess').show().css('background','url("../icons/error.svg") no-repeat').attr('title','wybierz podmiot');
+            $podmiotErr = false;
         }
     });
 
@@ -68,30 +98,37 @@ $(document).ready(function () {
     function walidacjaDanychPodstawowych() {
 
         if ( $nazwaErr === false ) {
-
             $('#nazwa').css('border','1px solid red');
-            $('#nazwa').parent().parent().find('.errorDodajKontrahenta').text('wprowadź nazwę').css('color','red');
+            $('#nazwa').parent().parent().find('.errorSuccess').show().css('background','url("../icons/error.svg") no-repeat').attr('title','wprowadz nazwe');
             $nazwaErr = false;
         }
         else {
             $('#nazwa').css('border','1px solid rgb(209, 205, 205)');
-            $(this).parent().parent().find('.errorDodajKontrahenta').text('');
+            $(this).parent().parent().find('.errorSuccess').show().css('background','url("../icons/success.svg") no-repeat');
             $nazwaErr = true;
         }
         if ( $nipErr === false ) {
-
             $('#nip').css('border','1px solid red');
-            $('#nip').parent().parent().find('.errorDodajKontrahenta').text('wprowadź nip').css('color','red');
+            $('#nip').parent().parent().find('.errorSuccess').show().css('background','url("../icons/error.svg") no-repeat').attr('title','wprowadz 10 cyfr NIP');
             $nipErr = false;
         }
         else {
             $('#nip').css('border','1px solid rgb(209, 205, 205)');
-            $(this).parent().parent().find('.errorDodajKontrahenta').text('');
+            $(this).parent().parent().find('.errorSuccess').show().css('background','url("../icons/success.svg") no-repeat');
             $nipErr = true;
         }
+        if ( $podmiotErr === false ) {
+            $('#podmiot').css('border','1px solid red');
+            $('#podmiot').parent().parent().find('.errorSuccess').show().css('background','url("../icons/error.svg") no-repeat').attr('title','wybierz podmiot');
+            $podmiotErr = false;
+        }
+        else {
+            $('#podmiot').css('border','1px solid rgb(209, 205, 205)');
+            $(this).parent().parent().find('.errorSuccess').show().css('background','url("../icons/success.svg") no-repeat');
+            $podmiotErr = true;
+        }
 
-
-        if($nazwaErr === false || $nipErr === false){
+        if($nazwaErr === false || $nipErr === false || $podmiotErr === false){
             return false;
         } else {
             return true;
@@ -143,7 +180,6 @@ $(document).ready(function () {
 
                         $('.resultsBody').append($row);
                     });
-
                 }
             })
 
@@ -160,7 +196,7 @@ $(document).ready(function () {
             //         alert('3');
             //         // var test = $(this).find('.IdKlienta').text();
             //         $('.dodawanieKontrahenta').hide();
-            //         $('.daneAdresowe').show();
+            //         $('.edycjaKontrahenta').show();
             //
             //     });
             // });
@@ -243,7 +279,7 @@ $(document).ready(function () {
         $('#podmiotEdycja').val($podmiotEdycjaId);
 
         $('.dodawanieKontrahenta').hide();
-        $('.daneAdresowe').show();
+        $('.edycjaKontrahenta').show();
 
     });
 
