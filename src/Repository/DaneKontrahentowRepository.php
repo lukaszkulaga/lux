@@ -21,7 +21,7 @@ class DaneKontrahentowRepository
 
     public function daneKontrahentowRepo() {
 
-        $sql = "  select K.IdKlienta, K.Nazwa, K.NIP, SP.Opis,SP.IdPodmiot from klienci K
+        $sql = "select K.IdKlienta, K.Nazwa, K.NIP, SP.Opis,SP.IdPodmiot from klienci K
                 left join slownikPodmiot SP 
                 ON K.Podmiot = SP.IdPodmiot";
 
@@ -65,6 +65,29 @@ class DaneKontrahentowRepository
     public function slownikPodmiotRepo() {
 
         $sql = "select * from slownikPodmiot";
+
+        return $this->conn->fetchAllAssociative($sql);
+    }
+
+    public function filtrujDanePodstawoweKontrahentaRepo($danePodstawoweFiltrArr) {
+
+        $nazwaFiltr = $danePodstawoweFiltrArr['nazwaFiltr'];
+        $nipFiltr = $danePodstawoweFiltrArr['nipFiltr'];
+        $podmiotFiltr = $danePodstawoweFiltrArr['podmiotFiltr'];
+
+        $sql = "select K.IdKlienta, K.Nazwa, K.NIP, SP.Opis,SP.IdPodmiot from klienci K
+                left join slownikPodmiot SP 
+                ON K.Podmiot = SP.IdPodmiot where IdKlienta is not null ";
+
+        if (!empty($nazwaFiltr)){
+            $sql = $sql." and K.Nazwa like '%$nazwaFiltr%'";
+        }
+        if (!empty($nipFiltr)){
+            $sql = $sql." and K.NIP like '%$nipFiltr%'";
+        }
+        if (!empty($podmiotFiltr)){
+            $sql = $sql." and SP.Opis like '%$podmiotFiltr%'";
+        }
 
         return $this->conn->fetchAllAssociative($sql);
     }

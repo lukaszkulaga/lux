@@ -38,4 +38,11 @@ class DaneKontrahentowService
 
         return $this->daneKontrahentowRepository->slownikPodmiotRepo();
     }
+
+    public function filtrujDanePodstawoweKontrahentaService($danePodstawoweFiltrArr) {
+
+        $this->logger->info('???????????????????????   serwis');
+
+        return $this->daneKontrahentowRepository->filtrujDanePodstawoweKontrahentaRepo($danePodstawoweFiltrArr);
+    }
 }

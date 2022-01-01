@@ -99,4 +99,23 @@ class StronaKontrahenciController extends AbstractController
 
         return new JsonResponse($arr);
     }
+
+    /**
+     *
+     * filtr danych
+     *
+     * @Route("/filtrujDanePostawoweKontrahenta/ajax", methods={"POST"})
+     */
+    public function filtrujDanePostawoweKontrahenta(Request $request) {
+
+        $danePodstawoweFiltrArr = $request->request->get('tab');
+
+        $this->logger->info('!!!!!!!!!!!!!!!!!!!!   kontroler');
+
+        $danePodstawoweFiltr = $this->daneKontrahentowService->filtrujDanePodstawoweKontrahentaService($danePodstawoweFiltrArr);
+
+        $arr = ['danePodstawoweFiltrArr'=>$danePodstawoweFiltr];
+
+        return new JsonResponse($arr);
+    }
 }
