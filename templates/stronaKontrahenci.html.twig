@@ -33,28 +33,36 @@
                     <form>
                         <div style="width:10vw;float: left">
                             <div class="field-wrapper" >
-                                <input  class="" type="text" id="" placeholder=" " value="" />
+                                <input  class="filtrKontrahent" type="text" id="nazwaFiltr" placeholder=" " value="" />
                                 <div class="field-placeholder"><span>Nazwa</span></div>
                             </div>
                         </div>
                         <div style="width:10vw;float: left">
                             <div class="field-wrapper" >
-                                <input  class="" type="text" id="" placeholder=" " value="" />
+                                <input  class="filtrKontrahent" type="text" id="nipFiltr" placeholder=" " value="" />
                                 <div class="field-placeholder"><span>NIP</span></div>
                             </div>
                         </div>
                         <div style="width:10vw;float: left">
                             <div class="field-wrapper" >
-                                <input  class="" type="text" id="" placeholder=" " value="" />
+                                <select class="filtrKontrahent" id="podmiotFiltr">
+                                    <option selected="selected" disabled>--wybierz--</option>
+                                    {% for podmiot in podmiotArr %}
+                                        <option id="podmiotOpcjeEdycja" value="{{ podmiot.Opis }}">{{podmiot.Opis}}</option>
+                                    {% endfor %}
+                                </select>
                                 <div class="field-placeholder"><span>Podmiot</span></div>
                             </div>
                         </div>
 
-                        <div style="width:10vw;float: left">
-                            <div class="field-wrapper" >
-                                <button id="" style="height: 4.2vh;" type ="reset">Wyczyść</button>
+                        <div style="margin-left:1vw;width: 10vw;height:4vh;margin-top: 2.5vh;float: left;">
+                            <div class="container1" style="height: 3vh;width: 30%;margin-top: 0">
+                                <div class="btn1" style="width: 100%;height: 3vh">
+                                    <button style="width: 9vw;height: 3vh" id="wyczysc" type ="reset">Wyczyść</button>
+                                </div>
                             </div>
                         </div>
+
                     </form>
                 </div>
 
@@ -88,22 +96,23 @@
 
                         <input id="idKontrahentaEdycja" type="text" value="" style="display: none"/>
 
-                        <div style="width:10vw;float: left">
+                        <div style="width:15vw;float: left">
                             <div class="field-wrapper" >
-                                <input id="nazwaEdycja" class="" type="text" placeholder=" " value="" required/>
+                                <input id="nazwaEdycja" class="" type="text" placeholder=" " value="" />
                                 <div class="field-placeholder"><span>Nazwa</span></div>
                             </div>
+                            <div class="errorSuccess"></div>
                         </div>
-                        <div style="width:10vw;float: left">
+                        <div style="width:15vw;float: left">
                             <div class="field-wrapper" >
-                                <input id="nipEdycja"  class="" type="text" placeholder=" " value="" required/>
+                                <input id="nipEdycja"  class="" type="text" placeholder=" " maxlength="10"/>
                                 <div class="field-placeholder"><span>NIP</span></div>
                             </div>
+                            <div class="errorSuccess"></div>
                         </div>
-                        <div style="width:10vw;float: left">
+                        <div style="width:15vw;float: left">
                             <div class="field-wrapper" >
-
-                                <select id="podmiotEdycja" required>
+                                <select id="podmiotEdycja">
                                     <option selected="selected" disabled>--wybierz--</option>
                                     {% for podmiot in podmiotArr %}
                                         <option id="podmiotOpcjeEdycja" value="{{ podmiot.IdPodmiot }}">{{podmiot.Opis}}</option>
@@ -111,11 +120,14 @@
                                 </select>
                                 <div class="field-placeholder"><span>Podmiot</span></div>
                             </div>
+                            <div class="errorSuccess"></div>
                         </div>
 
-                        <div style=";width:10vw;float: left">
-                            <div class="field-wrapper" >
-                                <button id="edycjaDanychPodstawowych" style="height: 4.2vh;" type ="button">Edytuj</button>
+                        <div style="margin-left:1vw;width: 10vw;height:4vh;margin-top: 2vh;float: left;">
+                            <div class="container1" style="height: 3vh;width: 30%;margin-top: 0">
+                                <div class="btn1" style="width: 100%;height: 3vh">
+                                    <button style="width: 9vw;height: 3vh" id="edycjaDanychPodstawowych" type ="button">Edytuj</button>
+                                </div>
                             </div>
                         </div>
 

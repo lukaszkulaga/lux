@@ -218,6 +218,126 @@ $(document).ready(function () {
 
     */
 
+
+    //zamiast done możemy zrobic tzw. zdarzenie delegowane ( jest ono globalne ) ktore zadziala tak jak done w ajax
+    $('.resultsBody').on('click','.daneKontrahentaPokaz',function() {
+
+        $idKlienta = $(this).find('.IdKlienta').text();
+        $nazwaEdycja = $(this).find('.nazwaTab').text();
+        $nipEdycja = $(this).find('.nipTab').text();
+        $podmiotEdycjaId = $(this).find('.podmiotIdTab').text();
+
+        $('#idKontrahentaEdycja').val($idKlienta);
+        $('#nazwaEdycja').val($nazwaEdycja);
+        $('#nipEdycja').val($nipEdycja);
+        $('#podmiotEdycja').val($podmiotEdycjaId);
+
+        $('.dodawanieKontrahenta').hide();
+        $('.edycjaKontrahenta').show();
+
+        $nazwaEdycjaErr = true;
+        $nipEdycjaErr = true;
+        $podmiotEdycjaErr = true;
+
+        // ustawiamy css dla pól i ikonek po ponownym kliknieciu
+        $('#nazwaEdycja').css('border','1px solid rgb(209, 205, 205)');
+        $('#nazwaEdycja').parent().parent().find('.errorSuccess').show().css('background','').attr('title','');
+        $('#nipEdycja').css('border','1px solid rgb(209, 205, 205)');
+        $('#nipEdycja').parent().parent().find('.errorSuccess').show().css('background','').attr('title','');
+        $('#podmiotEdycja').css('border','1px solid rgb(209, 205, 205)');
+        $('#podmiotEdycja').parent().parent().find('.errorSuccess').show().css('background','').attr('title','');
+
+    });
+
+    // walidacja dla pola nazwa
+    $('#nazwaEdycja').on('keyup', function() {
+
+        if($('#nazwaEdycja').val().length > 0){
+            $('#nazwaEdycja').css('border','1px solid rgb(209, 205, 205)');
+            $(this).parent().parent().find('.errorSuccess').show().css('background','url("../icons/success.svg") no-repeat').attr('title','');
+            $nazwaEdycjaErr = true;
+        } else{
+            $('#nazwaEdycja').css('border','1px solid red');
+            $('#nazwaEdycja').parent().parent().find('.errorSuccess').show().css('background','url("../icons/error.svg") no-repeat').attr('title','wprowadz nazwe');
+            $nazwaEdycjaErr = false;
+        }
+    });
+
+    // walidacja dla pola nip
+    $('#nipEdycja').on('keyup', function() {
+
+        let nipVal = $('#nipEdycja').val();
+        let pattern = /[0-9]{10}/;
+        let validacjaNIPPattern = pattern.test(nipVal);
+
+        if( $('#nipEdycja').val().length === 10 && validacjaNIPPattern === true ){
+            $('#nipEdycja').css('border','1px solid rgb(209, 205, 205)');
+            $(this).parent().parent().find('.errorSuccess').show().css('background','url("../icons/success.svg") no-repeat').attr('title','');
+            $nipEdycjaErr = true;
+        } else{
+            $('#nipEdycja').css('border','1px solid red');
+            $('#nipEdycja').parent().parent().find('.errorSuccess').show().css('background','url("../icons/error.svg") no-repeat').attr('title','wprowadz 10 cyfr NIP');
+            $nipEdycjaErr = false;
+        }
+    });
+
+    // walidacja dla pola podmiot
+    $('#podmiotEdycja').on('change', function() {
+
+        if($('#podmiotEdycja').val() !== 0){
+            $('#podmiotEdycja').css('border','1px solid rgb(209, 205, 205)');
+            $(this).parent().parent().find('.errorSuccess').show().css('background','url("../icons/success.svg") no-repeat').attr('title','');
+            $podmiotEdycjaErr = true;
+        } else{
+            $('#podmiotEdycja').css('border','1px solid red');
+            $('#podmiotEdycja').parent().parent().find('.errorSuccess').show().css('background','url("../icons/error.svg") no-repeat').attr('title','wybierz podmiot');
+            $podmiotEdycjaErr = false;
+        }
+    });
+
+    // walidacja pojedyncza - walidacja uruchamiana po kliknieciu przycisku do zapisu nowych danych podstawowych - walidacja musi byc
+    // taka sama jak dla pojedynczych walidacji dla poszczególnych pól. Jest tylko raz wykonywana po kliknieciu przycisku
+    // do zapisu danych.
+    function walidacjaDanychPodstawowychEdycja() {
+
+        if ( $nazwaEdycjaErr === false ) {
+            $('#nazwaEdycja').css('border','1px solid red');
+            $('#nazwaEdycja').parent().parent().find('.errorSuccess').show().css('background','url("../icons/error.svg") no-repeat').attr('title','wprowadz nazwe');
+            $nazwaEdycjaErr = false;
+        }
+        else {
+            $('#nazwaEdycja').css('border','1px solid rgb(209, 205, 205)');
+            $(this).parent().parent().find('.errorSuccess').show().css('background','url("../icons/success.svg") no-repeat');
+            $nazwaEdycjaErr = true;
+        }
+        if ( $nipEdycjaErr === false ) {
+            $('#nipEdycja').css('border','1px solid red');
+            $('#nipEdycja').parent().parent().find('.errorSuccess').show().css('background','url("../icons/error.svg") no-repeat').attr('title','wprowadz 10 cyfr NIP');
+            $nipEdycjaErr = false;
+        }
+        else {
+            $('#nipEdycja').css('border','1px solid rgb(209, 205, 205)');
+            $(this).parent().parent().find('.errorSuccess').show().css('background','url("../icons/success.svg") no-repeat');
+            $nipEdycjaErr = true;
+        }
+        if ( $podmiotEdycjaErr === false ) {
+            $('#podmiotEdycja').css('border','1px solid red');
+            $('#podmiotEdycja').parent().parent().find('.errorSuccess').show().css('background','url("../icons/error.svg") no-repeat').attr('title','wybierz podmiot');
+            $podmiotEdycjaErr = false;
+        }
+        else {
+            $('#podmiotEdycja').css('border','1px solid rgb(209, 205, 205)');
+            $(this).parent().parent().find('.errorSuccess').show().css('background','url("../icons/success.svg") no-repeat');
+            $podmiotEdycjaErr = true;
+        }
+
+        if($nazwaEdycjaErr === false || $nipEdycjaErr === false || $podmiotEdycjaErr === false){
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     $('#edycjaDanychPodstawowych').on('click',function() {
 
         $idKlienta = $('#idKontrahentaEdycja').val();
@@ -225,22 +345,91 @@ $(document).ready(function () {
         $nip = $('#nipEdycja').val();
         $podmiot = $('#podmiotEdycja').val();
 
-        let danePodstawoweEdycjaArr = {'idKlienta':$idKlienta,'nazwa':$nazwa,'nip':$nip,'podmiot':$podmiot};
+        $rezultat = walidacjaDanychPodstawowychEdycja();
 
-        $url = $baseUrl + 'edytujDanePostawoweKontrahenta/ajax';
+        if ($rezultat === true){
+
+            let danePodstawoweEdycjaArr = {'idKlienta':$idKlienta,'nazwa':$nazwa,'nip':$nip,'podmiot':$podmiot};
+
+            $url = $baseUrl + 'edytujDanePostawoweKontrahenta/ajax';
+            $.ajax({
+                url: $url,
+                type: 'POST',
+                data: {tab: danePodstawoweEdycjaArr},
+                format: 'json',
+                dataType: 'text',
+                success: function (response) {
+                    let json = JSON.parse(response);
+                    console.log(json);
+
+                    $('.resultsBody tr').remove();
+
+                    json.danePodstawoweEdycjaArr.forEach(item=> {
+
+                        var id = '<td style="display: none" class="IdKlienta">' + item.IdKlienta + '</td>';
+                        var nazwa = '<th scope="row" class="nazwaTab">' + item.Nazwa + '</th>';
+                        var nip = '<td class="nipTab">' + item.NIP + '</td>';
+                        var podmiot = '<td class="podmiotTab">' + item.Opis + '</td>';
+                        var podmiotId = '<td style="display:none" class="podmiotIdTab">' + item.IdPodmiot + '</td>';
+
+                        $row = "<tr class='daneKontrahentaPokaz'>" +
+                            id +
+                            nazwa +
+                            nip +
+                            podmiot +
+                            podmiotId +
+                            "</tr>";
+
+                        $('.resultsBody').append($row);
+                    });
+
+                }
+            });
+
+        }
+    });
+
+
+
+    /*
+    *
+    * Sekcja filtrowania danych podstawowych
+    *
+    * */
+
+
+    $('.filtrKontrahent,#wyczysc').on('keyup change click',function(){
+
+        $nazwaFiltr = $('#nazwaFiltr').val();
+        $nipFiltr = $('#nipFiltr').val();
+        $podmiotFiltr = $('#podmiotFiltr').val();
+        //$podmiotFiltr= $('#podmiotFiltr option:selected').text();
+
+       if((this).id === 'wyczysc') {
+           $nazwaFiltr = '';
+           $nipFiltr = '';
+           $podmiotFiltr = '';
+       } else {
+           $nazwaFiltr = $('#nazwaFiltr').val();
+           $nipFiltr = $('#nipFiltr').val();
+           $podmiotFiltr = $('#podmiotFiltr').val();
+       }
+
+        let danePodstawoweFiltrArr = {'nazwaFiltr':$nazwaFiltr,'nipFiltr':$nipFiltr,'podmiotFiltr':$podmiotFiltr};
+
+        $url = $baseUrl + 'filtrujDanePostawoweKontrahenta/ajax';
         $.ajax({
             url: $url,
             type: 'POST',
-            data: {tab: danePodstawoweEdycjaArr},
+            data: {tab: danePodstawoweFiltrArr},
             format: 'json',
             dataType: 'text',
             success: function (response) {
                 let json = JSON.parse(response);
-                console.log(json);
 
                 $('.resultsBody tr').remove();
 
-                json.danePodstawoweEdycjaArr.forEach(item=> {
+                json.danePodstawoweFiltrArr.forEach(item=> {
 
                     var id = '<td style="display: none" class="IdKlienta">' + item.IdKlienta + '</td>';
                     var nazwa = '<th scope="row" class="nazwaTab">' + item.Nazwa + '</th>';
@@ -258,30 +447,9 @@ $(document).ready(function () {
 
                     $('.resultsBody').append($row);
                 });
-
             }
         });
-
-    });
-
-
-   //zamiast done możemy zrobic tzw. zdarzenie delegowane ( jest ono globalne ) ktore zadziala tak jak done w ajax
-    $('.resultsBody').on('click','.daneKontrahentaPokaz',function() {
-
-        $idKlienta = $(this).find('.IdKlienta').text();
-        $nazwaEdycja = $(this).find('.nazwaTab').text();
-        $nipEdycja = $(this).find('.nipTab').text();
-        $podmiotEdycjaId = $(this).find('.podmiotIdTab').text();
-
-        $('#idKontrahentaEdycja').val($idKlienta);
-        $('#nazwaEdycja').val($nazwaEdycja);
-        $('#nipEdycja').val($nipEdycja);
-        $('#podmiotEdycja').val($podmiotEdycjaId);
-
-        $('.dodawanieKontrahenta').hide();
-        $('.edycjaKontrahenta').show();
-
-    });
+    })
 
 
 
