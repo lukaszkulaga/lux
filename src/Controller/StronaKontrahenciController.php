@@ -118,4 +118,42 @@ class StronaKontrahenciController extends AbstractController
 
         return new JsonResponse($arr);
     }
+
+    /**
+     *
+     * dane adresowe
+     *
+     * @Route("/daneAdresoweKontrahenta/ajax", methods={"POST"})
+     */
+    public function daneAdresoweKontrahenta(Request $request) {
+
+        $daneAdresoweKontrahentaArr = $request->request->get('tab');
+
+        $this->logger->info('!!!!!!!!!!!!!!!!!!!!   kontroler');
+
+        $daneAdresoweKontrahenta = $this->daneKontrahentowService->daneAdresoweKontrahentaService($daneAdresoweKontrahentaArr);
+
+        $arr = ['daneAdresoweKontrahentaArr'=>$daneAdresoweKontrahenta];
+
+        return new JsonResponse($arr);
+    }
+
+    /**
+     *
+     * dane adresowe dodaj
+     *
+     * @Route("/dodajDaneAdresoweKontrahenta/ajax", methods={"POST"})
+     */
+    public function dodajDaneAdresoweKontrahenta(Request $request) {
+
+        $daneAdresoweKontrahentaArr = $request->request->get('tab');
+
+        $this->logger->info('!!!!!!!!!!!!!!!!!!!!   kontroler');
+
+        $daneAdresoweKontrahenta = $this->daneKontrahentowService->dodajDaneAdresoweKontrahentaService($daneAdresoweKontrahentaArr);
+
+        $arr = ['daneAdresoweKontrahentaArr'=>$daneAdresoweKontrahenta];
+
+        return new JsonResponse($arr);
+    }
 }

@@ -3,7 +3,7 @@ CREATE TABLE [dbo].[klienciAdres](
     [IdAdres] [int] IDENTITY(1,1) NOT NULL,
     [IdKlienta] [int] NOT NULL,
     [Miejscowosc] [nvarchar](255) NULL,
-    [Uica] [nvarchar](255) NULL,
+    [Ulica] [nvarchar](255) NULL,
     [NrBudynku] [nvarchar](255) NULL,
     PRIMARY KEY CLUSTERED
 (
