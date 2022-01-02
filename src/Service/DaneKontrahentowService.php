@@ -45,4 +45,18 @@ class DaneKontrahentowService
 
         return $this->daneKontrahentowRepository->filtrujDanePodstawoweKontrahentaRepo($danePodstawoweFiltrArr);
     }
+
+    public function daneAdresoweKontrahentaService($daneAdresoweKontrahentaArr) {
+
+        $this->logger->info('???????????????????????   serwis');
+
+        return $this->daneKontrahentowRepository->daneAdresoweKontrahentaRepo($daneAdresoweKontrahentaArr);
+    }
+
+    public function dodajDaneAdresoweKontrahentaService($daneAdresoweKontrahentaArr) {
+
+        $this->logger->info('???????????????????????   serwis');
+
+        return $this->daneKontrahentowRepository->dodajDaneAdresoweKontrahentaRepo($daneAdresoweKontrahentaArr);
+    }
 }

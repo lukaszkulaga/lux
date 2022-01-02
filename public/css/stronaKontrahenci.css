@@ -1,9 +1,9 @@
-#tableRaportKontrahenci{
+.tableRaportKontrahenci{
 
      /*border: solid purple;*/
     /*width: 70%;*/
     max-width: 55%;
-    max-height: 55%;
+    max-height: 57%;
     margin-left: 2%;
     margin-top: 5%;
     overflow-y: scroll;

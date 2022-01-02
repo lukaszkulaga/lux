@@ -5,7 +5,89 @@ $(document).ready(function () {
     // przy każdym przeładowaniu strony te obiekty muszą byc ukryte
     $('.edycjaKontrahenta').hide();
     $('.dodawanieKontrahenta').hide();
+    $('.dodawanieAdresow').hide();
+    $('.dodawanieKontaktow').hide();
     $('.errorSuccess').hide();
+
+
+
+
+   // ----------------------------------  DANE PODSTAWOWE  ------------------------------------------------------
+
+
+
+    /*
+  *
+  * Sekcja filtrowania danych podstawowych
+  *
+  * */
+
+
+    $('.filtrKontrahent,#wyczysc').on('keyup change click',function(){
+
+        $nazwaFiltr = $('#nazwaFiltr').val();
+        $nipFiltr = $('#nipFiltr').val();
+        $podmiotFiltr = $('#podmiotFiltr').val();
+        //$podmiotFiltr= $('#podmiotFiltr option:selected').text();
+
+        if((this).id === 'wyczysc') {
+            $nazwaFiltr = '';
+            $nipFiltr = '';
+            $podmiotFiltr = '';
+        } else {
+            $nazwaFiltr = $('#nazwaFiltr').val();
+            $nipFiltr = $('#nipFiltr').val();
+            $podmiotFiltr = $('#podmiotFiltr').val();
+        }
+
+        let danePodstawoweFiltrArr = {'nazwaFiltr':$nazwaFiltr,'nipFiltr':$nipFiltr,'podmiotFiltr':$podmiotFiltr};
+
+        $url = $baseUrl + 'filtrujDanePostawoweKontrahenta/ajax';
+        $.ajax({
+            url: $url,
+            type: 'POST',
+            data: {tab: danePodstawoweFiltrArr},
+            format: 'json',
+            dataType: 'text',
+            success: function (response) {
+                let json = JSON.parse(response);
+
+                $('.resultsBody tr').remove();
+
+                json.danePodstawoweFiltrArr.forEach(item=> {
+
+                    var id = '<td style="display: none" class="IdKlienta">' + item.IdKlienta + '</td>';
+                    var nazwa = '<th scope="row" class="nazwaTab">' + item.Nazwa + '</th>';
+                    var nip = '<td class="nipTab">' + item.NIP + '</td>';
+                    var podmiot = '<td class="podmiotTab">' + item.Opis + '</td>';
+                    var podmiotId = '<td style="display:none" class="podmiotIdTab">' + item.IdPodmiot + '</td>';
+                    var adres = ' <td style="" class="daneAdresoweTab"><button class="pokazAdresButton">Pokaż adres</button></td>';
+                    var kontakt = '<td style="" class="daneKontaktoweTab"><button class="pokazKontaktButton">Pokaż kontakt</button></td>';
+                    var usun = '<td style="" class="usunKontrahentaTab"><button class="usunKontrahentaButton">Usuń</button></td>';
+
+                    $row = "<tr class='daneKontrahentaPokaz'>" +
+                        id +
+                        nazwa +
+                        nip +
+                        podmiot +
+                        podmiotId +
+                        adres +
+                        kontakt +
+                        usun +
+                        "</tr>";
+
+                    $('.resultsBody').append($row);
+                });
+            }
+        });
+    })
+
+
+
+
+
+
+
 
 
 
@@ -43,6 +125,8 @@ $(document).ready(function () {
         // ukrywanie sekcji po kazdym kliknieciu
         $('.edycjaKontrahenta').hide();
         $('.dodawanieKontrahenta').show();
+        $('.dodawanieAdresow').hide();
+        $('.dodawanieKontaktow').hide();
     });
 
 
@@ -169,6 +253,9 @@ $(document).ready(function () {
                         var nip = '<td class="nipTab">' + item.NIP + '</td>';
                         var podmiot = '<td class="podmiotTab">' + item.Opis + '</td>';
                         var podmiotId = '<td style="display:none" class="podmiotIdTab">' + item.IdPodmiot + '</td>';
+                        var adres = ' <td style="" class="daneAdresoweTab"><button class="pokazAdresButton">Pokaż adres</button></td>';
+                        var kontakt = '<td style="" class="daneKontaktoweTab"><button class="pokazKontaktButton">Pokaż kontakt</button></td>';
+                        var usun = '<td style="" class="usunKontrahentaTab"><button class="usunKontrahentaButton">Usuń</button></td>';
 
                         $row = "<tr class='daneKontrahentaPokaz'>" +
                             id +
@@ -176,6 +263,9 @@ $(document).ready(function () {
                             nip +
                             podmiot +
                             podmiotId +
+                            adres +
+                            kontakt +
+                            usun +
                             "</tr>";
 
                         $('.resultsBody').append($row);
@@ -220,12 +310,12 @@ $(document).ready(function () {
 
 
     //zamiast done możemy zrobic tzw. zdarzenie delegowane ( jest ono globalne ) ktore zadziala tak jak done w ajax
-    $('.resultsBody').on('click','.daneKontrahentaPokaz',function() {
+    $('.resultsBody').on('click','.nazwaTab',function() {
 
-        $idKlienta = $(this).find('.IdKlienta').text();
-        $nazwaEdycja = $(this).find('.nazwaTab').text();
-        $nipEdycja = $(this).find('.nipTab').text();
-        $podmiotEdycjaId = $(this).find('.podmiotIdTab').text();
+        $idKlienta = $(this).parent().find('.IdKlienta').text();
+        $nazwaEdycja = $(this).parent().find('.nazwaTab').text();
+        $nipEdycja = $(this).parent().find('.nipTab').text();
+        $podmiotEdycjaId = $(this).parent().find('.podmiotIdTab').text();
 
         $('#idKontrahentaEdycja').val($idKlienta);
         $('#nazwaEdycja').val($nazwaEdycja);
@@ -234,6 +324,8 @@ $(document).ready(function () {
 
         $('.dodawanieKontrahenta').hide();
         $('.edycjaKontrahenta').show();
+        $('.dodawanieAdresow').hide();
+        $('.dodawanieKontaktow').hide();
 
         $nazwaEdycjaErr = true;
         $nipEdycjaErr = true;
@@ -371,6 +463,9 @@ $(document).ready(function () {
                         var nip = '<td class="nipTab">' + item.NIP + '</td>';
                         var podmiot = '<td class="podmiotTab">' + item.Opis + '</td>';
                         var podmiotId = '<td style="display:none" class="podmiotIdTab">' + item.IdPodmiot + '</td>';
+                        var adres = ' <td style="" class="daneAdresoweTab"><button class="pokazAdresButton">Pokaż adres</button></td>';
+                        var kontakt = '<td style="" class="daneKontaktoweTab"><button class="pokazKontaktButton">Pokaż kontakt</button></td>';
+                        var usun = '<td style="" class="usunKontrahentaTab"><button class="usunKontrahentaButton">Usuń</button></td>';
 
                         $row = "<tr class='daneKontrahentaPokaz'>" +
                             id +
@@ -378,6 +473,9 @@ $(document).ready(function () {
                             nip +
                             podmiot +
                             podmiotId +
+                            adres +
+                            kontakt +
+                            usun +
                             "</tr>";
 
                         $('.resultsBody').append($row);
@@ -391,65 +489,170 @@ $(document).ready(function () {
 
 
 
-    /*
-    *
-    * Sekcja filtrowania danych podstawowych
-    *
-    * */
+   // -----------------------------------------------------  DANE ADRESOWE   ------------------------------------
 
 
-    $('.filtrKontrahent,#wyczysc').on('keyup change click',function(){
+  /*
+  *
+  * sekcja danych adresowych - wyświetlanie
+  *
+  * */
 
-        $nazwaFiltr = $('#nazwaFiltr').val();
-        $nipFiltr = $('#nipFiltr').val();
-        $podmiotFiltr = $('#podmiotFiltr').val();
-        //$podmiotFiltr= $('#podmiotFiltr option:selected').text();
 
-       if((this).id === 'wyczysc') {
-           $nazwaFiltr = '';
-           $nipFiltr = '';
-           $podmiotFiltr = '';
-       } else {
-           $nazwaFiltr = $('#nazwaFiltr').val();
-           $nipFiltr = $('#nipFiltr').val();
-           $podmiotFiltr = $('#podmiotFiltr').val();
-       }
+    $('.resultsBody').on('click','.pokazAdresButton',function() {
 
-        let danePodstawoweFiltrArr = {'nazwaFiltr':$nazwaFiltr,'nipFiltr':$nipFiltr,'podmiotFiltr':$podmiotFiltr};
+        $('.dodawanieAdresow').show();
+        $('#wyswietlDaneAdresowe').show();
+        $('.dodawanieKontrahenta').hide();
+        $('.edycjaKontrahenta').hide();
+        $('.dodawanieKontaktow').hide();
+        $('#sekcjaDodawaniaAdresu').hide();
 
-        $url = $baseUrl + 'filtrujDanePostawoweKontrahenta/ajax';
+        $idKlienta = $(this).parent().parent().find('.IdKlienta').text();
+        $nazwaKontrahenta = $(this).parent().parent().find('.nazwaTab').text();
+
+
+        // ustawiamy IdKlienta aby odczytac w sekcji zapisywania danych adresowych
+        $('#pobierzIdKlienta').val($idKlienta);
+
+        $('#nazwaKontrahentaAdres').text($nazwaKontrahenta);
+
+        let daneAdresoweArr = {'idKlienta':$idKlienta};
+
+        $url = $baseUrl + 'daneAdresoweKontrahenta/ajax';
         $.ajax({
             url: $url,
             type: 'POST',
-            data: {tab: danePodstawoweFiltrArr},
+            data: {tab: daneAdresoweArr},
             format: 'json',
             dataType: 'text',
             success: function (response) {
                 let json = JSON.parse(response);
 
-                $('.resultsBody tr').remove();
+                $('.resultsBodyAdres tr').remove();
 
-                json.danePodstawoweFiltrArr.forEach(item=> {
+                json.daneAdresoweKontrahentaArr.forEach(item=> {
 
                     var id = '<td style="display: none" class="IdKlienta">' + item.IdKlienta + '</td>';
-                    var nazwa = '<th scope="row" class="nazwaTab">' + item.Nazwa + '</th>';
-                    var nip = '<td class="nipTab">' + item.NIP + '</td>';
-                    var podmiot = '<td class="podmiotTab">' + item.Opis + '</td>';
-                    var podmiotId = '<td style="display:none" class="podmiotIdTab">' + item.IdPodmiot + '</td>';
+                    var adres = '<th style="font-weight:normal" scope="row" class="ulicaTab">' + item.Adres + '</th>';
+                    var edytuj = '<td style="" class="edytujAdresTab"><button type="button" class="edytujAdresButton">Edytuj</button></td>';
+                    var usun = '<td style="" class="usunAdresTab"><button type="button" class="usunAdresButton">Usuń</button></td>';
 
-                    $row = "<tr class='daneKontrahentaPokaz'>" +
+
+                    $row = "<tr class='daneAdresowePokaz'>" +
                         id +
-                        nazwa +
-                        nip +
-                        podmiot +
-                        podmiotId +
+                        adres +
+                        edytuj +
+                        usun +
                         "</tr>";
 
-                    $('.resultsBody').append($row);
+                    $('.resultsBodyAdres').append($row);
                 });
+
+                if (json.daneAdresoweKontrahentaArr.length===0 ){
+                    $('#tabelaAdresow').hide();
+                    $('#brakDanych').show();
+                    $('#dodajDaneAdresowe').css('margin-top','30.7vh');
+                } else {
+                    $('#brakDanych').hide();
+                    $('#tabelaAdresow').show();
+                    $('#dodajDaneAdresowe').css('margin-top','48vh');
+                };
+
+
             }
         });
+
     })
+
+
+
+            /*
+        *
+        * sekcja danych adresowych - dodawanie
+        *
+        * */
+
+
+    $('#dodajDaneAdresoweButton').on('click',function (){
+
+        $('#miejscowoscDodaj').val('');
+        $('#ulicaDodaj').val('');
+        $('#nrBudynkuDodaj').val('');
+
+        $('#wyswietlDaneAdresowe').hide();
+        $('#sekcjaDodawaniaAdresu').show();
+
+    });
+
+
+    $('#zapiszDaneAdresoweButton').on('click',function(){
+
+        $miejscowosc = $('#miejscowoscDodaj').val();
+        $ulica = $('#ulicaDodaj').val();
+        $nrBudynku = $('#nrBudynkuDodaj').val();
+        // jak nie działa to mozliwe ze została dodana nowa sekcja w html która zagnieżdża inną i jest zła ilość parent();
+       // $idKlienta = $(this).parent().parent().parent().parent().parent().find('.IdKlienta').text();
+
+        $idKlienta = $('#pobierzIdKlienta').val();
+
+        alert($idKlienta);
+
+        let daneAdresoweDodajArr = {'idKlienta':$idKlienta,'miejscowosc':$miejscowosc,'ulica':$ulica,'nrBudynku':$nrBudynku};
+
+        $url = $baseUrl + 'dodajDaneAdresoweKontrahenta/ajax';
+        $.ajax({
+            url: $url,
+            type: 'POST',
+            data: {tab: daneAdresoweDodajArr},
+            format: 'json',
+            dataType: 'text',
+            success: function (response) {
+                let json = JSON.parse(response);
+                console.log(json);
+
+                $('.resultsBodyAdres tr').remove();
+
+                json.daneAdresoweKontrahentaArr.forEach(item=> {
+
+                    var id = '<td style="display:none" class="IdKlienta">' + item.IdKlienta + '</td>';
+                    var adres = '<th style="font-weight:normal" scope="row" class="ulicaTab">' + item.Adres + '</th>';
+                    var edytuj = '<td style="" class="edytujAdresTab"><button type="button" class="edytujAdresButton">Edytuj</button></td>';
+                    var usun = '<td style="" class="usunAdresTab"><button type="button" class="usunAdresButton">Usuń</button></td>';
+
+
+                    $row = "<tr class='daneAdresowePokaz'>" +
+                        id +
+                        adres +
+                        edytuj +
+                        usun +
+                        "</tr>";
+
+                    $('.resultsBodyAdres').append($row);
+                });
+            }
+        })
+
+
+    });
+
+
+
+
+    // -----------------------------  DANE KONTAKTOWE  ------------------------------------
+
+
+
+    $('.resultsBody').on('click','.pokazKontaktButton',function() {
+
+        $('.dodawanieKontaktow').show();
+        $('.dodawanieAdresow').hide();
+        $('.dodawanieKontrahenta').hide();
+        $('.edycjaKontrahenta').hide();
+
+
+    })
+
 
 
 

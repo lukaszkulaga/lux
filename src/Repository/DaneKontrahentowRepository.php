@@ -92,4 +92,31 @@ class DaneKontrahentowRepository
         return $this->conn->fetchAllAssociative($sql);
     }
 
+    public function daneAdresoweKontrahentaRepo($daneAdresoweKontrahentaArr) {
+
+        $idKlienta = $daneAdresoweKontrahentaArr['idKlienta'];
+
+        $sql = "select KA.IdAdres,IdKlienta,CONCAT(KA.Miejscowosc,', ', KA.Ulica, ' ',KA.NrBudynku) AS Adres from klienciAdres KA where IdKlienta = $idKlienta ";
+
+        $daneAdresoweTab= $this->conn->fetchAllAssociative($sql);
+
+        return $daneAdresoweTab;
+    }
+
+    public function dodajDaneAdresoweKontrahentaRepo($daneAdresoweKontrahentaArr) {
+
+        $IdKlienta = $daneAdresoweKontrahentaArr['idKlienta'];
+        $miejscowosc = $daneAdresoweKontrahentaArr['miejscowosc'];
+        $ulica = $daneAdresoweKontrahentaArr['ulica'];
+        $nrBudynku = $daneAdresoweKontrahentaArr['nrBudynku'];
+
+        $sql = "insert into [klienciAdres](IdKlienta,Miejscowosc,Ulica,NrBudynku) values ('$IdKlienta','$miejscowosc','$ulica','$nrBudynku')";
+        $this->conn->fetchAllAssociative($sql);
+
+        $sql2 = "select KA.IdAdres,IdKlienta,CONCAT(KA.Miejscowosc,', ', KA.Ulica, ' ',KA.NrBudynku) AS Adres from klienciAdres KA";
+        $selectAdres = $this->conn->fetchAllAssociative($sql2);
+
+        return $selectAdres;
+    }
+
 }
