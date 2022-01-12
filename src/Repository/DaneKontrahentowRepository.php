@@ -96,7 +96,7 @@ class DaneKontrahentowRepository
 
         $idKlienta = $daneAdresoweKontrahentaArr['idKlienta'];
 
-        $sql = "select KA.IdAdres,IdKlienta,CONCAT(KA.Miejscowosc,', ', KA.Ulica, ' ',KA.NrBudynku) AS Adres from klienciAdres KA where IdKlienta = $idKlienta ";
+        $sql = "select KA.Miejscowosc,KA.Ulica,KA.NrBudynku,KA.IdAdres,IdKlienta,CONCAT(KA.Miejscowosc,', ', KA.Ulica, ' ',KA.NrBudynku) AS Adres from klienciAdres KA where IdKlienta = $idKlienta ";
 
         $daneAdresoweTab= $this->conn->fetchAllAssociative($sql);
 
@@ -113,7 +113,31 @@ class DaneKontrahentowRepository
         $sql = "insert into [klienciAdres](IdKlienta,Miejscowosc,Ulica,NrBudynku) values ('$IdKlienta','$miejscowosc','$ulica','$nrBudynku')";
         $this->conn->fetchAllAssociative($sql);
 
-        $sql2 = "select KA.IdAdres,IdKlienta,CONCAT(KA.Miejscowosc,', ', KA.Ulica, ' ',KA.NrBudynku) AS Adres from klienciAdres KA";
+        $sql2 = "select KA.Miejscowosc,KA.Ulica,KA.NrBudynku,KA.IdAdres,IdKlienta,CONCAT(KA.Miejscowosc,', ', KA.Ulica, ' ',KA.NrBudynku) AS Adres from klienciAdres KA where IdKlienta = $IdKlienta ";
+        $selectAdres = $this->conn->fetchAllAssociative($sql2);
+
+        return $selectAdres;
+    }
+
+    public function edytujDaneAdresoweKontrahentaRepo($daneAdresoweKontrahentaArr) {
+
+        $this->logger->info('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 1');
+
+        $idAdres = $daneAdresoweKontrahentaArr['idAdres'];
+        $idKlienta = $daneAdresoweKontrahentaArr['idKlienta'];
+        $miejscowosc = $daneAdresoweKontrahentaArr['miejscowosc'];
+        $ulica = $daneAdresoweKontrahentaArr['ulica'];
+        $nrBudynku = $daneAdresoweKontrahentaArr['nrBudynku'];
+
+
+        $this->logger->info('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 2');
+
+        $sql = "UPDATE klienciAdres
+                SET Miejscowosc = '$miejscowosc',Ulica ='$ulica',NrBudynku=$nrBudynku
+                WHERE IdAdres=$idAdres";
+        $this->conn->fetchAllAssociative($sql);
+
+        $sql2 = "select KA.Miejscowosc,KA.Ulica,KA.NrBudynku,KA.IdAdres,IdKlienta,CONCAT(KA.Miejscowosc,', ', KA.Ulica, ' ',KA.NrBudynku) AS Adres from klienciAdres KA where IdKlienta = $idKlienta ";
         $selectAdres = $this->conn->fetchAllAssociative($sql2);
 
         return $selectAdres;

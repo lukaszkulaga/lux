@@ -55,12 +55,8 @@
                         </div>
                     </div>
 
-                    <div style="margin-left:1vw;width: 10vw;height:4vh;margin-top: 2.5vh;float: left;">
-                        <div class="container1" style="height: 3vh;width: 30%;margin-top: 0">
-                            <div class="btn1" style="width: 100%;height: 3vh">
-                                <button style="width: 9vw;height: 3vh" id="wyczysc" type ="reset">Wyczyść</button>
-                            </div>
-                        </div>
+                    <div style="margin-left:1vw;width: 3vw;height:4.5vh;margin-top: 2vh;float: left">
+                        <button style="" id="wyczysc" type ="reset"><svg class="wyczyscIcons"></svg></button>
                     </div>
 
                 </form>
@@ -70,14 +66,14 @@
                 <table class="reportTableKontrahenci">
                     <thead>
                         <tr>
-                            <th style="display: none" scope="row">Id Kontrahenta</th>
-                            <th scope="row">Nazwa</th>
-                            <th scope="row">NIP</th>
-                            <th scope="row">Podmiot</th>
-                            <th style="display:none" scope="row">idPodmiot</th>
-                            <th style="" scope="row">Dane adresowe</th>
-                            <th style="" scope="row">Dane kontaktowe</th>
-                            <th style="" scope="row">Usuń</th>
+                            <th class="thKontrahenci" style="display: none" scope="row">Id Kontrahenta</th>
+                            <th class="thKontrahenci" scope="row">Nazwa</th>
+                            <th class="thKontrahenci" scope="row">NIP</th>
+                            <th class="thKontrahenci" scope="row">Podmiot</th>
+                            <th class="thKontrahenci" style="display:none" scope="row">idPodmiot</th>
+                            <th class="thKontrahenci" scope="row">Adres</th>
+                            <th class="thKontrahenci" scope="row">Kontakt</th>
+                            <th class="thKontrahenci" scope="row">Usuń</th>
                         </tr>
                     </thead>
                     <tbody class="resultsBody">
@@ -88,9 +84,9 @@
                             <td class ="nipTab">{{daneKontrahenta.NIP}}</td>
                             <td class="podmiotTab">{{daneKontrahenta.Opis}}</td>
                             <td style="display:none" class="podmiotIdTab">{{daneKontrahenta.IdPodmiot}}</td>
-                            <td style="" class="daneAdresoweTab"><button class="pokazAdresButton">Pokaż adres</button></td>
-                            <td style="" class="daneKontaktoweTab"><button class="pokazKontaktButton">Pokaż kontakt</button></td>
-                            <td style="" class="usunKontrahentaTab"><button class="usunKontrahentaButton">Usuń</button></td>
+                            <td style="" class="daneAdresoweTab"><button title="Pokaż adres" style="" class="pokazAdresButton"><svg class="earthIcon"></svg></button></td>
+                            <td style="" class="daneKontaktoweTab"><button class="pokazKontaktButton"><svg class="telefonIcons"></svg></button></td>
+                            <td style="" class="usunKontrahentaTab"><button class="usunKontrahentaButton"><svg class="koszIcons" ></svg></button></td>
                         </tr>
                     {% endfor %}
                     </tbody>
@@ -98,6 +94,9 @@
             </div>
 
             <div class="dodawanieKontrahenta" style=" box-shadow: 0 15px 35px rgba(0,0,0,0.2);border-left:1px solid rgb(212, 210, 210);width: 24%;max-height:57%;margin-left:60%;margin-top:5%;position: absolute;overflow-y: scroll">
+
+                <div id="zamknijDodawanieKontrahenta">X</div>
+
                 <form id="formKontrahenciDodawanie" style="">
 
                     <div id="test" style="width:15vw;float: left;">
@@ -149,6 +148,8 @@
             <div class="edycjaKontrahenta"  style="box-shadow: 0 15px 35px rgba(0,0,0,0.2);border-left:1px solid rgb(212, 210, 210);width: 24%;max-height:57%;margin-left:60%;margin-top:5%;position: absolute;overflow-y: scroll">
                 <form id="formKontrahenciEdycja" style="">
 
+                    <div id="zamknijEdycjeKontrahenta">X</div>
+
                     <input id="idKontrahentaEdycja" type="text" value="" style="display: none"/>
 
                     <div style="width:15vw;float: left">
@@ -192,17 +193,23 @@
             <div class="dodawanieAdresow" style="z-index: 1; box-shadow: 0 15px 35px rgba(0,0,0,0.2);border-left:1px solid rgb(212, 210, 210);width: 24%;height:57%;margin-left:60%;margin-top:5%;position: absolute;overflow-y: scroll">
                 <form id="formKontrahenciDodawanieAdresow" style="">
 
+                    <div id="zamknijDodawanieAdresow">X</div>
+
                     <div id="nazwaKontrahentaAdres" style="color: rgba(0, 60, 125,0.8); font-size: 14px; margin-top: 2vh"></div>
 
                     <div id="wyswietlDaneAdresowe">
-                        <div id="tabelaAdresow" class="tableRaportKontrahenci" style="max-width:95%;max-height: 78%">
-                            <table class="reportTableKontrahenci">
+                        <div id="tabelaAdresow" class="tableRaportKontrahenci" style="max-width:95%;max-height: 70%">
+                            <table class="reportTableKontrahenci" style="width:100%;">
                                 <thead>
                                 <tr>
-                                    <th style="display: none" scope="row">Id Kontrahenta</th>
-                                    <th style="" scope="row">Adres</th>
-                                    <th style="" scope="row">Edytuj</th>
-                                    <th style="" scope="row">Usuń</th>
+                                    <th class="thKontrahenci" style="display: none" scope="row">Id Kontrahenta</th>
+                                    <th class="thKontrahenci" style="display:none" scope="row">Id Adres</th>
+                                    <th class="thKontrahenci" style="display:none" scope="row">Miejscowość</th>
+                                    <th class="thKontrahenci" style="display:none" scope="row">Ulica</th>
+                                    <th class="thKontrahenci" style="display:none" scope="row">Nr Budynku</th>
+                                    <th class="thKontrahenci" style="" scope="row">Adres</th>
+                                    <th class="thKontrahenci" style="" scope="row">Edytuj</th>
+                                    <th class="thKontrahenci" style="" scope="row">Usuń</th>
                                 </tr>
                                 </thead>
                                 <tbody class="resultsBodyAdres">
@@ -212,7 +219,7 @@
                         </div>
                         <div id="brakDanych" style="display:none; margin-top:15vh; font-size: 20px">Brak danych</div>
 
-                        <div id="dodajDaneAdresowe" style="margin-left:1vw;width: 10vw;height:4vh;margin-top: 48vh;float: left;">
+                        <div id="dodajDaneAdresowe" style="margin-left:1vw;width: 10vw;height:4vh;margin-top: 46vh;float: left;">
                             <div class="container1" style="height: 3vh;width: 30%;margin-top: 0">
                                 <div class="btn1" style="width: 100%;height: 3vh">
                                     <button style="width: 9vw;height: 3vh" id="dodajDaneAdresoweButton" type ="button">Dodaj</button>
@@ -224,7 +231,7 @@
                     <div id="sekcjaDodawaniaAdresu" style="height: 30vh;width:18vw;position: absolute;margin-top: 5vh;margin-left: 5vh">
 
 
-                        <input style="display: none" id="pobierzIdKlienta" type="text" value="" />
+                        <input style="display: none" class="pobierzIdKlienta" type="text" value="" />
 
                         <div style="width:15vw;float: left">
                             <div class="field-wrapper" >
@@ -242,7 +249,7 @@
                         </div>
                         <div style="width:15vw;float: left">
                             <div class="field-wrapper" >
-                                <input id="nrBudynkuDodaj"  class="" type="text" placeholder=" " maxlength="10"/>
+                                <input id="nrBudynkuDodaj"  class="" type="text" placeholder=" " />
                                 <div class="field-placeholder"><span>Nr budynku</span></div>
                             </div>
                             <div class="errorSuccess"></div>
@@ -258,8 +265,41 @@
 
                     </div>
 
-                    <div id="sekcjaEdycjiAdresu">
+                    <div id="sekcjaEdycjiAdresu" style="height: 30vh;width:18vw;position: absolute;margin-top: 5vh;margin-left: 5vh">
 
+
+                        <input type="text" value="" class="pobierzIdAdres" style="display:none"/>
+                        <input style="display: none" class="pobierzIdKlienta" type="text" value="" />
+
+                        <div style="width:15vw;float: left">
+                            <div class="field-wrapper" >
+                                <input id="miejscowoscEdytuj" class="" type="text" placeholder=" " value="" />
+                                <div class="field-placeholder"><span>Miejscowość</span></div>
+                            </div>
+                            <div class="errorSuccess"></div>
+                        </div>
+                        <div style="width:15vw;float: left">
+                            <div class="field-wrapper" >
+                                <input id="ulicaEdytuj"  class="" type="text" placeholder=" " value="" />
+                                <div class="field-placeholder"><span>Ulica</span></div>
+                            </div>
+                            <div class="errorSuccess"></div>
+                        </div>
+                        <div style="width:15vw;float: left">
+                            <div class="field-wrapper" >
+                                <input id="nrBudynkuEdytuj"  class="" type="text" placeholder=" " value="" />
+                                <div class="field-placeholder"><span>Nr budynku</span></div>
+                            </div>
+                            <div class="errorSuccess"></div>
+                        </div>
+
+                        <div id="edytujDaneAdresowe" style="margin-left:1vw;width: 10vw;height:4vh;margin-top: 2vh;float: left;">
+                            <div class="container1" style="height: 3vh;width: 30%;margin-top: 0">
+                                <div class="btn1" style="width: 100%;height: 3vh">
+                                    <button style="width: 9vw;height: 3vh" id="edytujDaneAdresoweButton" type ="button">Edytuj</button>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
 
@@ -268,6 +308,8 @@
 
             <div class="dodawanieKontaktow" style=" box-shadow: 0 15px 35px rgba(0,0,0,0.2);border-left:1px solid rgb(212, 210, 210);width: 24%;max-height:57%;margin-left:60%;margin-top:5%;position: absolute;overflow-y: scroll">
                 <form id="formKontrahenciDodawanieKontaktow" style="">
+
+                    <div id="zamknijDodawanieKontaktow">X</div>
 
                     <div id="test" style="width:15vw;float: left;">
                         <div class="field-wrapper" >

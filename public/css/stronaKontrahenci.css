@@ -1,15 +1,11 @@
 .tableRaportKontrahenci{
 
-     /*border: solid purple;*/
-    /*width: 70%;*/
+    /*border: solid purple;*/
     max-width: 55%;
     max-height: 57%;
     margin-left: 2%;
     margin-top: 5%;
     overflow-y: scroll;
-    /*display: flex;*/
-    /*align-items: center;*/
-    /*justify-content: center;*/
     position: absolute;
 }
 .reportTableKontrahenci {
@@ -20,10 +16,8 @@
 }
 .reportTableKontrahenci th,
 .reportTableKontrahenci td {
-    /*padding: 1rem;*/
     padding: 1vh;
     text-align: left;
-    white-space: nowrap;
     /*border:solid yellow;*/
 }
 .reportTableKontrahenci td {
@@ -31,7 +25,7 @@
 }
 .reportTableKontrahenci th {
     background-color: rgb(248, 248, 248);
-    color:rgba(0, 60, 125,0.8);
+
 }
 .reportTableKontrahenci thead th {
     position: sticky;
@@ -43,6 +37,7 @@
     left: 0;
     z-index: 9;
     border-top: 1px solid rgb(212, 210, 210);
+    cursor: pointer;
 }
 .reportTableKontrahenci thead th[scope=row] {
     position: sticky;
@@ -50,6 +45,16 @@
     z-index: 11;
 }
 
+.reportTableKontrahenci .daneAdresoweTab,.reportTableKontrahenci .daneKontaktoweTab,.reportTableKontrahenci .usunKontrahentaButton{
+
+    text-align: center;
+}
+
+.thKontrahenci{
+
+    color:rgba(0, 60, 125,0.8);
+    cursor: unset;
+}
 
 .errorSuccess {
     width: 1.3vw;
@@ -61,3 +66,38 @@
     /*border: solid yellow;*/
 }
 
+.earthIcon {
+    width: 1.5vw;
+    height: 3vh;
+    margin-top: 0.5vh;
+    /*border:solid red;*/
+    cursor: pointer;
+    background: url('../icons/Earth.svg') no-repeat;
+}
+
+.wyczyscIcons {
+    width: 2vw;
+    height: 3vh;
+    margin-top: 0.5vh;
+    /*border:solid red;*/
+    cursor: pointer;
+    background: url('../icons/wyczysc.svg') no-repeat;
+}
+
+.telefonIcons {
+    width: 1.5vw;
+    height: 3vh;
+    margin-top: 0.5vh;
+    /*border:solid red;*/
+    cursor: pointer;
+    background: url('../icons/telefon.svg') no-repeat;
+}
+
+.koszIcons {
+    width: 1.5vw;
+    height: 3vh;
+    margin-top: 0.5vh;
+    /*border:solid red;*/
+    cursor: pointer;
+    background: url('../icons/kosz.svg') no-repeat;
+}
