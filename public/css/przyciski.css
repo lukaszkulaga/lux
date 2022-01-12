@@ -2,6 +2,12 @@
 
 /* przyciski css */
 
+button{
+    background: transparent;
+    border: unset;
+}
+
+
 a{
     text-decoration: none;
     color:rgb(86, 86, 86);

@@ -71,12 +71,18 @@
 .menuIcons {
     background: url('../icons/menu.svg') no-repeat;
 }
-
 .daneUzytkownikaIcons {
     background: url('../icons/daneUzytkownika.svg') no-repeat;
 }
-
-
+.kontrahenciIcons {
+    background: url('../icons/ludzie.svg') no-repeat;
+}
+.zgloszeniaIcons {
+    background: url('../icons/teczka.svg') no-repeat;
+}
+.adminIcons {
+    background: url('../icons/czlowiek_krawat.svg') no-repeat;
+}
 
 
 

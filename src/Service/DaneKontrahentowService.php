@@ -59,4 +59,11 @@ class DaneKontrahentowService
 
         return $this->daneKontrahentowRepository->dodajDaneAdresoweKontrahentaRepo($daneAdresoweKontrahentaArr);
     }
+
+    public function edytujDaneAdresoweKontrahentaService($daneAdresoweKontrahentaArr) {
+
+        $this->logger->info('???????????????????????   serwis');
+
+        return $this->daneKontrahentowRepository->edytujDaneAdresoweKontrahentaRepo($daneAdresoweKontrahentaArr);
+    }
 }
