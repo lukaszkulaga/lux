@@ -66,4 +66,46 @@ class DaneKontrahentowService
 
         return $this->daneKontrahentowRepository->edytujDaneAdresoweKontrahentaRepo($daneAdresoweKontrahentaArr);
     }
+
+    public function usunDaneAdresoweKontrahentaService($daneAdresoweKontrahentaArr) {
+
+        $this->logger->info('???????????????????????   serwis');
+
+        return $this->daneKontrahentowRepository->usunDaneAdresoweKontrahentaRepo($daneAdresoweKontrahentaArr);
+    }
+
+    public function daneKontaktoweKontrahentaService($daneKontaktoweKontrahentaArr) {
+
+        $this->logger->info('???????????????????????   serwis');
+
+        return $this->daneKontrahentowRepository->daneKontaktoweKontrahentaRepo($daneKontaktoweKontrahentaArr);
+    }
+
+    public function dodajDaneKontaktoweKontrahentaService($daneKontaktoweKontrahentaArr) {
+
+        $this->logger->info('???????????????????????   serwis');
+
+        return $this->daneKontrahentowRepository->dodajDaneKontaktoweKontrahentaRepo($daneKontaktoweKontrahentaArr);
+    }
+
+    public function edytujDaneKontaktoweKontrahentaService($daneKontaktoweKontrahentaArr) {
+
+        $this->logger->info('???????????????????????   serwis');
+
+        return $this->daneKontrahentowRepository->edytujDaneKontaktoweKontrahentaRepo($daneKontaktoweKontrahentaArr);
+    }
+
+    public function usunDaneKontaktoweKontrahentaService($daneKontaktoweKontrahentaArr) {
+
+        $this->logger->info('???????????????????????   serwis');
+
+        return $this->daneKontrahentowRepository->usunDaneKontaktoweKontrahentaRepo($daneKontaktoweKontrahentaArr);
+    }
+
+    public function usunKontrahentaService($usunKontrahentaArr) {
+
+        $this->logger->info('???????????????????????   serwis');
+
+        return $this->daneKontrahentowRepository->usunKontrahentaRepo($usunKontrahentaArr);
+    }
 }

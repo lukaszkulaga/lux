@@ -175,4 +175,118 @@ class StronaKontrahenciController extends AbstractController
 
         return new JsonResponse($arr);
     }
+
+    /**
+     *
+     * dane adresowe usuń
+     *
+     * @Route("/usunDaneAdresoweKontrahenta/ajax", methods={"POST"})
+     */
+    public function usunDaneAdresoweKontrahenta(Request $request) {
+
+        $daneAdresoweKontrahentaArr = $request->request->get('tab');
+
+        $this->logger->info('!!!!!!!!!!!!!!!!!!!!   kontroler');
+
+        $daneAdresoweKontrahenta = $this->daneKontrahentowService->usunDaneAdresoweKontrahentaService($daneAdresoweKontrahentaArr);
+
+        $arr = ['daneAdresoweKontrahentaArr'=>$daneAdresoweKontrahenta];
+
+        return new JsonResponse($arr);
+    }
+
+    /**
+     *
+     * dane kontaktowe
+     *
+     * @Route("/daneKontaktoweKontrahenta/ajax", methods={"POST"})
+     */
+    public function daneKontaktoweKontrahenta(Request $request) {
+
+        $daneKontaktoweKontrahentaArr = $request->request->get('tab');
+
+        $this->logger->info('!!!!!!!!!!!!!!!!!!!!   kontroler');
+
+        $daneKontaktoweKontrahenta = $this->daneKontrahentowService->daneKontaktoweKontrahentaService($daneKontaktoweKontrahentaArr);
+
+        $arr = ['daneKontaktoweKontrahentaArr'=>$daneKontaktoweKontrahenta];
+
+        return new JsonResponse($arr);
+    }
+
+    /**
+     *
+     * dane kontaktowe dodaj
+     *
+     * @Route("/dodajDaneKontaktoweKontrahenta/ajax", methods={"POST"})
+     */
+    public function dodajDaneKontaktoweKontrahenta(Request $request) {
+
+        $daneKontaktoweKontrahentaArr = $request->request->get('tab');
+
+        $this->logger->info('!!!!!!!!!!!!!!!!!!!!   kontroler');
+
+        $daneKontaktoweKontrahenta = $this->daneKontrahentowService->dodajDaneKontaktoweKontrahentaService($daneKontaktoweKontrahentaArr);
+
+        $arr = ['daneKontaktoweKontrahentaArr'=>$daneKontaktoweKontrahenta];
+
+        return new JsonResponse($arr);
+    }
+
+    /**
+     *
+     * dane kontaktowe edytuj
+     *
+     * @Route("/edytujDaneKontaktoweKontrahenta/ajax", methods={"POST"})
+     */
+    public function edytujDaneKontaktoweKontrahenta(Request $request) {
+
+        $daneKontaktoweKontrahentaArr = $request->request->get('tab');
+
+        $this->logger->info('!!!!!!!!!!!!!!!!!!!!   kontroler');
+
+        $daneKontaktoweKontrahenta = $this->daneKontrahentowService->edytujDaneKontaktoweKontrahentaService($daneKontaktoweKontrahentaArr);
+
+        $arr = ['daneKontaktoweKontrahentaArr'=>$daneKontaktoweKontrahenta];
+
+        return new JsonResponse($arr);
+    }
+
+    /**
+     *
+     * dane kontaktowe usuń
+     *
+     * @Route("/usunDaneKontaktoweKontrahenta/ajax", methods={"POST"})
+     */
+    public function usunDaneKontaktoweKontrahenta(Request $request) {
+
+        $daneKontaktoweKontrahentaArr = $request->request->get('tab');
+
+        $this->logger->info('!!!!!!!!!!!!!!!!!!!!   kontroler');
+
+        $daneKontaktoweKontrahenta = $this->daneKontrahentowService->usunDaneKontaktoweKontrahentaService($daneKontaktoweKontrahentaArr);
+
+        $arr = ['daneKontaktoweKontrahentaArr'=>$daneKontaktoweKontrahenta];
+
+        return new JsonResponse($arr);
+    }
+
+    /**
+     *
+     * dane kontrahenta usuń
+     *
+     * @Route("/usunKontrahenta/ajax", methods={"POST"})
+     */
+    public function usunKontrahenta(Request $request) {
+
+        $usunKontrahentaArr = $request->request->get('tab');
+
+        $this->logger->info('!!!!!!!!!!!!!!!!!!!!   kontroler');
+
+        $usunKontrahenta = $this->daneKontrahentowService->usunKontrahentaService($usunKontrahentaArr);
+
+        $arr = ['usunKontrahentaArr'=>$usunKontrahenta];
+
+        return new JsonResponse($arr);
+    }
 }
