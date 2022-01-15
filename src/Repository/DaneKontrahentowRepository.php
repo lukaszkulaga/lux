@@ -38,7 +38,7 @@ class DaneKontrahentowRepository
 
         $this->conn->fetchAllAssociative($sql);
 
-        return $this->daneKontrahentowRepo();;
+        return $this->daneKontrahentowRepo();
     }
 
     public function edytujDanePodstawoweKontrahentaRepo($danePodstawoweEdycjaArr) {
@@ -49,7 +49,6 @@ class DaneKontrahentowRepository
         $nazwa = $danePodstawoweEdycjaArr['nazwa'];
         $nip = $danePodstawoweEdycjaArr['nip'];
         $podmiot = $danePodstawoweEdycjaArr['podmiot'];
-
 
         $this->logger->info('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 2');
 
@@ -129,7 +128,6 @@ class DaneKontrahentowRepository
         $ulica = $daneAdresoweKontrahentaArr['ulica'];
         $nrBudynku = $daneAdresoweKontrahentaArr['nrBudynku'];
 
-
         $this->logger->info('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 2');
 
         $sql = "UPDATE klienciAdres
@@ -141,6 +139,108 @@ class DaneKontrahentowRepository
         $selectAdres = $this->conn->fetchAllAssociative($sql2);
 
         return $selectAdres;
+    }
+
+    public function usunDaneAdresoweKontrahentaRepo($daneAdresoweKontrahentaArr) {
+
+        $this->logger->info('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 1');
+
+        $idAdres = $daneAdresoweKontrahentaArr['idAdres'];
+        $idKlienta = $daneAdresoweKontrahentaArr['idKlienta'];
+
+        $this->logger->info('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 2');
+
+        $sql = "delete from [klienciAdres] where IdAdres = $idAdres";
+        $this->conn->fetchAllAssociative($sql);
+
+        $sql2 = "select KA.Miejscowosc,KA.Ulica,KA.NrBudynku,KA.IdAdres,IdKlienta,CONCAT(KA.Miejscowosc,', ', KA.Ulica, ' ',KA.NrBudynku) AS Adres from klienciAdres KA where IdKlienta = $idKlienta ";
+        $selectAdres = $this->conn->fetchAllAssociative($sql2);
+
+        return $selectAdres;
+    }
+
+    public function daneKontaktoweKontrahentaRepo($daneKontaktoweKontrahentaArr) {
+
+        $idKlienta = $daneKontaktoweKontrahentaArr['idKlienta'];
+
+        $sql = "select * from klienciKontakt where IdKlienta = $idKlienta ";
+
+        $daneKontaktoweTab= $this->conn->fetchAllAssociative($sql);
+
+        return $daneKontaktoweTab;
+    }
+
+    public function dodajDaneKontaktoweKontrahentaRepo($daneKontaktoweKontrahentaArr) {
+
+        $idKlienta = $daneKontaktoweKontrahentaArr['idKlienta'];
+        $telefon = $daneKontaktoweKontrahentaArr['telefon'];
+        $email = $daneKontaktoweKontrahentaArr['email'];
+
+        $sql = "insert into klienciKontakt(IdKlienta,Telefon,Email) values ('$idKlienta','$telefon','$email')";
+        $this->conn->fetchAllAssociative($sql);
+
+        $sql2 = "select * from klienciKontakt where IdKlienta = $idKlienta ";
+        $selectKontakt = $this->conn->fetchAllAssociative($sql2);
+
+        return $selectKontakt;
+    }
+
+    public function edytujDaneKontaktoweKontrahentaRepo($daneKontaktoweKontrahentaArr) {
+
+        $this->logger->info('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 1');
+
+        $idKontakt = $daneKontaktoweKontrahentaArr['idKontakt'];
+        $idKlienta = $daneKontaktoweKontrahentaArr['idKlienta'];
+        $telefon = $daneKontaktoweKontrahentaArr['telefon'];
+        $email = $daneKontaktoweKontrahentaArr['email'];
+
+        $this->logger->info('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 2');
+
+        $sql = "UPDATE klienciKontakt
+                SET Telefon = '$telefon',Email ='$email'
+                WHERE IdKontakt=$idKontakt";
+        $this->conn->fetchAllAssociative($sql);
+
+        $sql2 = "select * from klienciKontakt where IdKlienta = $idKlienta ";
+
+        $selectKontakt = $this->conn->fetchAllAssociative($sql2);
+
+        return $selectKontakt;
+    }
+
+    public function usunDaneKontaktoweKontrahentaRepo($daneKontaktoweKontrahentaArr) {
+
+        $this->logger->info('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 1');
+
+        $idKontakt = $daneKontaktoweKontrahentaArr['idKontakt'];
+        $idKlienta = $daneKontaktoweKontrahentaArr['idKlienta'];
+
+        $this->logger->info('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 2');
+
+        $sql = "delete from klienciKontakt where IdKontakt = $idKontakt";
+        $this->conn->fetchAllAssociative($sql);
+
+        $sql2 = "select * from klienciKontakt where IdKlienta = $idKlienta ";
+        $selectKontakt = $this->conn->fetchAllAssociative($sql2);
+
+        return $selectKontakt;
+    }
+
+    public function usunKontrahentaRepo($usunKontrahentaArr) {
+
+        $this->logger->info('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 1');
+
+        $idKlienta = $usunKontrahentaArr['idKlienta'];
+
+
+        $sql1 = "delete from klienciKontakt where IdKlienta = $idKlienta";
+        $this->conn->fetchAllAssociative($sql1);
+        $sql2 = "delete from klienciAdres where IdKlienta = $idKlienta";
+        $this->conn->fetchAllAssociative($sql2);
+        $sql3 = "delete from klienci where IdKlienta = $idKlienta";
+        $this->conn->fetchAllAssociative($sql3);
+
+        return $this->daneKontrahentowRepo();
     }
 
 }

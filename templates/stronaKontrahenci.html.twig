@@ -84,9 +84,9 @@
                             <td class ="nipTab">{{daneKontrahenta.NIP}}</td>
                             <td class="podmiotTab">{{daneKontrahenta.Opis}}</td>
                             <td style="display:none" class="podmiotIdTab">{{daneKontrahenta.IdPodmiot}}</td>
-                            <td style="" class="daneAdresoweTab"><button title="Pokaż adres" style="" class="pokazAdresButton"><svg class="earthIcon"></svg></button></td>
-                            <td style="" class="daneKontaktoweTab"><button class="pokazKontaktButton"><svg class="telefonIcons"></svg></button></td>
-                            <td style="" class="usunKontrahentaTab"><button class="usunKontrahentaButton"><svg class="koszIcons" ></svg></button></td>
+                            <td style="" class="daneAdresoweTab"><button title="Adresy" style="" class="pokazAdresButton"><svg class="earthIcon"></svg></button></td>
+                            <td style="" class="daneKontaktoweTab"><button title="Kontakty" class="pokazKontaktButton"><svg class="telefonIcons"></svg></button></td>
+                            <td style="" class="usunKontrahentaTab"><button title="Usuń" class="usunKontrahentaButton"><svg class="koszIcons" ></svg></button></td>
                         </tr>
                     {% endfor %}
                     </tbody>
@@ -95,7 +95,7 @@
 
             <div class="dodawanieKontrahenta" style=" box-shadow: 0 15px 35px rgba(0,0,0,0.2);border-left:1px solid rgb(212, 210, 210);width: 24%;max-height:57%;margin-left:60%;margin-top:5%;position: absolute;overflow-y: scroll">
 
-                <div id="zamknijDodawanieKontrahenta">X</div>
+                <div class="zamknijSekcje" id="zamknijDodawanieKontrahenta">X</div>
 
                 <form id="formKontrahenciDodawanie" style="">
 
@@ -148,7 +148,7 @@
             <div class="edycjaKontrahenta"  style="box-shadow: 0 15px 35px rgba(0,0,0,0.2);border-left:1px solid rgb(212, 210, 210);width: 24%;max-height:57%;margin-left:60%;margin-top:5%;position: absolute;overflow-y: scroll">
                 <form id="formKontrahenciEdycja" style="">
 
-                    <div id="zamknijEdycjeKontrahenta">X</div>
+                    <div class="zamknijSekcje"  id="zamknijEdycjeKontrahenta">X</div>
 
                     <input id="idKontrahentaEdycja" type="text" value="" style="display: none"/>
 
@@ -193,7 +193,7 @@
             <div class="dodawanieAdresow" style="z-index: 1; box-shadow: 0 15px 35px rgba(0,0,0,0.2);border-left:1px solid rgb(212, 210, 210);width: 24%;height:57%;margin-left:60%;margin-top:5%;position: absolute;overflow-y: scroll">
                 <form id="formKontrahenciDodawanieAdresow" style="">
 
-                    <div id="zamknijDodawanieAdresow">X</div>
+                    <div class="zamknijSekcje"  id="zamknijDodawanieAdresow">X</div>
 
                     <div id="nazwaKontrahentaAdres" style="color: rgba(0, 60, 125,0.8); font-size: 14px; margin-top: 2vh"></div>
 
@@ -212,12 +212,12 @@
                                     <th class="thKontrahenci" style="" scope="row">Usuń</th>
                                 </tr>
                                 </thead>
-                                <tbody class="resultsBodyAdres">
+                                <tbody style="" class="resultsBodyAdres">
 
                                 </tbody>
                             </table>
                         </div>
-                        <div id="brakDanych" style="display:none; margin-top:15vh; font-size: 20px">Brak danych</div>
+                        <div class="brakDanych" style="display:none; margin-top:13vh; font-size: 20px">Brak danych</div>
 
                         <div id="dodajDaneAdresowe" style="margin-left:1vw;width: 10vw;height:4vh;margin-top: 46vh;float: left;">
                             <div class="container1" style="height: 3vh;width: 30%;margin-top: 0">
@@ -306,44 +306,101 @@
                 </form>
             </div>
 
-            <div class="dodawanieKontaktow" style=" box-shadow: 0 15px 35px rgba(0,0,0,0.2);border-left:1px solid rgb(212, 210, 210);width: 24%;max-height:57%;margin-left:60%;margin-top:5%;position: absolute;overflow-y: scroll">
+            <div class="dodawanieKontaktow" style="z-index: 1; box-shadow: 0 15px 35px rgba(0,0,0,0.2);border-left:1px solid rgb(212, 210, 210);width: 24%;height:57%;margin-left:60%;margin-top:5%;position: absolute;overflow-y: scroll">
                 <form id="formKontrahenciDodawanieKontaktow" style="">
 
-                    <div id="zamknijDodawanieKontaktow">X</div>
+                    <div class="zamknijSekcje"  id="zamknijDodawanieKontaktow">X</div>
 
-                    <div id="test" style="width:15vw;float: left;">
-                        <div class="field-wrapper" >
-                            <input  class="" type="text" id="nazwa" placeholder=" " value="" />
-                            <div class="field-placeholder"><span>Nazwa</span></div>
-                        </div>
-                        <div class="errorSuccess"></div>
-                    </div>
-                    <div style="width:15vw;float: left">
-                        <div class="field-wrapper" >
-                            <input  class="" type="text" id="nip" placeholder=" " maxlength="10" />
-                            <div class="field-placeholder"><span>NIP</span></div>
-                        </div>
-                        <p class="errorSuccess"></p>
-                    </div>
-                    <div style="width:15vw;float: left">
-                        <div class="field-wrapper" >
-                            <select id="podmiot" >
-                                <option selected="selected" value="0" disabled>--wybierz--</option>
-                                {% for podmiot in podmiotArr %}
-                                    <option value="{{ podmiot.IdPodmiot }}">{{podmiot.Opis}}</option>
-                                {% endfor %}
-                            </select>
-                            <div class="field-placeholder"><span>Podmiot</span></div>
-                        </div>
-                        <p class="errorSuccess"></p>
-                    </div>
+                    <div id="nazwaKontrahentaKontakt" style="color: rgba(0, 60, 125,0.8); font-size: 14px; margin-top: 2vh"></div>
 
-                    <div style="margin-left:1vw;width: 10vw;height:4vh;margin-top: 2vh;float: left;">
-                        <div class="container1" style="height: 3vh;width: 30%;margin-top: 0">
-                            <div class="btn1" style="width: 100%;height: 3vh">
-                                <button style="width: 9vw;height: 3vh" id="zapiszDaneKontaktowe" type ="button">Zapisz</button>
+                    <div id="wyswietlDaneKontaktowe">
+                        <div id="tabelaKontaktow" class="tableRaportKontrahenci" style="max-width:95%;max-height: 70%">
+                            <table class="reportTableKontrahenci" style="width:100%;">
+                                <thead>
+                                <tr>
+                                    <th class="thKontrahenci" style="display: none" scope="row">Id Kontrahenta</th>
+                                    <th class="thKontrahenci" style="display:none" scope="row">Id Kontakt</th>
+                                    <th class="thKontrahenci" style="" scope="row">Telefon</th>
+                                    <th class="thKontrahenci" style="" scope="row">Email</th>
+                                    <th class="thKontrahenci" style="" scope="row">Edytuj</th>
+                                    <th class="thKontrahenci" style="" scope="row">Usuń</th>
+                                </tr>
+                                </thead>
+                                <tbody class="resultsBodyKontakt">
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="brakDanych" style="display:none; margin-top:13vh; font-size: 20px">Brak danych</div>
+
+                        <div id="dodajDaneKontaktowe" style="margin-left:1vw;width: 10vw;height:4vh;margin-top: 46vh;float: left;">
+                            <div class="container1" style="height: 3vh;width: 30%;margin-top: 0">
+                                <div class="btn1" style="width: 100%;height: 3vh">
+                                    <button style="width: 9vw;height: 3vh" id="dodajDaneKontaktoweButton" type ="button">Dodaj</button>
+                                </div>
                             </div>
                         </div>
+                    </div>
+
+                    <div id="sekcjaDodawaniaKontaktu" style="height: 30vh;width:18vw;position: absolute;margin-top: 5vh;margin-left: 5vh">
+
+
+                        <input style="display: none" class="pobierzIdKlienta" type="text" value="" />
+
+                        <div style="width:15vw;float: left">
+                            <div class="field-wrapper" >
+                                <input id="telefonDodaj" class="" type="text" placeholder=" " value="" />
+                                <div class="field-placeholder"><span>Telefon</span></div>
+                            </div>
+                            <div class="errorSuccess"></div>
+                        </div>
+                        <div style="width:15vw;float: left">
+                            <div class="field-wrapper" >
+                                <input id="emailDodaj"  class="" type="text" placeholder=" " />
+                                <div class="field-placeholder"><span>Email</span></div>
+                            </div>
+                            <div class="errorSuccess"></div>
+                        </div>
+
+                        <div id="zapiszDaneKontaktowe" style="margin-left:1vw;width: 10vw;height:4vh;margin-top: 2vh;float: left;">
+                            <div class="container1" style="height: 3vh;width: 30%;margin-top: 0">
+                                <div class="btn1" style="width: 100%;height: 3vh">
+                                    <button style="width: 9vw;height: 3vh" id="zapiszDaneKontaktoweButton" type ="button">Zapisz</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div id="sekcjaEdycjiKontaktu" style="height: 30vh;width:18vw;position: absolute;margin-top: 5vh;margin-left: 5vh">
+
+
+                        <input type="text" value="" class="pobierzIdKontakt" style="display:none"/>
+                        <input style="display: none" class="pobierzIdKlienta" type="text" value="" />
+
+                        <div style="width:15vw;float: left">
+                            <div class="field-wrapper" >
+                                <input id="telefonEdytuj" class="" type="text" placeholder=" " value="" />
+                                <div class="field-placeholder"><span>Telefon</span></div>
+                            </div>
+                            <div class="errorSuccess"></div>
+                        </div>
+                        <div style="width:15vw;float: left">
+                            <div class="field-wrapper" >
+                                <input id="emailEdytuj"  class="" type="text" placeholder=" " value="" />
+                                <div class="field-placeholder"><span>Email</span></div>
+                            </div>
+                            <div class="errorSuccess"></div>
+                        </div>
+
+                        <div id="edytujDaneKontaktowe" style="margin-left:1vw;width: 10vw;height:4vh;margin-top: 2vh;float: left;">
+                            <div class="container1" style="height: 3vh;width: 30%;margin-top: 0">
+                                <div class="btn1" style="width: 100%;height: 3vh">
+                                    <button style="width: 9vw;height: 3vh" id="edytujDaneKontaktoweButton" type ="button">Edytuj</button>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
                 </form>

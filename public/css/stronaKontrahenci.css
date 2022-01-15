@@ -44,9 +44,12 @@
     left: 0;
     z-index: 11;
 }
+.reportTableKontrahenci tbody {
+    /* zawijanie wierszy w tabeli !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+    /*overflow-wrap: anywhere;*/
+}
 
 .reportTableKontrahenci .daneAdresoweTab,.reportTableKontrahenci .daneKontaktoweTab,.reportTableKontrahenci .usunKontrahentaButton{
-
     text-align: center;
 }
 
@@ -64,6 +67,13 @@
     position: absolute;
     cursor: pointer;
     /*border: solid yellow;*/
+}
+
+.zamknijSekcje{
+    font-size: 1vw;
+    cursor:pointer;
+    margin-left:22vw;
+    font-weight: bold;
 }
 
 .earthIcon {
@@ -100,4 +110,13 @@
     /*border:solid red;*/
     cursor: pointer;
     background: url('../icons/kosz.svg') no-repeat;
+}
+
+.edycjaIcons {
+    width: 1.5vw;
+    height: 3vh;
+    margin-top: 0.5vh;
+    /*border:solid red;*/
+    cursor: pointer;
+    background: url('../icons/dokument_olowek.svg') no-repeat;
 }

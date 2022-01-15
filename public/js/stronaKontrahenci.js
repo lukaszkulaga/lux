@@ -8,12 +8,19 @@ $(document).ready(function () {
     $('.dodawanieAdresow').hide();
     $('#wyswietlDaneAdresowe').hide();
     $('.dodawanieKontaktow').hide();
-    $('.dodawanieKontaktow').hide();
     $('#sekcjaDodawaniaAdresu').hide();
     $('#sekcjaEdycjiAdresu').hide();
+    $('#sekcjaEdycjiKontaktu').hide();
+    $('#sekcjaDodawaniaKontaktu').hide();
+    $('#wyswietlDaneKontaktowe').hide();
 
     $('.errorSuccess').hide();
+    $(".komunikat").hide();
 
+    // zmienne dla walidacji
+    $nazwaErr = false;
+    $nipErr = false;
+    $podmiotErr = false;
 
 
 
@@ -37,7 +44,35 @@ $(document).ready(function () {
     });
 
 
+    /*
+*
+*   komunikat progress bar
+*
+* */
 
+    function komunikatProgres($text) {
+
+        $(".komunikat").show();
+
+        $('.textKomunikatu').text($text);
+
+        setTimeout(function(){
+            $(".komunikat").hide();
+        }, 4000);
+
+        $elem = $(".progressBar");
+
+        $width = 1;
+        $id = setInterval(frame, 40);
+        function frame() {
+            if ($width >= 100) {
+                clearInterval($id);
+            } else {
+                $width++;
+                $elem.css('width',$width + '%')
+            }
+        }
+    }
 
 
    // ----------------------------------  DANE PODSTAWOWE  ------------------------------------------------------
@@ -125,10 +160,7 @@ $(document).ready(function () {
 
      */
 
-    // zmienne dla walidacji
-    $nazwaErr = false;
-    $nipErr = false;
-    $podmiotErr = false;
+
 
     $('.dodajKontrahenta').on('click',function() {
 
@@ -158,6 +190,9 @@ $(document).ready(function () {
         $('#wyswietlDaneAdresowe').hide();
         $('#sekcjaDodawaniaAdresu').hide();
         $('#sekcjaEdycjiAdresu').hide();
+        $('#sekcjaEdycjiKontaktu').hide();
+        $('#sekcjaDodawaniaKontaktu').hide();
+        $('#wyswietlDaneKontaktowe').hide();
     });
 
 
@@ -301,6 +336,8 @@ $(document).ready(function () {
 
                         $('.resultsBody').append($row);
                     });
+
+                    komunikatProgres('Dodano kontrahenta');
                 }
             })
 
@@ -330,6 +367,9 @@ $(document).ready(function () {
             $('#wyswietlDaneAdresowe').hide();
             $('#sekcjaDodawaniaAdresu').hide();
             $('#sekcjaEdycjiAdresu').hide();
+            $('#sekcjaEdycjiKontaktu').hide();
+            $('#sekcjaDodawaniaKontaktu').hide();
+            $('#wyswietlDaneKontaktowe').hide();
 
         }
     });
@@ -370,6 +410,9 @@ $(document).ready(function () {
         $('#wyswietlDaneAdresowe').hide();
         $('#sekcjaDodawaniaAdresu').hide();
         $('#sekcjaEdycjiAdresu').hide();
+        $('#sekcjaEdycjiKontaktu').hide();
+        $('#sekcjaDodawaniaKontaktu').hide();
+        $('#wyswietlDaneKontaktowe').hide();
 
         $nazwaEdycjaErr = true;
         $nipEdycjaErr = true;
@@ -525,8 +568,13 @@ $(document).ready(function () {
                         $('.resultsBody').append($row);
                     });
 
+                    komunikatProgres('Zapisano zmiany');
+
                 }
             });
+
+
+
 
             // po kliknieciu przycisku edytuj zamykamy wszystkie sekcje
             $('.edycjaKontrahenta').hide();
@@ -536,8 +584,69 @@ $(document).ready(function () {
             $('#wyswietlDaneAdresowe').hide();
             $('#sekcjaDodawaniaAdresu').hide();
             $('#sekcjaEdycjiAdresu').hide();
+            $('#sekcjaEdycjiKontaktu').hide();
+            $('#sekcjaDodawaniaKontaktu').hide();
+            $('#wyswietlDaneKontaktowe').hide();
 
         }
+    });
+
+
+    /*
+ *
+ * sekcja danych podstawowych - usuwanie danych podstawowych + kontakty + adresy
+ *
+ * */
+
+
+    $('.resultsBody').on('click','.usunKontrahentaButton',function(){
+
+        $idKlienta= $(this).parent().parent().find('.IdKlienta').text();
+
+        let usunKontrahentaArr = {'idKlienta':$idKlienta};
+
+        $url = $baseUrl + 'usunKontrahenta/ajax';
+        $.ajax({
+            url: $url,
+            type: 'POST',
+            data: {tab: usunKontrahentaArr},
+            format: 'json',
+            dataType: 'text',
+            success: function (response) {
+                let json = JSON.parse(response);
+                console.log(json);
+
+                $('.resultsBody tr').remove();
+
+                json.usunKontrahentaArr.forEach(item=> {
+
+                    var id = '<td style="display: none" class="IdKlienta">' + item.IdKlienta + '</td>';
+                    var nazwa = '<th scope="row" class="nazwaTab">' + item.Nazwa + '</th>';
+                    var nip = '<td class="nipTab">' + item.NIP + '</td>';
+                    var podmiot = '<td class="podmiotTab">' + item.Opis + '</td>';
+                    var podmiotId = '<td style="display:none" class="podmiotIdTab">' + item.IdPodmiot + '</td>';
+                    var adres = ' <td style="" class="daneAdresoweTab"><button class="pokazAdresButton"><svg class="earthIcon"></svg></button></td>';
+                    var kontakt = '<td style="" class="daneKontaktoweTab"><button class="pokazKontaktButton"><svg class="telefonIcons"></svg></button></td>';
+                    var usun = '<td style="" class="usunKontrahentaTab"><button class="usunKontrahentaButton"><svg class="koszIcons" ></svg></button></td>';
+
+                    $row = "<tr class='daneKontrahentaPokaz'>" +
+                        id +
+                        nazwa +
+                        nip +
+                        podmiot +
+                        podmiotId +
+                        adres +
+                        kontakt +
+                        usun +
+                        "</tr>";
+
+                    $('.resultsBody').append($row);
+                });
+
+                komunikatProgres('Usunięto kontrahenta');
+            }
+        })
+
     });
 
 
@@ -561,6 +670,9 @@ $(document).ready(function () {
         $('.dodawanieKontaktow').hide();
         $('#sekcjaDodawaniaAdresu').hide();
         $('#sekcjaEdycjiAdresu').hide();
+        $('#sekcjaEdycjiKontaktu').hide();
+        $('#sekcjaDodawaniaKontaktu').hide();
+        $('#wyswietlDaneKontaktowe').hide();
 
         $idKlienta = $(this).parent().parent().find('.IdKlienta').text();
         $nazwaKontrahenta = $(this).parent().parent().find('.nazwaTab').text();
@@ -591,8 +703,8 @@ $(document).ready(function () {
                     var ulica = '<td style="display:none" class="ulicaTab">' + item.Ulica + '</td>';
                     var nrBudynku = '<td style="display:none" class="nrBudynkuTab">' + item.NrBudynku + '</td>';
                     var adres = '<th style="font-weight:normal;cursor:unset" scope="row" class="adresTab">' + item.Adres + '</th>';
-                    var edytuj = '<td style="" class="edytujAdresTab"><button type="button" class="edytujAdresButton">Edytuj</button></td>';
-                    var usun = '<td style="" class="usunAdresTab"><button type="button" class="usunAdresButton">Usuń</button></td>';
+                    var edytuj = '<td style="" class="edytujAdresTab"><button title="Edytuj" type="button" class="edytujAdresButton"><svg class="edycjaIcons" ></svg></button></td>';
+                    var usun = '<td style="" class="usunAdresTab"><button title="Usuń" type="button" class="usunAdresButton"><svg class="koszIcons" ></svg></button></td>';
 
 
                     $row = "<tr class='daneAdresowePokaz'>" +
@@ -609,14 +721,14 @@ $(document).ready(function () {
                     $('.resultsBodyAdres').append($row);
                 });
 
-                if (json.daneAdresoweKontrahentaArr.length===0 ){
-                    $('#brakDanych').show();
+                if (json.daneAdresoweKontrahentaArr.length>0 ){
+                    $('.brakDanych').hide();
+                    $('#tabelaAdresow').show();
+                    $('#dodajDaneAdresowe').css('margin-top','46vh');
+                } else {
+                    $('.brakDanych').show();
                     $('#tabelaAdresow').hide();
                     $('#dodajDaneAdresowe').css('margin-top','30.7vh');
-                } else {
-                    $('#tabelaAdresow').show();
-                    $('#brakDanych').hide();
-                    $('#dodajDaneAdresowe').css('margin-top','46vh');
                 };
 
 
@@ -648,6 +760,9 @@ $(document).ready(function () {
         $('.edycjaKontrahenta').hide();
         $('.dodawanieKontaktow').hide();
         $('#wyswietlDaneAdresowe').hide();
+        $('#sekcjaEdycjiKontaktu').hide();
+        $('#sekcjaDodawaniaKontaktu').hide();
+        $('#wyswietlDaneKontaktowe').hide();
     });
 
 
@@ -683,9 +798,9 @@ $(document).ready(function () {
                     var miejscowosc = '<td style="display:none" class="miejscowoscTab">' + item.Miejscowosc + '</td>';
                     var ulica = '<td style="display:none" class="ulicaTab">' + item.Ulica + '</td>';
                     var nrBudynku = '<td style="display:none" class="nrBudynkuTab">' + item.NrBudynku + '</td>';
-                    var adres = '<th style="font-weight:normal" scope="row" class="adresTab">' + item.Adres + '</th>';
-                    var edytuj = '<td style="" class="edytujAdresTab"><button type="button" class="edytujAdresButton">Edytuj</button></td>';
-                    var usun = '<td style="" class="usunAdresTab"><button type="button" class="usunAdresButton">Usuń</button></td>';
+                    var adres = '<th style="font-weight:normal;cursor:unset" scope="row" class="adresTab">' + item.Adres + '</th>';
+                    var edytuj = '<td style="" class="edytujAdresTab"><button title="Edytuj" type="button" class="edytujAdresButton"><svg class="edycjaIcons" ></svg></button></td>';
+                    var usun = '<td style="" class="usunAdresTab"><button title="Usuń" type="button" class="usunAdresButton"><svg class="koszIcons" ></svg></button></td>';
 
 
 
@@ -702,10 +817,23 @@ $(document).ready(function () {
 
                     $('.resultsBodyAdres').append($row);
                 });
+
+                if (json.daneAdresoweKontrahentaArr.length>0 ){
+                    $('.brakDanych').hide();
+                    $('#tabelaAdresow').show();
+                    $('#dodajDaneAdresowe').css('margin-top','46vh');
+                } else {
+                    $('.brakDanych').show();
+                    $('#tabelaAdresow').hide();
+                    $('#dodajDaneAdresowe').css('margin-top','30.7vh');
+                };
+
+
+                komunikatProgres('Dodano adres');
             }
         })
 
-        // po kliknieciu przycisku dodania adresu wylaczamy wszystkie sekcje
+        // po kliknieciu przycisku dodania adresu wylaczamy wszystkie pozostałe sekcje
         $('.dodawanieAdresow').show();
         $('#wyswietlDaneAdresowe').show();
         $('#sekcjaEdycjiAdresu').hide();
@@ -713,10 +841,17 @@ $(document).ready(function () {
         $('.edycjaKontrahenta').hide();
         $('.dodawanieKontaktow').hide();
         $('#sekcjaDodawaniaAdresu').hide();
+        $('#sekcjaEdycjiKontaktu').hide();
+        $('#sekcjaDodawaniaKontaktu').hide();
+        $('#wyswietlDaneKontaktowe').hide();
     });
 
 
-
+    /*
+       *
+       * sekcja danych adresowych - edytowanie
+       *
+       * */
 
     $('.resultsBodyAdres').on('click','.edytujAdresButton',function (){
 
@@ -727,6 +862,9 @@ $(document).ready(function () {
         $('.edycjaKontrahenta').hide();
         $('.dodawanieKontaktow').hide();
         $('#sekcjaDodawaniaAdresu').hide();
+        $('#sekcjaEdycjiKontaktu').hide();
+        $('#sekcjaDodawaniaKontaktu').hide();
+        $('#wyswietlDaneKontaktowe').hide();
 
         $idAdres= $(this).parent().parent().find('.IdAdres').text();
         $idKlienta= $(this).parent().parent().find('.IdKlienta').text();
@@ -773,9 +911,9 @@ $(document).ready(function () {
                     var miejscowosc = '<td style="display:none" class="miejscowoscTab">' + item.Miejscowosc + '</td>';
                     var ulica = '<td style="display:none" class="ulicaTab">' + item.Ulica + '</td>';
                     var nrBudynku = '<td style="display:none" class="nrBudynkuTab">' + item.NrBudynku + '</td>';
-                    var adres = '<th style="font-weight:normal;color: grey" scope="row" class="adresTab">' + item.Adres + '</th>';
-                    var edytuj = '<td style="" class="edytujAdresTab"><button type="button" class="edytujAdresButton">Edytuj</button></td>';
-                    var usun = '<td style="" class="usunAdresTab"><button type="button" class="usunAdresButton">Usuń</button></td>';
+                    var adres = '<th style="font-weight:normal;cursor:unset" scope="row" class="adresTab">' + item.Adres + '</th>';
+                    var edytuj = '<td style="" class="edytujAdresTab"><button title="Edytuj" type="button" class="edytujAdresButton"><svg class="edycjaIcons" ></svg></button></td>';
+                    var usun = '<td style="" class="usunAdresTab"><button title="Usuń" type="button" class="usunAdresButton"><svg class="koszIcons" ></svg></button></td>';
 
 
 
@@ -792,6 +930,8 @@ $(document).ready(function () {
 
                     $('.resultsBodyAdres').append($row);
                 });
+
+                komunikatProgres('Zapisano zmiany');
             }
         })
 
@@ -802,24 +942,414 @@ $(document).ready(function () {
         $('.edycjaKontrahenta').hide();
         $('.dodawanieKontaktow').hide();
         $('#sekcjaDodawaniaAdresu').hide();
+        $('#sekcjaEdycjiKontaktu').hide();
+        $('#sekcjaDodawaniaKontaktu').hide();
+        $('#wyswietlDaneKontaktowe').hide();
+
 
     });
+
+    /*
+       *
+       * sekcja danych adresowych - usuwanie
+       *
+       * */
+
+
+    $('.resultsBodyAdres').on('click','.usunAdresButton',function(){
+
+        $idAdres= $(this).parent().parent().find('.IdAdres').text();
+        $idKlienta= $(this).parent().parent().find('.IdKlienta').text();
+
+
+        let daneAdresoweUsunArr = {'idAdres':$idAdres, 'idKlienta':$idKlienta};
+
+        $url = $baseUrl + 'usunDaneAdresoweKontrahenta/ajax';
+        $.ajax({
+            url: $url,
+            type: 'POST',
+            data: {tab: daneAdresoweUsunArr},
+            format: 'json',
+            dataType: 'text',
+            success: function (response) {
+                let json = JSON.parse(response);
+                console.log(json);
+
+                $('.resultsBodyAdres tr').remove();
+
+                json.daneAdresoweKontrahentaArr.forEach(item=> {
+
+                    var idK = '<td style="display:none" class="IdKlienta">' + item.IdKlienta + '</td>';
+                    var idA = '<td style="display:none" class="IdAdres">' + item.IdAdres + '</td>';
+                    var miejscowosc = '<td style="display:none" class="miejscowoscTab">' + item.Miejscowosc + '</td>';
+                    var ulica = '<td style="display:none" class="ulicaTab">' + item.Ulica + '</td>';
+                    var nrBudynku = '<td style="display:none" class="nrBudynkuTab">' + item.NrBudynku + '</td>';
+                    var adres = '<th style="font-weight:normal;cursor:unset" scope="row" class="adresTab">' + item.Adres + '</th>';
+                    var edytuj = '<td style="" class="edytujAdresTab"><button title="Edytuj" type="button" class="edytujAdresButton"><svg class="edycjaIcons" ></svg></button></td>';
+                    var usun = '<td style="" class="usunAdresTab"><button title="Usuń" type="button" class="usunAdresButton"><svg class="koszIcons" ></svg></button></td>';
+
+
+
+                    $row = "<tr class='daneAdresowePokaz'>" +
+                        idK +
+                        idA +
+                        miejscowosc +
+                        ulica +
+                        nrBudynku +
+                        adres +
+                        edytuj +
+                        usun +
+                        "</tr>";
+
+                    $('.resultsBodyAdres').append($row);
+                });
+
+                komunikatProgres('Usunięto adres');
+            }
+        })
+
+    });
+
+
+
+
 
     // -----------------------------  DANE KONTAKTOWE  ------------------------------------
 
 
+    /*
+ *
+ * sekcja danych kontaktowych - wyświetlanie
+ *
+ * */
 
-    $('.resultsBody').on('click','.pokazKontaktButton',function() {
+
+$('.resultsBody').on('click','.pokazKontaktButton',function() {
+
+    $('.dodawanieKontaktow').show();
+    $('#wyswietlDaneKontaktowe').show();
+    $('#sekcjaEdycjiKontaktu').hide();
+    $('#sekcjaDodawaniaKontaktu').hide();
+    $('.dodawanieAdresow').hide();
+    $('#wyswietlDaneAdresowe').hide();
+    $('.dodawanieKontrahenta').hide();
+    $('.edycjaKontrahenta').hide();
+    $('#sekcjaDodawaniaAdresu').hide();
+    $('#sekcjaEdycjiAdresu').hide();
+
+
+        $idKlienta = $(this).parent().parent().find('.IdKlienta').text();
+        $nazwaKontrahenta = $(this).parent().parent().find('.nazwaTab').text();
+
+        // ustawiamy IdKlienta aby odczytac w sekcji zapisywania danych kontaktowych
+        $('.pobierzIdKlienta').val($idKlienta);
+        $('#nazwaKontrahentaKontakt').text($nazwaKontrahenta);
+
+        let daneKontaktoweArr = {'idKlienta':$idKlienta};
+
+        $url = $baseUrl + 'daneKontaktoweKontrahenta/ajax';
+        $.ajax({
+            url: $url,
+            type: 'POST',
+            data: {tab: daneKontaktoweArr},
+            format: 'json',
+            dataType: 'text',
+            success: function (response) {
+                let json = JSON.parse(response);
+
+                $('.resultsBodyKontakt tr').remove();
+
+                json.daneKontaktoweKontrahentaArr.forEach(item=> {
+
+                    var idK = '<td style="display:none" class="IdKlienta">' + item.IdKlienta + '</td>';
+                    var idKontakt = '<td style="display:none" class="IdKontakt">' + item.IdKontakt + '</td>';
+                    var telefon = '<th style="font-weight:normal;cursor:unset" scope="row" class="telefonTab">' + item.Telefon + '</th>';
+                    var email = '<th style="font-weight:normal;cursor:unset" scope="row" class="emailTab">' + item.Email + '</th>';
+                    var edytuj = '<td style="" class="edytujKontaktTab"><button title="Edytuj" type="button" class="edytujKontaktButton"><svg class="edycjaIcons" ></svg></button></td>';
+                    var usun = '<td style="" class="usunKontaktTab"><button title="Usuń" type="button" class="usunKontaktButton"><svg class="koszIcons" ></svg></button></td>';
+
+
+                    $row = "<tr class='daneKontaktowePokaz'>" +
+                        idK +
+                        idKontakt +
+                        telefon +
+                        email +
+                        edytuj +
+                        usun +
+                        "</tr>";
+
+                    $('.resultsBodyKontakt').append($row);
+                });
+
+                if (json.daneKontaktoweKontrahentaArr.length>0 ){
+                    $('.brakDanych').hide();
+                    $('#tabelaKontaktow').show();
+                    $('#dodajDaneKontaktowe').css('margin-top','46vh');
+                } else {
+                    $('.brakDanych').show();
+                    $('#tabelaKontaktow').hide();
+                    $('#dodajDaneKontaktowe').css('margin-top','30.7vh');
+                };
+
+            }
+        });
+
+    });
+
+
+    /*
+*
+* sekcja danych kontaktowych - dodawanie
+*
+* */
+
+
+    $('#dodajDaneKontaktoweButton').on('click',function (){
+
+        // zerujemy wartosci w polach
+        $('#telefonDodaj').val('');
+        $('#emailDodaj').val('');
 
         $('.dodawanieKontaktow').show();
+        $('#sekcjaDodawaniaKontaktu').show();
+        $('#wyswietlDaneKontaktowe').hide();
         $('.dodawanieAdresow').hide();
+        $('#sekcjaDodawaniaAdresu').hide();
+        $('#sekcjaEdycjiAdresu').hide();
         $('.dodawanieKontrahenta').hide();
         $('.edycjaKontrahenta').hide();
         $('#wyswietlDaneAdresowe').hide();
+        $('#sekcjaEdycjiKontaktu').hide();
+
+    });
+
+
+    $('#zapiszDaneKontaktoweButton').on('click',function(){
+
+        $telefon = $('#telefonDodaj').val();
+        $email = $('#emailDodaj').val();
+
+        // jak nie działa to mozliwe ze została dodana nowa sekcja w html która zagnieżdża inną i jest zła ilość parent();
+        // $idKlienta = $(this).parent().parent().parent().parent().parent().find('.IdKlienta').text();
+
+        $idKlienta = $('.pobierzIdKlienta').val();
+
+        let daneKontaktoweDodajArr = {'idKlienta':$idKlienta,'telefon':$telefon,'email':$email};
+
+        $url = $baseUrl + 'dodajDaneKontaktoweKontrahenta/ajax';
+        $.ajax({
+            url: $url,
+            type: 'POST',
+            data: {tab: daneKontaktoweDodajArr},
+            format: 'json',
+            dataType: 'text',
+            success: function (response) {
+                let json = JSON.parse(response);
+                console.log(json);
+
+                $('.resultsBodyKontakt tr').remove();
+
+                json.daneKontaktoweKontrahentaArr.forEach(item=> {
+
+                    var idK = '<td style="display:none" class="IdKlienta">' + item.IdKlienta + '</td>';
+                    var idKontakt = '<td style="display:none" class="IdKontakt">' + item.IdKontakt + '</td>';
+                    var telefon = '<th style="font-weight:normal;cursor:unset" scope="row" class="telefonTab">' + item.Telefon + '</th>';
+                    var email = '<th style="font-weight:normal;cursor:unset" scope="row" class="emailTab">' + item.Email + '</th>';
+                    var edytuj = '<td style="" class="edytujKontaktTab"><button title="Edytuj" type="button" class="edytujKontaktButton"><svg class="edycjaIcons" ></svg></button></td>';
+                    var usun = '<td style="" class="usunKontaktTab"><button title="Usuń" type="button" class="usunKontaktButton"><svg class="koszIcons" ></svg></button></td>';
+
+                    $row = "<tr class='daneKontaktowePokaz'>" +
+                        idK +
+                        idKontakt +
+                        telefon +
+                        email +
+                        edytuj +
+                        usun +
+                        "</tr>";
+
+                    $('.resultsBodyKontakt').append($row);
+
+                });
+
+                if (json.daneKontaktoweKontrahentaArr.length>0 ){
+                    $('.brakDanych').hide();
+                    $('#tabelaKontaktow').show();
+                    $('#dodajDaneKontaktowe').css('margin-top','46vh');
+                } else {
+                    $('.brakDanych').show();
+                    $('#tabelaKontaktow').hide();
+                    $('#dodajDaneKontaktowe').css('margin-top','30.7vh');
+                };
+
+                komunikatProgres('Dodano kontakt');
+            }
+        })
+
+        // po kliknieciu przycisku dodania adresu wylaczamy wszystkie pozostałe sekcje
+        $('.dodawanieKontaktow').show();
+        $('#wyswietlDaneKontaktowe').show();
+        $('.dodawanieAdresow').hide();
+        $('#wyswietlDaneAdresowe').hide();
+        $('#sekcjaEdycjiAdresu').hide();
+        $('.dodawanieKontrahenta').hide();
+        $('.edycjaKontrahenta').hide();
         $('#sekcjaDodawaniaAdresu').hide();
+        $('#sekcjaEdycjiKontaktu').hide();
+        $('#sekcjaDodawaniaKontaktu').hide();
+    });
 
 
-    })
+
+    /*
+      *
+      * sekcja danych kontaktowych - edytowanie
+      *
+      * */
+
+    $('.resultsBodyKontakt').on('click','.edytujKontaktButton',function (){
+
+        $('.dodawanieKontaktow').show();
+        $('#sekcjaEdycjiKontaktu').show();
+        $('.dodawanieAdresow').hide();
+        $('#sekcjaEdycjiAdresu').hide();
+        $('#wyswietlDaneAdresowe').hide();
+        $('.dodawanieKontrahenta').hide();
+        $('.edycjaKontrahenta').hide();
+        $('#sekcjaDodawaniaAdresu').hide();
+        $('#sekcjaDodawaniaKontaktu').hide();
+        $('#wyswietlDaneKontaktowe').hide();
+
+        $idKontakt= $(this).parent().parent().find('.IdKontakt').text();
+        $idKlienta= $(this).parent().parent().find('.IdKlienta').text();
+        $telefon= $(this).parent().parent().find('.telefonTab').text();
+        $email= $(this).parent().parent().find('.emailTab').text();
+
+        $('.pobierzIdKontakt').val($idKontakt);
+        $('.pobierzIdKlienta').val($idKlienta);
+        $('#telefonEdytuj').val($telefon);
+        $('#emailEdytuj').val($email);
+
+    });
+
+
+    $('#edytujDaneKontaktoweButton').on('click',function(){
+
+        $idKontakt = $('.pobierzIdKontakt').val();
+        $idKlienta = $('.pobierzIdKlienta').val();
+        $telefon = $('#telefonEdytuj').val();
+        $email = $('#emailEdytuj').val();
+
+        let daneKontaktoweEdytujArr = {'idKontakt':$idKontakt,'idKlienta':$idKlienta,'telefon':$telefon,'email':$email};
+
+        $url = $baseUrl + 'edytujDaneKontaktoweKontrahenta/ajax';
+        $.ajax({
+            url: $url,
+            type: 'POST',
+            data: {tab: daneKontaktoweEdytujArr},
+            format: 'json',
+            dataType: 'text',
+            success: function (response) {
+                let json = JSON.parse(response);
+                console.log(json);
+
+                $('.resultsBodyKontakt tr').remove();
+
+                json.daneKontaktoweKontrahentaArr.forEach(item=> {
+
+                    var idK = '<td style="display:none" class="IdKlienta">' + item.IdKlienta + '</td>';
+                    var idKontakt = '<td style="display:none" class="IdKontakt">' + item.IdKontakt + '</td>';
+                    var telefon = '<th style="font-weight:normal;cursor:unset" scope="row" class="telefonTab">' + item.Telefon + '</th>';
+                    var email = '<th style="font-weight:normal;cursor:unset" scope="row" class="emailTab">' + item.Email + '</th>';
+                    var edytuj = '<td style="" class="edytujKontaktTab"><button title="Edytuj" type="button" class="edytujKontaktButton"><svg class="edycjaIcons" ></svg></button></td>';
+                    var usun = '<td style="" class="usunKontaktTab"><button title="Usuń" type="button" class="usunKontaktButton"><svg class="koszIcons" ></svg></button></td>';
+
+                    $row = "<tr class='daneKontaktowePokaz'>" +
+                        idK +
+                        idKontakt +
+                        telefon +
+                        email +
+                        edytuj +
+                        usun +
+                        "</tr>";
+
+                    $('.resultsBodyKontakt').append($row);
+
+                });
+
+                komunikatProgres('Zapisano zmiany');
+            }
+        })
+
+        $('.dodawanieKontaktow').show();
+        $('#wyswietlDaneKontaktowe').show();
+        $('.dodawanieAdresow').hide();
+        $('#wyswietlDaneAdresowe').hide();
+        $('#sekcjaEdycjiAdresu').hide();
+        $('.dodawanieKontrahenta').hide();
+        $('.edycjaKontrahenta').hide();
+        $('#sekcjaDodawaniaAdresu').hide();
+        $('#sekcjaEdycjiKontaktu').hide();
+        $('#sekcjaDodawaniaKontaktu').hide();
+
+    });
+
+    /*
+   *
+   * sekcja danych kontaktowych - usuwanie
+   *
+   * */
+
+
+    $('.resultsBodyKontakt').on('click','.usunKontaktButton',function(){
+
+        $idKontakt= $(this).parent().parent().find('.IdKontakt').text();
+        $idKlienta= $(this).parent().parent().find('.IdKlienta').text();
+
+
+        let daneKontaktoweUsunArr = {'idKontakt':$idKontakt, 'idKlienta':$idKlienta};
+
+        $url = $baseUrl + 'usunDaneKontaktoweKontrahenta/ajax';
+        $.ajax({
+            url: $url,
+            type: 'POST',
+            data: {tab: daneKontaktoweUsunArr},
+            format: 'json',
+            dataType: 'text',
+            success: function (response) {
+                let json = JSON.parse(response);
+                console.log(json);
+
+                $('.resultsBodyKontakt tr').remove();
+
+                json.daneKontaktoweKontrahentaArr.forEach(item=> {
+
+                    var idK = '<td style="display:none" class="IdKlienta">' + item.IdKlienta + '</td>';
+                    var idKontakt = '<td style="display:none" class="IdKontakt">' + item.IdKontakt + '</td>';
+                    var telefon = '<th style="font-weight:normal;cursor:unset" scope="row" class="telefonTab">' + item.Telefon + '</th>';
+                    var email = '<th style="font-weight:normal;cursor:unset" scope="row" class="emailTab">' + item.Email + '</th>';
+                    var edytuj = '<td style="" class="edytujKontaktTab"><button title="Edytuj" type="button" class="edytujKontaktButton"><svg class="edycjaIcons" ></svg></button></td>';
+                    var usun = '<td style="" class="usunKontaktTab"><button title="Usuń" type="button" class="usunKontaktButton"><svg class="koszIcons" ></svg></button></td>';
+
+
+
+                    $row = "<tr class='daneKontaktowePokaz'>" +
+                        idK +
+                        idKontakt+
+                        telefon +
+                        email +
+                        edytuj +
+                        usun +
+                        "</tr>";
+
+                    $('.resultsBodyKontakt').append($row);
+                });
+
+                komunikatProgres('Usunięto kontakt');
+            }
+        })
+
+    });
+
 
 
 });
