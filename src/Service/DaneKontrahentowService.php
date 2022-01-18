@@ -108,4 +108,17 @@ class DaneKontrahentowService
 
         return $this->daneKontrahentowRepository->usunKontrahentaRepo($usunKontrahentaArr);
     }
+
+    public function sprawdzNIPService($sprawdzNIPArr) {
+
+        $this->logger->info('???????????????????????   serwis');
+
+        $issetNIP = $this->daneKontrahentowRepository->sprawdzNIPRepo($sprawdzNIPArr);
+
+        if( count($issetNIP ) > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

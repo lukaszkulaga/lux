@@ -5,6 +5,7 @@ $(document).ready(function () {
     * */
     $baseUrl = $('#baseUrl').val();
     $(".komunikat").hide();
+    $(".komunikatError").hide();
 
     /*
         *    drag and drop

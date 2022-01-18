@@ -7,6 +7,7 @@
     <link rel="stylesheet"  href="{{ asset('css/budowaStrony.css') }}" >
     <link rel="stylesheet"  href="{{ asset('css/elementyWspolne.css') }}" >
     <link rel="stylesheet"  href="{{ asset('css/stronaKontrahenci.css') }}" >
+    <link rel="stylesheet"  href="{{ asset('css/ikonki.css') }}" >
     <script src="{{ asset('js/stronaKontrahenci.js') }}" async></script>
 
     <title>Strona Kontrahenci</title>
@@ -29,7 +30,7 @@
 
         <div id="glownaSekcjaMain">
 
-            <div class="sekcjaFiltrow" style="position: absolute;margin-left: 2%">
+            <div class="sekcjaFiltrow">
                 <form>
                     <div style="width:10vw;float: left">
                         <div class="field-wrapper" >
@@ -55,14 +56,14 @@
                         </div>
                     </div>
 
-                    <div style="margin-left:1vw;width: 3vw;height:4.5vh;margin-top: 2vh;float: left">
+                    <div class ="filtrButtonWyczysc" >
                         <button style="" id="wyczysc" type ="reset"><svg class="wyczyscIcons"></svg></button>
                     </div>
 
                 </form>
             </div>
 
-            <div class="tableRaportKontrahenci">
+            <div class="tableRaportKontrahenci" >
                 <table class="reportTableKontrahenci">
                     <thead>
                         <tr>
@@ -93,51 +94,55 @@
                 </table>
             </div>
 
-            <div class="dodawanieKontrahenta" style=" box-shadow: 0 15px 35px rgba(0,0,0,0.2);border-left:1px solid rgb(212, 210, 210);width: 24%;max-height:57%;margin-left:60%;margin-top:5%;position: absolute;overflow-y: scroll">
+            <div class="dodawanieKontrahenta" >
 
                 <div class="zamknijSekcje" id="zamknijDodawanieKontrahenta">X</div>
 
-                <form id="formKontrahenciDodawanie" style="">
+                <form id="formKontrahenciDodawanie" >
 
-                    <div id="test" style="width:15vw;float: left;">
-                        <div class="field-wrapper" >
-                            <input  class="" type="text" id="nazwa" placeholder=" " value="" />
-                            <div class="field-placeholder"><span>Nazwa</span></div>
-                        </div>
-                        <div class="errorSuccess"></div>
-                    </div>
-                    <div style="width:15vw;float: left">
-                        <div class="field-wrapper" >
-                            <input  class="" type="text" id="nip" placeholder=" " maxlength="10" />
-                            <div class="field-placeholder"><span>NIP</span></div>
-                        </div>
-                        <p class="errorSuccess"></p>
-                    </div>
-                    <div style="width:15vw;float: left">
-                        <div class="field-wrapper" >
-                            <select id="podmiot" >
-                                <option selected="selected" value="0" disabled>--wybierz--</option>
-                                {% for podmiot in podmiotArr %}
-                                    <option value="{{ podmiot.IdPodmiot }}">{{podmiot.Opis}}</option>
-                                {% endfor %}
-                            </select>
-                            <div class="field-placeholder"><span>Podmiot</span></div>
-                        </div>
-                        <p class="errorSuccess"></p>
-                    </div>
+                    <div id="sekcjaDodawaniaKontrahenta" >
 
-                    <div style="margin-left:1vw;width: 10vw;height:4vh;margin-top: 2vh;float: left;">
-                        <div class="container1" style="height: 3vh;width: 30%;margin-top: 0">
-                            <div class="btn1" style="width: 100%;height: 3vh">
-                                <button style="width: 9vw;height: 3vh" id="zapiszDanePodstawowe" type ="button">Zapisz</button>
+                        <div id="test" style="width:15vw;float: left;">
+                            <div class="field-wrapper" >
+                                <input  class="" type="text" id="nazwa" placeholder=" " value="" />
+                                <div class="field-placeholder"><span>Nazwa</span></div>
+                            </div>
+                            <div class="errorSuccess"></div>
+                        </div>
+                        <div style="width:15vw;float: left">
+                            <div class="field-wrapper" >
+                                <input  class="" type="text" id="nip" placeholder=" " maxlength="10" />
+                                <div class="field-placeholder"><span>NIP</span></div>
+                            </div>
+                            <p class="errorSuccess"></p>
+                        </div>
+                        <div style="width:15vw;float: left">
+                            <div class="field-wrapper" >
+                                <select id="podmiot" >
+                                    <option selected="selected" value="0" disabled>--wybierz--</option>
+                                    {% for podmiot in podmiotArr %}
+                                        <option value="{{ podmiot.IdPodmiot }}">{{podmiot.Opis}}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="field-placeholder"><span>Podmiot</span></div>
+                            </div>
+                            <p class="errorSuccess"></p>
+                        </div>
+
+                        <div class="buttonZapiszDanePodstawowe" >
+                            <div class="container1" style="height: 3vh;width: 30%;margin-top: 0">
+                                <div class="btn1" style="width: 100%;height: 3vh">
+                                    <button style="width: 9vw;height: 3vh" id="zapiszDanePodstawowe" type ="button">Zapisz</button>
+                                </div>
                             </div>
                         </div>
+
                     </div>
 
                 </form>
             </div>
 
-            <div style="margin-left:2vw;width: 30vw;height:4vh;margin-top: 72vh;float: left;">
+            <div class="buttonDodajKontrahenta" >
                 <div class="container1" style="height: 3vh;width: 30%;margin-top: 0">
                     <div class="btn1" style="width: 100%;height: 3vh">
                         <button style="width: 9vw;height: 3vh" class="dodajKontrahenta" type ="button">dodaj kontrahenta</button>
@@ -145,61 +150,66 @@
                 </div>
             </div>
 
-            <div class="edycjaKontrahenta"  style="box-shadow: 0 15px 35px rgba(0,0,0,0.2);border-left:1px solid rgb(212, 210, 210);width: 24%;max-height:57%;margin-left:60%;margin-top:5%;position: absolute;overflow-y: scroll">
-                <form id="formKontrahenciEdycja" style="">
+            <div class="edycjaKontrahenta" >
+                <form id="formKontrahenciEdycja" >
 
                     <div class="zamknijSekcje"  id="zamknijEdycjeKontrahenta">X</div>
 
-                    <input id="idKontrahentaEdycja" type="text" value="" style="display: none"/>
+                    <div id="nazwaKontrahenta" ></div>
 
-                    <div style="width:15vw;float: left">
-                        <div class="field-wrapper" >
-                            <input id="nazwaEdycja" class="" type="text" placeholder=" " value="" />
-                            <div class="field-placeholder"><span>Nazwa</span></div>
-                        </div>
-                        <div class="errorSuccess"></div>
-                    </div>
-                    <div style="width:15vw;float: left">
-                        <div class="field-wrapper" >
-                            <input id="nipEdycja"  class="" type="text" placeholder=" " maxlength="10"/>
-                            <div class="field-placeholder"><span>NIP</span></div>
-                        </div>
-                        <div class="errorSuccess"></div>
-                    </div>
-                    <div style="width:15vw;float: left">
-                        <div class="field-wrapper" >
-                            <select id="podmiotEdycja">
-                                <option selected="selected" disabled>--wybierz--</option>
-                                {% for podmiot in podmiotArr %}
-                                    <option id="podmiotOpcjeEdycja" value="{{ podmiot.IdPodmiot }}">{{podmiot.Opis}}</option>
-                                {% endfor %}
-                            </select>
-                            <div class="field-placeholder"><span>Podmiot</span></div>
-                        </div>
-                        <div class="errorSuccess"></div>
-                    </div>
+                    <div id="sekcjaEdycjiKontrahenta" >
 
-                    <div style="margin-left:1vw;width: 10vw;height:4vh;margin-top: 2vh;float: left;">
-                        <div class="container1" style="height: 3vh;width: 30%;margin-top: 0">
-                            <div class="btn1" style="width: 100%;height: 3vh">
-                                <button style="width: 9vw;height: 3vh" id="edycjaDanychPodstawowych" type ="button">Edytuj</button>
+                        <input id="idKontrahentaEdycja" type="text" value="" style="display: none"/>
+
+                        <div style="width:15vw;float: left">
+                            <div class="field-wrapper" >
+                                <input id="nazwaEdycja" class="" type="text" placeholder=" " value="" />
+                                <div class="field-placeholder"><span>Nazwa</span></div>
+                            </div>
+                            <div class="errorSuccess"></div>
+                        </div>
+                        <div style="width:15vw;float: left">
+                            <div class="field-wrapper" >
+                                <input id="nipEdycja"  class="" type="text" placeholder=" " maxlength="10"/>
+                                <div class="field-placeholder"><span>NIP</span></div>
+                            </div>
+                            <div class="errorSuccess"></div>
+                        </div>
+                        <div style="width:15vw;float: left">
+                            <div class="field-wrapper" >
+                                <select id="podmiotEdycja">
+                                    <option selected="selected" disabled>--wybierz--</option>
+                                    {% for podmiot in podmiotArr %}
+                                        <option id="podmiotOpcjeEdycja" value="{{ podmiot.IdPodmiot }}">{{podmiot.Opis}}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="field-placeholder"><span>Podmiot</span></div>
+                            </div>
+                            <div class="errorSuccess"></div>
+                        </div>
+
+                        <div class="buttonEdycjaDanychPodstawowych" >
+                            <div class="container1" style="height: 3vh;width: 30%;margin-top: 0">
+                                <div class="btn1" style="width: 100%;height: 3vh">
+                                    <button style="width: 9vw;height: 3vh" id="edycjaDanychPodstawowych" type ="button">Edytuj</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
+                    </div>
                 </form>
             </div>
 
-            <div class="dodawanieAdresow" style="z-index: 1; box-shadow: 0 15px 35px rgba(0,0,0,0.2);border-left:1px solid rgb(212, 210, 210);width: 24%;height:57%;margin-left:60%;margin-top:5%;position: absolute;overflow-y: scroll">
+            <div class="dodawanieAdresow" >
                 <form id="formKontrahenciDodawanieAdresow" style="">
 
                     <div class="zamknijSekcje"  id="zamknijDodawanieAdresow">X</div>
 
-                    <div id="nazwaKontrahentaAdres" style="color: rgba(0, 60, 125,0.8); font-size: 14px; margin-top: 2vh"></div>
+                    <div id="nazwaKontrahentaAdres"></div>
 
-                    <div id="wyswietlDaneAdresowe">
-                        <div id="tabelaAdresow" class="tableRaportKontrahenci" style="max-width:95%;max-height: 70%">
-                            <table class="reportTableKontrahenci" style="width:100%;">
+                    <div id="wyswietlDaneAdresowe" style="">
+                        <div id="tabelaAdresow" class="tableDaneAdresowe" >
+                            <table class="reportTableKontrahenci" style="">
                                 <thead>
                                 <tr>
                                     <th class="thKontrahenci" style="display: none" scope="row">Id Kontrahenta</th>
@@ -217,18 +227,18 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="brakDanych" style="display:none; margin-top:13vh; font-size: 20px">Brak danych</div>
+                        <div class="brakDanych" >Brak danych</div>
 
-                        <div id="dodajDaneAdresowe" style="margin-left:1vw;width: 10vw;height:4vh;margin-top: 46vh;float: left;">
+                        <div id="dodajDaneAdresowe" >
                             <div class="container1" style="height: 3vh;width: 30%;margin-top: 0">
                                 <div class="btn1" style="width: 100%;height: 3vh">
-                                    <button style="width: 9vw;height: 3vh" id="dodajDaneAdresoweButton" type ="button">Dodaj</button>
+                                    <button id="dodajDaneAdresoweButton" type ="button">Dodaj</button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div id="sekcjaDodawaniaAdresu" style="height: 30vh;width:18vw;position: absolute;margin-top: 5vh;margin-left: 5vh">
+                    <div id="sekcjaDodawaniaAdresu" >
 
 
                         <input style="display: none" class="pobierzIdKlienta" type="text" value="" />
@@ -255,17 +265,17 @@
                             <div class="errorSuccess"></div>
                         </div>
 
-                        <div id="zapiszDaneAdresowe" style="margin-left:1vw;width: 10vw;height:4vh;margin-top: 2vh;float: left;">
+                        <div id="zapiszDaneAdresowe" >
                             <div class="container1" style="height: 3vh;width: 30%;margin-top: 0">
                                 <div class="btn1" style="width: 100%;height: 3vh">
-                                    <button style="width: 9vw;height: 3vh" id="zapiszDaneAdresoweButton" type ="button">Zapisz</button>
+                                    <button  id="zapiszDaneAdresoweButton" type ="button">Zapisz</button>
                                 </div>
                             </div>
                         </div>
 
                     </div>
 
-                    <div id="sekcjaEdycjiAdresu" style="height: 30vh;width:18vw;position: absolute;margin-top: 5vh;margin-left: 5vh">
+                    <div id="sekcjaEdycjiAdresu" >
 
 
                         <input type="text" value="" class="pobierzIdAdres" style="display:none"/>
@@ -293,10 +303,10 @@
                             <div class="errorSuccess"></div>
                         </div>
 
-                        <div id="edytujDaneAdresowe" style="margin-left:1vw;width: 10vw;height:4vh;margin-top: 2vh;float: left;">
+                        <div id="edytujDaneAdresowe" >
                             <div class="container1" style="height: 3vh;width: 30%;margin-top: 0">
                                 <div class="btn1" style="width: 100%;height: 3vh">
-                                    <button style="width: 9vw;height: 3vh" id="edytujDaneAdresoweButton" type ="button">Edytuj</button>
+                                    <button id="edytujDaneAdresoweButton" type ="button">Edytuj</button>
                                 </div>
                             </div>
                         </div>
@@ -306,16 +316,16 @@
                 </form>
             </div>
 
-            <div class="dodawanieKontaktow" style="z-index: 1; box-shadow: 0 15px 35px rgba(0,0,0,0.2);border-left:1px solid rgb(212, 210, 210);width: 24%;height:57%;margin-left:60%;margin-top:5%;position: absolute;overflow-y: scroll">
-                <form id="formKontrahenciDodawanieKontaktow" style="">
+            <div class="dodawanieKontaktow" >
+                <form id="formKontrahenciDodawanieKontaktow" >
 
                     <div class="zamknijSekcje"  id="zamknijDodawanieKontaktow">X</div>
 
-                    <div id="nazwaKontrahentaKontakt" style="color: rgba(0, 60, 125,0.8); font-size: 14px; margin-top: 2vh"></div>
+                    <div id="nazwaKontrahentaKontakt" ></div>
 
                     <div id="wyswietlDaneKontaktowe">
-                        <div id="tabelaKontaktow" class="tableRaportKontrahenci" style="max-width:95%;max-height: 70%">
-                            <table class="reportTableKontrahenci" style="width:100%;">
+                        <div id="tabelaKontaktow" class="tableDaneKontaktowe" >
+                            <table class="reportTableKontrahenci" >
                                 <thead>
                                 <tr>
                                     <th class="thKontrahenci" style="display: none" scope="row">Id Kontrahenta</th>
@@ -333,16 +343,16 @@
                         </div>
                         <div class="brakDanych" style="display:none; margin-top:13vh; font-size: 20px">Brak danych</div>
 
-                        <div id="dodajDaneKontaktowe" style="margin-left:1vw;width: 10vw;height:4vh;margin-top: 46vh;float: left;">
+                        <div id="dodajDaneKontaktowe" >
                             <div class="container1" style="height: 3vh;width: 30%;margin-top: 0">
                                 <div class="btn1" style="width: 100%;height: 3vh">
-                                    <button style="width: 9vw;height: 3vh" id="dodajDaneKontaktoweButton" type ="button">Dodaj</button>
+                                    <button id="dodajDaneKontaktoweButton" type ="button">Dodaj</button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div id="sekcjaDodawaniaKontaktu" style="height: 30vh;width:18vw;position: absolute;margin-top: 5vh;margin-left: 5vh">
+                    <div id="sekcjaDodawaniaKontaktu" >
 
 
                         <input style="display: none" class="pobierzIdKlienta" type="text" value="" />
@@ -362,17 +372,17 @@
                             <div class="errorSuccess"></div>
                         </div>
 
-                        <div id="zapiszDaneKontaktowe" style="margin-left:1vw;width: 10vw;height:4vh;margin-top: 2vh;float: left;">
+                        <div id="zapiszDaneKontaktowe" >
                             <div class="container1" style="height: 3vh;width: 30%;margin-top: 0">
                                 <div class="btn1" style="width: 100%;height: 3vh">
-                                    <button style="width: 9vw;height: 3vh" id="zapiszDaneKontaktoweButton" type ="button">Zapisz</button>
+                                    <button  id="zapiszDaneKontaktoweButton" type ="button">Zapisz</button>
                                 </div>
                             </div>
                         </div>
 
                     </div>
 
-                    <div id="sekcjaEdycjiKontaktu" style="height: 30vh;width:18vw;position: absolute;margin-top: 5vh;margin-left: 5vh">
+                    <div id="sekcjaEdycjiKontaktu" >
 
 
                         <input type="text" value="" class="pobierzIdKontakt" style="display:none"/>
@@ -393,10 +403,10 @@
                             <div class="errorSuccess"></div>
                         </div>
 
-                        <div id="edytujDaneKontaktowe" style="margin-left:1vw;width: 10vw;height:4vh;margin-top: 2vh;float: left;">
+                        <div id="edytujDaneKontaktowe" >
                             <div class="container1" style="height: 3vh;width: 30%;margin-top: 0">
                                 <div class="btn1" style="width: 100%;height: 3vh">
-                                    <button style="width: 9vw;height: 3vh" id="edytujDaneKontaktoweButton" type ="button">Edytuj</button>
+                                    <button  id="edytujDaneKontaktoweButton" type ="button">Edytuj</button>
                                 </div>
                             </div>
                         </div>

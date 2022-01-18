@@ -6,12 +6,12 @@
     <link rel="stylesheet"  href="{{ asset('css/przyciski.css') }}">
     <link rel="stylesheet"  href="{{ asset('css/budowaStrony.css') }}" >
     <link rel="stylesheet"  href="{{ asset('css/elementyWspolne.css') }}" >
+    <link rel="stylesheet"  href="{{ asset('css/stronaZgloszenia.css') }}" >
+    <script src="{{ asset('js/stronaZgloszenia.js') }}" async></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
           integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
-    <script src="{{ asset('js/rejestracja.js') }}" async></script>
-
-    <title>Strona Użytkownika</title>
+    <title>Strona Zgłoszenia</title>
 </head>
 <body>
 
@@ -26,7 +26,14 @@
         {% include 'globalHtml/menuBoczne.html.twig' %}
     </aside>
     <main>
-        Main
+        <input style="display: none" id="baseUrl" type="text" value={{ baseUrl }} />
+
+        <div id="glownaSekcjaMain">
+
+
+
+        </div>>
+
     </main>
     <footer>
         Footer

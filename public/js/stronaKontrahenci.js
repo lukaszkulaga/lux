@@ -16,6 +16,7 @@ $(document).ready(function () {
 
     $('.errorSuccess').hide();
     $(".komunikat").hide();
+    $(".komunikatError").hide();
 
     // zmienne dla walidacji
     $nazwaErr = false;
@@ -50,17 +51,34 @@ $(document).ready(function () {
 *
 * */
 
-    function komunikatProgres($text) {
+    function komunikatProgres($text,$successError) {
 
-        $(".komunikat").show();
+        if($successError === 'success'){
+            $(".komunikatError").hide();
+            $(".komunikat").show();
+        } else {
+            $(".komunikat").hide();
+            $(".komunikatError").show();
+        }
 
         $('.textKomunikatu').text($text);
 
         setTimeout(function(){
-            $(".komunikat").hide();
+
+            if($successError === 'success'){
+                $(".komunikat").hide();
+            } else {
+                $(".komunikatError").hide();
+            }
+
         }, 4000);
 
-        $elem = $(".progressBar");
+
+        if($successError === 'success'){
+            $elem = $(".progressBar");
+        } else {
+            $elem = $(".progressBarError");
+        }
 
         $width = 1;
         $id = setInterval(frame, 40);
@@ -285,13 +303,50 @@ $(document).ready(function () {
         }
     }
 
+
+    // funkcja sprawdza czy podany nip juz istnieje w bazie
+    function sprawdzanieNIP (){
+
+            $nip = $('#nip').val();
+            $sprawdzNIP = 'błąd - nie wykonał sie ajax';
+
+            let sprawdzNIPArr = {'nip':$nip};
+
+            $url = $baseUrl + 'sprawdzNIP/ajax';
+            $.ajax({
+                url: $url,
+                type: 'POST',
+                // wyłaczamy async aby po kliknieciu przycisku zapisujacego dane podstawowe zdążyło się wykonać
+                // wywołanie funkcji która sprawdza czy nip istnieje ( a dokładnie - żeby zdążył wykonac sie ajax).
+                // Chodzi o to że ajax standardowo ma ustawione async na true i działa wtedy równolegle ( niezależnie )
+                // i dlatego informacja o tym czy nip  istnieje pojawia się przed tym zanim ajax skonczy działac
+                // i w odczycie dostajemy udefined.
+                async: false,
+                data: {tab: sprawdzNIPArr},
+                format: 'json',
+                dataType: 'text',
+                success: function (response) {
+                    let json = JSON.parse(response);
+
+                    $sprawdzNIP =  json.sprawdzNIP;
+
+                }
+            })
+
+        return $sprawdzNIP;
+    }
+
+
+
     // zapisywanie danych podstawowych
     $('#zapiszDanePodstawowe').on('click',function() {
 
-        // walidacja pojedyncza - jeżeli true czyli wszystkie walidacje przejda pomyslnie to wykona sie ajax
-        $rezultat = walidacjaDanychPodstawowych()
+        // walidacja pojedyncza - jeżeli true czyli wszystkie walidacje przejda pomyslnie i
+        // nip nie istnieje w bazie to wykona sie ajax
+        $rezultat = walidacjaDanychPodstawowych();
+        $sprawdzanieNIP =  sprawdzanieNIP();
 
-        if($rezultat === true){
+        if($rezultat === true && $sprawdzanieNIP === false){
 
             $nazwa = $('#nazwa').val();
             $nip = $('#nip').val();
@@ -337,14 +392,14 @@ $(document).ready(function () {
                         $('.resultsBody').append($row);
                     });
 
-                    komunikatProgres('Dodano kontrahenta');
+                    komunikatProgres('Dodano kontrahenta','success');
                 }
             })
 
-            /* done - w tym miejscu możemy wywolac zdarzenia po zalodowaniu jakichs elementow za pomoca ajax.
+            /* done - w tym miejscu możemy wywolac zdarzenia po załadowaniu jakichs elementow za pomoca ajax.
             Bez tego zdzarzenie ktore dzialalo przed wykonaniem sie ajaxa juz nie zadziala - chyba chodzi o pamiec komputera
             bo nowo zaladowany element w ajaxie jest juz innym obiektem - w done zdarzenie zadziala bo odwolujemy sie do
-             tego nowo utworzonego obiektu */
+             tego nowo utworzonego obiektu . Zamiast done możemy zrobic zdarzenie oddelegowane */
 
             // .done(function (data) {
             //     alert('2');
@@ -371,6 +426,13 @@ $(document).ready(function () {
             $('#sekcjaDodawaniaKontaktu').hide();
             $('#wyswietlDaneKontaktowe').hide();
 
+        } else {
+            if( $rezultat === false ){
+                komunikatProgres('wypełnij wymagane pola','success');
+            }
+            if( $sprawdzanieNIP === true ){
+                komunikatProgres('taki nip juz istnieje','error');
+            }
         }
     });
 
@@ -397,6 +459,9 @@ $(document).ready(function () {
         $nazwaEdycja = $(this).parent().find('.nazwaTab').text();
         $nipEdycja = $(this).parent().find('.nipTab').text();
         $podmiotEdycjaId = $(this).parent().find('.podmiotIdTab').text();
+
+        $nazwaKontrahenta = $(this).text();
+        $('#nazwaKontrahenta').text($nazwaKontrahenta);
 
         $('#idKontrahentaEdycja').val($idKlienta);
         $('#nazwaEdycja').val($nazwaEdycja);
@@ -568,7 +633,7 @@ $(document).ready(function () {
                         $('.resultsBody').append($row);
                     });
 
-                    komunikatProgres('Zapisano zmiany');
+                    komunikatProgres('Zapisano zmiany','success');
 
                 }
             });
@@ -643,7 +708,7 @@ $(document).ready(function () {
                     $('.resultsBody').append($row);
                 });
 
-                komunikatProgres('Usunięto kontrahenta');
+                komunikatProgres('Usunięto kontrahenta','success');
             }
         })
 
@@ -829,7 +894,7 @@ $(document).ready(function () {
                 };
 
 
-                komunikatProgres('Dodano adres');
+                komunikatProgres('Dodano adres','success');
             }
         })
 
@@ -931,7 +996,7 @@ $(document).ready(function () {
                     $('.resultsBodyAdres').append($row);
                 });
 
-                komunikatProgres('Zapisano zmiany');
+                komunikatProgres('Zapisano zmiany','success');
             }
         })
 
@@ -1004,7 +1069,7 @@ $(document).ready(function () {
                     $('.resultsBodyAdres').append($row);
                 });
 
-                komunikatProgres('Usunięto adres');
+                komunikatProgres('Usunięto adres','success');
             }
         })
 
@@ -1181,7 +1246,7 @@ $('.resultsBody').on('click','.pokazKontaktButton',function() {
                     $('#dodajDaneKontaktowe').css('margin-top','30.7vh');
                 };
 
-                komunikatProgres('Dodano kontakt');
+                komunikatProgres('Dodano kontakt','success');
             }
         })
 
@@ -1276,7 +1341,7 @@ $('.resultsBody').on('click','.pokazKontaktButton',function() {
 
                 });
 
-                komunikatProgres('Zapisano zmiany');
+                komunikatProgres('Zapisano zmiany','success');
             }
         })
 
@@ -1344,7 +1409,7 @@ $('.resultsBody').on('click','.pokazKontaktButton',function() {
                     $('.resultsBodyKontakt').append($row);
                 });
 
-                komunikatProgres('Usunięto kontakt');
+                komunikatProgres('Usunięto kontakt','success');
             }
         })
 
