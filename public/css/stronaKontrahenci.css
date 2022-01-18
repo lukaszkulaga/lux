@@ -1,18 +1,41 @@
 .tableRaportKontrahenci{
 
     /*border: solid purple;*/
-    max-width: 55%;
+    max-width: 50%;
     max-height: 57%;
     margin-left: 2%;
     margin-top: 5%;
     overflow-y: scroll;
     position: absolute;
+    /*border:solid red;*/
 }
+
+.tableDaneAdresowe{
+
+    width:95%;
+    max-height: 70%;
+    margin-left: 2%;
+    margin-top: 5%;
+    overflow-y: scroll;
+    position: absolute;
+}
+
+.tableDaneKontaktowe{
+
+    width:95%;
+    max-height: 70%;
+    margin-left: 2%;
+    margin-top: 5%;
+    overflow-y: scroll;
+    position: absolute;
+}
+
 .reportTableKontrahenci {
     background: transparent;
     font-size:14px;
     border-collapse: separate;
     border-spacing: 0;
+    width:100%;
 }
 .reportTableKontrahenci th,
 .reportTableKontrahenci td {
@@ -59,64 +82,253 @@
     cursor: unset;
 }
 
-.errorSuccess {
-    width: 1.3vw;
-    height: 2.5vh;
-    margin-left: 15vw;
-    margin-top: -5.4vh;
+.sekcjaFiltrow{
     position: absolute;
-    cursor: pointer;
-    /*border: solid yellow;*/
+    margin-left: 2%;
 }
 
-.zamknijSekcje{
-    font-size: 1vw;
-    cursor:pointer;
-    margin-left:22vw;
-    font-weight: bold;
+.filtrButtonWyczysc{
+    margin-left:1vw;
+    width: 3vw;
+    height:4.5vh;
+    margin-top: 2vh;
+    float: left
 }
 
-.earthIcon {
-    width: 1.5vw;
-    height: 3vh;
-    margin-top: 0.5vh;
-    /*border:solid red;*/
-    cursor: pointer;
-    background: url('../icons/Earth.svg') no-repeat;
+.dodawanieKontrahenta{
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    border-left:1px solid rgb(212, 210, 210);
+    width: 30%;
+    height:57%;
+    margin-left:56%;
+    margin-top:5%;
+    position: absolute;
+    overflow-y: scroll
 }
 
-.wyczyscIcons {
-    width: 2vw;
-    height: 3vh;
-    margin-top: 0.5vh;
-    /*border:solid red;*/
-    cursor: pointer;
-    background: url('../icons/wyczysc.svg') no-repeat;
+#sekcjaDodawaniaKontrahenta{
+    height: 30vh;
+    width:18vw;
+    position: absolute;
+    margin-top: 5vh;
+    margin-left: 13vh
 }
 
-.telefonIcons {
-    width: 1.5vw;
-    height: 3vh;
-    margin-top: 0.5vh;
-    /*border:solid red;*/
-    cursor: pointer;
-    background: url('../icons/telefon.svg') no-repeat;
+.buttonZapiszDanePodstawowe{
+    margin-left:1vw;
+    width: 10vw;
+    height:4vh;
+    margin-top: 2vh;
+    float: left;
 }
 
-.koszIcons {
-    width: 1.5vw;
-    height: 3vh;
-    margin-top: 0.5vh;
-    /*border:solid red;*/
-    cursor: pointer;
-    background: url('../icons/kosz.svg') no-repeat;
+.buttonDodajKontrahenta{
+    margin-left:2vw;
+    width: 30vw;
+    height:4vh;
+    margin-top: 72vh;
+    float: left;
 }
 
-.edycjaIcons {
-    width: 1.5vw;
-    height: 3vh;
-    margin-top: 0.5vh;
-    /*border:solid red;*/
-    cursor: pointer;
-    background: url('../icons/dokument_olowek.svg') no-repeat;
+.edycjaKontrahenta{
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    border-left:1px solid rgb(212, 210, 210);
+    width: 30%;
+    height:57%;
+    margin-left:56%;
+    margin-top:5%;
+    position: absolute;
+    overflow-y: scroll
 }
+
+#nazwaKontrahenta{
+    color: rgba(0, 60, 125,0.8);
+    font-size: 14px;
+    margin-top: 2vh
+}
+
+#sekcjaEdycjiKontrahenta{
+    height: 30vh;
+    width:18vw;
+    position: absolute;
+    margin-top: 5vh;
+    margin-left: 13vh
+}
+
+.buttonEdycjaDanychPodstawowych{
+    margin-left:1vw;
+    width: 10vw;
+    height:4vh;
+    margin-top: 2vh;
+}
+
+.dodawanieAdresow{
+    z-index: 1;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    border-left:1px solid rgb(212, 210, 210);
+    width: 30%;
+    height:57%;
+    margin-left:56%;
+    margin-top:5%;
+    position: absolute;
+    overflow-y: scroll
+}
+
+#nazwaKontrahentaAdres{
+    color: rgba(0, 60, 125,0.8);
+    font-size: 14px;
+    margin-top: 2vh
+}
+
+.brakDanych{
+    display:none;
+    margin-top:13vh;
+    font-size: 20px
+}
+
+#dodajDaneAdresowe{
+    margin-left:1vw;
+    width: 10vw;
+    height:4vh;
+    margin-top: 46vh;
+    float: left;
+}
+
+#dodajDaneAdresoweButton{
+    width: 9vw;
+    height: 3vh
+}
+
+#sekcjaDodawaniaAdresu{
+    height: 30vh;
+    width:18vw;
+    position: absolute;
+    margin-top: 5vh;
+    margin-left: 13vh
+}
+
+#zapiszDaneAdresowe{
+    margin-left:1vw;
+    width: 10vw;
+    height:4vh;
+    margin-top: 2vh;
+    float: left;
+}
+
+#zapiszDaneAdresoweButton{
+    width: 9vw;
+    height: 3vh
+}
+
+#sekcjaEdycjiAdresu{
+    height: 30vh;
+    width:18vw;
+    position: absolute;
+    margin-top: 5vh;
+    margin-left: 13vh
+}
+
+#edytujDaneAdresowe{
+    margin-left:1vw;
+    width: 10vw;
+    height:4vh;
+    margin-top: 2vh;
+    float: left;
+}
+
+#edytujDaneAdresoweButton{
+    width: 9vw;
+    height: 3vh
+}
+
+.dodawanieKontaktow{
+    z-index: 1;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    border-left:1px solid rgb(212, 210, 210);
+    width: 30%;
+    height:57%;
+    margin-left:56%;
+    margin-top:5%;
+    position: absolute;
+    overflow-y: scroll
+}
+
+#nazwaKontrahentaKontakt{
+    color: rgba(0, 60, 125,0.8);
+    font-size: 14px;
+    margin-top: 2vh
+}
+
+.tableDaneKontaktowe{
+    width:95%;
+    max-height: 70%
+}
+
+#dodajDaneKontaktowe{
+    margin-left:1vw;
+    width: 10vw;
+    height:4vh;
+    margin-top: 46vh;
+    float: left;
+}
+
+#dodajDaneKontaktoweButton{
+    width: 9vw;
+    height: 3vh
+}
+
+#sekcjaDodawaniaKontaktu{
+    height: 30vh;
+    width:18vw;
+    position: absolute;
+    margin-top: 5vh;
+    margin-left: 13vh
+}
+
+#zapiszDaneKontaktowe{
+    margin-left:1vw;
+    width: 10vw;
+    height:4vh;
+    margin-top: 2vh;
+    float: left;
+}
+
+#zapiszDaneKontaktoweButton{
+    width: 9vw;
+    height: 3vh
+}
+
+#sekcjaEdycjiKontaktu{
+    height: 30vh;
+    width:18vw;
+    position: absolute;
+    margin-top: 5vh;
+    margin-left: 13vh
+}
+
+#edytujDaneKontaktowe{
+    margin-left:1vw;
+    width: 10vw;
+    height:4vh;
+    margin-top: 2vh;
+    float: left;
+}
+
+#edytujDaneKontaktoweButton{
+    width: 9vw;
+    height: 3vh
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

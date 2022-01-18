@@ -131,7 +131,7 @@ class DaneKontrahentowRepository
         $this->logger->info('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 2');
 
         $sql = "UPDATE klienciAdres
-                SET Miejscowosc = '$miejscowosc',Ulica ='$ulica',NrBudynku=$nrBudynku
+                SET Miejscowosc = '$miejscowosc',Ulica ='$ulica',NrBudynku='$nrBudynku'
                 WHERE IdAdres=$idAdres";
         $this->conn->fetchAllAssociative($sql);
 
@@ -232,7 +232,6 @@ class DaneKontrahentowRepository
 
         $idKlienta = $usunKontrahentaArr['idKlienta'];
 
-
         $sql1 = "delete from klienciKontakt where IdKlienta = $idKlienta";
         $this->conn->fetchAllAssociative($sql1);
         $sql2 = "delete from klienciAdres where IdKlienta = $idKlienta";
@@ -241,6 +240,18 @@ class DaneKontrahentowRepository
         $this->conn->fetchAllAssociative($sql3);
 
         return $this->daneKontrahentowRepo();
+    }
+
+    public function sprawdzNIPRepo($sprawdzNIPArr) {
+
+        $this->logger->info('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 1');
+
+        $nip = $sprawdzNIPArr['nip'];
+
+        $sql = "select NIP from klienci where NIP = '$nip'";
+        $selectNIP = $this->conn->fetchAllAssociative($sql);
+
+        return $selectNIP;
     }
 
 }
