@@ -319,6 +319,13 @@
     height: 3vh
 }
 
+.zamknijSekcje{
+    font-size: 1vw;
+    cursor:pointer;
+    margin-left:27vw;
+    font-weight: bold;
+}
+
 
 
 

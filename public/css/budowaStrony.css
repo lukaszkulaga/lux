@@ -13,7 +13,7 @@ section {
     display: grid;
     height: 100vh;
     grid-template-columns: 1fr 12fr;
-    grid-template-rows: 0.5fr 0.5fr 8fr 0.5fr;
+    grid-template-rows: 0.5fr 0.5fr 9fr 0.3fr;
     grid-template-areas:
         "header header"
         "nav nav"
@@ -24,6 +24,7 @@ section {
     font-size: 12px;
     text-align: center;
     row-gap: 0px;
+    /*border:solid red;*/
 }
 
 #glownaSekcjaMain {
@@ -31,7 +32,7 @@ section {
     /*box-shadow: 1px 1px 3px rgba(85, 85, 85,1);*/
     box-shadow: rgb(0 0 0 / 20%) 0px 15px 35px;
     width: 96%;
-    margin: 2%;
+    /*margin: 1%;*/
     /*border:solid purple;*/
 }
 

@@ -5,6 +5,8 @@ CREATE TABLE [dbo].[klienciAdres](
     [Miejscowosc] [nvarchar](255) NULL,
     [Ulica] [nvarchar](255) NULL,
     [NrBudynku] [nvarchar](255) NULL,
+    [DataModyfikacji] [datetime2](7) NULL,
+    [User] [nvarchar](255) NULL
     PRIMARY KEY CLUSTERED
 (
 [IdAdres] ASC

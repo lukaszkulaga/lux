@@ -254,4 +254,17 @@ class DaneKontrahentowRepository
         return $selectNIP;
     }
 
+    public function edycjaSprawdzNIPRepo($sprawdzNIPArr) {
+
+        $this->logger->info('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 1');
+
+        $nip = $sprawdzNIPArr['nip'];
+        $idKlienta = $sprawdzNIPArr['idKlienta'];
+
+        $sql = "select NIP from klienci where NIP = '$nip' and IdKlienta != $idKlienta";
+        $selectNIP = $this->conn->fetchAllAssociative($sql);
+
+        return $selectNIP;
+    }
+
 }

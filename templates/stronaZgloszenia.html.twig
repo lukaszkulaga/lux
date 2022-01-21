@@ -7,9 +7,8 @@
     <link rel="stylesheet"  href="{{ asset('css/budowaStrony.css') }}" >
     <link rel="stylesheet"  href="{{ asset('css/elementyWspolne.css') }}" >
     <link rel="stylesheet"  href="{{ asset('css/stronaZgloszenia.css') }}" >
+    <link rel="stylesheet"  href="{{ asset('css/ikonki.css') }}" >
     <script src="{{ asset('js/stronaZgloszenia.js') }}" async></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
     <title>Strona Zgłoszenia</title>
 </head>
@@ -30,9 +29,246 @@
 
         <div id="glownaSekcjaMain">
 
+            <div class="sekcjaFiltrow" >
+                <form>
+                    <div style="width:10vw;float: left">
+                        <div class="field-wrapper" >
+                            <input  class="filtrKontrahent" type="text" id="nazwaFiltr" placeholder=" " value="" />
+                            <div class="field-placeholder"><span>Nazwa</span></div>
+                        </div>
+                    </div>
+                    <div style="width:10vw;float: left">
+                        <div class="field-wrapper" >
+                            <input  class="filtrKontrahent" type="text" id="nipFiltr" placeholder=" " value="" />
+                            <div class="field-placeholder"><span>NIP</span></div>
+                        </div>
+                    </div>
+                    <div style="width:10vw;float: left">
+                        <div class="field-wrapper" >
+                            <select class="filtrKontrahent" id="podmiotFiltr">
+                                <option selected="selected" disabled>--wybierz--</option>
+{#                                {% for podmiot in podmiotArr %}#}
+                                    <option id="podmiotOpcjeEdycja" value="xx">xx</option>
+{#                                {% endfor %}#}
+                            </select>
+                            <div class="field-placeholder"><span>Podmiot</span></div>
+                        </div>
+                    </div>
 
+                    <div class ="filtrButtonWyczysc" >
+                        <button style="" id="wyczysc" type ="reset"><svg class="wyczyscIcons"></svg></button>
+                    </div>
 
-        </div>>
+                </form>
+            </div>
+
+            <div class="sekcjaZgloszenia" >
+                <table class="tabelaZgloszenia" style="">
+                    <thead>
+                    <tr>
+                        <th class="thZgloszenia" style="" scope="row">Nr</th>
+                        <th class="thZgloszenia" scope="row">Data dodania</th>
+                        <th class="thZgloszenia" scope="row">Planowana realizacja</th>
+                        <th class="thZgloszenia" scope="row">Adres</th>
+                        <th class="thZgloszenia" scope="row">Klient</th>
+                        <th class="thZgloszenia" scope="row">Wykonawca</th>
+                        <th class="thZgloszenia" scope="row">Kategoria</th>
+                        <th class="thZgloszenia" scope="row">Priorytet</th>
+                        <th class="thZgloszenia" scope="row">Status</th>
+                    </tr>
+                    </thead>
+                    <tbody class="zgloszeniaTbody">
+{#                    {% for daneKontrahenta in daneKontrahentowArr %}#}
+                        <tr class="zgloszeniaTbodyTr">
+                            <th style="width:4%" class="IdZgloszeniaTab" scope="row">10000000</th>
+                            <td style="width:8%"  class="dataZgloszeniaTab" >21.01.2022</td>
+                            <td style="width:15%" class ="planowanaRealizacjaTab">21.01.2022 07:30 - 08:30</td>
+                            <td style="width:15%" class="adresTab">Al.Krakowska 291A/153 i 152</td>
+                            <td style="width:15%" class="klientTab">MBMarket Ltd</td>
+                            <td style="width:10%" class="wykonawcaTab">Bartłomiej lewandowski</td>
+                            <td style="width:10%" class="kategoriaTab">Drzwi i okna części wspólne</td>
+                            <td style="width:9%" class="priorytetTab">bardzo ważne</td>
+                            <td style="width:9%" class="statusTab">czesciowo zrealizowano</td>
+                        </tr>
+{#                    {% endfor %}#}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="buttonDodajZgloszenie" >
+                <div class="container1" style="height: 3vh;width: 30%;margin-top: 0">
+                    <div class="btn1" style="width: 100%;height: 3vh">
+                        <button style="width: 9vw;height: 3vh" class="dodajZgloszenie" type ="button">Dodaj zgłoszenie</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dodawanieZgloszenia" >
+
+                <div class="zamknijSekcje" id="zamknijDodawanieZgloszenia">X</div>
+
+{#                <div class="sectionButtonZgloszenia" style="width:99%;height:5%;border:solid red">#}
+{#                    <button style="" id="buttonZapiszZgloszenie" type ="button">Zapisz</button>#}
+{#                </div>#}
+
+                <form>
+
+                    <div class="sekcjaDodawaniaZgloszenia" >
+
+                        <div>
+                            <div class="field-wrapper-zgloszenia" >
+                                <select id="klientDodaj" >
+                                    <option selected="selected" value="0" disabled>--wybierz--</option>
+                                    {#                                    {% for podmiot in podmiotArr %}#}
+                                    <option value="x">asdfasdasd asdasd</option>
+                                    {#                                    {% endfor %}#}
+                                </select>
+                                <div class="field-placeholder-zgloszenia"><span>Klient</span></div>
+                            </div>
+                            <p class="errorSuccess"></p>
+                        </div>
+
+                        <div>
+                            <div class="field-wrapper-zgloszenia" >
+                                <select id="kategoriaDodaj" >
+                                    <option selected="selected" value="0" disabled>--wybierz--</option>
+                                    {#                                    {% for podmiot in podmiotArr %}#}
+                                    <option value="x">x</option>
+                                    {#                                    {% endfor %}#}
+                                </select>
+                                <div class="field-placeholder-zgloszenia"><span>Kategoria</span></div>
+                            </div>
+                            <p class="errorSuccess"></p>
+                        </div>
+
+                        <div>
+                            <div class="field-wrapper-zgloszenia" >
+                                <select id="adresDodaj" >
+                                    <option selected="selected" value="0" disabled>--wybierz--</option>
+                                    {#                                    {% for podmiot in podmiotArr %}#}
+                                    <option value="x">skarbka </option>
+                                    {#                                    {% endfor %}#}
+                                </select>
+                                <div class="field-placeholder-zgloszenia"><span>Adres</span></div>
+                            </div>
+                            <p class="errorSuccess"></p>
+                        </div>
+
+                        <div>
+                            <div class="field-wrapper-zgloszenia" >
+                                <input  class="" type="text" id="nrLokaluDodaj" placeholder=" " value="" />
+                                <div class="field-placeholder-zgloszenia"><span>Nr lokalu</span></div>
+                            </div>
+                            <div class="errorSuccess"></div>
+                        </div>
+
+                        <div>
+                            <div class="field-wrapper-zgloszenia" >
+                                <input  class="" type="date" id="terminOdDodaj" placeholder=" " value="" />
+                                <div class="field-placeholder-zgloszenia"><span>Termin realizacji od</span></div>
+                            </div>
+                            <div class="errorSuccess"></div>
+                        </div>
+
+                        <div>
+                            <div class="field-wrapper-zgloszenia" >
+                                <input  class="" type="date" id="terminDoDodaj" placeholder=" " value="" />
+                                <div class="field-placeholder-zgloszenia"><span>Termin realizacji do</span></div>
+                            </div>
+                            <div class="errorSuccess"></div>
+                        </div>
+
+                        <div>
+                            <div class="field-wrapper-zgloszenia" >
+                                <input  class="" type="text" id="godzinaOdDodaj" placeholder=" " value="" />
+                                <div class="field-placeholder-zgloszenia"><span>Godzina od</span></div>
+                            </div>
+                            <div class="errorSuccess"></div>
+                        </div>
+
+                        <div>
+                            <div class="field-wrapper-zgloszenia" >
+                                <input  class="" type="text" id="godzinaDoDodaj" placeholder=" " value="" />
+                                <div class="field-placeholder-zgloszenia"><span>Godzina do</span></div>
+                            </div>
+                            <div class="errorSuccess"></div>
+                        </div>
+
+                        <div>
+                            <div class="field-wrapper-zgloszenia" >
+                                <textarea  class=""  id="opisDodaj" placeholder=" " ></textarea>
+                                <div class="textarea-field-placeholder-zgloszenia"><span>Opis</span></div>
+                            </div>
+                            <div class="errorSuccess"></div>
+                        </div>
+
+                        <div style="clear: both"></div>
+
+                        <div>
+                            <div class="field-wrapper-zgloszenia" >
+                                <select id="wykonawcaDodaj" >
+                                    <option selected="selected" value="0" disabled>--wybierz--</option>
+                                    {#                                    {% for podmiot in podmiotArr %}#}
+                                    <option value="x">x</option>
+                                    {#                                    {% endfor %}#}
+                                </select>
+                                <div class="field-placeholder-zgloszenia"><span>Wybierz wykonawcę</span></div>
+                            </div>
+                            <p class="errorSuccess"></p>
+                        </div>
+
+                        <div>
+                            <div class="field-wrapper-zgloszenia" >
+                                <select id="priorytetDodaj" >
+                                    <option selected="selected" value="0" disabled>--wybierz--</option>
+                                    {#                                    {% for podmiot in podmiotArr %}#}
+                                    <option value="x">x</option>
+                                    {#                                    {% endfor %}#}
+                                </select>
+                                <div class="field-placeholder-zgloszenia"><span>Priorytet</span></div>
+                            </div>
+                            <p class="errorSuccess"></p>
+                        </div>
+
+                        <div class="sekcjaWykonawca">
+                            <table class="tabelaWykonawca" style="">
+                                <thead>
+                                    <tr>
+                                        <th class="thWykonawca" style="display:none" >Id</th>
+                                        <th class="thWykonawca" scope="row" >Wykonawca</th>
+                                        <th class="thWykonawca">Usuń</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="wykonawcaTbody">
+                                    {#                    {% for daneKontrahenta in daneKontrahentowArr %}#}
+                                    <tr class="wykonawcaTbodyTr">
+                                        <td  style="display: none" >1000</td>
+                                        <th  class="" scope="row">bartlomiej lewandowski</th>
+                                        <td  class="usunWykonawceTab"><button title="Usuń" class="usunWykonawceButton"><svg class="koszIcons" style="width: 1vw;height: 2vh"></svg></button></td>
+                                    </tr>
+                                    {#                    {% endfor %}#}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div style="float:left;margin-top:1vh;width:21vw;height: 6vh;border:solid black">drop and drag </div>
+
+                        <div style="clear: both"></div>
+
+                        <div class="zapiszZgloszenie">
+                            <div class="container1" style="height: 3vh;width: 30%;margin-top: 0;">
+                                <div class="btn1" style="width: 100%;height: 3vh">
+                                    <button style="width: 9vw;height: 3vh" id="buttonZapiszZgloszenie" type ="button">Zapisz</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
 
     </main>
     <footer>

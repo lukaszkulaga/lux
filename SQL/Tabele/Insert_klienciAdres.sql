@@ -1,1 +1,0 @@
-insert into [klienciAdres]([IdKlienta],[Miejscowosc],[Uica],[NrBudynku]) values (1,'Warszawa','Posag 7 Panien','11B'),(2,'Warszawa','Posag 7 Panien','9A')

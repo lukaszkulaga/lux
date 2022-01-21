@@ -121,4 +121,17 @@ class DaneKontrahentowService
             return false;
         }
     }
+
+    public function edycjaSprawdzNIPService($sprawdzNIPArr) {
+
+        $this->logger->info('???????????????????????   serwis');
+
+        $issetNIP = $this->daneKontrahentowRepository->edycjaSprawdzNIPRepo($sprawdzNIPArr);
+
+        if( count($issetNIP ) > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

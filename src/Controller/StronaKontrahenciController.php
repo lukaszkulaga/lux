@@ -308,4 +308,23 @@ class StronaKontrahenciController extends AbstractController
 
         return new JsonResponse($trueOrFalse);
     }
+
+    /**
+     *
+     * edycja -sprawdz NIP czy istnieje
+     *
+     * @Route("/edycjaSprawdzNIP/ajax", methods={"POST"})
+     */
+    public function edycjaSprawdzNIP(Request $request) {
+
+        $sprawdzNIPArr = $request->request->get('tab');
+
+        $this->logger->info('!!!!!!!!!!!!!!!!!!!!   kontroler');
+
+        $sprawdzNIP = $this->daneKontrahentowService->edycjaSprawdzNIPService($sprawdzNIPArr);
+
+        $trueOrFalse = ['sprawdzNIP'=>$sprawdzNIP];
+
+        return new JsonResponse($trueOrFalse);
+    }
 }

@@ -4,7 +4,9 @@ CREATE TABLE [dbo].[klienci](
     [IdKlienta] [int] IDENTITY(1,1) NOT NULL,
     [Nazwa] [nvarchar](255) NULL,
     [NIP] [nvarchar](255) NULL,
-    [Podmiot] [int] NULL
+    [Podmiot] [int] NULL,
+    [DataModyfikacji] [datetime2](7) NULL,
+    [User] [nvarchar](255) NULL
     PRIMARY KEY CLUSTERED
 (
 [IdKlienta] ASC
