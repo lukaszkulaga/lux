@@ -5,6 +5,8 @@ CREATE TABLE [dbo].[klienciKontakt](
     [IdKlienta] [int] NOT NULL,
     [Telefon] [nvarchar](255) NULL,
     [Email] [nvarchar](255) NULL,
+    [DataModyfikacji] [datetime2](7) NULL,
+    [User] [nvarchar](255) NULL
     PRIMARY KEY CLUSTERED
 (
 [IdKontakt] ASC

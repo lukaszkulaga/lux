@@ -582,6 +582,34 @@ $(document).ready(function () {
         }
     }
 
+    // funkcja sprawdza czy podany nip juz istnieje w bazie
+    function edycjaSprawdzanieNIP (){
+
+        $nip = $('#nipEdycja').val();
+        $idKlienta = $('#idKontrahentaEdycja').val();
+        $sprawdzNIP = 'błąd - nie wykonał sie ajax';
+
+        let sprawdzNIPArr = {'nip':$nip,'idKlienta':$idKlienta};
+
+        $url = $baseUrl + 'edycjaSprawdzNIP/ajax';
+        $.ajax({
+            url: $url,
+            type: 'POST',
+            async: false,
+            data: {tab: sprawdzNIPArr},
+            format: 'json',
+            dataType: 'text',
+            success: function (response) {
+                let json = JSON.parse(response);
+
+                $sprawdzNIP =  json.sprawdzNIP;
+            }
+        })
+
+        return $sprawdzNIP;
+    }
+
+
     $('#edycjaDanychPodstawowych').on('click',function() {
 
         $idKlienta = $('#idKontrahentaEdycja').val();
@@ -590,8 +618,10 @@ $(document).ready(function () {
         $podmiot = $('#podmiotEdycja').val();
 
         $rezultat = walidacjaDanychPodstawowychEdycja();
+        $sprawdzanieNIP =  edycjaSprawdzanieNIP();
 
-        if ($rezultat === true){
+
+        if ($rezultat === true && $sprawdzanieNIP === false){
 
             let danePodstawoweEdycjaArr = {'idKlienta':$idKlienta,'nazwa':$nazwa,'nip':$nip,'podmiot':$podmiot};
 
@@ -638,9 +668,6 @@ $(document).ready(function () {
                 }
             });
 
-
-
-
             // po kliknieciu przycisku edytuj zamykamy wszystkie sekcje
             $('.edycjaKontrahenta').hide();
             $('.dodawanieKontrahenta').hide();
@@ -653,6 +680,14 @@ $(document).ready(function () {
             $('#sekcjaDodawaniaKontaktu').hide();
             $('#wyswietlDaneKontaktowe').hide();
 
+        } else {
+
+            if( $rezultat === false ){
+                komunikatProgres('wypełnij wymagane pola','success');
+            }
+            if( $sprawdzanieNIP === true ){
+                komunikatProgres('taki nip juz istnieje','error');
+            }
         }
     });
 

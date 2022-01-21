@@ -14,8 +14,11 @@ CREATE TABLE [dbo].[daneUzytkownika](
     [Nazwisko] [nvarchar](255) NULL,
     [NazwaUzytkownika] [nvarchar](255) NULL,
     [Email] [nvarchar](255) NULL,
+    [NumerTelefonu] [nvarchar](255) NULL,
     [Haslo] [nvarchar](255) NULL,
     [Zdjecie] [nvarchar](max) NULL,
+    [DataModyfikacji] [datetime2](7) NULL,
+    [User] [nvarchar](255) NULL
     PRIMARY KEY CLUSTERED
 (
 [IdUzytkownika] ASC
