@@ -5,7 +5,7 @@
     position: relative;
     margin-bottom: 2vh;
     margin-top: 2vh;
-    text-align:center
+    text-align:center;
 }
 .field-wrapper input{
     width: 80% !important;

@@ -3,6 +3,9 @@
 .sekcjaFiltrow{
     position: absolute;
     margin-left: 1%;
+    width: 60%;
+    height: 15%;
+    /*border:solid red*/
 }
 .filtrButtonWyczysc{
     margin-left:1vw;
@@ -17,9 +20,9 @@
 
     /*border: solid purple;*/
     width: 60%;
-    height: 57%;
+    height: 60%;
     margin-left: 1%;
-    margin-top: 5%;
+    margin-top: 9%;
     overflow-y: scroll;
     position: absolute;
 }
@@ -74,6 +77,20 @@
     cursor: unset;
 }
 
+
+.sekcjaHistoriaZgloszen{
+
+    /*border: solid purple;*/
+    width: 60%;
+    height: 60%;
+    margin-left: 1%;
+    margin-top: 9%;
+    overflow-y: scroll;
+    position: absolute;
+}
+
+
+
 .zamknijSekcje{
     font-size: 1vw;
     cursor:pointer;
@@ -108,7 +125,31 @@
 }
 
 
-
+.edytowanieZgloszenia{
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    border-left:1px solid rgb(212, 210, 210);
+    width: 25.5%;
+    height:84%;
+    margin-left:62%;
+    margin-top:1%;
+    position: absolute;
+    overflow-y: scroll;
+}
+.sekcjaEdytowaniaZgloszenia{
+    height: 73vh;
+    width:23.2vw;
+    position: absolute;
+    margin-top: 1vh;
+    border:solid black;
+    padding-left: 7%;
+}
+.edytujZgloszenie{
+    margin-left:1vw;
+    width: 10vw;
+    height:4vh;
+    margin-top: 2vh;
+    float: left;
+}
 
 
 
@@ -295,7 +336,14 @@
 
 .buttonDodajZgloszenie{
     margin-left:1vw;
-    width: 30vw;
+    width: 10vw;
+    height:4vh;
+    margin-top: 82vh;
+    float: left;
+}
+.buttonHistoriaZgloszen{
+    margin-left:1vw;
+    width: 10vw;
     height:4vh;
     margin-top: 82vh;
     float: left;

@@ -37,6 +37,7 @@ class LoginRepository extends ServiceEntityRepository
                 //session_start();
                 $this->session->start();
                 $this->session->set('uzytkownik',$id);
+                $this->session->set('nazwaUzytkownika',$login);
 
                 return $rezultat;
             }
@@ -46,9 +47,12 @@ class LoginRepository extends ServiceEntityRepository
                 //session_start();
                 $this->session->start();
                 $this->session->set('admin',$id);
+                $this->session->set('nazwaUzytkownika',$login);
 
                 return $rezultat;
             }
+
+
 
         } else {
             return false;
