@@ -104,5 +104,44 @@ class StronaZgloszeniaController extends AbstractController
         return new JsonResponse($zgloszeniaTab);
     }
 
+    /**
+     *
+     *
+     *
+     * @Route("/listaZgloszen/ajax", methods={"POST"})
+     */
+    public function listaZgloszen(Request $request) {
+
+        $zgloszeniaArr = $request->request->get('tab');
+
+        $this->logger->info('!!!!!!!!!!!!!!!!!!!!   kontroler');
+
+        $listaZgloszen = $this->zgloszeniaService->listaZgloszenService($zgloszeniaArr);
+
+        $wykonawca = $this->zgloszeniaService->wykonawcaService($zgloszeniaArr);
+
+        $zgloszeniaTab = ['zgloszeniaArr'=>$listaZgloszen,'wykonawcaArr'=>$wykonawca];
+
+        return new JsonResponse($zgloszeniaTab);
+    }
+
+    /**
+     *
+     * edytowanie zgłoszenia. Funkcja zwraca też aktualny stan tabeli zgłoszeń.
+     *
+     * @Route("/edytujZgloszenie/ajax", methods={"POST"})
+     */
+    public function edytujZgloszenie(Request $request) {
+
+        $zgloszeniaArr = $request->request->get('tab');
+
+        $this->logger->info('!!!!!!!!!!!!!!!!!!!!   kontroler');
+
+        $zgloszenia =  $this->zgloszeniaService->edytujZgloszenieService($zgloszeniaArr);
+
+        $zgloszeniaTab = ['zgloszeniaArr'=>$zgloszenia];
+
+        return new JsonResponse($zgloszeniaTab);
+    }
 
 }

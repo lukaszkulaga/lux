@@ -118,6 +118,11 @@
                         <th class="thZgloszenia" style="" scope="row">Nr</th>
                         <th class="thZgloszenia" style="">IdKlienta</th>
                         <th class="thZgloszenia" style="">IdAdres</th>
+                        <th class="thZgloszenia" style="">IdKategoria</th>
+                        <th class="thZgloszenia" style="">IdPriorytet</th>
+                        <th class="thZgloszenia" style="">Nr lokalu</th>
+                        <th class="thZgloszenia" style="">IdStatus</th>
+                        <th class="thZgloszenia" style="">Opis</th>
                         <th class="thZgloszenia" scope="row">Data dodania</th>
                         <th class="thZgloszenia" scope="row">Planowana realizacja</th>
                         <th class="thZgloszenia" scope="row">Adres</th>
@@ -134,6 +139,11 @@
                             <th style="width:4%" class="IdZgloszeniaTab" scope="row">{{ zgloszenia.IdZgloszenia }}</th>
                             <td style="width:4%" class="IdKlientaTab">{{ zgloszenia.IdKlienta }}</td>
                             <td style="width:4%" class="IdAdresTab">{{ zgloszenia.IdAdres }}</td>
+                            <td style="width:4%" class="IdKategoriaTab">{{ zgloszenia.IdKategoria }}</td>
+                            <td style="width:4%" class="IdPriorytetTab">{{ zgloszenia.IdPriorytet }}</td>
+                            <td style="width:4%" class="nrLokaluTab">{{ zgloszenia.DokladnaLokalizacja }}</td>
+                            <td style="width:4%" class="IdStatusTab">{{ zgloszenia.IdStatus }}</td>
+                            <td style="width:4%" class="opisTab">{{ zgloszenia.Opis }}</td>
                             <td style="width:8%"  class="dataZgloszeniaTab" >{{ zgloszenia.DataDodania }}</td>
                             <td style="width:15%" class ="planowanaRealizacjaTab">{{ zgloszenia.PlanowanaRealizacja }}</td>
                             <td style="width:15%" class="adresTab">{{ zgloszenia.Adres }}</td>
@@ -227,7 +237,7 @@
                         <div>
                             <div class="field-wrapper-zgloszenia" >
                                 <select id="klientDodaj" >
-                                    <option selected="selected" typeof="int"  disabled>--wybierz--</option>
+                                    <option selected="selected" typeof="int" value="0"  disabled>--wybierz--</option>
                                         {% for klient in slownikKlienci %}
                                             <option value={{ klient.IdKlienta }}>{{ klient.Nazwa }}</option>
                                         {% endfor %}
@@ -240,7 +250,7 @@
                         <div>
                             <div class="field-wrapper-zgloszenia" >
                                 <select id="kategoriaDodaj" >
-                                    <option selected="selected" value=0 disabled>--wybierz--</option>
+                                    <option selected="selected" value="0" disabled>--wybierz--</option>
                                         {% for kategoria in slownikKategoria %}
                                             <option value={{ kategoria.IdKategoria }}>{{ kategoria.Opis }}</option>
                                         {% endfor %}
@@ -253,7 +263,7 @@
                         <div>
                             <div id="adresDynamiczny" class="field-wrapper-zgloszenia" >
                                 <select id="adresDodaj" >
-                                    <option selected="selected" value=0 disabled>--wybierz--</option>
+                                    <option selected="selected" value="0" disabled>--wybierz--</option>
 {#                                     {% for adres in adresArr %}#}
 {#                                        <option value={{ adres.IdAdres }}>{{ adres.Miejscowosc }} </option>#}
 {#                                     {% endfor %}#}
@@ -316,7 +326,7 @@
                         <div>
                             <div class="field-wrapper-zgloszenia" >
                                 <select id="wykonawcaDodaj" >
-                                    <option selected="selected" disabled>--wybierz--</option>
+                                    <option selected="selected" value="0" disabled>--wybierz--</option>
                                         {% for wykonawca in wykonawcaArr %}
                                     <option value={{ wykonawca.IdUzytkownika }}>{{ wykonawca.Wykonawca }}</option>
                                         {% endfor %}
@@ -329,7 +339,7 @@
                         <div>
                             <div class="field-wrapper-zgloszenia" >
                                 <select id="priorytetDodaj" >
-                                    <option selected="selected" disabled>--wybierz--</option>
+                                    <option selected="selected" value="0" disabled>--wybierz--</option>
                                         {% for priorytet in slownikPriorytet %}
                                             <option value={{ priorytet.IdPriorytet }}>{{ priorytet.Opis }}</option>
                                         {% endfor %}
@@ -348,7 +358,7 @@
                                         <th class="thWykonawca">Usuń</th>
                                     </tr>
                                 </thead>
-                                <tbody class="wykonawcaTbody">
+                                <tbody class="wykonawcaTbodyDodawanie">
                                     <tr class="wykonawcaTbodyTr">
 {#                                        <td  style="display: none" >1000</td>#}
 {#                                        <th  class="" scope="row">bartlomiej lewandowski</th>#}
@@ -389,10 +399,12 @@
 
                     <div class="sekcjaEdytowaniaZgloszenia" >
 
+                        <input id="idZgloszeniaEdycja" type="text" value="" style="display: none"/>
+
                         <div>
                             <div class="field-wrapper-zgloszenia" >
                                 <select id="klientEdytuj" >
-                                    <option selected="selected" typeof="int"  disabled>--wybierz--</option>
+                                    <option selected="selected" disabled>--wybierz--</option>
                                     {% for klient in slownikKlienci %}
                                         <option value={{ klient.IdKlienta }}>{{ klient.Nazwa }}</option>
                                     {% endfor %}
@@ -416,12 +428,12 @@
                         </div>
 
                         <div>
-                            <div id="adresDynamiczny" class="field-wrapper-zgloszenia" >
+                            <div id="adresDynamicznyEdycja" class="field-wrapper-zgloszenia" >
                                 <select id="adresEdytuj" >
-                                    <option selected="selected" value=0 disabled>--wybierz--</option>
-                                    {#                                     {% for adres in adresArr %}#}
-                                    {#                                        <option value={{ adres.IdAdres }}>{{ adres.Miejscowosc }} </option>#}
-                                    {#                                     {% endfor %}#}
+{#                                    <option selected="selected" disabled>--wybierz--</option>#}
+{#                                    {% for klient in slownikKlienci %}#}
+{#                                        <option value={{ klient.IdKlienta }}>{{ klient.Nazwa }}</option>#}
+{#                                    {% endfor %}#}
                                 </select>
                                 <div class="field-placeholder-zgloszenia"><span>Adres</span></div>
                             </div>
@@ -513,7 +525,7 @@
                                     <th class="thWykonawca">Usuń</th>
                                 </tr>
                                 </thead>
-                                <tbody class="wykonawcaTbody">
+                                <tbody class="wykonawcaTbodyEdycja">
                                 <tr class="wykonawcaTbodyTr">
                                     {#                                        <td  style="display: none" >1000</td>#}
                                     {#                                        <th  class="" scope="row">bartlomiej lewandowski</th>#}
