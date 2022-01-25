@@ -67,4 +67,25 @@ class ZgloszeniaService
         return $this->zgloszeniaRepository->zgloszeniaRepo();
     }
 
+    public function listaZgloszenService($zgloszeniaArr) {
+
+        $this->logger->info('???????????????????????   serwis');
+
+        return $this->zgloszeniaRepository->listaZgloszenRepo($zgloszeniaArr);
+    }
+
+    public function wykonawcaService($zgloszeniaArr) {
+
+        $this->logger->info('???????????????????????   serwis');
+
+        return $this->zgloszeniaRepository->wykonawcaRepo($zgloszeniaArr);
+    }
+
+    public function edytujZgloszenieService($zgloszenieArr) {
+
+        $this->logger->info('???????????????????????   serwis');
+
+        return $this->zgloszeniaRepository->edytujZgloszenieRepo($zgloszenieArr);
+    }
+
 }
