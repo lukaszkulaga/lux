@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Service\DaneUzytkownikaService;
 use App\Service\LoginService;
 use App\Service\ZgloszeniaService;
+use phpDocumentor\Reflection\Types\Integer;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -48,13 +49,15 @@ class StronaZgloszeniaController extends AbstractController
         $slownikKlienci = $this->zgloszeniaService->slownikKlienciService();
         $slownikKategoria = $this->zgloszeniaService->slownikKategoriaService();
         $slownikPriorytet = $this->zgloszeniaService->slownikPriorytetService();
+        $slownikStatus = $this->zgloszeniaService->slownikStatusService();
         $listaWykonawcow = $this->zgloszeniaService->listaWykonawcowService();
         $zgloszeniaArr = $this->zgloszeniaService->zgloszeniaService();
+        $zgloszeniaHistoriaArr = $this->zgloszeniaService->zgloszeniaHistService();
 
         return $this->render('stronaZgloszenia.html.twig',
             array( 'daneUzytkownikaArr'=>$daneUzytkownikaArr,'slownikKlienci'=>$slownikKlienci,
-                'slownikKategoria'=>$slownikKategoria,'wykonawcaArr'=>$listaWykonawcow,
-                'slownikPriorytet'=>$slownikPriorytet,'zgloszeniaArr'=>$zgloszeniaArr) );
+                'slownikKategoria'=>$slownikKategoria,'slownikStatus'=>$slownikStatus,'wykonawcaArr'=>$listaWykonawcow,
+                'slownikPriorytet'=>$slownikPriorytet,'zgloszeniaArr'=>$zgloszeniaArr,'zgloszeniaHistoriaArr'=>$zgloszeniaHistoriaArr) );
     }
 
     /**
@@ -97,9 +100,9 @@ class StronaZgloszeniaController extends AbstractController
 
         $this->logger->info('!!!!!!!!!!!!!!!!!!!!   kontroler');
 
-        $zgloszenia =  $this->zgloszeniaService->zapiszZgloszenieService($zgloszeniaArr);
+        $zgloszeniaArr =  $this->zgloszeniaService->zapiszZgloszenieService($zgloszeniaArr);
 
-        $zgloszeniaTab = ['zgloszeniaArr'=>$zgloszenia];
+        $zgloszeniaTab = ['zgloszeniaArr'=>$zgloszeniaArr];
 
         return new JsonResponse($zgloszeniaTab);
     }
@@ -140,6 +143,106 @@ class StronaZgloszeniaController extends AbstractController
         $zgloszenia =  $this->zgloszeniaService->edytujZgloszenieService($zgloszeniaArr);
 
         $zgloszeniaTab = ['zgloszeniaArr'=>$zgloszenia];
+
+        return new JsonResponse($zgloszeniaTab);
+    }
+
+    /**
+     *
+     * filtrowanie zgloszen
+     *
+     * @Route("/filtrujZgloszenia/ajax", methods={"POST"})
+     */
+    public function filtrujZgloszenia(Request $request) {
+
+        $zgloszeniaArr = $request->request->get('tab');
+
+        $this->logger->info('!!!!!!!!!!!!!!!!!!!!   kontroler');
+
+        $filtrujZgloszenia =  $this->zgloszeniaService->filtrujZgloszeniaService($zgloszeniaArr);
+
+        $zgloszeniaTab = ['filtrujZgloszeniaArr'=>$filtrujZgloszenia];
+
+        return new JsonResponse($zgloszeniaTab);
+    }
+
+    /**
+     *
+     * dodawanie załączników
+     *
+     * @Route("/dodajZalacznik/ajax", methods={"POST"})
+     */
+    public function zapiszPlik(Request $request) {
+
+        if (!file_exists('C:\zzz')) {
+            mkdir('C:\zzz');
+        }
+
+        $filename = $_FILES['file']['size'].time().'_'.$_FILES['file']['name'];
+        $sciezka = 'C:\zzz/'.$filename;
+        move_uploaded_file($_FILES['file']['tmp_name'], $sciezka);
+
+        $IdZgloszeniaString = $_POST['IdZgloszenia'];
+        $IdZgloszeniaInt = (int)$IdZgloszeniaString;
+
+        $this->zgloszeniaService->zapiszPlikService($sciezka,$IdZgloszeniaInt);
+
+        return new JsonResponse($_FILES['file']['name']);
+    }
+
+    /**
+     *
+     * po zmianie w tabeli historycznej selecta status wykonuje sie ta funkcja
+     *
+     * @Route("/historiaZgloszenEdycja/ajax", methods={"POST"})
+     */
+    public function historiaZgloszenEdycja(Request $request) {
+
+        $zgloszeniaHistoriaArr = $request->request->get('tab');
+
+        $this->logger->info('!!!!!!!!!!!!!!!!!!!!   kontroler');
+
+        $listaZgloszenHistoria = $this->zgloszeniaService->historiaZgloszenEdycjaService($zgloszeniaHistoriaArr);
+
+        $zgloszeniaHistoriaTab = ['zgloszeniaHistoriaArr'=>$listaZgloszenHistoria];
+
+        return new JsonResponse($zgloszeniaHistoriaTab);
+    }
+
+    /**
+     *
+     * po kliknieciu przycisku pokaz historie wykonuje sie ta funkcja
+     *
+     * @Route("/historiaZgloszen/ajax", methods={"POST"})
+     */
+    public function historiaZgloszen(Request $request) {
+
+        $zgloszeniaHistoriaArr = $request->request->get('tab');
+
+        $this->logger->info('!!!!!!!!!!!!!!!!!!!!   kontroler');
+
+        $listaZgloszenHistoria = $this->zgloszeniaService->historiaZgloszenService();
+
+        $zgloszeniaHistoriaTab = ['zgloszeniaHistoriaArr'=>$listaZgloszenHistoria];
+
+        return new JsonResponse($zgloszeniaHistoriaTab);
+    }
+
+    /**
+     *
+     * po kliknieciu przycisku pokaz zgloszenia wykonuje sie ta funkcja
+     *
+     * @Route("/pokazZgloszenia/ajax", methods={"POST"})
+     */
+    public function pokazZgloszenia(Request $request) {
+
+        $zgloszeniaHistoriaArr = $request->request->get('tab');
+
+        $this->logger->info('!!!!!!!!!!!!!!!!!!!!   kontroler');
+
+        $listaZgloszen = $this->zgloszeniaService->pokazZgloszenService();
+
+        $zgloszeniaTab = ['zgloszeniaArr'=>$listaZgloszen];
 
         return new JsonResponse($zgloszeniaTab);
     }

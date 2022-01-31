@@ -26,7 +26,7 @@
     overflow-y: scroll;
     position: absolute;
 }
-.tabelaZgloszenia {
+.tabelaZgloszenia, .tabelaZgloszeniaHistoria {
     background: transparent;
     font-size:14px;
     /*border-collapse: separate;*/
@@ -34,41 +34,49 @@
     width:100%;
 }
 .tabelaZgloszenia th,
-.tabelaZgloszenia td {
+.tabelaZgloszenia td,
+.tabelaZgloszeniaHistoria th,
+.tabelaZgloszeniaHistoria td{
     padding: 0.5vh;
     text-align: left;
     /*border:solid yellow;*/
 }
-.tabelaZgloszenia td {
+.tabelaZgloszenia td,
+.tabelaZgloszeniaHistoria td{
     border-top: 1px solid rgb(212, 210, 210);
 }
-.tabelaZgloszenia th {
+.tabelaZgloszenia th,
+.tabelaZgloszeniaHistoria th{
     background-color: rgb(248, 248, 248);
 
 }
-.tabelaZgloszenia thead th {
+.tabelaZgloszenia thead th,
+.tabelaZgloszeniaHistoria thead th{
     position: sticky;
     top: 0;
     z-index: 10;
 }
-.tabelaZgloszenia tbody th[scope=row] {
+.tabelaZgloszenia tbody th[scope=row],
+.tabelaZgloszeniaHistoria tbody th[scope=row] {
     position: sticky;
     left: 0;
     z-index: 9;
     border-top: 1px solid rgb(212, 210, 210);
     cursor: pointer;
 }
-.tabelaZgloszenia thead th[scope=row] {
+.tabelaZgloszenia thead th[scope=row],
+.tabelaZgloszeniaHistoria thead th[scope=row] {
     position: sticky;
     left: 0;
     z-index: 11;
 }
-.tabelaZgloszenia tbody {
+.tabelaZgloszenia tbody,
+.tabelaZgloszeniaHistoria tbody {
     /* zawijanie wierszy w tabeli !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
     /*overflow-wrap: break-word;*/
 
 }
-.tabelaZgloszenia .usunZgloszenieButton{
+.tabelaZgloszenia {
     text-align: center;
 }
 .thZgloszenia{
@@ -348,3 +356,93 @@
     margin-top: 82vh;
     float: left;
 }
+
+
+
+
+
+
+#drop_file_zone {
+    background-color: #EEE;
+    border: #999 5px dashed;
+    width: 9vw;
+    height: 15vh;
+    font-size: 1.8vh;
+    margin-top: 1.5vh;
+    margin-left: 2%;
+    float: left;
+}
+#drag_upload_file {
+    width:50%;
+    margin:0 auto;
+}
+#drag_upload_file p {
+    text-align: center;
+}
+#drag_upload_file #selectfile {
+    display: none;
+}
+.sekcjaZalacznik{
+    float: left;
+    /*border: solid purple;*/
+    width: 46%;
+    height: 20%;
+    margin-left: 2%;
+    margin-top: 5%;
+    overflow-y: scroll;
+    /*position: absolute;*/
+}
+.tabelaZalacznik{
+    background: transparent;
+    font-size:14px;
+    /*border-collapse: separate;*/
+    border-spacing: 0;
+    width:100%;
+}
+.tabelaZalacznik th,
+.tabelaZalacznik td {
+    padding: 0.5vh;
+    text-align: left;
+    /*border:solid yellow;*/
+}
+.tabelaZalacznik td {
+    border-top: 1px solid rgb(212, 210, 210);
+}
+.tabelaZalacznik th {
+    background-color: rgb(248, 248, 248);
+
+}
+.tabelaZalacznik thead th {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+.tabelaZalacznik tbody th[scope=row] {
+    position: sticky;
+    left: 0;
+    z-index: 9;
+    border-top: 1px solid rgb(212, 210, 210);
+    cursor: pointer;
+}
+.tabelaZalacznik thead th[scope=row] {
+    position: sticky;
+    left: 0;
+    z-index: 11;
+}
+.tabelaZalacznik tbody {
+    /* zawijanie wierszy w tabeli !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+    /*overflow-wrap: break-word;*/
+
+}
+.tabelaZalacznik .usunZalacznikButton{
+    text-align: center;
+}
+.thZalacznik{
+
+    color:rgba(0, 60, 125,0.8);
+    cursor: unset;
+}
+
+
+
+

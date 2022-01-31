@@ -1,5 +1,6 @@
 CREATE TABLE [dbo].[zgloszenia_hist](
-    [IdZgloszenia] [int] IDENTITY(1,1) NOT NULL,
+    [IdZgloszeniaHist] [int] IDENTITY(1,1) NOT NULL,
+    [IdZgloszenia] [int] NULL,
     [IdKlienta] [int] NULL,
     [IdAdres] [int] NULL,
     [DataDodania] [datetime2](7) NULL,

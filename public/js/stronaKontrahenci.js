@@ -104,7 +104,7 @@ $(document).ready(function () {
   * */
 
 
-    $('.filtrKontrahent,#wyczysc').on('keyup change click',function(){
+    $('.filtrZgloszenia,#wyczysc').on('keyup change click',function(){
 
         $nazwaFiltr = $('#nazwaFiltr').val();
         $nipFiltr = $('#nipFiltr').val();

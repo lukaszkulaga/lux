@@ -15,7 +15,7 @@ a{
 
 .container1{
     width: 100%;
-    height: 5vh;
+    height: 3vh;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
