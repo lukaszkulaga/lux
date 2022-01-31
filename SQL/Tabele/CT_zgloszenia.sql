@@ -12,7 +12,6 @@ CREATE TABLE [dbo].[zgloszenia](
     [Kategoria] [int] NULL,
     [Priorytet] [int] NULL,
     [Status] [int] NULL,
-    [Plik] [nvarchar](255) NULL,
     [DataModyfikacji] [datetime2](7) NULL,
     [User] [nvarchar](255) NULL
     PRIMARY KEY CLUSTERED

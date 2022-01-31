@@ -33,37 +33,43 @@
                 <form>
                     <div style="width:10vw;float: left">
                         <div class="field-wrapper" >
-                            <input  class="filtrKontrahent" type="text" id="nazwaFiltr" placeholder=" " value="" />
-                            <div class="field-placeholder"><span>Nazwa</span></div>
+                            <input  class="filtrZgloszenia" type="text" id="nrZgloszeniaFiltr" placeholder="" value="" />
+                            <div class="field-placeholder"><span>Numer zgłoszenia</span></div>
                         </div>
                     </div>
                     <div style="width:10vw;float: left">
                         <div class="field-wrapper" >
-                            <input  class="filtrKontrahent" type="text" id="nipFiltr" placeholder=" " value="" />
-                            <div class="field-placeholder"><span>NIP</span></div>
+                            <input  class="filtrZgloszenia" type="date" id="dataDodaniaOdFiltr" placeholder="" value="" />
+                            <div class="field-placeholder"><span>Data dodania od</span></div>
                         </div>
                     </div>
                     <div style="width:10vw;float: left">
                         <div class="field-wrapper" >
-                            <select class="filtrKontrahent" id="podmiotFiltr">
-                                <option selected="selected" disabled>--wybierz--</option>
-{#                                {% for podmiot in podmiotArr %}#}
-                                    <option id="podmiotOpcjeEdycja" value="xx">xx</option>
-{#                                {% endfor %}#}
+                            <input  class="filtrZgloszenia" type="date" id="dataDodaniaDoFiltr" placeholder="" value="" />
+                            <div class="field-placeholder"><span>Data dodania do</span></div>
+                        </div>
+                    </div>
+                    <div style="width:10vw;float: left">
+                        <div class="field-wrapper" >
+                            <input  class="filtrZgloszenia" type="date" id="planowanaRealizacjaFiltr" placeholder="" value="" />
+                            <div class="field-placeholder"><span>Realizacja</span></div>
+                        </div>
+                    </div>
+                    <div style="width:10vw;float: left">
+                        <div class="field-wrapper" >
+                            <input  class="filtrZgloszenia" type="text" id="adresFiltr" placeholder="" value="" />
+                            <div class="field-placeholder"><span>Adres</span></div>
+                        </div>
+                    </div>
+                    <div style="width:10vw;float: left">
+                        <div class="field-wrapper" >
+                            <select class="filtrZgloszenia" id="klientFiltr">
+                                <option selected="selected" value="0"  disabled>--wybierz--</option>
+                                {% for klient in slownikKlienci %}
+                                    <option value={{ klient.Nazwa }}>{{ klient.Nazwa }}</option>
+                                {% endfor %}
                             </select>
-                            <div class="field-placeholder"><span>Podmiot</span></div>
-                        </div>
-                    </div>
-                    <div style="width:10vw;float: left">
-                        <div class="field-wrapper" >
-                            <input  class="filtrKontrahent" type="text" id="nazwaFiltr" placeholder=" " value="" />
-                            <div class="field-placeholder"><span>Nazwa</span></div>
-                        </div>
-                    </div>
-                    <div style="width:10vw;float: left">
-                        <div class="field-wrapper" >
-                            <input  class="filtrKontrahent" type="text" id="nipFiltr" placeholder=" " value="" />
-                            <div class="field-placeholder"><span>NIP</span></div>
+                            <div class="field-placeholder"><span>Klient</span></div>
                         </div>
                     </div>
 
@@ -71,36 +77,46 @@
 
                     <div style="width:10vw;float: left">
                         <div class="field-wrapper" >
-                            <select class="filtrKontrahent" id="podmiotFiltr">
-                                <option selected="selected" disabled>--wybierz--</option>
-                                {#                                {% for podmiot in podmiotArr %}#}
-                                <option id="podmiotOpcjeEdycja" value="xx">xx</option>
-                                {#                                {% endfor %}#}
+                            <select class="filtrZgloszenia" id="wykonawcaFiltr">
+                                <option selected="selected" value="0" disabled>--wybierz--</option>
+                                {% for wykonawca in wykonawcaArr %}
+                                    <option value={{ wykonawca.Wykonawca }}>{{ wykonawca.Wykonawca }}</option>
+                                {% endfor %}
                             </select>
-                            <div class="field-placeholder"><span>Podmiot</span></div>
+                            <div class="field-placeholder"><span>Wykonawca</span></div>
                         </div>
                     </div>
                     <div style="width:10vw;float: left">
                         <div class="field-wrapper" >
-                            <input  class="filtrKontrahent" type="text" id="nazwaFiltr" placeholder=" " value="" />
-                            <div class="field-placeholder"><span>Nazwa</span></div>
-                        </div>
-                    </div>
-                    <div style="width:10vw;float: left">
-                        <div class="field-wrapper" >
-                            <input  class="filtrKontrahent" type="text" id="nipFiltr" placeholder=" " value="" />
-                            <div class="field-placeholder"><span>NIP</span></div>
-                        </div>
-                    </div>
-                    <div style="width:10vw;float: left">
-                        <div class="field-wrapper" >
-                            <select class="filtrKontrahent" id="podmiotFiltr">
-                                <option selected="selected" disabled>--wybierz--</option>
-                                {#                                {% for podmiot in podmiotArr %}#}
-                                <option id="podmiotOpcjeEdycja" value="xx">xx</option>
-                                {#                                {% endfor %}#}
+                            <select class="filtrZgloszenia" id="kategoriaFiltr">
+                                <option selected="selected" value="0" disabled>--wybierz--</option>
+                                {% for kategoria in slownikKategoria %}
+                                    <option value={{ kategoria.Opis }}>{{ kategoria.Opis }}</option>
+                                {% endfor %}
                             </select>
-                            <div class="field-placeholder"><span>Podmiot</span></div>
+                            <div class="field-placeholder"><span>Kategoria</span></div>
+                        </div>
+                    </div>
+                    <div style="width:10vw;float: left">
+                        <div class="field-wrapper" >
+                            <select class="filtrZgloszenia" id="priorytetFiltr">
+                                <option selected="selected" value="0" disabled>--wybierz--</option>
+                                {% for priorytet in slownikPriorytet %}
+                                    <option value={{ priorytet.Opis }}>{{ priorytet.Opis }}</option>
+                                {% endfor %}
+                            </select>
+                            <div class="field-placeholder"><span>Priorytet</span></div>
+                        </div>
+                    </div>
+                    <div style="width:10vw;float: left">
+                        <div class="field-wrapper" >
+                            <select class="filtrZgloszenia" id="statusFiltr">
+                                <option selected="selected" value="0" disabled>--wybierz--</option>
+                                {% for status in slownikStatus %}
+                                    <option value={{ status.Opis }}>{{ status.Opis }}</option>
+                                {% endfor %}
+                            </select>
+                            <div class="field-placeholder"><span>Status</span></div>
                         </div>
                     </div>
 
@@ -118,11 +134,6 @@
                         <th class="thZgloszenia" style="" scope="row">Nr</th>
                         <th class="thZgloszenia" style="">IdKlienta</th>
                         <th class="thZgloszenia" style="">IdAdres</th>
-                        <th class="thZgloszenia" style="">IdKategoria</th>
-                        <th class="thZgloszenia" style="">IdPriorytet</th>
-                        <th class="thZgloszenia" style="">Nr lokalu</th>
-                        <th class="thZgloszenia" style="">IdStatus</th>
-                        <th class="thZgloszenia" style="">Opis</th>
                         <th class="thZgloszenia" scope="row">Data dodania</th>
                         <th class="thZgloszenia" scope="row">Planowana realizacja</th>
                         <th class="thZgloszenia" scope="row">Adres</th>
@@ -139,11 +150,6 @@
                             <th style="width:4%" class="IdZgloszeniaTab" scope="row">{{ zgloszenia.IdZgloszenia }}</th>
                             <td style="width:4%" class="IdKlientaTab">{{ zgloszenia.IdKlienta }}</td>
                             <td style="width:4%" class="IdAdresTab">{{ zgloszenia.IdAdres }}</td>
-                            <td style="width:4%" class="IdKategoriaTab">{{ zgloszenia.IdKategoria }}</td>
-                            <td style="width:4%" class="IdPriorytetTab">{{ zgloszenia.IdPriorytet }}</td>
-                            <td style="width:4%" class="nrLokaluTab">{{ zgloszenia.DokladnaLokalizacja }}</td>
-                            <td style="width:4%" class="IdStatusTab">{{ zgloszenia.IdStatus }}</td>
-                            <td style="width:4%" class="opisTab">{{ zgloszenia.Opis }}</td>
                             <td style="width:8%"  class="dataZgloszeniaTab" >{{ zgloszenia.DataDodania }}</td>
                             <td style="width:15%" class ="planowanaRealizacjaTab">{{ zgloszenia.PlanowanaRealizacja }}</td>
                             <td style="width:15%" class="adresTab">{{ zgloszenia.Adres }}</td>
@@ -159,38 +165,57 @@
             </div>
 
             <div class="sekcjaHistoriaZgloszen" >
-                <table class="tabelaZgloszenia" style="">
+                <table class="tabelaZgloszeniaHistoria" style="">
                     <thead>
                     <tr>
                         <th class="thZgloszenia" style="" scope="row">Nr</th>
                         <th class="thZgloszenia" style="">IdKlienta</th>
                         <th class="thZgloszenia" style="">IdAdres</th>
                         <th class="thZgloszenia" scope="row">Data dodania</th>
-                        <th class="thZgloszenia" scope="row">Planowana realizacja</th>
+                        <th class="thZgloszenia" scope="row">Data rozwiązania</th>
                         <th class="thZgloszenia" scope="row">Adres</th>
                         <th class="thZgloszenia" scope="row">Klient</th>
                         <th class="thZgloszenia" scope="row">Wykonawca</th>
                         <th class="thZgloszenia" scope="row">Kategoria</th>
                         <th class="thZgloszenia" scope="row">Priorytet</th>
                         <th class="thZgloszenia" scope="row">Status</th>
+                        <th class="thZgloszenia" scope="row">Status/Przywróć</th>
+                        <th class="thZgloszenia" scope="row">idStatus</th>
                     </tr>
                     </thead>
-                    <tbody class="zgloszeniaTbody">
-{#                    {% for zgloszenia in zgloszeniaArr %}#}
-{#                        <tr class="zgloszeniaTbodyTr">#}
-{#                            <th style="width:4%" class="IdZgloszeniaTab" scope="row">{{ zgloszenia.IdZgloszenia }}</th>#}
-{#                            <td style="width:4%" class="IdKlientaTab">{{ zgloszenia.IdKlienta }}</td>#}
-{#                            <td style="width:4%" class="IdAdresTab">{{ zgloszenia.IdAdres }}</td>#}
-{#                            <td style="width:8%"  class="dataZgloszeniaTab" >{{ zgloszenia.DataDodania }}</td>#}
-{#                            <td style="width:15%" class ="planowanaRealizacjaTab">{{ zgloszenia.PlanowanaRealizacja }}</td>#}
-{#                            <td style="width:15%" class="adresTab">{{ zgloszenia.Adres }}</td>#}
-{#                            <td style="width:15%" class="klientTab">{{ zgloszenia.Nazwa }}</td>#}
-{#                            <td style="width:10%" class="wykonawcaTab">{{ zgloszenia.Wykonawca }}</td>#}
-{#                            <td style="width:10%" class="kategoriaTab">{{ zgloszenia.Kategoria }}</td>#}
-{#                            <td style="width:9%" class="priorytetTab">{{ zgloszenia.Priorytet }}</td>#}
-{#                            <td style="width:9%" class="statusTab">{{ zgloszenia.Status }}</td>#}
-{#                        </tr>#}
-{#                    {% endfor %}#}
+                    <tbody class="zgloszeniaHistoriaTbody">
+                    {% for zgloszeniaHist in zgloszeniaHistoriaArr %}
+                        <tr class="zgloszeniaHistoriaTbodyTr">
+                           <th style="width:4%" class="IdZgloszeniaTab" scope="row">{{zgloszeniaHist.IdZgloszenia}}</th>
+                           <td style="width:4%" class="IdKlientaTab">{{zgloszeniaHist.IdKlienta}}</td>
+                           <td style="width:4%" class="IdAdresTab">{{zgloszeniaHist.IdAdres}}</td>
+                           <td style="width:8%" class="dataZgloszeniaTab">{{zgloszeniaHist.DataDodania}}</td>
+                           <td style="width:15%" class="dataRozwiazaniaTab">{{zgloszeniaHist.DataModyfikacji}}</td>
+                           <td style="width:15%" class="adresTab">{{zgloszeniaHist.Adres}}</td>
+                           <td style="width:15%" class="klientTab">{{zgloszeniaHist.Nazwa}}</td>
+                           <td style="width:10%" class="wykonawcaTab">{{zgloszeniaHist.Wykonawca}}</td>
+                           <td style="width:10%" class="kategoriaTab">{{zgloszeniaHist.Kategoria}}</td>
+                           <td style="width:9%" class="priorytetTab">{{zgloszeniaHist.Priorytet}}</td>
+                           <td style="width:9%" class="statusTab">{{zgloszeniaHist.Status}}</td>
+
+
+                            <td style="width:9%" class="statusSelectTab">
+                                <div style="width:10vw;float: left">
+                                    <div class="field-wrapper">
+                                        <select class="status" id="statusSelect">
+                                            <option selected="selected" value="0" disabled>--wybierz--</option>
+                                            {% for status in slownikStatus %}
+                                                <option value={{ status.IdStatus }}>{{ status.Opis }}</option>
+                                            {% endfor %}
+                                           </select>
+                                        <div class="field-placeholder"><span>Status</span></div>
+                                        </div>
+                                    </div>
+                                </td>
+
+                            <td style="width:9%" class="idStatusTab">{{zgloszeniaHist.IdStatus}}</td>
+                    </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>
@@ -226,18 +251,13 @@
 
                 <div class="zamknijSekcje" id="zamknijDodawanieZgloszenia">X</div>
 
-{#                <div class="sectionButtonZgloszenia" style="width:99%;height:5%;border:solid red">#}
-{#                    <button style="" id="buttonZapiszZgloszenie" type ="button">Zapisz</button>#}
-{#                </div>#}
-
                 <form>
-
                     <div class="sekcjaDodawaniaZgloszenia" >
 
                         <div>
                             <div class="field-wrapper-zgloszenia" >
                                 <select id="klientDodaj" >
-                                    <option selected="selected" typeof="int" value="0"  disabled>--wybierz--</option>
+                                    <option selected="selected" value="0"  disabled>--wybierz--</option>
                                         {% for klient in slownikKlienci %}
                                             <option value={{ klient.IdKlienta }}>{{ klient.Nazwa }}</option>
                                         {% endfor %}
@@ -264,9 +284,7 @@
                             <div id="adresDynamiczny" class="field-wrapper-zgloszenia" >
                                 <select id="adresDodaj" >
                                     <option selected="selected" value="0" disabled>--wybierz--</option>
-{#                                     {% for adres in adresArr %}#}
-{#                                        <option value={{ adres.IdAdres }}>{{ adres.Miejscowosc }} </option>#}
-{#                                     {% endfor %}#}
+
                                 </select>
                                 <div class="field-placeholder-zgloszenia"><span>Adres</span></div>
                             </div>
@@ -328,7 +346,7 @@
                                 <select id="wykonawcaDodaj" >
                                     <option selected="selected" value="0" disabled>--wybierz--</option>
                                         {% for wykonawca in wykonawcaArr %}
-                                    <option value={{ wykonawca.IdUzytkownika }}>{{ wykonawca.Wykonawca }}</option>
+                                            <option value={{ wykonawca.IdUzytkownika }}>{{ wykonawca.Wykonawca }}</option>
                                         {% endfor %}
                                 </select>
                                 <div class="field-placeholder-zgloszenia"><span>Wybierz wykonawcę</span></div>
@@ -368,7 +386,40 @@
                             </table>
                         </div>
 
-                        <div style="float:left;margin-top:1vh;width:21vw;height: 6vh;border:solid black">drop and drag </div>
+{#                        <div style="float:left;margin-top:1vh;width:21vw;height: 6vh;border:solid black">drop and drag </div>#}
+
+
+
+
+
+                        <div id="drop_file_zone"  ondragover="return false">
+                            <div id="drag_upload_file">
+                                <p>Drop file here</p>
+                                <p>or</p>
+                                <p><input id="file_explorer" type="button" value="Select File" /></p>
+                                <input type="file" id="selectfile" />
+                            </div>
+                        </div>
+{#                        <div class="zalaczniki">#}
+{#                            <div class="zalacznikiArr">#}
+
+{#                            </div>#}
+{#                        </div>#}
+                        <div class="sekcjaZalacznik">
+                            <table class="tabelaZalacznik" style="">
+                                <thead>
+                                <tr>
+                                    <th class="thZalacznik" scope="row" >Plik</th>
+                                    <th class="thZalacznik">Usuń</th>
+                                </tr>
+                                </thead>
+                                <tbody class="zalacznikTbodyDodawanie">
+                                <tr class="zalacznikTbodyTr">
+
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
 
                         <div style="clear: both"></div>
 
@@ -384,8 +435,6 @@
 
                 </form>
             </div>
-
-
 
             <div class="edytowanieZgloszenia" >
 
@@ -482,6 +531,21 @@
 
                         <div>
                             <div class="field-wrapper-zgloszenia" >
+                                <select id="statusEdytuj" >
+                                    <option selected="selected" disabled>--wybierz--</option>
+                                    {% for status in slownikStatus %}
+                                        <option value={{ status.IdStatus }}>{{ status.Opis }}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="field-placeholder-zgloszenia"><span>Status</span></div>
+                            </div>
+                            <p class="errorSuccess"></p>
+                        </div>
+
+                        <div style="clear: both"></div>
+
+                        <div>
+                            <div class="field-wrapper-zgloszenia" >
                                 <textarea  class=""  id="opisEdytuj" placeholder=" " ></textarea>
                                 <div class="textarea-field-placeholder-zgloszenia"><span>Opis</span></div>
                             </div>
@@ -535,7 +599,34 @@
                             </table>
                         </div>
 
-                        <div style="float:left;margin-top:1vh;width:21vw;height: 6vh;border:solid black">drop and drag </div>
+                        <div id="drop_file_zone"  ondragover="return false">
+                            <div id="drag_upload_file">
+                                <p>Drop file here</p>
+                                <p>or</p>
+                                <p><input id="file_explorer" type="button" value="Select File" /></p>
+                                <input type="file" id="selectfile" />
+                            </div>
+                        </div>
+                        <div class="zalaczniki">
+                            <div class="zalacznikiArr">
+
+                            </div>
+                        </div>
+                        <div class="sekcjaZalacznik">
+                            <table class="tabelaZalacznik" style="">
+                                <thead>
+                                <tr>
+                                    <th class="thZalacznik" scope="row" >Plik</th>
+                                    <th class="thZalacznik">Usuń</th>
+                                </tr>
+                                </thead>
+                                <tbody class="zalacznikTbodyDodawanie">
+                                <tr class="zalacznikTbodyTr">
+
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
 
                         <div style="clear: both"></div>
 

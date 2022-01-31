@@ -16,6 +16,112 @@ $(document).ready(function () {
 
 
 
+    /*
+  *
+  * Sekcja filtrowania zgłoszeń
+  *
+  * */
+
+
+    $('.filtrZgloszenia,#wyczysc').on('keyup change click',function(){
+
+
+        if((this).id === 'wyczysc') {
+            $nrZgloszeniaFiltr = '';
+            $dataDodaniaOdFiltr = '';
+            $dataDodaniaDoFiltr = '';
+            $planowanaRealizacjaFiltr = '';
+            $adresFiltr = '';
+            $klientFiltr = '';
+            $wykonawcaFiltr = '';
+            $kategoriaFiltr = '';
+            $priorytetFiltr = '';
+            $statusFiltr = '';
+        } else {
+            $nrZgloszeniaFiltr = $('#nrZgloszeniaFiltr').val();
+            $dataDodaniaOdFiltr = $('#dataDodaniaOdFiltr').val();
+            $dataDodaniaDoFiltr = $('#dataDodaniaDoFiltr').val();
+            $planowanaRealizacjaFiltr = $('#planowanaRealizacjaFiltr').val();
+            $adresFiltr = $('#adresFiltr').val();
+            $klientFiltr = $('#klientFiltr').val();
+            $wykonawcaFiltr = $('#wykonawcaFiltr').val();
+            $kategoriaFiltr = $('#kategoriaFiltr').val();
+            $priorytetFiltr = $('#priorytetFiltr').val();
+            $statusFiltr = $('#statusFiltr').val();
+        }
+
+
+
+        let zgloszeniaFiltrArr = {'nrZgloszeniaFiltr':$nrZgloszeniaFiltr,'dataDodaniaOdFiltr':$dataDodaniaOdFiltr,
+            'dataDodaniaDoFiltr':$dataDodaniaDoFiltr,'planowanaRealizacjaFiltr':$planowanaRealizacjaFiltr,
+            'adresFiltr':$adresFiltr,'klientFiltr':$klientFiltr,'wykonawcaFiltr':$wykonawcaFiltr,
+            'kategoriaFiltr':$kategoriaFiltr,'priorytetFiltr':$priorytetFiltr,'statusFiltr':$statusFiltr};
+
+        $url = $baseUrl + 'filtrujZgloszenia/ajax';
+        $.ajax({
+            url: $url,
+            type: 'POST',
+            data: {tab: zgloszeniaFiltrArr},
+            format: 'json',
+            dataType: 'text',
+            success: function (response) {
+                let json = JSON.parse(response);
+
+                alert('fgf');
+
+                $('.zgloszeniaTbody tr').remove();
+
+                json.filtrujZgloszeniaArr.forEach(item=> {
+
+                    if(item.Nazwa === null){
+                        $Nazwa =  '';
+                    } else {
+                        $Nazwa = item.Nazwa;
+                    }
+                    if(item.Kategoria === null){
+                        $Kategoria =  '';
+                    } else {
+                        $Kategoria = item.Kategoria;
+                    }
+                    if(item.Priorytet === null){
+                        $Priorytet =  '';
+                    } else {
+                        $Priorytet = item.Priorytet;
+                    }
+
+                    var IdZgloszeniaTab = '<th style="width:4%" class="IdZgloszeniaTab" scope="row">' + item.IdZgloszenia + '</th>';
+                    var IdKlientaTab = '<td style="width:4%" class="IdKlientaTab">' + item.IdKlienta + '</td>';
+                    var IdAdresTab = '<td style="width:4%" class="IdAdresTab">' + item.IdAdres + '</td>';
+                    var dataZgloszeniaTab = '<td style="width:8%" class="dataZgloszeniaTab">' + item.DataDodania + '</td>';
+                    var planowanaRealizacjaTab = '<td style="width:15%" class="planowanaRealizacjaTab">' + item.PlanowanaRealizacja + '</td>';
+                    var adresTab = '<td style="width:15%" class="adresTab">' + item.Adres + '</td>';
+                    var klientTab = '<td style="width:15%" class="klientTab">' + $Nazwa + '</td>';
+                    var wykonawcaTab = '<td style="width:10%" class="wykonawcaTab">' + item.Wykonawca + '</td>';
+                    var kategoriaTab = '<td style="width:10%" class="kategoriaTab">' + $Kategoria + '</td>';
+                    var priorytetTab = '<td style="width:9%" class="priorytetTab">' + $Priorytet + '</td>';
+                    var statusTab = '<td style="width:9%" class="statusTab">' + item.Status + '</td>';
+
+                    $row = "<tr class='zgloszeniaTbodyTr'>" +
+                        IdZgloszeniaTab +
+                        IdKlientaTab +
+                        IdAdresTab +
+                        dataZgloszeniaTab +
+                        planowanaRealizacjaTab +
+                        adresTab +
+                        klientTab +
+                        wykonawcaTab +
+                        kategoriaTab +
+                        priorytetTab +
+                        statusTab +
+                        "</tr>";
+
+                    $('.zgloszeniaTbody').append($row);
+                });
+
+            }
+        });
+    })
+
 
 
 
@@ -57,17 +163,6 @@ $(document).ready(function () {
         $opisDodaj= $('#opisDodaj').val();
         $priorytetDodaj= $('#priorytetDodaj').val();
 
-        // alert($idKlienta);
-        // alert($kategoriaDodaj);
-        // alert($idAdres);
-        // alert($nrLokaluDodaj);
-        // alert($terminOdDodaj);
-        // alert($terminDoDodaj);
-        // alert($godzinaOdDodaj);
-        // alert($godzinaDoDodaj);
-        // alert($opisDodaj);
-        // alert($priorytetDodaj);
-
         $listaWykonawcowArr = [];
 
         $('.wykonawcaTbodyTr').each(function() {
@@ -89,6 +184,7 @@ $(document).ready(function () {
         'terminDoDodaj':$terminDoDodaj,'godzinaOdDodaj':$godzinaOdDodaj,'godzinaDoDodaj':$godzinaDoDodaj,
         'opisDodaj':$opisDodaj,'priorytetDodaj':$priorytetDodaj};
 
+
         $url = $baseUrl + 'zapiszZgloszenie/ajax';
         $.ajax({
             url: $url,
@@ -101,7 +197,7 @@ $(document).ready(function () {
 
                 $('.zgloszeniaTbody tr').remove();
 
-                json.zgloszeniaArr.forEach(item=> {
+                json.zgloszeniaArr.zgloszeniaRepo.forEach(item=> {
 
                     if(item.Nazwa === null){
                         $Nazwa =  '';
@@ -122,11 +218,6 @@ $(document).ready(function () {
                     var IdZgloszeniaTab = '<th style="width:4%" class="IdZgloszeniaTab" scope="row">' + item.IdZgloszenia + '</th>';
                     var IdKlientaTab = '<td style="width:4%" class="IdKlientaTab">' + item.IdKlienta + '</td>';
                     var IdAdresTab = '<td style="width:4%" class="IdAdresTab">' + item.IdAdres + '</td>';
-                    var IdKategoriaTab = '<td style="width:4%" class="IdKategoriaTab">' + item.IdKategoria + '</td>';
-                    var IdPriorytetTab = '<td style="width:4%" class="IdPriorytetTab">' + item.IdPriorytet + '</td>';
-                    var NrLokaluTab = '<td style="width:4%" class="nrLokaluTab">' + item.DokladnaLokalizacja + '</td>';
-                    var IdStatusTab = '<td style="width:4%" class="IdStatusTab">' + item.IdStatus + '</td>';
-                    var opisTab = '<td style="width:4%" class="opisTab">' + item.Opis + '</td>';
                     var dataZgloszeniaTab = '<td style="width:8%" class="dataZgloszeniaTab">' + item.DataDodania + '</td>';
                     var planowanaRealizacjaTab = '<td style="width:15%" class="planowanaRealizacjaTab">' + item.PlanowanaRealizacja + '</td>';
                     var adresTab = '<td style="width:15%" class="adresTab">' + item.Adres + '</td>';
@@ -140,11 +231,6 @@ $(document).ready(function () {
                             IdZgloszeniaTab +
                             IdKlientaTab +
                             IdAdresTab +
-                            IdKategoriaTab +
-                            IdPriorytetTab +
-                            NrLokaluTab +
-                            IdStatusTab +
-                            opisTab +
                             dataZgloszeniaTab +
                             planowanaRealizacjaTab +
                             adresTab +
@@ -156,10 +242,95 @@ $(document).ready(function () {
                         "</tr>";
 
                     $('.zgloszeniaTbody').append($row);
+
                 });
+
+                    ajax_file_upload(fileobj,json.zgloszeniaArr.idZgloszeniaRepo);
+
             }
         })
     });
+
+
+    /*
+    *
+    *  dodawanie ścieżki pliku do bazy - funkcja ajax_file_upload wywolywana jest po zapisaniu wszystkich innych danych
+    * ponieważ wtedy możemy skorzystac z wygenerowanego IdZgloszenia i przekazac je do tej funkcji
+    *
+    * */
+
+    const image_drop_area = document.querySelector("#drop_file_zone");
+    var fileobj = [];
+
+    image_drop_area.addEventListener('drop', (event) => {
+
+        event.preventDefault();
+
+        $output = document.querySelector('.img-content');
+        $('.zalaczniki .zalacznikiArr').remove();
+        $row = '';
+
+        for ($i = 0; $i < event.dataTransfer.files.length; $i++) {
+
+            fileobj.push(event.dataTransfer.files[$i]);
+
+            var zalacznik = '<th class="zalacznikJS" scope="row">' + event.dataTransfer.files[$i]['name'] + '</th>';
+            var usun = '<td  class="zalacznikTab"><button title="Usuń" type="button" class="usunZalacznikButton"><svg class="koszIcons" style="width: 1vw;height: 2vh"></svg></button></td>';
+
+            $row = $row + "<tr class='zalacznikTbodyTr'>" +
+                zalacznik +
+                usun +
+                "</tr>";
+        }
+
+        $('.zalacznikTbodyDodawanie').append($row);
+
+    });
+    $('.zalacznikTbodyDodawanie').on('click','.usunZalacznikButton', function(){
+        $usunZalacznik = $(this).parent().parent().remove();
+    });
+
+    $('#file_explorer').on('click',function(){
+        document.getElementById('selectfile').click();
+        document.getElementById('selectfile').onchange = function() {
+
+            $len = document.getElementById('selectfile').files;
+
+            for ($i = 0; $i < $len.length; $i++) {
+                fileobj.push(document.getElementById('selectfile').files[$i]);
+            }
+        };
+    });
+    function ajax_file_upload(file_obj,idZgloszenia) {
+
+        if(file_obj != undefined) {
+
+            for( $i=0; $i < fileobj.length; $i++ ){
+
+                $form_data = new FormData();
+                $form_data.append('file', file_obj[$i]);
+                $form_data.append('IdZgloszenia', idZgloszenia);
+
+                $url = $baseUrl + 'dodajZalacznik/ajax';
+                $.ajax({
+                    url: $url,
+                    type: 'POST',
+                    data: $form_data,
+                    format: 'json',
+                    dataType: 'text',
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+
+                        console.log(response);
+
+                    }
+                })
+            }
+
+        }
+    }
+
 
 
     // generuje sie dynamiczny select adresów w zależności od wybranego klienta
@@ -345,6 +516,7 @@ $(document).ready(function () {
 
                     $('#kategoriaEdytuj').val(item.IdKategoria);
                     $('#priorytetEdytuj').val(item.IdPriorytet);
+                    $('#statusEdytuj').val(item.IdStatus);
                     $('#opisEdytuj').val(item.Opis);
                     $('#nrLokaluEdytuj').val(item.DokladnaLokalizacja);
                     $('#terminOdEdytuj').val(item.PlanowanaRealizacjaOd);
@@ -396,6 +568,7 @@ $(document).ready(function () {
         $terminDoEdytuj = $('#terminDoEdytuj').val();
         $godzinaOdEdytuj = $('#godzinaOdEdytuj').val();
         $godzinaDoEdytuj = $('#godzinaDoEdytuj').val();
+        $statusEdytuj = $('#statusEdytuj').val();
         $opisEdytuj = $('#opisEdytuj').val();
         $priorytetEdytuj = $('#priorytetEdytuj').val();
 
@@ -418,7 +591,7 @@ $(document).ready(function () {
         let zgloszenieArr = {'listaWykonawcow':$listaWykonawcowArr,'idZgloszenia':$idZgloszenia,'idKlienta':$idKlienta,'idAdres':$idAdres,
             'kategoriaEdytuj':$kategoriaEdytuj,'nrLokaluEdytuj':$nrLokaluEdytuj,'terminOdEdytuj':$terminOdEdytuj,
             'terminDoEdytuj':$terminDoEdytuj,'godzinaOdEdytuj':$godzinaOdEdytuj,'godzinaDoEdytuj':$godzinaDoEdytuj,
-            'opisEdytuj':$opisEdytuj,'priorytetEdytuj':$priorytetEdytuj};
+            'statusEdytuj':$statusEdytuj,'opisEdytuj':$opisEdytuj,'priorytetEdytuj':$priorytetEdytuj};
 
         $url = $baseUrl + 'edytujZgloszenie/ajax';
         $.ajax({
@@ -433,9 +606,6 @@ $(document).ready(function () {
                 $('.zgloszeniaTbody tr').remove();
 
                 json.zgloszeniaArr.forEach(item=> {
-
-
-                   alert(item.Wykonawca);
 
                     if(item.Nazwa === null){
                         $Nazwa =  '';
@@ -456,11 +626,6 @@ $(document).ready(function () {
                     var IdZgloszeniaTab = '<th style="width:4%" class="IdZgloszeniaTab" scope="row">' + item.IdZgloszenia + '</th>';
                     var IdKlientaTab = '<td style="width:4%" class="IdKlientaTab">' + item.IdKlienta + '</td>';
                     var IdAdresTab = '<td style="width:4%" class="IdAdresTab">' + item.IdAdres + '</td>';
-                    var IdKategoriaTab = '<td style="width:4%" class="IdKategoriaTab">' + item.IdKategoria + '</td>';
-                    var IdPriorytetTab = '<td style="width:4%" class="IdPriorytetTab">' + item.IdPriorytet + '</td>';
-                    var NrLokaluTab = '<td style="width:4%" class="nrLokaluTab">' + item.DokladnaLokalizacja + '</td>';
-                    var IdStatusTab = '<td style="width:4%" class="IdStatusTab">' + item.IdStatus + '</td>';
-                    var opisTab = '<td style="width:4%" class="opisTab">' + item.Opis + '</td>';
                     var dataZgloszeniaTab = '<td style="width:8%" class="dataZgloszeniaTab">' + item.DataDodania + '</td>';
                     var planowanaRealizacjaTab = '<td style="width:15%" class="planowanaRealizacjaTab">' + item.PlanowanaRealizacja + '</td>';
                     var adresTab = '<td style="width:15%" class="adresTab">' + item.Adres + '</td>';
@@ -474,11 +639,6 @@ $(document).ready(function () {
                         IdZgloszeniaTab +
                         IdKlientaTab +
                         IdAdresTab +
-                        IdKategoriaTab +
-                        IdPriorytetTab +
-                        NrLokaluTab +
-                        IdStatusTab +
-                        opisTab +
                         dataZgloszeniaTab +
                         planowanaRealizacjaTab +
                         adresTab +
@@ -496,24 +656,6 @@ $(document).ready(function () {
     });
 
 
-    // /*
-    // *
-    // *  usuwanie wykonawców
-    // *
-    // * */
-    //
-    // $('.wykonawcaTbodyEdycja').on('click','.usunWykonawceButton',function(){
-    //
-    //     $idZgloszeniaWykonawca = $(this).parent().parent().find('.idZgloszeniaWykonawca').text();
-    //
-    //     alert($idZgloszeniaWykonawca);
-    //
-    //
-    //
-    //
-    // });
-
-
 
 
 
@@ -528,6 +670,75 @@ $(document).ready(function () {
         $(".sekcjaButtonZgloszenia").show();
         $(".sekcjaHistoriaZgloszen").hide();
         $(".sekcjaButtonHistoria").hide();
+        $(".dodawanieZgloszenia").hide();
+        $(".edytowanieZgloszenia").hide();
+
+
+
+        $url = $baseUrl + 'pokazZgloszenia/ajax';
+        $.ajax({
+            url: $url,
+            type: 'POST',
+            data: {tab: ''},
+            format: 'json',
+            dataType: 'text',
+            success: function (response) {
+                let json = JSON.parse(response);
+
+                $('.zgloszeniaTbody tr').remove();
+
+                json.zgloszeniaArr.forEach(item=> {
+
+                    if(item.Nazwa === null){
+                        $Nazwa =  '';
+                    } else {
+                        $Nazwa = item.Nazwa;
+                    }
+                    if(item.Kategoria === null){
+                        $Kategoria =  '';
+                    } else {
+                        $Kategoria = item.Kategoria;
+                    }
+                    if(item.Priorytet === null){
+                        $Priorytet =  '';
+                    } else {
+                        $Priorytet = item.Priorytet;
+                    }
+
+                    var IdZgloszeniaTab = '<th style="width:4%" class="IdZgloszeniaTab" scope="row">' + item.IdZgloszenia + '</th>';
+                    var IdKlientaTab = '<td style="width:4%" class="IdKlientaTab">' + item.IdKlienta + '</td>';
+                    var IdAdresTab = '<td style="width:4%" class="IdAdresTab">' + item.IdAdres + '</td>';
+                    var dataZgloszeniaTab = '<td style="width:8%" class="dataZgloszeniaTab">' + item.DataDodania + '</td>';
+                    var planowanaRealizacjaTab = '<td style="width:15%" class="planowanaRealizacjaTab">' + item.PlanowanaRealizacja + '</td>';
+                    var adresTab = '<td style="width:15%" class="adresTab">' + item.Adres + '</td>';
+                    var klientTab = '<td style="width:15%" class="klientTab">' + $Nazwa + '</td>';
+                    var wykonawcaTab = '<td style="width:10%" class="wykonawcaTab">' + item.Wykonawca + '</td>';
+                    var kategoriaTab = '<td style="width:10%" class="kategoriaTab">' + $Kategoria + '</td>';
+                    var priorytetTab = '<td style="width:9%" class="priorytetTab">' + $Priorytet + '</td>';
+                    var statusTab = '<td style="width:9%" class="statusTab">' + item.Status + '</td>';
+
+                    $row = "<tr class='zgloszeniaTbodyTr'>" +
+                        IdZgloszeniaTab +
+                        IdKlientaTab +
+                        IdAdresTab +
+                        dataZgloszeniaTab +
+                        planowanaRealizacjaTab +
+                        adresTab +
+                        klientTab +
+                        wykonawcaTab +
+                        kategoriaTab +
+                        priorytetTab +
+                        statusTab +
+                        "</tr>";
+
+                    $('.zgloszeniaTbody').append($row);
+                });
+            }
+        })
+
+
+
+
     });
 
     $('.pokazHistorie').on('click', function(){
@@ -536,15 +747,240 @@ $(document).ready(function () {
         $(".sekcjaButtonHistoria").show();
         $(".sekcjaZgloszenia").hide();
         $(".sekcjaButtonZgloszenia").hide();
+        $(".dodawanieZgloszenia").hide();
+        $(".edytowanieZgloszenia").hide();
         // $(".zgloszeniaTbodyTr").hide();
+
+        $url = $baseUrl + 'historiaZgloszen/ajax';
+        $.ajax({
+            url: $url,
+            type: 'POST',
+            data: {tab: ''},
+            format: 'json',
+            dataType: 'text',
+            success: function (response) {
+                let json = JSON.parse(response);
+
+                $('.zgloszeniaHistoriaTbody tr').remove();
+
+                json.zgloszeniaHistoriaArr.zgloszeniaHistoria.forEach(item=> {
+
+
+                    if(item.Nazwa === null){
+                        $Nazwa =  '';
+                    } else {
+                        $Nazwa = item.Nazwa;
+                    }
+                    if(item.Kategoria === null){
+                        $Kategoria =  '';
+                    } else {
+                        $Kategoria = item.Kategoria;
+                    }
+                    if(item.Priorytet === null){
+                        $Priorytet =  '';
+                    } else {
+                        $Priorytet = item.Priorytet;
+                    }
+
+                    var IdZgloszeniaTab = '<th style="width:4%" class="IdZgloszeniaTab" scope="row">' + item.IdZgloszenia + '</th>';
+                    var IdKlientaTab = '<td style="width:4%" class="IdKlientaTab">' + item.IdKlienta + '</td>';
+                    var IdAdresTab = '<td style="width:4%" class="IdAdresTab">' + item.IdAdres + '</td>';
+                    var dataZgloszeniaTab = '<td style="width:8%" class="dataZgloszeniaTab">' + item.DataDodania + '</td>';
+                    var dataRozwiazaniaTab = '<td style="width:15%" class="dataRozwiazaniaTab">' + item.DataModyfikacji + '</td>';
+                    var adresTab = '<td style="width:15%" class="adresTab">' + item.Adres + '</td>';
+                    var klientTab = '<td style="width:15%" class="klientTab">' + $Nazwa + '</td>';
+                    var wykonawcaTab = '<td style="width:10%" class="wykonawcaTab">' + item.Wykonawca + '</td>';
+                    var kategoriaTab = '<td style="width:10%" class="kategoriaTab">' + $Kategoria + '</td>';
+                    var priorytetTab = '<td style="width:9%" class="priorytetTab">' + $Priorytet + '</td>';
+                    var statusTab = '<td style="width:9%" class="statusTab">' + item.Status + '</td>';
+
+
+                    $opt ='';
+                    $len = json.zgloszeniaHistoriaArr.slownikStatus.length;
+                    // $selected =  '<option selected="selected" value="0" disabled>--wybierz--</option>';
+                    for($i=0; $i < $len; $i++){
+                        $opt = $opt + '<option value="' +json.zgloszeniaHistoriaArr.slownikStatus[$i]['IdStatus']+ '">' + json.zgloszeniaHistoriaArr.slownikStatus[$i]['Opis'] + '</option>';
+                    }
+
+                    var statusSelectTab =
+                        '<td style="width:9%" class="statusSelectTab">'+
+                        '<div style="width:10vw;float: left">'+
+                        '<div class="field-wrapper">'+
+                        '<select class="status" id="statusSelect">' +
+                        // '<option value="' + item.IdStatus + '" >' + item.Status + '</option>' +
+                        '<option selected="selected" value="0" disabled>--wybierz--</option>' +
+                        $opt +
+                        '</select>'+
+                        '<div class="field-placeholder"><span>Status</span></div>'+
+                        '</div>'+
+                        '</div>'+
+                        '</td>';
+
+                    var statusId = '<td style="width:9%" class="idStatusTab">' + item.IdStatus + '</td>';
+
+                    $row = "<tr class='zgloszeniaHistoriaTbodyTr'>" +
+                        IdZgloszeniaTab +
+                        IdKlientaTab +
+                        IdAdresTab +
+                        dataZgloszeniaTab +
+                        dataRozwiazaniaTab +
+                        adresTab +
+                        klientTab +
+                        wykonawcaTab +
+                        kategoriaTab +
+                        priorytetTab +
+                        statusTab +
+                        statusSelectTab +
+                        statusId +
+                        "</tr>";
+
+                    $('.zgloszeniaHistoriaTbody').append($row);
+
+
+                    // dynamiczne ustawianie wartości dla selecta status w tabeli
+                    $('.zgloszeniaHistoriaTbodyTr').each(function() {
+                        $idStatus = $(this).find(".idStatusTab").text();
+                        $status = $(this).find(".status").val($idStatus);
+                    });
+
+                });
+            }
+        })
+
+    });
+
+
+    $('.zgloszeniaHistoriaTbody').on('change','.status', function(){
+
+       $valSelectStatus =  $(this).val();
+       $idZgloszenia =  $(this).parent().parent().parent().parent().find(".IdZgloszeniaTab").text();
+
+
+       alert($valSelectStatus);
+
+        let zgloszenieHistArr = {'valSelectStatus':$valSelectStatus,'idZgloszenia':$idZgloszenia};
+
+
+        $url = $baseUrl + 'historiaZgloszenEdycja/ajax';
+        $.ajax({
+            url: $url,
+            type: 'POST',
+            data: {tab: zgloszenieHistArr},
+            format: 'json',
+            dataType: 'text',
+            success: function (response) {
+                let json = JSON.parse(response);
+
+                $('.zgloszeniaHistoriaTbody tr').remove();
+
+                json.zgloszeniaHistoriaArr.zgloszeniaHistoria.forEach(item=> {
+
+
+                    if(item.Nazwa === null){
+                        $Nazwa =  '';
+                    } else {
+                        $Nazwa = item.Nazwa;
+                    }
+                    if(item.Kategoria === null){
+                        $Kategoria =  '';
+                    } else {
+                        $Kategoria = item.Kategoria;
+                    }
+                    if(item.Priorytet === null){
+                        $Priorytet =  '';
+                    } else {
+                        $Priorytet = item.Priorytet;
+                    }
+
+                    var IdZgloszeniaTab = '<th style="width:4%" class="IdZgloszeniaTab" scope="row">' + item.IdZgloszenia + '</th>';
+                    var IdKlientaTab = '<td style="width:4%" class="IdKlientaTab">' + item.IdKlienta + '</td>';
+                    var IdAdresTab = '<td style="width:4%" class="IdAdresTab">' + item.IdAdres + '</td>';
+                    var dataZgloszeniaTab = '<td style="width:8%" class="dataZgloszeniaTab">' + item.DataDodania + '</td>';
+                    var dataRozwiazaniaTab = '<td style="width:15%" class="dataRozwiazaniaTab">' + item.DataModyfikacji + '</td>';
+                    var adresTab = '<td style="width:15%" class="adresTab">' + item.Adres + '</td>';
+                    var klientTab = '<td style="width:15%" class="klientTab">' + $Nazwa + '</td>';
+                    var wykonawcaTab = '<td style="width:10%" class="wykonawcaTab">' + item.Wykonawca + '</td>';
+                    var kategoriaTab = '<td style="width:10%" class="kategoriaTab">' + $Kategoria + '</td>';
+                    var priorytetTab = '<td style="width:9%" class="priorytetTab">' + $Priorytet + '</td>';
+                    var statusTab = '<td style="width:9%" class="statusTab">' + item.Status + '</td>';
+
+
+                    $opt ='';
+                    $len = json.zgloszeniaHistoriaArr.slownikStatus.length;
+                    // $selected =  '<option selected="selected" value="0" disabled>--wybierz--</option>';
+                    for($i=0; $i < $len; $i++){
+                        $opt = $opt + '<option value="' +json.zgloszeniaHistoriaArr.slownikStatus[$i]['IdStatus']+ '">' + json.zgloszeniaHistoriaArr.slownikStatus[$i]['Opis'] + '</option>';
+                    }
+
+                    var statusSelectTab =
+                        '<td style="width:9%" class="statusSelectTab">'+
+                            '<div style="width:10vw;float: left">'+
+                                '<div class="field-wrapper">'+
+                                    '<select class="status" id="statusSelect">' +
+                                        // '<option value="' + item.IdStatus + '" >' + item.Status + '</option>' +
+                                        '<option selected="selected" value="0" disabled>--wybierz--</option>' +
+                                         $opt +
+                                    '</select>'+
+                                    '<div class="field-placeholder"><span>Status</span></div>'+
+                                '</div>'+
+                            '</div>'+
+                        '</td>';
+
+                    var statusId = '<td style="width:9%" class="idStatusTab">' + item.IdStatus + '</td>';
+
+                    $row = "<tr class='zgloszeniaHistoriaTbodyTr'>" +
+                        IdZgloszeniaTab +
+                        IdKlientaTab +
+                        IdAdresTab +
+                        dataZgloszeniaTab +
+                        dataRozwiazaniaTab +
+                        adresTab +
+                        klientTab +
+                        wykonawcaTab +
+                        kategoriaTab +
+                        priorytetTab +
+                        statusTab +
+                        statusSelectTab +
+                        statusId +
+                        "</tr>";
+
+                    $('.zgloszeniaHistoriaTbody').append($row);
+
+
+                    // dynamiczne ustawianie wartości dla selecta status w tabeli
+                    $('.zgloszeniaHistoriaTbodyTr').each(function() {
+                        $idStatus = $(this).find(".idStatusTab").text();
+                        $status = $(this).find(".status").val($idStatus);
+                    });
+
+                });
+            }
+        })
     });
 
 
 
 
-
-
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
