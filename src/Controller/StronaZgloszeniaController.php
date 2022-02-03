@@ -247,4 +247,23 @@ class StronaZgloszeniaController extends AbstractController
         return new JsonResponse($zgloszeniaTab);
     }
 
+    /**
+     *
+     * filtrowanie zgloszen historycznych
+     *
+     * @Route("/filtrujZgloszeniaHistoria/ajax", methods={"POST"})
+     */
+    public function historiaZgloszenFiltr(Request $request) {
+
+        $zgloszeniaFiltrHistoriaArr = $request->request->get('tab');
+
+        $this->logger->info('!!!!!!!!!!!!!!!!!!!!   kontroler');
+
+        $listaZgloszenHistoriaFiltr = $this->zgloszeniaService->historiaZgloszenFiltrService($zgloszeniaFiltrHistoriaArr);
+
+        $zgloszeniaFiltrHistoriaTab = ['zgloszeniaFiltrHistoriaArr'=>$listaZgloszenHistoriaFiltr];
+
+        return new JsonResponse($zgloszeniaFiltrHistoriaTab);
+    }
+
 }

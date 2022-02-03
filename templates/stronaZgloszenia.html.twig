@@ -127,13 +127,112 @@
                 </form>
             </div>
 
+
+            <div class="sekcjaFiltrowHistoria" >
+                <form>
+                    <div style="width:10vw;float: left">
+                        <div class="field-wrapper" >
+                            <input  class="filtrZgloszeniaHistoria" type="text" id="nrZgloszeniaFiltrHistoria" placeholder="" value="" />
+                            <div class="field-placeholder"><span>Numer zgłoszenia</span></div>
+                        </div>
+                    </div>
+                    <div style="width:10vw;float: left">
+                        <div class="field-wrapper" >
+                            <input  class="filtrZgloszeniaHistoria" type="date" id="dataDodaniaOdFiltrHistoria" placeholder="" value="" />
+                            <div class="field-placeholder"><span>Data dodania od</span></div>
+                        </div>
+                    </div>
+                    <div style="width:10vw;float: left">
+                        <div class="field-wrapper" >
+                            <input  class="filtrZgloszeniaHistoria" type="date" id="dataDodaniaDoFiltrHistoria" placeholder="" value="" />
+                            <div class="field-placeholder"><span>Data dodania do</span></div>
+                        </div>
+                    </div>
+                    <div style="width:10vw;float: left">
+                        <div class="field-wrapper" >
+                            <input  class="filtrZgloszeniaHistoria" type="date" id="planowanaRealizacjaFiltrHistoria" placeholder="" value="" />
+                            <div class="field-placeholder"><span>Realizacja</span></div>
+                        </div>
+                    </div>
+                    <div style="width:10vw;float: left">
+                        <div class="field-wrapper" >
+                            <input  class="filtrZgloszeniaHistoria" type="text" id="adresFiltrHistoria" placeholder="" value="" />
+                            <div class="field-placeholder"><span>Adres</span></div>
+                        </div>
+                    </div>
+                    <div style="width:10vw;float: left">
+                        <div class="field-wrapper" >
+                            <select class="filtrZgloszeniaHistoria" id="klientFiltrHistoria">
+                                <option selected="selected" value="0"  disabled>--wybierz--</option>
+                                {% for klient in slownikKlienci %}
+                                    <option value={{ klient.Nazwa }}>{{ klient.Nazwa }}</option>
+                                {% endfor %}
+                            </select>
+                            <div class="field-placeholder"><span>Klient</span></div>
+                        </div>
+                    </div>
+
+                    <div style="clear: both"></div>
+
+                    <div style="width:10vw;float: left">
+                        <div class="field-wrapper" >
+                            <select class="filtrZgloszeniaHistoria" id="wykonawcaFiltrHistoria">
+                                <option selected="selected" value="0" disabled>--wybierz--</option>
+                                {% for wykonawca in wykonawcaArr %}
+                                    <option value={{ wykonawca.Wykonawca }}>{{ wykonawca.Wykonawca }}</option>
+                                {% endfor %}
+                            </select>
+                            <div class="field-placeholder"><span>Wykonawca</span></div>
+                        </div>
+                    </div>
+                    <div style="width:10vw;float: left">
+                        <div class="field-wrapper" >
+                            <select class="filtrZgloszeniaHistoria" id="kategoriaFiltrHistoria">
+                                <option selected="selected" value="0" disabled>--wybierz--</option>
+                                {% for kategoria in slownikKategoria %}
+                                    <option value={{ kategoria.Opis }}>{{ kategoria.Opis }}</option>
+                                {% endfor %}
+                            </select>
+                            <div class="field-placeholder"><span>Kategoria</span></div>
+                        </div>
+                    </div>
+                    <div style="width:10vw;float: left">
+                        <div class="field-wrapper" >
+                            <select class="filtrZgloszeniaHistoria" id="priorytetFiltrHistoria">
+                                <option selected="selected" value="0" disabled>--wybierz--</option>
+                                {% for priorytet in slownikPriorytet %}
+                                    <option value={{ priorytet.Opis }}>{{ priorytet.Opis }}</option>
+                                {% endfor %}
+                            </select>
+                            <div class="field-placeholder"><span>Priorytet</span></div>
+                        </div>
+                    </div>
+                    <div style="width:10vw;float: left">
+                        <div class="field-wrapper" >
+                            <select class="filtrZgloszeniaHistoria" id="statusFiltrHistoria">
+                                <option selected="selected" value="0" disabled>--wybierz--</option>
+                                {% for status in slownikStatus %}
+                                    <option value={{ status.Opis }}>{{ status.Opis }}</option>
+                                {% endfor %}
+                            </select>
+                            <div class="field-placeholder"><span>Status</span></div>
+                        </div>
+                    </div>
+
+                    <div class ="filtrButtonWyczysc" >
+                        <button style="" id="wyczyscFiltrHistoria" type ="reset"><svg class="wyczyscIcons"></svg></button>
+                    </div>
+
+                </form>
+            </div>
+
             <div class="sekcjaZgloszenia" >
                 <table class="tabelaZgloszenia" style="">
                     <thead>
                     <tr>
                         <th class="thZgloszenia" style="" scope="row">Nr</th>
-                        <th class="thZgloszenia" style="">IdKlienta</th>
-                        <th class="thZgloszenia" style="">IdAdres</th>
+                        <th class="thZgloszenia" style="display:none">IdKlienta</th>
+                        <th class="thZgloszenia" style="display:none">IdAdres</th>
                         <th class="thZgloszenia" scope="row">Data dodania</th>
                         <th class="thZgloszenia" scope="row">Planowana realizacja</th>
                         <th class="thZgloszenia" scope="row">Adres</th>
@@ -148,8 +247,8 @@
                     {% for zgloszenia in zgloszeniaArr %}
                         <tr class="zgloszeniaTbodyTr">
                             <th style="width:4%" class="IdZgloszeniaTab" scope="row">{{ zgloszenia.IdZgloszenia }}</th>
-                            <td style="width:4%" class="IdKlientaTab">{{ zgloszenia.IdKlienta }}</td>
-                            <td style="width:4%" class="IdAdresTab">{{ zgloszenia.IdAdres }}</td>
+                            <td style="width:4%;display:none" class="IdKlientaTab">{{ zgloszenia.IdKlienta }}</td>
+                            <td style="width:4%;display:none" class="IdAdresTab">{{ zgloszenia.IdAdres }}</td>
                             <td style="width:8%"  class="dataZgloszeniaTab" >{{ zgloszenia.DataDodania }}</td>
                             <td style="width:15%" class ="planowanaRealizacjaTab">{{ zgloszenia.PlanowanaRealizacja }}</td>
                             <td style="width:15%" class="adresTab">{{ zgloszenia.Adres }}</td>
@@ -169,8 +268,8 @@
                     <thead>
                     <tr>
                         <th class="thZgloszenia" style="" scope="row">Nr</th>
-                        <th class="thZgloszenia" style="">IdKlienta</th>
-                        <th class="thZgloszenia" style="">IdAdres</th>
+                        <th class="thZgloszenia" style="display:none">IdKlienta</th>
+                        <th class="thZgloszenia" style="display:none">IdAdres</th>
                         <th class="thZgloszenia" scope="row">Data dodania</th>
                         <th class="thZgloszenia" scope="row">Data rozwiązania</th>
                         <th class="thZgloszenia" scope="row">Adres</th>
@@ -178,17 +277,17 @@
                         <th class="thZgloszenia" scope="row">Wykonawca</th>
                         <th class="thZgloszenia" scope="row">Kategoria</th>
                         <th class="thZgloszenia" scope="row">Priorytet</th>
-                        <th class="thZgloszenia" scope="row">Status</th>
+                        <th class="thZgloszenia" style="display:none" scope="row">Status</th>
                         <th class="thZgloszenia" scope="row">Status/Przywróć</th>
-                        <th class="thZgloszenia" scope="row">idStatus</th>
+                        <th class="thZgloszenia" style="display:none" scope="row">idStatus</th>
                     </tr>
                     </thead>
                     <tbody class="zgloszeniaHistoriaTbody">
                     {% for zgloszeniaHist in zgloszeniaHistoriaArr %}
                         <tr class="zgloszeniaHistoriaTbodyTr">
                            <th style="width:4%" class="IdZgloszeniaTab" scope="row">{{zgloszeniaHist.IdZgloszenia}}</th>
-                           <td style="width:4%" class="IdKlientaTab">{{zgloszeniaHist.IdKlienta}}</td>
-                           <td style="width:4%" class="IdAdresTab">{{zgloszeniaHist.IdAdres}}</td>
+                           <td style="width:4%;display:none" class="IdKlientaTab">{{zgloszeniaHist.IdKlienta}}</td>
+                           <td style="width:4%;display:none" class="IdAdresTab">{{zgloszeniaHist.IdAdres}}</td>
                            <td style="width:8%" class="dataZgloszeniaTab">{{zgloszeniaHist.DataDodania}}</td>
                            <td style="width:15%" class="dataRozwiazaniaTab">{{zgloszeniaHist.DataModyfikacji}}</td>
                            <td style="width:15%" class="adresTab">{{zgloszeniaHist.Adres}}</td>
@@ -394,8 +493,8 @@
 
                         <div id="drop_file_zone"  ondragover="return false">
                             <div id="drag_upload_file">
-                                <p>Drop file here</p>
-                                <p>or</p>
+                                <p>Upuść tutaj</p>
+{#                                <p>or</p>#}
                                 <p><input id="file_explorer" type="button" value="Select File" /></p>
                                 <input type="file" id="selectfile" />
                             </div>
@@ -438,11 +537,14 @@
 
             <div class="edytowanieZgloszenia" >
 
+
+
+                <div class="sectionButtonZgloszenia" style="">
+                    <button style="" id="buttonZmianyKomentarze" type ="button">Zmiany i komentarze</button>
+                </div>
                 <div class="zamknijSekcje" id="zamknijEdytowanieZgloszenia">X</div>
 
-                <div class="sectionButtonZgloszenia" style="width:99%;height:5%;border:solid red">
-                    <button style="" id="buttonZapiszZgloszenie" type ="button">button</button>
-                </div>
+                <div style="clear:both"></div>
 
                 <form>
 
@@ -601,8 +703,8 @@
 
                         <div id="drop_file_zone"  ondragover="return false">
                             <div id="drag_upload_file">
-                                <p>Drop file here</p>
-                                <p>or</p>
+                                <p>Upuść tutaj</p>
+{#                                <p>or</p>#}
                                 <p><input id="file_explorer" type="button" value="Select File" /></p>
                                 <input type="file" id="selectfile" />
                             </div>

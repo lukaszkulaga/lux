@@ -1,6 +1,6 @@
 
 
-.sekcjaFiltrow{
+.sekcjaFiltrow, .sekcjaFiltrowHistoria{
     position: absolute;
     margin-left: 1%;
     width: 60%;
@@ -104,6 +104,7 @@
     cursor:pointer;
     margin-left:23vw;
     font-weight: bold;
+    /*border: solid green;*/
 }
 
 .dodawanieZgloszenia{
@@ -117,7 +118,7 @@
     overflow-y: scroll;
 }
 .sekcjaDodawaniaZgloszenia{
-    height: 80vh;
+    height: 77vh;
     width:23.2vw;
     position: absolute;
     margin-top: 1vh;
@@ -128,7 +129,7 @@
     margin-left:1vw;
     width: 10vw;
     height:4vh;
-    margin-top: 2vh;
+    margin-top: 6vh;
     float: left;
 }
 
@@ -144,18 +145,18 @@
     overflow-y: scroll;
 }
 .sekcjaEdytowaniaZgloszenia{
-    height: 73vh;
+    height: 77vh;
     width:23.2vw;
     position: absolute;
-    margin-top: 1vh;
-    border:solid black;
+    margin-top: 3vh;
+    /*border:solid black;*/
     padding-left: 7%;
 }
 .edytujZgloszenie{
     margin-left:1vw;
     width: 10vw;
     height:4vh;
-    margin-top: 2vh;
+    margin-top: 1vh;
     float: left;
 }
 
@@ -359,15 +360,12 @@
 
 
 
-
-
-
 #drop_file_zone {
     background-color: #EEE;
-    border: #999 5px dashed;
+    border: #999 1px dashed;
     width: 9vw;
-    height: 15vh;
-    font-size: 1.8vh;
+    height: 10vh;
+    font-size: 1.6vh;
     margin-top: 1.5vh;
     margin-left: 2%;
     float: left;
@@ -386,7 +384,7 @@
     float: left;
     /*border: solid purple;*/
     width: 46%;
-    height: 20%;
+    height: 15%;
     margin-left: 2%;
     margin-top: 5%;
     overflow-y: scroll;
@@ -438,10 +436,38 @@
     text-align: center;
 }
 .thZalacznik{
-
     color:rgba(0, 60, 125,0.8);
     cursor: unset;
 }
+
+#zamknijEdytowanieZgloszenia {
+    float:left;
+    margin-left: 1vw;
+}
+
+.sectionButtonZgloszenia {
+    width:90%;
+    height:3%;
+    /*border:solid red;*/
+    float: left;
+    text-align: left;
+}
+
+#buttonZmianyKomentarze{
+    /*border: solid 1px grey;*/
+    height: 95%;
+    margin-top: 2%;
+    margin-left: 2%;
+    font-size: 1.5vh;
+    color: rgb(96, 19, 108);
+    box-shadow: 0 5px 35px rgba(0,0,0,0.2);
+    border-left:1px solid rgb(212, 210, 210);
+    border-radius: 10%;
+    background-color: rgba(85,85,85,0.2);
+    cursor: pointer;
+}
+
+
 
 
 

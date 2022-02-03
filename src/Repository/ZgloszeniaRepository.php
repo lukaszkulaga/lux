@@ -39,7 +39,7 @@ class ZgloszeniaRepository extends ServiceEntityRepository
             Z.PlanowanaRealizacjaOd, Z.PlanowanaRealizacjaDo, Z.GodzinaOd, Z.GodzinaDo, Z.DokladnaLokalizacja, Z.Opis, 
             SK.Opis AS Kategoria, SK.IdKategoria, SP.Opis AS Priorytet,SP.IdPriorytet, SS.Opis AS Status, SS.IdStatus,
             CONCAT (Z.PlanowanaRealizacjaOd,' / ',Z.PlanowanaRealizacjaDo, ' godz.',Z.GodzinaOd, ' - ',Z.GodzinaDo ) AS PlanowanaRealizacja,
-			CONCAT (KA.Miejscowosc, ', ',KA.Ulica,  ', ', KA.NrBudynku, ', ', Z.DokladnaLokalizacja) AS Adres,
+			CONCAT (KA.Miejscowosc, ', ',KA.Ulica,  ', ', KA.NrBudynku, '/', Z.DokladnaLokalizacja) AS Adres,
             [dbo].[wykonawca] (Z.IdZgloszenia) as Wykonawca
               from zgloszenia Z
               left join klienci K
@@ -220,7 +220,7 @@ class ZgloszeniaRepository extends ServiceEntityRepository
             Z.PlanowanaRealizacjaOd, Z.PlanowanaRealizacjaDo, Z.GodzinaOd, Z.GodzinaDo, Z.DokladnaLokalizacja, Z.Opis, 
             SK.Opis AS Kategoria, SK.IdKategoria, SP.Opis AS Priorytet,SP.IdPriorytet, SS.Opis AS Status, SS.IdStatus,
             CONCAT (Z.PlanowanaRealizacjaOd,' / ',Z.PlanowanaRealizacjaDo, ' godz.',Z.GodzinaOd, ' - ',Z.GodzinaDo ) AS PlanowanaRealizacja,
-			CONCAT (KA.Miejscowosc, ', ',KA.Ulica,  ', ', KA.NrBudynku, ', ', Z.DokladnaLokalizacja) AS Adres,
+			CONCAT (KA.Miejscowosc, ', ',KA.Ulica,  ', ', KA.NrBudynku, '/ ', Z.DokladnaLokalizacja) AS Adres,
             [dbo].[wykonawca] (Z.IdZgloszenia) as Wykonawca
               from zgloszenia Z
               left join klienci K
@@ -418,7 +418,7 @@ class ZgloszeniaRepository extends ServiceEntityRepository
             Z.PlanowanaRealizacjaOd, Z.PlanowanaRealizacjaDo, Z.GodzinaOd, Z.GodzinaDo, Z.DokladnaLokalizacja, Z.Opis, 
             SK.Opis AS Kategoria, SK.IdKategoria, SP.Opis AS Priorytet,SP.IdPriorytet, SS.Opis AS Status, SS.IdStatus,
             CONCAT (Z.PlanowanaRealizacjaOd,' / ',Z.PlanowanaRealizacjaDo, ' godz.',Z.GodzinaOd, ' - ',Z.GodzinaDo ) AS PlanowanaRealizacja,
-			CONCAT (KA.Miejscowosc, ', ',KA.Ulica,  ', ', KA.NrBudynku, ', ', Z.DokladnaLokalizacja) AS Adres,
+			CONCAT (KA.Miejscowosc, ', ',KA.Ulica,  ', ', KA.NrBudynku, '/ ', Z.DokladnaLokalizacja) AS Adres,
             [dbo].[wykonawca] (Z.IdZgloszenia) as Wykonawca,DU.Imie,DU.Nazwisko
               from zgloszenia Z
               left join klienci K
@@ -486,7 +486,7 @@ class ZgloszeniaRepository extends ServiceEntityRepository
             Z.PlanowanaRealizacjaOd, Z.PlanowanaRealizacjaDo, Z.GodzinaOd, Z.GodzinaDo, Z.DokladnaLokalizacja, Z.Opis, 
             SK.Opis AS Kategoria, SK.IdKategoria, SP.Opis AS Priorytet,SP.IdPriorytet, SS.Opis AS Status, SS.IdStatus as IdStatus,
             CONCAT (Z.PlanowanaRealizacjaOd,' / ',Z.PlanowanaRealizacjaDo, ' godz.',Z.GodzinaOd, ' - ',Z.GodzinaDo ) AS PlanowanaRealizacja,
-			CONCAT (KA.Miejscowosc, ', ',KA.Ulica,  ', ', KA.NrBudynku, ', ', Z.DokladnaLokalizacja) AS Adres,
+			CONCAT (KA.Miejscowosc, ', ',KA.Ulica,  ', ', KA.NrBudynku, '/ ', Z.DokladnaLokalizacja) AS Adres,
             [dbo].[wykonawca] (Z.IdZgloszenia) as Wykonawca, Z.DataModyfikacji
               from zgloszenia Z
               left join klienci K
@@ -572,6 +572,86 @@ class ZgloszeniaRepository extends ServiceEntityRepository
         $zgloszeniaTab = $this->zgloszeniaRepo();
 
         return $zgloszeniaTab;
+    }
+
+    public function historiaZgloszenFiltrRepo($zgloszeniaFiltrHistoriaArr) {
+
+        $this->logger->info('???????????????????????   serwis');
+
+        $nrZgloszeniaFiltr = $zgloszeniaFiltrHistoriaArr['nrZgloszeniaFiltr'];
+        $dataDodaniaOdFiltr = $zgloszeniaFiltrHistoriaArr['dataDodaniaOdFiltr'];
+        $dataDodaniaDoFiltr = $zgloszeniaFiltrHistoriaArr['dataDodaniaDoFiltr'];
+        $planowanaRealizacjaFiltr = $zgloszeniaFiltrHistoriaArr['planowanaRealizacjaFiltr'];
+        $adresFiltr = $zgloszeniaFiltrHistoriaArr['adresFiltr'];
+        $klientFiltr = $zgloszeniaFiltrHistoriaArr['klientFiltr'];
+        $wykonawcaFiltr = $zgloszeniaFiltrHistoriaArr['wykonawcaFiltr'];
+        $kategoriaFiltr = $zgloszeniaFiltrHistoriaArr['kategoriaFiltr'];
+        $priorytetFiltr = $zgloszeniaFiltrHistoriaArr['priorytetFiltr'];
+        $statusFiltr = $zgloszeniaFiltrHistoriaArr['statusFiltr'];
+
+        $zgloszeniaSQL = "select distinct Z.IdZgloszenia,Z.IdKlienta, K.Nazwa,Z.IdAdres,cast(Z.DataDodania As Date) as DataDodania,
+            Z.PlanowanaRealizacjaOd, Z.PlanowanaRealizacjaDo, Z.GodzinaOd, Z.GodzinaDo, Z.DokladnaLokalizacja, Z.Opis, 
+            SK.Opis AS Kategoria, SK.IdKategoria, SP.Opis AS Priorytet,SP.IdPriorytet, SS.Opis AS Status, SS.IdStatus as IdStatus,
+            CONCAT (Z.PlanowanaRealizacjaOd,' / ',Z.PlanowanaRealizacjaDo, ' godz.',Z.GodzinaOd, ' - ',Z.GodzinaDo ) AS PlanowanaRealizacja,
+			CONCAT (KA.Miejscowosc, ', ',KA.Ulica,  ', ', KA.NrBudynku, '/ ', Z.DokladnaLokalizacja) AS Adres,
+            [dbo].[wykonawca] (Z.IdZgloszenia) as Wykonawca, Z.DataModyfikacji
+              from zgloszenia Z
+              left join klienci K
+              on Z.IdKlienta = K.IdKlienta
+              left join klienciAdres KA
+              on Z.IdAdres = KA.IdAdres
+              left join zgloszeniaWykonawca ZW
+              on Z.IdZgloszenia = ZW.IdZgloszenia
+              left join daneUzytkownika DU
+              on ZW.IdUzytkownika = DU.IdUzytkownika
+              left join slownikKategoria SK
+              on Z.Kategoria = SK.IdKategoria
+              left join slownikPriorytet SP
+              on Z.Priorytet = SP.IdPriorytet
+              left join slownikStatus SS
+              on Z.Status = SS.IdStatus where Z.IdZgloszenia is not null and ( SS.Opis like 'Zrealizowano' or SS.Opis like 'Odrzucono') ";
+
+        if (!empty($nrZgloszeniaFiltr)){
+            $zgloszeniaSQL = $zgloszeniaSQL." and Z.IdZgloszenia like '%$nrZgloszeniaFiltr%' ";
+        }
+        if (!empty($planowanaRealizacjaFiltr)){
+            $zgloszeniaSQL = $zgloszeniaSQL." and Z.PlanowanaRealizacjaOd like '%$planowanaRealizacjaFiltr%'
+            or Z.PlanowanaRealizacjaDo like '%$planowanaRealizacjaFiltr%' ";
+        }
+        if (!empty($adresFiltr)){
+            $zgloszeniaSQL = $zgloszeniaSQL." and KA.Miejscowosc like '%$adresFiltr%' or KA.Ulica like '%$adresFiltr%'
+            or KA.NrBudynku like '%$adresFiltr%' or Z.DokladnaLokalizacja like '%$adresFiltr%' ";
+        }
+        if (!empty($klientFiltr)){
+            $zgloszeniaSQL = $zgloszeniaSQL." and K.Nazwa like '%$klientFiltr%' ";
+        }
+        if (!empty($wykonawcaFiltr)){
+            $zgloszeniaSQL = $zgloszeniaSQL." and DU.Imie like '%$wykonawcaFiltr%' or DU.Nazwisko like '%$wykonawcaFiltr%'";
+        }
+        if (!empty($kategoriaFiltr)){
+            $zgloszeniaSQL = $zgloszeniaSQL." and SK.Opis like '%$kategoriaFiltr%'";
+        }
+        if (!empty($priorytetFiltr)){
+            $zgloszeniaSQL = $zgloszeniaSQL." and SP.Opis like '%$priorytetFiltr%'";
+        }
+        if (!empty($statusFiltr)){
+            $zgloszeniaSQL = $zgloszeniaSQL." and SS.Opis like '%$statusFiltr%'";
+        }
+        if (!empty($dataDodaniaOdFiltr) && !empty($dataDodaniaDoFiltr) ){
+            $zgloszeniaSQL = $zgloszeniaSQL." and cast(Z.DataDodania As Date) >= '$dataDodaniaOdFiltr' and cast(Z.DataDodania As Date) <= '$dataDodaniaDoFiltr' ";
+        }
+        if (!empty($dataDodaniaOdFiltr) && empty($dataDodaniaDoFiltr) ){
+            $zgloszeniaSQL = $zgloszeniaSQL." and cast(Z.DataDodania As Date) >= '$dataDodaniaOdFiltr' ";
+        }
+        if (empty($dataDodaniaOdFiltr) && !empty($dataDodaniaDoFiltr) ){
+            $zgloszeniaSQL = $zgloszeniaSQL." and cast(Z.DataDodania As Date) <= '$dataDodaniaDoFiltr' ";
+        }
+
+        $filtrHistoriaSQL = $this->conn->fetchAllAssociative($zgloszeniaSQL);
+
+        $zgloszeniaFiltrHistoriaTab = ['slownikStatus'=>$this->slownikStatusRepo(),'filtrHistoriaSQL'=>$filtrHistoriaSQL];
+
+        return $zgloszeniaFiltrHistoriaTab;
     }
 
 }
