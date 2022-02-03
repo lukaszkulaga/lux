@@ -138,4 +138,11 @@ class ZgloszeniaService
         return $this->zgloszeniaRepository->pokazZgloszeniaRepo();
     }
 
+    public function historiaZgloszenFiltrService($zgloszeniaFiltrHistoriaArr) {
+
+        $this->logger->info('???????????????????????   serwis');
+
+        return $this->zgloszeniaRepository->historiaZgloszenFiltrRepo($zgloszeniaFiltrHistoriaArr);
+    }
+
 }
