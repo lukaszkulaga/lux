@@ -28,9 +28,9 @@ class DaneUzytkownikaEntity
     private $imie;
 
     /**
-     * @var string
+     * @var int
      *
-     * @ORM\Column(name="Rola", type="string", length=255)
+     * @ORM\Column(name="Rola", type="integer")
      */
     private $rola;
 
@@ -63,6 +63,13 @@ class DaneUzytkownikaEntity
     private $haslo;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="StatusKonta", type="integer")
+     */
+    private $statusKonta;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="Zdjecie", type="string", length=255)
@@ -76,6 +83,41 @@ class DaneUzytkownikaEntity
      */
     private $numerTelefonu;
 
+    /**
+     * @return int
+     */
+    public function getRola(): ?int
+    {
+        return $this->rola;
+    }
+
+    /**
+     * @param int $rola
+     * @return DaneUzytkownikaEntity
+     */
+    public function setRola(?int $rola): DaneUzytkownikaEntity
+    {
+        $this->rola = $rola;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStatusKonta(): ?int
+    {
+        return $this->statusKonta;
+    }
+
+    /**
+     * @param int $statusKonta
+     * @return DaneUzytkownikaEntity
+     */
+    public function setStatusKonta(?int $statusKonta): DaneUzytkownikaEntity
+    {
+        $this->statusKonta = $statusKonta;
+        return $this;
+    }
 
     /**
      * @return int
@@ -113,23 +155,7 @@ class DaneUzytkownikaEntity
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getRola(): string
-    {
-        return $this->rola;
-    }
 
-    /**
-     * @param string $rola
-     * @return DaneUzytkownikaEntity
-     */
-    public function setRola(string $rola): DaneUzytkownikaEntity
-    {
-        $this->rola = $rola;
-        return $this;
-    }
 
     /**
      * @return string

@@ -10,12 +10,14 @@ GO
 
 CREATE TABLE [dbo].[daneUzytkownika](
     [IdUzytkownika] [int] IDENTITY(1,1) NOT NULL,
+    [Rola] [int]  NULL,
     [Imie] [nvarchar](255) NULL,
     [Nazwisko] [nvarchar](255) NULL,
     [NazwaUzytkownika] [nvarchar](255) NULL,
     [Email] [nvarchar](255) NULL,
     [NumerTelefonu] [nvarchar](255) NULL,
     [Haslo] [nvarchar](255) NULL,
+    [StatusKonta] [int]  NULL,
     [Zdjecie] [nvarchar](max) NULL,
     [DataModyfikacji] [datetime2](7) NULL,
     [User] [nvarchar](255) NULL

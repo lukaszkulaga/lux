@@ -1,0 +1,10 @@
+
+.tabelaUzytkownicyAdmin {
+    width: 96%;
+    margin-left: 2%;
+    margin-top: 2%;
+}
+
+.tabelaUzytkownicyAdmin tr {
+    color: rgba(0, 60, 125,0.8);font-size: 14px;
+}

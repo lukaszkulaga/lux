@@ -18,13 +18,14 @@ class DaneUzytkownikaService
     public function daneUzytkownikaService( $adresUriZdjecia,$imie,$nazwisko,$nazwaUzytkownika,$email,$nrTelefonu,$haslo ) {
 
         $daneUzytkownika = new DaneUzytkownikaEntity();
-        $daneUzytkownika->setRola('uzytkownik');
+        $daneUzytkownika->setRola(2);
         $daneUzytkownika->setZdjecie( $adresUriZdjecia );
         $daneUzytkownika->setImie( $imie );
         $daneUzytkownika->setNazwisko( $nazwisko );
         $daneUzytkownika->setNazwaUzytkownika( $nazwaUzytkownika );
         $daneUzytkownika->setEmail( $email );
         $daneUzytkownika->setNumerTelefonu( $nrTelefonu );
+        $daneUzytkownika->setStatusKonta( 1 );
         $daneUzytkownika->setHaslo( $haslo );
 
         $this->daneUzytkownikaRepository->daneUzytkownikaRepo( $daneUzytkownika );
