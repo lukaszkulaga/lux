@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\AdministratorService;
 use App\Service\DaneUzytkownikaService;
 use App\Service\LoginService;
 use Psr\Log\LoggerInterface;
@@ -18,12 +19,15 @@ class StronaAdministratoraController extends AbstractController
     private $daneUzytkownikaService;
     private $loginService;
     private $logger;
+    private $administratorService;
 
-   public function __construct(DaneUzytkownikaService $daneUzytkownikaService, LoginService $loginService, LoggerInterface $logger) {
+   public function __construct(DaneUzytkownikaService $daneUzytkownikaService, LoginService $loginService,
+                               LoggerInterface $logger, AdministratorService $administratorService) {
 
        $this->daneUzytkownikaService = $daneUzytkownikaService;
        $this->loginService = $loginService;
        $this->logger = $logger;
+       $this->administratorService = $administratorService;
    }
 
     /**
@@ -33,12 +37,14 @@ class StronaAdministratoraController extends AbstractController
 
         $dostepAdministratora = $this->loginService->dostepAdministratoraService();
         $daneUzytkownikaArr = $this->daneUzytkownikaService->pobierzDaneUzytkownikaService( $dostepAdministratora );
+        $uzytkownicyAdminArr = $this->administratorService->uzytkownicyAdminService();
 
         $this->logger->info('/////////////////////////////////////// strona admina '.$dostepAdministratora);
 
         if ( $dostepAdministratora==true ) {
 
-            return $this->render('administrator/stronaAdministratora.html.twig', array( 'daneUzytkownikaArr'=>$daneUzytkownikaArr) );
+            return $this->render('administrator/stronaAdministratora.html.twig',
+                array( 'daneUzytkownikaArr'=>$daneUzytkownikaArr,'uzytkownicyAdminArr'=>$uzytkownicyAdminArr) );
           //  return $this->redirect(parent::getParameter('baseUrl')."stronaAdministratora");
 
         } else {
@@ -55,6 +61,8 @@ class StronaAdministratoraController extends AbstractController
 
         return $this->redirect(parent::getParameter('baseUrl')."stronaAdministratora");
     }
+
+
 }
 
 

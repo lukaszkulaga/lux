@@ -118,7 +118,7 @@ class ZgloszeniaRepository extends ServiceEntityRepository
 
         $this->logger->info('???????????????????????   serwis');
 
-        $listaWykonawcowSQL = "select DU.IdUzytkownika,CONCAT( DU.Imie, ' ',DU.Nazwisko) AS Wykonawca from daneUzytkownika DU where Rola ='uzytkownik'";
+        $listaWykonawcowSQL = "select DU.IdUzytkownika,CONCAT( DU.Imie, ' ',DU.Nazwisko) AS Wykonawca from daneUzytkownika DU where Rola = 2";
         $listaWykonawcowArr = $this->conn->fetchAllAssociative($listaWykonawcowSQL);
 
         return $listaWykonawcowArr;
