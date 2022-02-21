@@ -19,6 +19,16 @@ class AdministratorService
         return $this->administratorRepository->pobierzDaneUzytkownikaRepo();
     }
 
+    public function statusKontaService($statusKontaTab) {
+
+        return $this->administratorRepository->statusKontaRepo($statusKontaTab);
+    }
+
+    public function rolaService($rolaTab) {
+
+        return $this->administratorRepository->rolaRepo($rolaTab);
+    }
+
 }
 
 
