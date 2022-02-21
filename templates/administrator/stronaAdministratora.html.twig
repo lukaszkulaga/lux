@@ -61,29 +61,27 @@
                             <th>Numer telefonu</th>
                             <th>Status</th>
                             <th>Administrator</th>
-                            <th>Usuń konto</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="resultsBody">
                         {% for uzytkownik in uzytkownicyAdminArr %}
                             <tr>
-                                <td>{{uzytkownik.IdUzytkownika}}</td>
+                                <td class="idUzytkownik">{{uzytkownik.IdUzytkownika}}</td>
                                 <td>{{uzytkownik.Imie }}</td>
                                 <td>{{uzytkownik.Nazwisko}}</td>
                                 <td>{{uzytkownik.NazwaUzytkownika}}</td>
                                 <td>{{uzytkownik.Email}}</td>
                                 <td>{{uzytkownik.NumerTelefonu}}</td>
                                 {% if uzytkownik.StatusKonta is same as 1 %}
-                                    <td><input type="checkbox" value="{{ uzytkownik.StatusKonta }}" checked/></td>
+                                    <td><input class="statusKonta" type="checkbox" value= "{{ uzytkownik.StatusKonta }}" checked /><p style="">{{ uzytkownik.StatusKonta }}</p></td>
                                 {% else %}
-                                    <td><input type="checkbox" value="{{ uzytkownik.StatusKonta }}" /></td>
+                                    <td><input class="statusKonta" type="checkbox" value= "{{ uzytkownik.StatusKonta }}" /><p style="">{{ uzytkownik.StatusKonta }}</p></td>
                                 {% endif %}
                                 {% if uzytkownik.Rola is same as 1 %}
-                                    <td><input type="checkbox" value="{{ uzytkownik.Rola }}" checked/></td>
+                                    <td><input class="rola" type="checkbox" value= "{{ uzytkownik.Rola }}" checked /><p style="">{{ uzytkownik.Rola }}</p></td>
                                 {% else %}
-                                    <td><input type="checkbox" value="{{ uzytkownik.Rola }}" /></td>
+                                    <td><input class="rola" type="checkbox" value= "{{ uzytkownik.Rola }}" /><p style="">{{ uzytkownik.Rola }}</p></td>
                                 {% endif %}
-                                <td style="" class="usunKontrahentaTab"><button title="Usuń" class="usunKontrahentaButton"><svg class="koszIcons" ></svg></button></td>
                             </tr>
                         {% endfor %}
                         </tbody>

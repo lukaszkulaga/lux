@@ -7,6 +7,7 @@ use App\Service\DaneUzytkownikaService;
 use App\Service\LoginService;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -55,13 +56,32 @@ class StronaAdministratoraController extends AbstractController
     }
 
     /**
-     * @Route("/stronaAdministratora", methods={"POST"})
+     * @Route("/statusKonta/ajax", methods={"POST"})
      */
-    public function stronaAdministratoraPOST() {
+    public function statusKonta(Request $request) {
 
-        return $this->redirect(parent::getParameter('baseUrl')."stronaAdministratora");
+        $statusKontaTab = $request->request->get('tab');
+
+        $statusKontaArr = $this->administratorService->statusKontaService($statusKontaTab);
+
+        $arr = ['statusKontaArr'=>$statusKontaArr];
+
+        return new JsonResponse($arr);
     }
 
+    /**
+     * @Route("/rola/ajax", methods={"POST"})
+     */
+    public function rola(Request $request) {
+
+        $rolaTab = $request->request->get('tab');
+
+        $rolaArr = $this->administratorService->rolaService($rolaTab);
+
+        $arr = ['rolaArr'=>$rolaArr];
+
+        return new JsonResponse($arr);
+    }
 
 }
 

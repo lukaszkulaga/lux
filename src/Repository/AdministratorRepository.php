@@ -29,8 +29,43 @@ class AdministratorRepository extends ServiceEntityRepository
 
         return $daneUzytkownika;
     }
-
 //$this->getEntityManager()->getConnection()->fetchAllAssociative($sql);
+
+    public function statusKontaRepo($statusKontaTab) {
+
+        $idUzytkownika=$statusKontaTab['idUzytkownika'];
+        $statusKonta=$statusKontaTab['statusKonta'];
+
+        $statusKontaTab = $this->findOneBy(array('idUzytkownika'=>$idUzytkownika));
+        $statusKontaTab->setStatusKonta($statusKonta);
+
+        $this->getEntityManager()->persist($statusKontaTab);
+        $this->getEntityManager()->flush();
+
+        $sql = 'select * from daneUzytkownika';
+
+        $statusKontaTab =  $this->getEntityManager()->getConnection()->fetchAllAssociative($sql);
+
+        return $statusKontaTab;
+    }
+
+    public function rolaRepo($rolaTab) {
+
+        $idUzytkownika=$rolaTab['idUzytkownika'];
+        $rola=$rolaTab['rola'];
+
+        $rolaTab = $this->findOneBy(array('idUzytkownika'=>$idUzytkownika));
+        $rolaTab->setRola($rola);
+
+        $this->getEntityManager()->persist($rolaTab);
+        $this->getEntityManager()->flush();
+
+        $sql = 'select * from daneUzytkownika';
+
+        $daneUzytkownika =  $this->getEntityManager()->getConnection()->fetchAllAssociative($sql);
+
+        return $daneUzytkownika;
+    }
 }
 
 
