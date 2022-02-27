@@ -255,3 +255,21 @@ input:-webkit-autofill {
 ::-webkit-scrollbar-thumb:hover {
     background: rgba(85, 85, 85,0.5);
 }
+
+
+/* przycisk  usuń*/
+.ui-button:nth-last-child(2){
+
+}
+.ui-button:nth-last-child(2):hover{
+    background-color: #B0413E;
+}
+/* przycisk  anuluj*/
+.ui-button:nth-of-type(2){
+
+}
+.ui-button:nth-of-type(2):hover{
+    background-color:#cddc39;
+}
+
+

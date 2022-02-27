@@ -22,6 +22,11 @@ $(document).ready(function () {
     $nazwaErr = false;
     $nipErr = false;
     $podmiotErr = false;
+    $miejscowoscErr = false;
+    $ulicaErr = false;
+    $nrBudynkuErr = false;
+    $telefonErr = false;
+    $emailErr = false;
 
 
 
@@ -45,52 +50,7 @@ $(document).ready(function () {
     });
 
 
-    /*
-*
-*   komunikat progress bar
-*
-* */
 
-    function komunikatProgres($text,$successError) {
-
-        if($successError === 'success'){
-            $(".komunikatError").hide();
-            $(".komunikat").show();
-        } else {
-            $(".komunikat").hide();
-            $(".komunikatError").show();
-        }
-
-        $('.textKomunikatu').text($text);
-
-        setTimeout(function(){
-
-            if($successError === 'success'){
-                $(".komunikat").hide();
-            } else {
-                $(".komunikatError").hide();
-            }
-
-        }, 4000);
-
-
-        if($successError === 'success'){
-            $elem = $(".progressBar");
-        } else {
-            $elem = $(".progressBarError");
-        }
-
-        $width = 1;
-        $id = setInterval(frame, 40);
-        function frame() {
-            if ($width >= 100) {
-                clearInterval($id);
-            } else {
-                $width++;
-                $elem.css('width',$width + '%')
-            }
-        }
-    }
 
 
    // ----------------------------------  DANE PODSTAWOWE  ------------------------------------------------------
@@ -217,11 +177,11 @@ $(document).ready(function () {
     // walidacja dla pola nazwa
     $('#nazwa').on('keyup', function() {
 
-        if($('#nazwa').val().length > 0){
+        if($('#nazwa').val().length > 0) {
             $('#nazwa').css('border','1px solid rgb(209, 205, 205)');
             $(this).parent().parent().find('.errorSuccess').show().css('background','url("../icons/success.svg") no-repeat').attr('title','');
             $nazwaErr = true;
-        } else{
+        } else {
             $('#nazwa').css('border','1px solid red');
             $('#nazwa').parent().parent().find('.errorSuccess').show().css('background','url("../icons/error.svg") no-repeat').attr('title','wprowadz nazwe');
             $nazwaErr = false;
@@ -428,7 +388,7 @@ $(document).ready(function () {
 
         } else {
             if( $rezultat === false ){
-                komunikatProgres('wypełnij wymagane pola','success');
+                komunikatProgres('wypełnij wymagane pola','error');
             }
             if( $sprawdzanieNIP === true ){
                 komunikatProgres('taki nip juz istnieje','error');
@@ -683,13 +643,19 @@ $(document).ready(function () {
         } else {
 
             if( $rezultat === false ){
-                komunikatProgres('wypełnij wymagane pola','success');
+                komunikatProgres('wypełnij wymagane pola','error');
             }
             if( $sprawdzanieNIP === true ){
                 komunikatProgres('taki nip juz istnieje','error');
+                $('#nipEdycja').css('border','1px solid red');
+                $('#nipEdycja').parent().parent().find('.errorSuccess').show().css('background','url("../icons/error.svg") no-repeat').attr('title','wprowadz 10 cyfr NIP');
             }
         }
     });
+
+
+
+
 
 
     /*
@@ -703,51 +669,75 @@ $(document).ready(function () {
 
         $idKlienta= $(this).parent().parent().find('.IdKlienta').text();
 
-        let usunKontrahentaArr = {'idKlienta':$idKlienta};
+        $( function() {
 
-        $url = $baseUrl + 'usunKontrahenta/ajax';
-        $.ajax({
-            url: $url,
-            type: 'POST',
-            data: {tab: usunKontrahentaArr},
-            format: 'json',
-            dataType: 'text',
-            success: function (response) {
-                let json = JSON.parse(response);
-                console.log(json);
+            $( "#dialog-confirm" ).dialog({
 
-                $('.resultsBody tr').remove();
+                resizable: false,
+                height: "auto",
+                width: 400,
+                modal: true,
+                buttons: {
+                    "Usuń": function() {
+                        $( this ).dialog( "close" );
 
-                json.usunKontrahentaArr.forEach(item=> {
+                        let usunKontrahentaArr = {'idKlienta':$idKlienta};
 
-                    var id = '<td style="display: none" class="IdKlienta">' + item.IdKlienta + '</td>';
-                    var nazwa = '<th scope="row" class="nazwaTab">' + item.Nazwa + '</th>';
-                    var nip = '<td class="nipTab">' + item.NIP + '</td>';
-                    var podmiot = '<td class="podmiotTab">' + item.Opis + '</td>';
-                    var podmiotId = '<td style="display:none" class="podmiotIdTab">' + item.IdPodmiot + '</td>';
-                    var adres = ' <td style="" class="daneAdresoweTab"><button class="pokazAdresButton"><svg class="earthIcon"></svg></button></td>';
-                    var kontakt = '<td style="" class="daneKontaktoweTab"><button class="pokazKontaktButton"><svg class="telefonIcons"></svg></button></td>';
-                    var usun = '<td style="" class="usunKontrahentaTab"><button class="usunKontrahentaButton"><svg class="koszIcons" ></svg></button></td>';
+                        $url = $baseUrl + 'usunKontrahenta/ajax';
+                        $.ajax({
+                            url: $url,
+                            type: 'POST',
+                            data: {tab: usunKontrahentaArr},
+                            format: 'json',
+                            dataType: 'text',
+                            success: function (response) {
+                                let json = JSON.parse(response);
+                                console.log(json);
 
-                    $row = "<tr class='daneKontrahentaPokaz'>" +
-                        id +
-                        nazwa +
-                        nip +
-                        podmiot +
-                        podmiotId +
-                        adres +
-                        kontakt +
-                        usun +
-                        "</tr>";
+                                $('.resultsBody tr').remove();
 
-                    $('.resultsBody').append($row);
-                });
+                                json.usunKontrahentaArr.forEach(item=> {
 
-                komunikatProgres('Usunięto kontrahenta','success');
-            }
-        })
+                                    var id = '<td style="display: none" class="IdKlienta">' + item.IdKlienta + '</td>';
+                                    var nazwa = '<th scope="row" class="nazwaTab">' + item.Nazwa + '</th>';
+                                    var nip = '<td class="nipTab">' + item.NIP + '</td>';
+                                    var podmiot = '<td class="podmiotTab">' + item.Opis + '</td>';
+                                    var podmiotId = '<td style="display:none" class="podmiotIdTab">' + item.IdPodmiot + '</td>';
+                                    var adres = ' <td style="" class="daneAdresoweTab"><button class="pokazAdresButton"><svg class="earthIcon"></svg></button></td>';
+                                    var kontakt = '<td style="" class="daneKontaktoweTab"><button class="pokazKontaktButton"><svg class="telefonIcons"></svg></button></td>';
+                                    var usun = '<td style="" class="usunKontrahentaTab"><button class="usunKontrahentaButton"><svg class="koszIcons" ></svg></button></td>';
+
+                                    $row = "<tr class='daneKontrahentaPokaz'>" +
+                                        id +
+                                        nazwa +
+                                        nip +
+                                        podmiot +
+                                        podmiotId +
+                                        adres +
+                                        kontakt +
+                                        usun +
+                                        "</tr>";
+
+                                    $('.resultsBody').append($row);
+                                });
+
+                                komunikatProgres('Usunięto kontrahenta','success');
+                            }
+                        })
+
+
+                    },
+                    "Anuluj": function() {
+                        $( this ).dialog( "close" );
+                    }
+                }
+            });
+
+        } );
 
     });
+
+
 
 
 
@@ -846,12 +836,117 @@ $(document).ready(function () {
         * */
 
 
+    //WALIDACJE
+
+    // walidacja dla pola miejscowosc
+    $('#miejscowoscDodaj').on('keyup', function() {
+
+        if($('#miejscowoscDodaj').val().length > 0) {
+            $('#miejscowoscDodaj').css('border','1px solid rgb(209, 205, 205)');
+            $(this).parent().parent().find('.errorSuccess').show().css('background','url("../icons/success.svg") no-repeat').attr('title','');
+            $miejscowoscErr = true;
+        } else {
+            $('#miejscowoscDodaj').css('border','1px solid red');
+            $('#miejscowoscDodaj').parent().parent().find('.errorSuccess').show().css('background','url("../icons/error.svg") no-repeat').attr('title','wprowadź miejscowość');
+            $miejscowoscErr = false;
+        }
+    });
+
+    // walidacja dla pola ulica
+    $('#ulicaDodaj').on('keyup', function() {
+
+        if($('#ulicaDodaj').val().length > 0) {
+            $('#ulicaDodaj').css('border','1px solid rgb(209, 205, 205)');
+            $(this).parent().parent().find('.errorSuccess').show().css('background','url("../icons/success.svg") no-repeat').attr('title','');
+            $ulicaErr = true;
+        } else {
+            $('#ulicaDodaj').css('border','1px solid red');
+            $('#ulicaDodaj').parent().parent().find('.errorSuccess').show().css('background','url("../icons/error.svg") no-repeat').attr('title','wprowadź nazwę ulicy');
+            $ulicaErr = false;
+        }
+    });
+
+    // walidacja dla pola nr budynku
+    $('#nrBudynkuDodaj').on('keyup', function() {
+
+        if($('#nrBudynkuDodaj').val().length > 0) {
+            $('#nrBudynkuDodaj').css('border','1px solid rgb(209, 205, 205)');
+            $(this).parent().parent().find('.errorSuccess').show().css('background','url("../icons/success.svg") no-repeat').attr('title','');
+            $nrBudynkuErr = true;
+        } else {
+            $('#nrBudynkuDodaj').css('border','1px solid red');
+            $('#nrBudynkuDodaj').parent().parent().find('.errorSuccess').show().css('background','url("../icons/error.svg") no-repeat').attr('title','wprowadź nr budynku');
+            $nrBudynkuErr = false;
+        }
+    });
+
+
+
+    // walidacja pojedyncza - walidacja uruchamiana po kliknieciu przycisku do zapisu nowych danych adresowych - walidacja musi byc
+    // taka sama jak dla pojedynczych walidacji dla poszczególnych pól. Jest tylko raz wykonywana po kliknieciu przycisku
+    // do zapisu danych.
+    function walidacjaDanychAdresowych() {
+
+        if ( $miejscowoscErr === false ) {
+            $('#miejscowoscDodaj').css('border','1px solid red');
+            $('#miejscowoscDodaj').parent().parent().find('.errorSuccess').show().css('background','url("../icons/error.svg") no-repeat').attr('title','wprowadź miejscowość');
+            $miejscowoscErr = false;
+        }
+        else {
+            $('#miejscowoscDodaj').css('border','1px solid rgb(209, 205, 205)');
+            $(this).parent().parent().find('.errorSuccess').show().css('background','url("../icons/success.svg") no-repeat');
+            $miejscowoscErr = true;
+        }
+        if ( $ulicaErr === false ) {
+            $('#ulicaDodaj').css('border','1px solid red');
+            $('#ulicaDodaj').parent().parent().find('.errorSuccess').show().css('background','url("../icons/error.svg") no-repeat').attr('title','wprowadź nazwę ulicy');
+            $ulicaErr = false;
+        }
+        else {
+            $('#ulicaDodaj').css('border','1px solid rgb(209, 205, 205)');
+            $(this).parent().parent().find('.errorSuccess').show().css('background','url("../icons/success.svg") no-repeat');
+            $ulicaErr = true;
+        }
+        if ( $nrBudynkuErr === false ) {
+            $('#nrBudynkuDodaj').css('border','1px solid red');
+            $('#nrBudynkuDodaj').parent().parent().find('.errorSuccess').show().css('background','url("../icons/error.svg") no-repeat').attr('title','wprowadź nr budynku');
+            $nrBudynkuErr = false;
+        }
+        else {
+            $('#nrBudynkuDodaj').css('border','1px solid rgb(209, 205, 205)');
+            $(this).parent().parent().find('.errorSuccess').show().css('background','url("../icons/success.svg") no-repeat');
+            $nrBudynkuErr = true;
+        }
+
+        if($miejscowoscErr === false || $ulicaErr === false || $nrBudynkuErr === false){
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
+
     $('#dodajDaneAdresoweButton').on('click',function (){
 
         // zerujemy wartosci w polach
         $('#miejscowoscDodaj').val('');
         $('#ulicaDodaj').val('');
         $('#nrBudynkuDodaj').val('');
+
+        // potrzebne do walidacji - po ponownym kliknieciu aby dodac nowy adres trzeba ustawić zmienne dla walidacji na false
+        $miejscowoscErr = false;
+        $ulicaErr = false;
+        $nrBudynkuErr = false;
+
+        // ustawiamy css dla pól i ikonek po ponownym kliknieciu
+        $('#miejscowoscDodaj').css('border','1px solid rgb(209, 205, 205)');
+        $('#miejscowoscDodaj').parent().parent().find('.errorSuccess').show().css('background','').attr('title','');
+        $('#ulicaDodaj').css('border','1px solid rgb(209, 205, 205)');
+        $('#ulicaDodaj').parent().parent().find('.errorSuccess').show().css('background','').attr('title','');
+        $('#nrBudynkuDodaj').css('border','1px solid rgb(209, 205, 205)');
+        $('#nrBudynkuDodaj').parent().parent().find('.errorSuccess').show().css('background','').attr('title','');
+
 
         $('.dodawanieAdresow').show();
         $('#sekcjaDodawaniaAdresu').show();
@@ -866,84 +961,95 @@ $(document).ready(function () {
     });
 
 
+
     $('#zapiszDaneAdresoweButton').on('click',function(){
 
-        $miejscowosc = $('#miejscowoscDodaj').val();
-        $ulica = $('#ulicaDodaj').val();
-        $nrBudynku = $('#nrBudynkuDodaj').val();
-        // jak nie działa to mozliwe ze została dodana nowa sekcja w html która zagnieżdża inną i jest zła ilość parent();
-        // $idKlienta = $(this).parent().parent().parent().parent().parent().find('.IdKlienta').text();
+        $rezultat = walidacjaDanychAdresowych();
 
-        $idKlienta = $('.pobierzIdKlienta').val();
+        if($rezultat === true){
 
-        let daneAdresoweDodajArr = {'idKlienta':$idKlienta,'miejscowosc':$miejscowosc,'ulica':$ulica,'nrBudynku':$nrBudynku};
+            $miejscowosc = $('#miejscowoscDodaj').val();
+            $ulica = $('#ulicaDodaj').val();
+            $nrBudynku = $('#nrBudynkuDodaj').val();
+            // jak nie działa to mozliwe ze została dodana nowa sekcja w html która zagnieżdża inną i jest zła ilość parent();
+            // $idKlienta = $(this).parent().parent().parent().parent().parent().find('.IdKlienta').text();
 
-        $url = $baseUrl + 'dodajDaneAdresoweKontrahenta/ajax';
-        $.ajax({
-            url: $url,
-            type: 'POST',
-            data: {tab: daneAdresoweDodajArr},
-            format: 'json',
-            dataType: 'text',
-            success: function (response) {
-                let json = JSON.parse(response);
-                console.log(json);
+            $idKlienta = $('.pobierzIdKlienta').val();
 
-                $('.resultsBodyAdres tr').remove();
+            let daneAdresoweDodajArr = {'idKlienta':$idKlienta,'miejscowosc':$miejscowosc,'ulica':$ulica,'nrBudynku':$nrBudynku};
 
-                json.daneAdresoweKontrahentaArr.forEach(item=> {
+            $url = $baseUrl + 'dodajDaneAdresoweKontrahenta/ajax';
+            $.ajax({
+                url: $url,
+                type: 'POST',
+                data: {tab: daneAdresoweDodajArr},
+                format: 'json',
+                dataType: 'text',
+                success: function (response) {
+                    let json = JSON.parse(response);
+                    console.log(json);
 
-                    var idK = '<td style="display:none" class="IdKlienta">' + item.IdKlienta + '</td>';
-                    var idA = '<td style="display:none" class="IdAdres">' + item.IdAdres + '</td>';
-                    var miejscowosc = '<td style="display:none" class="miejscowoscTab">' + item.Miejscowosc + '</td>';
-                    var ulica = '<td style="display:none" class="ulicaTab">' + item.Ulica + '</td>';
-                    var nrBudynku = '<td style="display:none" class="nrBudynkuTab">' + item.NrBudynku + '</td>';
-                    var adres = '<th style="font-weight:normal;cursor:unset" scope="row" class="adresTab">' + item.Adres + '</th>';
-                    var edytuj = '<td style="" class="edytujAdresTab"><button title="Edytuj" type="button" class="edytujAdresButton"><svg class="edycjaIcons" ></svg></button></td>';
-                    var usun = '<td style="" class="usunAdresTab"><button title="Usuń" type="button" class="usunAdresButton"><svg class="koszIcons" ></svg></button></td>';
+                    $('.resultsBodyAdres tr').remove();
 
+                    json.daneAdresoweKontrahentaArr.forEach(item=> {
 
-
-                    $row = "<tr class='daneAdresowePokaz'>" +
-                        idK +
-                        idA +
-                        miejscowosc +
-                        ulica +
-                        nrBudynku +
-                        adres +
-                        edytuj +
-                        usun +
-                        "</tr>";
-
-                    $('.resultsBodyAdres').append($row);
-                });
-
-                if (json.daneAdresoweKontrahentaArr.length>0 ){
-                    $('.brakDanych').hide();
-                    $('#tabelaAdresow').show();
-                    $('#dodajDaneAdresowe').css('margin-top','46vh');
-                } else {
-                    $('.brakDanych').show();
-                    $('#tabelaAdresow').hide();
-                    $('#dodajDaneAdresowe').css('margin-top','30.7vh');
-                };
+                        var idK = '<td style="display:none" class="IdKlienta">' + item.IdKlienta + '</td>';
+                        var idA = '<td style="display:none" class="IdAdres">' + item.IdAdres + '</td>';
+                        var miejscowosc = '<td style="display:none" class="miejscowoscTab">' + item.Miejscowosc + '</td>';
+                        var ulica = '<td style="display:none" class="ulicaTab">' + item.Ulica + '</td>';
+                        var nrBudynku = '<td style="display:none" class="nrBudynkuTab">' + item.NrBudynku + '</td>';
+                        var adres = '<th style="font-weight:normal;cursor:unset" scope="row" class="adresTab">' + item.Adres + '</th>';
+                        var edytuj = '<td style="" class="edytujAdresTab"><button title="Edytuj" type="button" class="edytujAdresButton"><svg class="edycjaIcons" ></svg></button></td>';
+                        var usun = '<td style="" class="usunAdresTab"><button title="Usuń" type="button" class="usunAdresButton"><svg class="koszIcons" ></svg></button></td>';
 
 
-                komunikatProgres('Dodano adres','success');
+
+                        $row = "<tr class='daneAdresowePokaz'>" +
+                            idK +
+                            idA +
+                            miejscowosc +
+                            ulica +
+                            nrBudynku +
+                            adres +
+                            edytuj +
+                            usun +
+                            "</tr>";
+
+                        $('.resultsBodyAdres').append($row);
+                    });
+
+                    if (json.daneAdresoweKontrahentaArr.length>0 ){
+                        $('.brakDanych').hide();
+                        $('#tabelaAdresow').show();
+                        $('#dodajDaneAdresowe').css('margin-top','46vh');
+                    } else {
+                        $('.brakDanych').show();
+                        $('#tabelaAdresow').hide();
+                        $('#dodajDaneAdresowe').css('margin-top','30.7vh');
+                    };
+
+
+                    komunikatProgres('Dodano adres','success');
+                }
+            })
+
+            // po kliknieciu przycisku dodania adresu wylaczamy wszystkie pozostałe sekcje
+            $('.dodawanieAdresow').show();
+            $('#wyswietlDaneAdresowe').show();
+            $('#sekcjaEdycjiAdresu').hide();
+            $('.dodawanieKontrahenta').hide();
+            $('.edycjaKontrahenta').hide();
+            $('.dodawanieKontaktow').hide();
+            $('#sekcjaDodawaniaAdresu').hide();
+            $('#sekcjaEdycjiKontaktu').hide();
+            $('#sekcjaDodawaniaKontaktu').hide();
+            $('#wyswietlDaneKontaktowe').hide();
+
+        } else {
+            if( $rezultat === false ){
+                komunikatProgres('wypełnij wymagane pola','error');
             }
-        })
-
-        // po kliknieciu przycisku dodania adresu wylaczamy wszystkie pozostałe sekcje
-        $('.dodawanieAdresow').show();
-        $('#wyswietlDaneAdresowe').show();
-        $('#sekcjaEdycjiAdresu').hide();
-        $('.dodawanieKontrahenta').hide();
-        $('.edycjaKontrahenta').hide();
-        $('.dodawanieKontaktow').hide();
-        $('#sekcjaDodawaniaAdresu').hide();
-        $('#sekcjaEdycjiKontaktu').hide();
-        $('#sekcjaDodawaniaKontaktu').hide();
-        $('#wyswietlDaneKontaktowe').hide();
+        }
     });
 
 
@@ -952,6 +1058,98 @@ $(document).ready(function () {
        * sekcja danych adresowych - edytowanie
        *
        * */
+
+
+    //WALIDACJE
+
+    // walidacja dla pola miejscowosc
+    $('#miejscowoscEdytuj').on('keyup', function() {
+
+        if($('#miejscowoscEdytuj').val().length > 0) {
+            $('#miejscowoscEdytuj').css('border','1px solid rgb(209, 205, 205)');
+            $(this).parent().parent().find('.errorSuccess').show().css('background','url("../icons/success.svg") no-repeat').attr('title','');
+            $miejscowoscEdycjaErr = true;
+        } else {
+            $('#miejscowoscEdytuj').css('border','1px solid red');
+            $('#miejscowoscEdytuj').parent().parent().find('.errorSuccess').show().css('background','url("../icons/error.svg") no-repeat').attr('title','wprowadź miejscowość');
+            $miejscowoscEdycjaErr = false;
+        }
+    });
+
+    // walidacja dla pola ulica
+    $('#ulicaEdytuj').on('keyup', function() {
+
+        if($('#ulicaEdytuj').val().length > 0) {
+            $('#ulicaEdytuj').css('border','1px solid rgb(209, 205, 205)');
+            $(this).parent().parent().find('.errorSuccess').show().css('background','url("../icons/success.svg") no-repeat').attr('title','');
+            $ulicaEdycjaErr = true;
+        } else {
+            $('#ulicaEdytuj').css('border','1px solid red');
+            $('#ulicaEdytuj').parent().parent().find('.errorSuccess').show().css('background','url("../icons/error.svg") no-repeat').attr('title','wprowadź nazwę ulicy');
+            $ulicaEdycjaErr = false;
+        }
+    });
+
+    // walidacja dla pola nr budynku
+    $('#nrBudynkuEdytuj').on('keyup', function() {
+
+        if($('#nrBudynkuEdytuj').val().length > 0) {
+            $('#nrBudynkuEdytuj').css('border','1px solid rgb(209, 205, 205)');
+            $(this).parent().parent().find('.errorSuccess').show().css('background','url("../icons/success.svg") no-repeat').attr('title','');
+            $nrBudynkuEdycjaErr = true;
+        } else {
+            $('#nrBudynkuEdytuj').css('border','1px solid red');
+            $('#nrBudynkuEdytuj').parent().parent().find('.errorSuccess').show().css('background','url("../icons/error.svg") no-repeat').attr('title','wprowadź nr budynku');
+            $nrBudynkuEdycjaErr = false;
+        }
+    });
+
+
+
+    // walidacja pojedyncza - walidacja uruchamiana po kliknieciu przycisku do zapisu nowych danych podstawowych - walidacja musi byc
+    // taka sama jak dla pojedynczych walidacji dla poszczególnych pól. Jest tylko raz wykonywana po kliknieciu przycisku
+    // do zapisu danych.
+    function walidacjaDanychAdresowychEdycja() {
+
+        if ( $miejscowoscEdycjaErr === false ) {
+            $('#miejscowoscEdytuj').css('border','1px solid red');
+            $('#miejscowoscEdytuj').parent().parent().find('.errorSuccess').show().css('background','url("../icons/error.svg") no-repeat').attr('title','wprowadź miejscowość');
+            $miejscowoscEdycjaErr = false;
+        }
+        else {
+            $('#miejscowoscEdytuj').css('border','1px solid rgb(209, 205, 205)');
+            $(this).parent().parent().find('.errorSuccess').show().css('background','url("../icons/success.svg") no-repeat');
+            $miejscowoscEdycjaErr = true;
+        }
+        if ( $ulicaEdycjaErr === false ) {
+            $('#ulicaEdytuj').css('border','1px solid red');
+            $('#ulicaEdytuj').parent().parent().find('.errorSuccess').show().css('background','url("../icons/error.svg") no-repeat').attr('title','wprowadź nazwę ulicy');
+            $ulicaEdycjaErr = false;
+        }
+        else {
+            $('#ulicaEdytuj').css('border','1px solid rgb(209, 205, 205)');
+            $(this).parent().parent().find('.errorSuccess').show().css('background','url("../icons/success.svg") no-repeat');
+            $ulicaEdycjaErr = true;
+        }
+        if ( $nrBudynkuEdycjaErr === false ) {
+            $('#nrBudynkuEdytuj').css('border','1px solid red');
+            $('#nrBudynkuEdytuj').parent().parent().find('.errorSuccess').show().css('background','url("../icons/error.svg") no-repeat').attr('title','wprowadź nr budynku');
+            $nrBudynkuEdycjaErr = false;
+        }
+        else {
+            $('#nrBudynkuEdytuj').css('border','1px solid rgb(209, 205, 205)');
+            $(this).parent().parent().find('.errorSuccess').show().css('background','url("../icons/success.svg") no-repeat');
+            $nrBudynkuEdycjaErr = true;
+        }
+
+        if($miejscowoscEdycjaErr === false || $ulicaEdycjaErr === false || $nrBudynkuEdycjaErr === false){
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
 
     $('.resultsBodyAdres').on('click','.edytujAdresButton',function (){
 
@@ -977,76 +1175,94 @@ $(document).ready(function () {
         $('#miejscowoscEdytuj').val($miejscowosc);
         $('#ulicaEdytuj').val($ulica);
         $('#nrBudynkuEdytuj').val($nrBudynku);
+
+        $miejscowoscEdycjaErr = true;
+        $ulicaEdycjaErr = true;
+        $nrBudynkuEdycjaErr = true;
+
+        // ustawiamy css dla pól i ikonek po ponownym kliknieciu
+        $('#miejscowoscEdytuj').css('border','1px solid rgb(209, 205, 205)');
+        $('#miejscowoscEdytuj').parent().parent().find('.errorSuccess').show().css('background','').attr('title','');
+        $('#ulicaEdytuj').css('border','1px solid rgb(209, 205, 205)');
+        $('#ulicaEdytuj').parent().parent().find('.errorSuccess').show().css('background','').attr('title','');
+        $('#nrBudynkuEdytuj').css('border','1px solid rgb(209, 205, 205)');
+        $('#nrBudynkuEdytuj').parent().parent().find('.errorSuccess').show().css('background','').attr('title','');
+
     });
+
 
 
     $('#edytujDaneAdresoweButton').on('click',function(){
 
-        $idAdres = $('.pobierzIdAdres').val();
-        $idKlienta = $('.pobierzIdKlienta').val();
-        $miejscowosc = $('#miejscowoscEdytuj').val();
-        $ulica = $('#ulicaEdytuj').val();
-        $nrBudynku = $('#nrBudynkuEdytuj').val();
+        $rezultat = walidacjaDanychAdresowychEdycja();
 
+        if($rezultat === true){
 
-        let daneAdresoweEdytujArr = {'idAdres':$idAdres,'idKlienta':$idKlienta,'miejscowosc':$miejscowosc,'ulica':$ulica,'nrBudynku':$nrBudynku};
+            $idAdres = $('.pobierzIdAdres').val();
+            $idKlienta = $('.pobierzIdKlienta').val();
+            $miejscowosc = $('#miejscowoscEdytuj').val();
+            $ulica = $('#ulicaEdytuj').val();
+            $nrBudynku = $('#nrBudynkuEdytuj').val();
 
-        $url = $baseUrl + 'edytujDaneAdresoweKontrahenta/ajax';
-        $.ajax({
-            url: $url,
-            type: 'POST',
-            data: {tab: daneAdresoweEdytujArr},
-            format: 'json',
-            dataType: 'text',
-            success: function (response) {
-                let json = JSON.parse(response);
-                console.log(json);
+            let daneAdresoweEdytujArr = {'idAdres':$idAdres,'idKlienta':$idKlienta,'miejscowosc':$miejscowosc,'ulica':$ulica,'nrBudynku':$nrBudynku};
 
-                $('.resultsBodyAdres tr').remove();
+            $url = $baseUrl + 'edytujDaneAdresoweKontrahenta/ajax';
+            $.ajax({
+                url: $url,
+                type: 'POST',
+                data: {tab: daneAdresoweEdytujArr},
+                format: 'json',
+                dataType: 'text',
+                success: function (response) {
+                    let json = JSON.parse(response);
+                    console.log(json);
 
-                json.daneAdresoweKontrahentaArr.forEach(item=> {
+                    $('.resultsBodyAdres tr').remove();
 
-                    var idK = '<td style="display:none" class="IdKlienta">' + item.IdKlienta + '</td>';
-                    var idA = '<td style="display:none" class="IdAdres">' + item.IdAdres + '</td>';
-                    var miejscowosc = '<td style="display:none" class="miejscowoscTab">' + item.Miejscowosc + '</td>';
-                    var ulica = '<td style="display:none" class="ulicaTab">' + item.Ulica + '</td>';
-                    var nrBudynku = '<td style="display:none" class="nrBudynkuTab">' + item.NrBudynku + '</td>';
-                    var adres = '<th style="font-weight:normal;cursor:unset" scope="row" class="adresTab">' + item.Adres + '</th>';
-                    var edytuj = '<td style="" class="edytujAdresTab"><button title="Edytuj" type="button" class="edytujAdresButton"><svg class="edycjaIcons" ></svg></button></td>';
-                    var usun = '<td style="" class="usunAdresTab"><button title="Usuń" type="button" class="usunAdresButton"><svg class="koszIcons" ></svg></button></td>';
+                    json.daneAdresoweKontrahentaArr.forEach(item=> {
 
+                        var idK = '<td style="display:none" class="IdKlienta">' + item.IdKlienta + '</td>';
+                        var idA = '<td style="display:none" class="IdAdres">' + item.IdAdres + '</td>';
+                        var miejscowosc = '<td style="display:none" class="miejscowoscTab">' + item.Miejscowosc + '</td>';
+                        var ulica = '<td style="display:none" class="ulicaTab">' + item.Ulica + '</td>';
+                        var nrBudynku = '<td style="display:none" class="nrBudynkuTab">' + item.NrBudynku + '</td>';
+                        var adres = '<th style="font-weight:normal;cursor:unset" scope="row" class="adresTab">' + item.Adres + '</th>';
+                        var edytuj = '<td style="" class="edytujAdresTab"><button title="Edytuj" type="button" class="edytujAdresButton"><svg class="edycjaIcons" ></svg></button></td>';
+                        var usun = '<td style="" class="usunAdresTab"><button title="Usuń" type="button" class="usunAdresButton"><svg class="koszIcons" ></svg></button></td>';
 
+                        $row = "<tr class='daneAdresowePokaz'>" +
+                            idK +
+                            idA +
+                            miejscowosc +
+                            ulica +
+                            nrBudynku +
+                            adres +
+                            edytuj +
+                            usun +
+                            "</tr>";
 
-                    $row = "<tr class='daneAdresowePokaz'>" +
-                        idK +
-                        idA +
-                        miejscowosc +
-                        ulica +
-                        nrBudynku +
-                        adres +
-                        edytuj +
-                        usun +
-                        "</tr>";
+                        $('.resultsBodyAdres').append($row);
+                    });
 
-                    $('.resultsBodyAdres').append($row);
-                });
+                    komunikatProgres('Zapisano zmiany','success');
+                }
+            })
 
-                komunikatProgres('Zapisano zmiany','success');
+            $('.dodawanieAdresow').show();
+            $('#wyswietlDaneAdresowe').show();
+            $('#sekcjaEdycjiAdresu').hide();
+            $('.dodawanieKontrahenta').hide();
+            $('.edycjaKontrahenta').hide();
+            $('.dodawanieKontaktow').hide();
+            $('#sekcjaDodawaniaAdresu').hide();
+            $('#sekcjaEdycjiKontaktu').hide();
+            $('#sekcjaDodawaniaKontaktu').hide();
+            $('#wyswietlDaneKontaktowe').hide();
+        } else {
+            if( $rezultat === false ){
+                komunikatProgres('wypełnij wymagane pola','error');
             }
-        })
-
-        $('.dodawanieAdresow').show();
-        $('#wyswietlDaneAdresowe').show();
-        $('#sekcjaEdycjiAdresu').hide();
-        $('.dodawanieKontrahenta').hide();
-        $('.edycjaKontrahenta').hide();
-        $('.dodawanieKontaktow').hide();
-        $('#sekcjaDodawaniaAdresu').hide();
-        $('#sekcjaEdycjiKontaktu').hide();
-        $('#sekcjaDodawaniaKontaktu').hide();
-        $('#wyswietlDaneKontaktowe').hide();
-
-
+        }
     });
 
     /*
@@ -1203,12 +1419,107 @@ $('.resultsBody').on('click','.pokazKontaktButton',function() {
 *
 * */
 
+    //WALIDACJE - komentarz: wystarczy, że wypełniony jest telefon lub e-mail aby walidacja przeszła
+
+    // walidacja dla pola telefon
+    $('#telefonDodaj').on('keyup click change', function() {
+
+        if($('#telefonDodaj').val().length > 0) {
+
+            $('#telefonDodaj').css('border','1px solid rgb(209, 205, 205)');
+            $(this).parent().parent().find('.errorSuccess').show().css('background','url("../icons/success.svg") no-repeat').attr('title','');
+
+            // walidacja ogólnie przechodzi jeżeli jest podany e-mail lub telefon. If jest potrzebny gdy wypełnimy pole telefon a pole e-mail jest puste
+            if($('#emailDodaj').val().length === 0){
+                $('#emailDodaj').css('border','1px solid rgb(209, 205, 205)');
+                $('#emailDodaj').parent().parent().find('.errorSuccess').css('display','none');
+            }
+
+            $telefonErr = true;
+
+        } else {
+
+            $('#telefonDodaj').css('border','1px solid red');
+            $('#telefonDodaj').parent().parent().find('.errorSuccess').show().css('background','url("../icons/error.svg") no-repeat').attr('title','wprowadź miejscowość');
+            $telefonErr = false;
+        }
+    });
+
+    // walidacja dla pola e-mail
+    $('#emailDodaj').on('keyup click change', function() {
+
+        if($('#emailDodaj').val().length > 0) {
+
+            $('#emailDodaj').css('border','1px solid rgb(209, 205, 205)');
+            $(this).parent().parent().find('.errorSuccess').show().css('background','url("../icons/success.svg") no-repeat').attr('title','');
+
+            // walidacja ogólnie przechodzi jeżeli jest podany e-mail lub telefon. If jest potrzebny gdy wypełnimy pole e-mail a pole telefon jest puste
+            if($('#telefonDodaj').val().length === 0){
+                $('#telefonDodaj').css('border','1px solid rgb(209, 205, 205)');
+                $('#telefonDodaj').parent().parent().find('.errorSuccess').css('display','none');
+            }
+
+            $emailErr = true;
+
+        } else {
+
+            $('#emailDodaj').css('border','1px solid red');
+            $('#emailDodaj').parent().parent().find('.errorSuccess').show().css('background','url("../icons/error.svg") no-repeat').attr('title','wprowadź nazwę ulicy');
+            $emailErr = false;
+        }
+    });
+
+
+    // walidacja pojedyncza - walidacja uruchamiana po kliknieciu przycisku do zapisu nowych danych kontaktowych - walidacja musi byc
+    // taka sama jak dla pojedynczych walidacji dla poszczególnych pól. Jest tylko raz wykonywana po kliknieciu przycisku
+    // do zapisu danych.
+    function walidacjaDanychKontaktowych() {
+
+        if ( $telefonErr === false ) {
+            $('#telefonDodaj').css('border','1px solid red');
+            $('#telefonDodaj').parent().parent().find('.errorSuccess').show().css('background','url("../icons/error.svg") no-repeat').attr('title','wprowadź numer telefonu');
+            $telefonErr = false;
+        }
+        else {
+            $('#telefonDodaj').css('border','1px solid rgb(209, 205, 205)');
+            $(this).parent().parent().find('.errorSuccess').show().css('background','url("../icons/success.svg") no-repeat');
+            $telefonErr = true;
+        }
+        if ( $emailErr === false ) {
+            $('#emailDodaj').css('border','1px solid red');
+            $('#emailDodaj').parent().parent().find('.errorSuccess').show().css('background','url("../icons/error.svg") no-repeat').attr('title','wprowadź e-mail');
+            $emailErr = false;
+        }
+        else {
+            $('#emailDodaj').css('border','1px solid rgb(209, 205, 205)');
+            $(this).parent().parent().find('.errorSuccess').show().css('background','url("../icons/success.svg") no-repeat');
+            $emailErr = true;
+        }
+
+        if($telefonErr === true || $emailErr === true){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
 
     $('#dodajDaneKontaktoweButton').on('click',function (){
 
         // zerujemy wartosci w polach
         $('#telefonDodaj').val('');
         $('#emailDodaj').val('');
+
+        // potrzebne do walidacji - po ponownym kliknieciu aby dodac nowy kontakt trzeba ustawić zmienne dla walidacji na false
+        $telefonErr = false;
+        $emailErr = false;
+
+        // ustawiamy css dla pól i ikonek po ponownym kliknieciu
+        $('#telefonDodaj').css('border','1px solid rgb(209, 205, 205)');
+        $('#telefonDodaj').parent().parent().find('.errorSuccess').show().css('background','').attr('title','');
+        $('#emailDodaj').css('border','1px solid rgb(209, 205, 205)');
+        $('#emailDodaj').parent().parent().find('.errorSuccess').show().css('background','').attr('title','');
 
         $('.dodawanieKontaktow').show();
         $('#sekcjaDodawaniaKontaktu').show();
@@ -1226,76 +1537,85 @@ $('.resultsBody').on('click','.pokazKontaktButton',function() {
 
     $('#zapiszDaneKontaktoweButton').on('click',function(){
 
-        $telefon = $('#telefonDodaj').val();
-        $email = $('#emailDodaj').val();
+        $rezultat = walidacjaDanychKontaktowych();
 
-        // jak nie działa to mozliwe ze została dodana nowa sekcja w html która zagnieżdża inną i jest zła ilość parent();
-        // $idKlienta = $(this).parent().parent().parent().parent().parent().find('.IdKlienta').text();
+        if($rezultat === true){
+            $telefon = $('#telefonDodaj').val();
+            $email = $('#emailDodaj').val();
 
-        $idKlienta = $('.pobierzIdKlienta').val();
+            // jak nie działa to mozliwe ze została dodana nowa sekcja w html która zagnieżdża inną i jest zła ilość parent();
+            // $idKlienta = $(this).parent().parent().parent().parent().parent().find('.IdKlienta').text();
 
-        let daneKontaktoweDodajArr = {'idKlienta':$idKlienta,'telefon':$telefon,'email':$email};
+            $idKlienta = $('.pobierzIdKlienta').val();
 
-        $url = $baseUrl + 'dodajDaneKontaktoweKontrahenta/ajax';
-        $.ajax({
-            url: $url,
-            type: 'POST',
-            data: {tab: daneKontaktoweDodajArr},
-            format: 'json',
-            dataType: 'text',
-            success: function (response) {
-                let json = JSON.parse(response);
-                console.log(json);
+            let daneKontaktoweDodajArr = {'idKlienta':$idKlienta,'telefon':$telefon,'email':$email};
 
-                $('.resultsBodyKontakt tr').remove();
+            $url = $baseUrl + 'dodajDaneKontaktoweKontrahenta/ajax';
+            $.ajax({
+                url: $url,
+                type: 'POST',
+                data: {tab: daneKontaktoweDodajArr},
+                format: 'json',
+                dataType: 'text',
+                success: function (response) {
+                    let json = JSON.parse(response);
+                    console.log(json);
 
-                json.daneKontaktoweKontrahentaArr.forEach(item=> {
+                    $('.resultsBodyKontakt tr').remove();
 
-                    var idK = '<td style="display:none" class="IdKlienta">' + item.IdKlienta + '</td>';
-                    var idKontakt = '<td style="display:none" class="IdKontakt">' + item.IdKontakt + '</td>';
-                    var telefon = '<th style="font-weight:normal;cursor:unset" scope="row" class="telefonTab">' + item.Telefon + '</th>';
-                    var email = '<th style="font-weight:normal;cursor:unset" scope="row" class="emailTab">' + item.Email + '</th>';
-                    var edytuj = '<td style="" class="edytujKontaktTab"><button title="Edytuj" type="button" class="edytujKontaktButton"><svg class="edycjaIcons" ></svg></button></td>';
-                    var usun = '<td style="" class="usunKontaktTab"><button title="Usuń" type="button" class="usunKontaktButton"><svg class="koszIcons" ></svg></button></td>';
+                    json.daneKontaktoweKontrahentaArr.forEach(item=> {
 
-                    $row = "<tr class='daneKontaktowePokaz'>" +
-                        idK +
-                        idKontakt +
-                        telefon +
-                        email +
-                        edytuj +
-                        usun +
-                        "</tr>";
+                        var idK = '<td style="display:none" class="IdKlienta">' + item.IdKlienta + '</td>';
+                        var idKontakt = '<td style="display:none" class="IdKontakt">' + item.IdKontakt + '</td>';
+                        var telefon = '<th style="font-weight:normal;cursor:unset" scope="row" class="telefonTab">' + item.Telefon + '</th>';
+                        var email = '<th style="font-weight:normal;cursor:unset" scope="row" class="emailTab">' + item.Email + '</th>';
+                        var edytuj = '<td style="" class="edytujKontaktTab"><button title="Edytuj" type="button" class="edytujKontaktButton"><svg class="edycjaIcons" ></svg></button></td>';
+                        var usun = '<td style="" class="usunKontaktTab"><button title="Usuń" type="button" class="usunKontaktButton"><svg class="koszIcons" ></svg></button></td>';
 
-                    $('.resultsBodyKontakt').append($row);
+                        $row = "<tr class='daneKontaktowePokaz'>" +
+                            idK +
+                            idKontakt +
+                            telefon +
+                            email +
+                            edytuj +
+                            usun +
+                            "</tr>";
 
-                });
+                        $('.resultsBodyKontakt').append($row);
 
-                if (json.daneKontaktoweKontrahentaArr.length>0 ){
-                    $('.brakDanych').hide();
-                    $('#tabelaKontaktow').show();
-                    $('#dodajDaneKontaktowe').css('margin-top','46vh');
-                } else {
-                    $('.brakDanych').show();
-                    $('#tabelaKontaktow').hide();
-                    $('#dodajDaneKontaktowe').css('margin-top','30.7vh');
-                };
+                    });
 
-                komunikatProgres('Dodano kontakt','success');
+                    if (json.daneKontaktoweKontrahentaArr.length>0 ){
+                        $('.brakDanych').hide();
+                        $('#tabelaKontaktow').show();
+                        $('#dodajDaneKontaktowe').css('margin-top','46vh');
+                    } else {
+                        $('.brakDanych').show();
+                        $('#tabelaKontaktow').hide();
+                        $('#dodajDaneKontaktowe').css('margin-top','30.7vh');
+                    };
+
+                    komunikatProgres('Dodano kontakt','success');
+                }
+            })
+
+            // po kliknieciu przycisku dodania adresu wylaczamy wszystkie pozostałe sekcje
+            $('.dodawanieKontaktow').show();
+            $('#wyswietlDaneKontaktowe').show();
+            $('.dodawanieAdresow').hide();
+            $('#wyswietlDaneAdresowe').hide();
+            $('#sekcjaEdycjiAdresu').hide();
+            $('.dodawanieKontrahenta').hide();
+            $('.edycjaKontrahenta').hide();
+            $('#sekcjaDodawaniaAdresu').hide();
+            $('#sekcjaEdycjiKontaktu').hide();
+            $('#sekcjaDodawaniaKontaktu').hide();
+
+        } else {
+            if( $rezultat === false ){
+                komunikatProgres('wypełnij wymagane pola','error');
             }
-        })
-
-        // po kliknieciu przycisku dodania adresu wylaczamy wszystkie pozostałe sekcje
-        $('.dodawanieKontaktow').show();
-        $('#wyswietlDaneKontaktowe').show();
-        $('.dodawanieAdresow').hide();
-        $('#wyswietlDaneAdresowe').hide();
-        $('#sekcjaEdycjiAdresu').hide();
-        $('.dodawanieKontrahenta').hide();
-        $('.edycjaKontrahenta').hide();
-        $('#sekcjaDodawaniaAdresu').hide();
-        $('#sekcjaEdycjiKontaktu').hide();
-        $('#sekcjaDodawaniaKontaktu').hide();
+        }
     });
 
 
@@ -1305,6 +1625,91 @@ $('.resultsBody').on('click','.pokazKontaktButton',function() {
       * sekcja danych kontaktowych - edytowanie
       *
       * */
+
+    //WALIDACJE - komentarz: wystarczy, że wypełniony jest telefon lub e-mail aby walidacja przeszła
+
+    // walidacja dla pola telefon
+    $('#telefonEdytuj').on('keyup click change', function() {
+
+        if($('#telefonEdytuj').val().length > 0) {
+
+            $('#telefonEdytuj').css('border','1px solid rgb(209, 205, 205)');
+            $(this).parent().parent().find('.errorSuccess').show().css('background','url("../icons/success.svg") no-repeat').attr('title','');
+
+            // walidacja ogólnie przechodzi jeżeli jest podany e-mail lub telefon. If jest potrzebny gdy wypełnimy pole telefon a pole e-mail jest puste
+            if($('#emailEdytuj').val().length === 0){
+                $('#emailEdytuj').css('border','1px solid rgb(209, 205, 205)');
+                $('#emailEdytuj').parent().parent().find('.errorSuccess').css('display','none');
+            }
+
+            $telefonEdytujErr = true;
+
+        } else {
+
+            $('#telefonEdytuj').css('border','1px solid red');
+            $('#telefonEdytuj').parent().parent().find('.errorSuccess').show().css('background','url("../icons/error.svg") no-repeat').attr('title','wprowadź numer telefonu');
+            $telefonEdytujErr = false;
+        }
+    });
+
+    // walidacja dla pola e-mail
+    $('#emailEdytuj').on('keyup click change', function() {
+
+        if($('#emailEdytuj').val().length > 0) {
+
+            $('#emailEdytuj').css('border','1px solid rgb(209, 205, 205)');
+            $(this).parent().parent().find('.errorSuccess').show().css('background','url("../icons/success.svg") no-repeat').attr('title','');
+
+            // walidacja ogólnie przechodzi jeżeli jest podany e-mail lub telefon. If jest potrzebny gdy wypełnimy pole e-mail a pole telefon jest puste
+            if($('#telefonEdytuj').val().length === 0){
+                $('#telefonEdytuj').css('border','1px solid rgb(209, 205, 205)');
+                $('#telefonEdytuj').parent().parent().find('.errorSuccess').css('display','none');
+            }
+
+            $emailEdytujErr = true;
+
+        } else {
+
+            $('#emailEdytuj').css('border','1px solid red');
+            $('#emailEdytuj').parent().parent().find('.errorSuccess').show().css('background','url("../icons/error.svg") no-repeat').attr('title','wprowadź e-mail');
+            $emailEdytujErr = false;
+        }
+    });
+
+
+    // walidacja pojedyncza - walidacja uruchamiana po kliknieciu przycisku do zapisu nowych danych kontaktowych - walidacja musi byc
+    // taka sama jak dla pojedynczych walidacji dla poszczególnych pól. Jest tylko raz wykonywana po kliknieciu przycisku
+    // do zapisu danych.
+    function walidacjaDanychKontaktowychEdytuj() {
+
+        if ( $telefonEdytujErr === false ) {
+            $('#telefonEdytuj').css('border','1px solid red');
+            $('#telefonEdytuj').parent().parent().find('.errorSuccess').show().css('background','url("../icons/error.svg") no-repeat').attr('title','wprowadź numer telefonu');
+            $telefonEdytujErr = false;
+        }
+        else {
+            $('#telefonEdytuj').css('border','1px solid rgb(209, 205, 205)');
+            $(this).parent().parent().find('.errorSuccess').show().css('background','url("../icons/success.svg") no-repeat');
+            $telefonEdytujErr = true;
+        }
+        if ( $emailEdytujErr === false ) {
+            $('#emailEdytuj').css('border','1px solid red');
+            $('#emailEdytuj').parent().parent().find('.errorSuccess').show().css('background','url("../icons/error.svg") no-repeat').attr('title','wprowadź e-mail');
+            $emailEdytujErr = false;
+        }
+        else {
+            $('#emailEdytuj').css('border','1px solid rgb(209, 205, 205)');
+            $(this).parent().parent().find('.errorSuccess').show().css('background','url("../icons/success.svg") no-repeat');
+            $emailEdytujErr = true;
+        }
+
+        if($telefonEdytujErr === true || $emailEdytujErr === true){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     $('.resultsBodyKontakt').on('click','.edytujKontaktButton',function (){
 
@@ -1329,68 +1734,87 @@ $('.resultsBody').on('click','.pokazKontaktButton',function() {
         $('#telefonEdytuj').val($telefon);
         $('#emailEdytuj').val($email);
 
+        // potrzebne do walidacji - po ponownym kliknieciu aby dodac nowy kontakt trzeba ustawić zmienne dla walidacji na false
+        $telefonEdytujErr = true;
+        $emailEdytujErr = true;
+
+        // ustawiamy css dla pól i ikonek po ponownym kliknieciu
+        $('#telefonEdytuj').css('border','1px solid rgb(209, 205, 205)');
+        $('#telefonEdytuj').parent().parent().find('.errorSuccess').show().css('background','').attr('title','');
+        $('#emailEdytuj').css('border','1px solid rgb(209, 205, 205)');
+        $('#emailEdytuj').parent().parent().find('.errorSuccess').show().css('background','').attr('title','');
+
     });
 
 
     $('#edytujDaneKontaktoweButton').on('click',function(){
 
-        $idKontakt = $('.pobierzIdKontakt').val();
-        $idKlienta = $('.pobierzIdKlienta').val();
-        $telefon = $('#telefonEdytuj').val();
-        $email = $('#emailEdytuj').val();
+        $rezultat = walidacjaDanychKontaktowychEdytuj();
 
-        let daneKontaktoweEdytujArr = {'idKontakt':$idKontakt,'idKlienta':$idKlienta,'telefon':$telefon,'email':$email};
+        if($rezultat === true) {
 
-        $url = $baseUrl + 'edytujDaneKontaktoweKontrahenta/ajax';
-        $.ajax({
-            url: $url,
-            type: 'POST',
-            data: {tab: daneKontaktoweEdytujArr},
-            format: 'json',
-            dataType: 'text',
-            success: function (response) {
-                let json = JSON.parse(response);
-                console.log(json);
+            $idKontakt = $('.pobierzIdKontakt').val();
+            $idKlienta = $('.pobierzIdKlienta').val();
+            $telefon = $('#telefonEdytuj').val();
+            $email = $('#emailEdytuj').val();
 
-                $('.resultsBodyKontakt tr').remove();
+            let daneKontaktoweEdytujArr = {'idKontakt':$idKontakt,'idKlienta':$idKlienta,'telefon':$telefon,'email':$email};
 
-                json.daneKontaktoweKontrahentaArr.forEach(item=> {
+            $url = $baseUrl + 'edytujDaneKontaktoweKontrahenta/ajax';
+            $.ajax({
+                url: $url,
+                type: 'POST',
+                data: {tab: daneKontaktoweEdytujArr},
+                format: 'json',
+                dataType: 'text',
+                success: function (response) {
+                    let json = JSON.parse(response);
+                    console.log(json);
 
-                    var idK = '<td style="display:none" class="IdKlienta">' + item.IdKlienta + '</td>';
-                    var idKontakt = '<td style="display:none" class="IdKontakt">' + item.IdKontakt + '</td>';
-                    var telefon = '<th style="font-weight:normal;cursor:unset" scope="row" class="telefonTab">' + item.Telefon + '</th>';
-                    var email = '<th style="font-weight:normal;cursor:unset" scope="row" class="emailTab">' + item.Email + '</th>';
-                    var edytuj = '<td style="" class="edytujKontaktTab"><button title="Edytuj" type="button" class="edytujKontaktButton"><svg class="edycjaIcons" ></svg></button></td>';
-                    var usun = '<td style="" class="usunKontaktTab"><button title="Usuń" type="button" class="usunKontaktButton"><svg class="koszIcons" ></svg></button></td>';
+                    $('.resultsBodyKontakt tr').remove();
 
-                    $row = "<tr class='daneKontaktowePokaz'>" +
-                        idK +
-                        idKontakt +
-                        telefon +
-                        email +
-                        edytuj +
-                        usun +
-                        "</tr>";
+                    json.daneKontaktoweKontrahentaArr.forEach(item=> {
 
-                    $('.resultsBodyKontakt').append($row);
+                        var idK = '<td style="display:none" class="IdKlienta">' + item.IdKlienta + '</td>';
+                        var idKontakt = '<td style="display:none" class="IdKontakt">' + item.IdKontakt + '</td>';
+                        var telefon = '<th style="font-weight:normal;cursor:unset" scope="row" class="telefonTab">' + item.Telefon + '</th>';
+                        var email = '<th style="font-weight:normal;cursor:unset" scope="row" class="emailTab">' + item.Email + '</th>';
+                        var edytuj = '<td style="" class="edytujKontaktTab"><button title="Edytuj" type="button" class="edytujKontaktButton"><svg class="edycjaIcons" ></svg></button></td>';
+                        var usun = '<td style="" class="usunKontaktTab"><button title="Usuń" type="button" class="usunKontaktButton"><svg class="koszIcons" ></svg></button></td>';
 
-                });
+                        $row = "<tr class='daneKontaktowePokaz'>" +
+                            idK +
+                            idKontakt +
+                            telefon +
+                            email +
+                            edytuj +
+                            usun +
+                            "</tr>";
 
-                komunikatProgres('Zapisano zmiany','success');
+                        $('.resultsBodyKontakt').append($row);
+
+                    });
+
+                    komunikatProgres('Zapisano zmiany','success');
+                }
+            })
+
+            $('.dodawanieKontaktow').show();
+            $('#wyswietlDaneKontaktowe').show();
+            $('.dodawanieAdresow').hide();
+            $('#wyswietlDaneAdresowe').hide();
+            $('#sekcjaEdycjiAdresu').hide();
+            $('.dodawanieKontrahenta').hide();
+            $('.edycjaKontrahenta').hide();
+            $('#sekcjaDodawaniaAdresu').hide();
+            $('#sekcjaEdycjiKontaktu').hide();
+            $('#sekcjaDodawaniaKontaktu').hide();
+
+        } else {
+            if( $rezultat === false ){
+                komunikatProgres('wypełnij wymagane pola','error');
             }
-        })
-
-        $('.dodawanieKontaktow').show();
-        $('#wyswietlDaneKontaktowe').show();
-        $('.dodawanieAdresow').hide();
-        $('#wyswietlDaneAdresowe').hide();
-        $('#sekcjaEdycjiAdresu').hide();
-        $('.dodawanieKontrahenta').hide();
-        $('.edycjaKontrahenta').hide();
-        $('#sekcjaDodawaniaAdresu').hide();
-        $('#sekcjaEdycjiKontaktu').hide();
-        $('#sekcjaDodawaniaKontaktu').hide();
-
+        }
     });
 
     /*
