@@ -87,10 +87,12 @@ $(document).ready(function () {
 
 
 
-    let walidacjaTelefonu = false;
-    let walidacjaEmail = false;
+    let walidacjaTelefonu = true;
+    let walidacjaEmail = true;
 
     $('#telefon').keyup(function() {
+
+        walidacjaTelefonu = false;
 
         $getTel = $('#telefon').val();
 
@@ -108,19 +110,47 @@ $(document).ready(function () {
 
 
         if(validacjaTelefonuPattern === true){
-            //alert('ok');
             walidacjaTelefonu = true;
+            $(this).css('border','1px solid rgb(209, 205, 205)');
+            $(this).parent().parent().find('.errorSuccess').show().css('background','url("../icons/success.svg") no-repeat');
+        } else {
+            $(this).css('border','1px solid red');
+            $(this).parent().parent().find('.errorSuccess').show().css('background','url("../icons/error.svg") no-repeat').attr('title','wprowadź prawidłowy nr telefonu');
         }
+    });
+
+    function validateEmail($email) {
+        var pattern = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+        return pattern.test( $email );
+    }
+
+    $('#email').keyup(function(){
+
+        walidacjaEmail = false;
+
+        $getEmail= $(this).val();
+        $walidacjaEmailPattern = validateEmail($getEmail);
+
+       if($walidacjaEmailPattern === true) {
+           walidacjaEmail = true;
+           $(this).css('border','1px solid rgb(209, 205, 205)');
+           $(this).parent().parent().find('.errorSuccess').show().css('background','url("../icons/success.svg") no-repeat');
+       } else {
+           $(this).css('border','1px solid red');
+           $(this).parent().parent().find('.errorSuccess').show().css('background','url("../icons/error.svg") no-repeat').attr('title','wprowadź prawidłowy e-mail');
+       }
     });
 
     $("#edycjaDanych").on('click',function() {
 
-        if ( walidacjaTelefonu === true ) {
+        if ( walidacjaTelefonu === true && walidacjaEmail === true) {
 
-            $('#filesDropAndDrag').val(uploaded_image);
-            $zdjecie = $('#filesDropAndDrag').val();
-
-             // alert($zdjecie);
+            if(uploaded_image === ''){
+                $zdjecie = $('#filesDropAndDrag').val();
+            } else {
+                $('#filesDropAndDrag').val(uploaded_image);
+                $zdjecie = $('#filesDropAndDrag').val();
+            }
 
             $email = $('#email').val();
             $nrTelefonu= $('#telefon').val();
@@ -138,15 +168,26 @@ $(document).ready(function () {
                     var json = JSON.parse(response);
 
                     json.daneUzytkownika.forEach(el => {
-
                         $edycjaEmail = el.Email;
                         $edycjaTelefon = el.NumerTelefonu;
+                        $zdjecie = el.Zdjecie;
 
                         $('#email').val($edycjaEmail);
                         $('#telefon').val($edycjaTelefon);
                     })
+
+                    komunikatProgres('Zapisano zmiany','success');
                 }
             });
+        } else {
+
+            if (walidacjaTelefonu === false && walidacjaEmail === false) {
+                komunikatProgres('Nieprawidłowe dane','error');
+            } else if (walidacjaTelefonu === false) {
+                komunikatProgres('Podany numer telefonu jest nieprawidłowy','error');
+            } else if (walidacjaEmail === false) {
+                komunikatProgres('Podany e-mail jest nieprawidłowy','error');
+            }
         }
     });
 

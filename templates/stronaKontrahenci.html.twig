@@ -9,8 +9,14 @@
     <link rel="stylesheet"  href="{{ asset('css/stronaKontrahenci.css') }}" >
     <link rel="stylesheet"  href="{{ asset('css/ikonki.css') }}" >
     <script src="{{ asset('js/stronaKontrahenci.js') }}" async></script>
+    <script src="{{ asset('js/global.js') }}" async></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+{#    <link rel="stylesheet" href="/resources/demos/style.css">#}
+{#    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>#}
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 
-    <title>Strona Kontrahenci</title>
+
+<title>Strona Kontrahenci</title>
 </head>
 <body>
 
@@ -92,6 +98,11 @@
                     {% endfor %}
                     </tbody>
                 </table>
+            </div>
+
+            <div id="dialog-confirm" style="display: none" title="Czy napewno chcesz usunąć ?">
+{#                class="ui-icon ui-icon-alert"#}
+                <p><span style="float:left; margin:12px 12px 20px 0;"></span> Kliknięcie "usuń" spowoduje trwałe usunięcie danych </p>
             </div>
 
             <div class="dodawanieKontrahenta" >
