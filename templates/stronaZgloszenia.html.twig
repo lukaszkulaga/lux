@@ -9,6 +9,7 @@
     <link rel="stylesheet"  href="{{ asset('css/stronaZgloszenia.css') }}" >
     <link rel="stylesheet"  href="{{ asset('css/ikonki.css') }}" >
     <script src="{{ asset('js/stronaZgloszenia.js') }}" async></script>
+    <script src="{{ asset('js/global.js') }}" async></script>
 
     <title>Strona Zgłoszenia</title>
 </head>
@@ -416,7 +417,7 @@
 
                         <div>
                             <div class="field-wrapper-zgloszenia" >
-                                <input  class="" type="text" id="godzinaOdDodaj" placeholder=" " value="" />
+                                <input  class="" type="time" id="godzinaOdDodaj" placeholder=" " value="" />
                                 <div class="field-placeholder-zgloszenia"><span>Godzina od</span></div>
                             </div>
                             <div class="errorSuccess"></div>
@@ -424,7 +425,7 @@
 
                         <div>
                             <div class="field-wrapper-zgloszenia" >
-                                <input  class="" type="text" id="godzinaDoDodaj" placeholder=" " value="" />
+                                <input  class="" type="time" id="godzinaDoDodaj" placeholder=" " value="" />
                                 <div class="field-placeholder-zgloszenia"><span>Godzina do</span></div>
                             </div>
                             <div class="errorSuccess"></div>
@@ -445,7 +446,7 @@
                                 <select id="wykonawcaDodaj" >
                                     <option selected="selected" value="0" disabled>--wybierz--</option>
                                         {% for wykonawca in wykonawcaArr %}
-                                            <option value={{ wykonawca.IdUzytkownika }}>{{ wykonawca.Wykonawca }}</option>
+                                            <option class="wykonawcaOption" value={{ wykonawca.IdUzytkownika }}>{{ wykonawca.Wykonawca }}</option>
                                         {% endfor %}
                                 </select>
                                 <div class="field-placeholder-zgloszenia"><span>Wybierz wykonawcę</span></div>
