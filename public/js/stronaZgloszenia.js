@@ -127,6 +127,7 @@ $(document).ready(function () {
     // ----------------------------------  DODAWANIE ZGLOSZEN  ------------------------------------------------------
 
 
+
     $('.zamknijSekcje').on('click', function(){
         $(".dodawanieZgloszenia").hide();
         $(".edytowanieZgloszenia").hide();
@@ -136,97 +137,402 @@ $(document).ready(function () {
         $(".edytowanieZgloszenia").hide();
         $('.wykonawcaTbodyTr').remove();
 
-        // $('#klientDodaj').val(0);
-        // $('#kategoriaDodaj').val(0);
-        // $('#adresDodaj').val(0);
-        // $('#nrLokaluDodaj').val('');
-        // $('#terminOdDodaj').val('');
-        // $('#terminDoDodaj').val('');
-        // $('#godzinaOdDodaj').val('');
-        // $('#godzinaDoDodaj').val('');
-        // $('#opisDodaj').val('');
-        // $('#priorytetDodaj').val(0);
+        $('#klientDodaj').val(0);
+        $('#kategoriaDodaj').val(0);
+        $('#adresDodaj').val(0);
+        $('#nrLokaluDodaj').val('');
+        $('#terminOdDodaj').val('');
+        $('#terminDoDodaj').val('');
+        $('#godzinaOdDodaj').val('');
+        $('#godzinaDoDodaj').val('');
+        $('#opisDodaj').val('');
+        $('#priorytetDodaj').val(0);
+
+        $klientErr = false;
+        $adresErr = false;
+        $kategoriaErr = false;
+        $opisErr = false;
+        $priorytetErr = false;
 
     });
 
-    $('#buttonZapiszZgloszenie').on('click',function(){
 
-        $idKlienta = $('#klientDodaj').val();
-        $kategoriaDodaj = $('#kategoriaDodaj').val();
-        $idAdres = $('#adresDodaj').val();
-        $nrLokaluDodaj= $('#nrLokaluDodaj').val();
-        $terminOdDodaj= $('#terminOdDodaj').val();
-        $terminDoDodaj= $('#terminDoDodaj').val();
-        $godzinaOdDodaj = $('#godzinaOdDodaj').val();
-        $godzinaDoDodaj= $('#godzinaDoDodaj').val();
-        $opisDodaj= $('#opisDodaj').val();
-        $priorytetDodaj= $('#priorytetDodaj').val();
 
-        $listaWykonawcowArr = [];
 
-        $('.wykonawcaTbodyTr').each(function() {
+    // WALIDACJE - dodawanie zgłoszenia
 
-            $wykonawca = $(this).find(".idWykonawca").text();
 
-            if($wykonawca !== ''){
-                $listaWykonawcowArr.push($wykonawca);
+    //walidacje pojedyncze
+
+    $('#klientDodaj').on('change', function() {
+
+        $idKlienta = $(this).val();
+
+        dynamicznyAdres($idKlienta).then(($result)=> {
+
+            alert('2');
+            console.log($result);
+
+            if ($result === false) {
+                alert('3');
+                $adresErr = true;
+            } else {
+                $adresErr = false;
             }
-        });
 
-        if($listaWykonawcowArr.length === 0){
-            $listaWykonawcowArr = '';
+            if ($('#klientDodaj').val() !== null) {
+                $('#klientDodaj').css('border', '1px solid rgb(209, 205, 205)');
+                $klientErr = true;
+            } else {
+                $('#klientDodaj').css('border', '1px solid red');
+                $klientErr = false;
+            }
+        })
+
+    })
+
+    // po wywołaniu zdarzenia na selektorze "#klientDodaj" wywołujemy funkcję dynamicznyAdres() a ona tworzy nowy obiekt
+    // o id = adresDodaj, dlatego odwołujemy sie w tej walidacji do tego obiektu za pomocą zdarzenia oddelegowanego
+    $('#adresDynamiczny').on('change','#adresDodaj',function() {
+
+        if( $('#adresDodaj').val() !== null ) {
+            $('#adresDodaj').css('border','1px solid rgb(209, 205, 205)');
+            $adresErr = true;
+        } else {
+            $('#adresDodaj').css('border','1px solid red');
+            $adresErr = false;
+        }
+    })
+
+    $('#kategoriaDodaj').on('change',function(){
+
+        if($('#kategoriaDodaj').val() !== null) {
+            $('#kategoriaDodaj').css('border','1px solid rgb(209, 205, 205)');
+            $kategoriaErr = true;
+        } else {
+            $('#kategoriaDodaj').css('border','1px solid red');
+            $kategoriaErr = false;
+        }
+    })
+
+    $('#priorytetDodaj').on('change', function () {
+
+        if($('#priorytetDodaj').val() !== null) {
+            $('#priorytetDodaj').css('border','1px solid rgb(209, 205, 205)');
+            $priorytetErr = true;
+        } else {
+            $('#priorytetDodaj').css('border','1px solid red');
+            $priorytetErr = false;
         }
 
 
-        let zgloszenieArr = {'listaWykonawcow':$listaWykonawcowArr,'idKlienta':$idKlienta,'idAdres':$idAdres,
-            'kategoriaDodaj':$kategoriaDodaj,'nrLokaluDodaj':$nrLokaluDodaj,'terminOdDodaj':$terminOdDodaj,
-        'terminDoDodaj':$terminDoDodaj,'godzinaOdDodaj':$godzinaOdDodaj,'godzinaDoDodaj':$godzinaDoDodaj,
-        'opisDodaj':$opisDodaj,'priorytetDodaj':$priorytetDodaj};
+    })
+
+    $('#opisDodaj').on('change keyup',function() {
+        if( ($('#opisDodaj').val() !== null) || ($('#opisDodaj').val() !== '') ) {
+            $('#opisDodaj').css('border','1px solid rgb(209, 205, 205)');
+            $opisErr = true;
+        } else {
+            $('#opisDodaj').css('border','1px solid red');
+            $opisErr = false;
+        }
+    })
+
+    // walidacja daty zgłoszenia
+
+    $('#terminOdDodaj').on('change',function() {
+
+        $dataOd = $('#terminOdDodaj').val();
+        $dataDo = $('#terminDoDodaj').val();
+        $godzinaOd = $('#godzinaOdDodaj').val();
+        $godzinaDo = $('#godzinaDoDodaj').val();
+
+        if(($dataOd > $dataDo) && ($dataDo !== '')) {
+            $('#terminOdDodaj').val('');
+            komunikatProgres('Data od nie może być późniejsza od daty do','error');
+        }
+
+        if (($dataOd === $dataDo)) {
+
+            $arrayOd = $godzinaOd.split(":");
+            $parseGodzinaOd = (parseInt($arrayOd[0], 10) * 60 * 60) + (parseInt($arrayOd[1], 10) * 60);
+
+            $arrayDo = $godzinaDo.split(":");
+            $parseGodzinaDo = (parseInt($arrayDo[0], 10) * 60 * 60) + (parseInt($arrayDo[1], 10) * 60);
+
+            if($parseGodzinaOd > $parseGodzinaDo){
+                $('#godzinaDoDodaj').val('');
+                $('#godzinaOdDodaj').val('');
+            }
+        }
+
+    });
+    $('#terminDoDodaj').on('change',function() {
+
+        $dataOd = $('#terminOdDodaj').val();
+        $dataDo = $('#terminDoDodaj').val();
+        $godzinaOd = $('#godzinaOdDodaj').val();
+        $godzinaDo = $('#godzinaDoDodaj').val();
+
+        if(($dataOd > $dataDo) && ($dataOd !== '')) {
+            $('#terminDoDodaj').val('');
+            komunikatProgres('Data do nie może być wcześniejsza od daty od','error');
+        }
+
+        if (($dataOd === $dataDo)) {
+
+            $arrayOd = $godzinaOd.split(":");
+            $parseGodzinaOd = (parseInt($arrayOd[0], 10) * 60 * 60) + (parseInt($arrayOd[1], 10) * 60);
+
+            $arrayDo = $godzinaDo.split(":");
+            $parseGodzinaDo = (parseInt($arrayDo[0], 10) * 60 * 60) + (parseInt($arrayDo[1], 10) * 60);
+
+            if($parseGodzinaOd > $parseGodzinaDo){
+                $('#godzinaDoDodaj').val('');
+                $('#godzinaOdDodaj').val('');
+                komunikatProgres('Godzina od nie może być późniejsza od godziny do','error');
+            }
+        }
+    });
+
+    // walidacja godziny zgłoszenia
+
+    $('#godzinaOdDodaj').on('change',function() {
+
+        $dataOd = $('#terminOdDodaj').val();
+        $dataDo = $('#terminDoDodaj').val();
+
+        if($dataOd !== '' && $dataDo !== '') {
+            if (($dataOd === $dataDo)) {
+                $godzinaOd = $('#godzinaOdDodaj').val();
+                $godzinaDo = $('#godzinaDoDodaj').val();
+
+                $arrayOd = $godzinaOd.split(":");
+                $parseGodzinaOd = (parseInt($arrayOd[0], 10) * 60 * 60) + (parseInt($arrayOd[1], 10) * 60);
+
+                $arrayDo = $godzinaDo.split(":");
+                $parseGodzinaDo = (parseInt($arrayDo[0], 10) * 60 * 60) + (parseInt($arrayDo[1], 10) * 60);
+
+                if (($parseGodzinaOd > $parseGodzinaDo) && ($godzinaDo !== '')) {
+                    $('#godzinaOdDodaj').val('');
+                    komunikatProgres('Godzina od nie może być późniejsza od godziny do','error');
+                }
+            }
+        }
+        if($dataOd === '' && $dataDo === ''){
+            $('#godzinaDoDodaj').val('');
+            $('#godzinaOdDodaj').val('');
+            komunikatProgres('Godzina od nie może być późniejsza od godziny do','error');
+        }
+
+    });
+    $('#godzinaDoDodaj').on('change',function() {
+
+        $dataOd = $('#terminOdDodaj').val();
+        $dataDo = $('#terminDoDodaj').val();
+
+        if($dataOd !== '' && $dataDo !== ''){
+            if( ($dataOd === $dataDo) ){
+                $godzinaOd = $('#godzinaOdDodaj').val();
+                $godzinaDo = $('#godzinaDoDodaj').val();
+
+                $arrayOd = $godzinaOd.split(":");
+                $parseGodzinaOd = (parseInt($arrayOd[0], 10) * 60 * 60) + (parseInt($arrayOd[1], 10) * 60);
+
+                $arrayDo = $godzinaDo.split(":");
+                $parseGodzinaDo = (parseInt($arrayDo[0], 10) * 60 * 60) + (parseInt($arrayDo[1], 10) * 60);
+
+                if (($parseGodzinaOd > $parseGodzinaDo) && ($godzinaOd !== '')) {
+                    $('#godzinaDoDodaj').val('');
+                    komunikatProgres('Godzina do nie może być wcześniejsza od godziny od','error');
+                }
+            }
+        }
+        if($dataOd === '' && $dataDo === ''){
+            $('#godzinaDoDodaj').val('');
+            $('#godzinaOdDodaj').val('');
+            komunikatProgres('Godzina do nie może być wcześniejsza od godziny od','error');
+        }
+
+    });
+
+    // walidacja wykonawcy
+
+    // generuje sie dynamiczna tabela z wykonawcami na podstawie wyboru wykonawców z selecta - całość zapisuje sie po klinieciu button zapisz
+    $('#wykonawcaDodaj').on('change', function(){
+
+        $idWykonawca = $(this).val();
+        $wykonawcaText= $('#wykonawcaDodaj option:selected').text();
+        $('#wykonawcaDodaj option:selected').value ='fdgdfgf';
+
+        $wykonawcaTbodyTr = $('.wykonawcaTbodyTr');
+
+        for($i = 0; $wykonawcaTbodyTr.length > $i ; $i++){
+
+            $wykonawca =  $wykonawcaTbodyTr[$i].firstChild.textContent;
+            if($idWykonawca === $wykonawca) {
+                $wykonawcaTbodyTr[$i].remove();
+                 komunikatProgres('Wybrany wykonawca został już dodany','error');
+            }
+        }
+
+        var wykonawcaId = '<td class="idWykonawca" style="display: none" >' + $idWykonawca + '</td>';
+        var wykonawca = '<th class="wykonawcaJS" scope="row">' + $wykonawcaText + '</th>';
+        var usun = '<td  class="usunWykonawceTab"><button title="Usuń" type="button" class="usunWykonawceButton"><svg class="koszIcons" style="width: 1vw;height: 2vh"></svg></button></td>';
+
+        $row = "<tr class='wykonawcaTbodyTr'>" +
+            wykonawcaId +
+            wykonawca +
+            usun +
+            "</tr>";
+
+        $('.wykonawcaTbodyDodawanie').append($row);
+
+        // ustawiamy na --wybierz-- ponieważ jak wybralismy jakiegos wykonawce to pojawiał sie on w tym okienku i
+        // gdy ponownie chcielismy go wybrac to sie nie dało i np. dlatego nie dało sie wyswietlic komunikatu
+        // że taki wykonawca jest już na liście
+        $(this).val(0);
+    });
+    $('.wykonawcaTbodyDodawanie').on('click','.usunWykonawceButton', function(){
+        $usunWykonawce = $(this).parent().parent().remove();
+    });
 
 
-        $url = $baseUrl + 'zapiszZgloszenie/ajax';
-        $.ajax({
-            url: $url,
-            type: 'POST',
-            data: {tab: zgloszenieArr},
-            format: 'json',
-            dataType: 'text',
-            success: function (response) {
-                let json = JSON.parse(response);
 
-                $('.zgloszeniaTbody tr').remove();
+    function walidacjaZgloszen() {
 
-                json.zgloszeniaArr.zgloszeniaRepo.forEach(item=> {
+        if($klientErr === false) {
+            $('#klientDodaj').css('border','1px solid red');
+            $klientErr = false;
+        } else {
+            $('#klientDodaj').css('border','1px solid rgb(209, 205, 205)');
+            $klientErr = true;
+        }
+        if($adresErr === false) {
+            alert('false')
+            $('#adresDodaj').css('border','1px solid red');
+            $adresErr = false;
+        } else {
+            alert('true')
+            $('#adresDodaj').css('border','1px solid rgb(209, 205, 205)');
+            $adresErr = true;
+        }
+        if($kategoriaErr === false) {
+            $('#kategoriaDodaj').css('border','1px solid red');
+            $kategoriaErr = false;
+        } else {
+            $('#kategoriaDodaj').css('border','1px solid rgb(209, 205, 205)');
+            $kategoriaErr = true;
+        }
+        if($opisErr === false) {
+            $('#opisDodaj').css('border','1px solid red');
+            $opisErr = false;
+        } else {
+            $('#opisDodaj').css('border','1px solid rgb(209, 205, 205)');
+            $opisErr = true;
+        }
+        if($priorytetErr === false) {
+            $('#priorytetDodaj').css('border','1px solid red');
+            $priorytetErr = false;
+        } else {
+            $('#priorytetDodaj').css('border','1px solid rgb(209, 205, 205)');
+            $priorytetErr = true;
+        }
 
-                    if(item.Nazwa === null){
-                        $Nazwa =  '';
-                    } else {
-                        $Nazwa = item.Nazwa;
-                    }
-                    if(item.Kategoria === null){
-                        $Kategoria =  '';
-                    } else {
-                        $Kategoria = item.Kategoria;
-                    }
-                    if(item.Priorytet === null){
-                        $Priorytet =  '';
-                    } else {
-                        $Priorytet = item.Priorytet;
-                    }
+        if($klientErr === false || $adresErr === false || $kategoriaErr === false
+            || $opisErr === false || $priorytetErr === false) {
 
-                    var IdZgloszeniaTab = '<th style="width:4%" class="IdZgloszeniaTab" scope="row">' + item.IdZgloszenia + '</th>';
-                    var IdKlientaTab = '<td style="width:4%;display:none" class="IdKlientaTab">' + item.IdKlienta + '</td>';
-                    var IdAdresTab = '<td style="width:4%;display:none" class="IdAdresTab">' + item.IdAdres + '</td>';
-                    var dataZgloszeniaTab = '<td style="width:8%" class="dataZgloszeniaTab">' + item.DataDodania + '</td>';
-                    var planowanaRealizacjaTab = '<td style="width:15%" class="planowanaRealizacjaTab">' + item.PlanowanaRealizacja + '</td>';
-                    var adresTab = '<td style="width:15%" class="adresTab">' + item.Adres + '</td>';
-                    var klientTab = '<td style="width:15%" class="klientTab">' + $Nazwa + '</td>';
-                    var wykonawcaTab = '<td style="width:10%" class="wykonawcaTab">' + item.Wykonawca + '</td>';
-                    var kategoriaTab = '<td style="width:10%" class="kategoriaTab">' + $Kategoria + '</td>';
-                    var priorytetTab = '<td style="width:9%" class="priorytetTab">' + $Priorytet + '</td>';
-                    var statusTab = '<td style="width:9%" class="statusTab">' + item.Status + '</td>';
+            return false;
 
-                    $row = "<tr class='zgloszeniaTbodyTr'>" +
+        } else {
+
+            return true;
+        }
+    }
+
+
+    $('#buttonZapiszZgloszenie').on('click',function(){
+
+        $rezultat = walidacjaZgloszen();
+
+        if($rezultat === true) {
+
+            $idKlienta = $('#klientDodaj').val();
+            $kategoriaDodaj = $('#kategoriaDodaj').val();
+            $idAdres = $('#adresDodaj').val();
+            $nrLokaluDodaj= $('#nrLokaluDodaj').val();
+            $terminOdDodaj= $('#terminOdDodaj').val();
+            $terminDoDodaj= $('#terminDoDodaj').val();
+            $godzinaOdDodaj = $('#godzinaOdDodaj').val();
+            $godzinaDoDodaj= $('#godzinaDoDodaj').val();
+            $opisDodaj= $('#opisDodaj').val();
+            $priorytetDodaj= $('#priorytetDodaj').val();
+
+            $listaWykonawcowArr = [];
+
+            $('.wykonawcaTbodyTr').each(function() {
+
+                $wykonawca = $(this).find(".idWykonawca").text();
+
+                if($wykonawca !== ''){
+                    $listaWykonawcowArr.push($wykonawca);
+                }
+            });
+
+            if($listaWykonawcowArr.length === 0){
+                $listaWykonawcowArr = '';
+            }
+
+
+            let zgloszenieArr = {'listaWykonawcow':$listaWykonawcowArr,'idKlienta':$idKlienta,'idAdres':$idAdres,
+                'kategoriaDodaj':$kategoriaDodaj,'nrLokaluDodaj':$nrLokaluDodaj,'terminOdDodaj':$terminOdDodaj,
+                'terminDoDodaj':$terminDoDodaj,'godzinaOdDodaj':$godzinaOdDodaj,'godzinaDoDodaj':$godzinaDoDodaj,
+                'opisDodaj':$opisDodaj,'priorytetDodaj':$priorytetDodaj};
+
+
+            $url = $baseUrl + 'zapiszZgloszenie/ajax';
+            $.ajax({
+                url: $url,
+                type: 'POST',
+                data: {tab: zgloszenieArr},
+                format: 'json',
+                dataType: 'text',
+                success: function (response) {
+                    let json = JSON.parse(response);
+
+                    $('.zgloszeniaTbody tr').remove();
+
+                    json.zgloszeniaArr.zgloszeniaRepo.forEach(item=> {
+
+                        if(item.Nazwa === null){
+                            $Nazwa =  '';
+                        } else {
+                            $Nazwa = item.Nazwa;
+                        }
+                        if(item.Kategoria === null){
+                            $Kategoria =  '';
+                        } else {
+                            $Kategoria = item.Kategoria;
+                        }
+                        if(item.Priorytet === null){
+                            $Priorytet =  '';
+                        } else {
+                            $Priorytet = item.Priorytet;
+                        }
+
+                        var IdZgloszeniaTab = '<th style="width:4%" class="IdZgloszeniaTab" scope="row">' + item.IdZgloszenia + '</th>';
+                        var IdKlientaTab = '<td style="width:4%;display:none" class="IdKlientaTab">' + item.IdKlienta + '</td>';
+                        var IdAdresTab = '<td style="width:4%;display:none" class="IdAdresTab">' + item.IdAdres + '</td>';
+                        var dataZgloszeniaTab = '<td style="width:8%" class="dataZgloszeniaTab">' + item.DataDodania + '</td>';
+                        var planowanaRealizacjaTab = '<td style="width:15%" class="planowanaRealizacjaTab">' + item.PlanowanaRealizacja + '</td>';
+                        var adresTab = '<td style="width:15%" class="adresTab">' + item.Adres + '</td>';
+                        var klientTab = '<td style="width:15%" class="klientTab">' + $Nazwa + '</td>';
+                        var wykonawcaTab = '<td style="width:10%" class="wykonawcaTab">' + item.Wykonawca + '</td>';
+                        var kategoriaTab = '<td style="width:10%" class="kategoriaTab">' + $Kategoria + '</td>';
+                        var priorytetTab = '<td style="width:9%" class="priorytetTab">' + $Priorytet + '</td>';
+                        var statusTab = '<td style="width:9%" class="statusTab">' + item.Status + '</td>';
+
+                        $row = "<tr class='zgloszeniaTbodyTr'>" +
                             IdZgloszeniaTab +
                             IdKlientaTab +
                             IdAdresTab +
@@ -238,16 +544,19 @@ $(document).ready(function () {
                             kategoriaTab +
                             priorytetTab +
                             statusTab +
-                        "</tr>";
+                            "</tr>";
 
-                    $('.zgloszeniaTbody').append($row);
+                        $('.zgloszeniaTbody').append($row);
 
-                });
+                    });
 
                     ajax_file_upload(fileobj,json.zgloszeniaArr.idZgloszeniaRepo);
-
-            }
-        })
+                    komunikatProgres('Dodano zgłoszenie','success');
+                }
+            })
+        }  else {
+            komunikatProgres('Uzupełnij wymagane dane','error');
+        }
     });
 
 
@@ -332,71 +641,63 @@ $(document).ready(function () {
 
 
 
+
+
+
     // generuje sie dynamiczny select adresów w zależności od wybranego klienta
-    $('#klientDodaj').on('change', function(){
+     function dynamicznyAdres($idKlienta) {
 
-        $idKlienta = $(this).val();
+         return new Promise((resolve)=>{
+             alert('1');
+            let klientDodajArr = {'idKlienta': $idKlienta};
 
-        let klientDodajArr = {'idKlienta':$idKlienta};
+            $url = $baseUrl + 'dynamicznyAdres/ajax';
+            $.ajax({
+                url: $url,
+                type: 'POST',
+                data: {tab: klientDodajArr},
+                format: 'json',
+                dataType: 'text',
+                success: function (response) {
+                    let json = JSON.parse(response);
+                    console.log(json.adresSlownik);
 
-        $url = $baseUrl + 'dynamicznyAdres/ajax';
-        $.ajax({
-            url: $url,
-            type: 'POST',
-            data: {tab: klientDodajArr},
-            format: 'json',
-            dataType: 'text',
-            success: function (response) {
-                let json = JSON.parse(response);
-                console.log(json.adresSlownik);
-
-                $('#adresDynamiczny select').remove();
-                $('#adresDynamiczny div').remove();
+                    $('#adresDynamiczny select').remove();
+                    $('#adresDynamiczny div').remove();
 
                     $optionSelected = '<option selected="selected" value="0" disabled>--wybierz--</option>';
                     $div = '<div class="field-placeholder-zgloszenia"><span>Adres</span></div>';
                     $wynik = '';
 
-                    for(var i=0;json.adresSlownik.length > i; i++){
+                    for (var i = 0; json.adresSlownik.length > i; i++) {
 
                         $option = '<option value=' + json.adresSlownik[i]['IdAdres'] + '>' + json.adresSlownik[i]['Adres'] + ' </option>';
 
                         $wynik = $wynik + $option;
                     }
 
-                    $row = "<select id='adresDodaj'>" +
+                    // ustawiamy na sztywno kolor red poniewaz jest to nowy obiekt i nie da sie odwołac do niego w walidacjach
+                    $row = "<select id='adresDodaj' style='border: 1px solid red'>" +
                         $optionSelected +
                         $wynik +
                         "</select>" + $div;
 
-                 $('#adresDynamiczny').append($row);
-            }
-        })
-    });
+                    $('#adresDynamiczny').append($row);
+
+                    if(json.adresSlownik.length === 0){
+                        alert('tu1');
+                        resolve(false);
+                    } else {
+                        resolve(true);
+                    }
+                }
+            })
+         })
+    };
 
 
 
-    // generuje sie dynamiczna tabela z wykonawcami na podstawie wyboru wykonawców z selecta - całość zapisuje sie po klinieciu button zapisz
-    $('#wykonawcaDodaj').on('change', function(){
 
-        $idWykonawca = $(this).val();
-        $wykonawcaText= $('#wykonawcaDodaj option:selected').text();
-
-        var wykonawcaId = '<td class="idWykonawca" style="display: none" >' + $idWykonawca + '</td>';
-        var wykonawca = '<th class="wykonawcaJS" scope="row">' + $wykonawcaText + '</th>';
-        var usun = '<td  class="usunWykonawceTab"><button title="Usuń" type="button" class="usunWykonawceButton"><svg class="koszIcons" style="width: 1vw;height: 2vh"></svg></button></td>';
-
-        $row = "<tr class='wykonawcaTbodyTr'>" +
-            wykonawcaId +
-            wykonawca +
-            usun +
-            "</tr>";
-
-        $('.wykonawcaTbodyDodawanie').append($row);
-    });
-    $('.wykonawcaTbodyDodawanie').on('click','.usunWykonawceButton', function(){
-        $usunWykonawce = $(this).parent().parent().remove();
-    });
 
 
 

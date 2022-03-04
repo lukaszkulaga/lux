@@ -262,7 +262,7 @@ input:-webkit-autofill {
 
 }
 .ui-button:nth-last-child(2):hover{
-    background-color: #B0413E;
+    background-color: rgba(255, 102, 102, 1);
 }
 /* przycisk  anuluj*/
 .ui-button:nth-of-type(2){
