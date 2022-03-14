@@ -618,7 +618,7 @@
 
                         <div>
                             <div class="field-wrapper-zgloszenia" >
-                                <input  class="" type="text" id="godzinaOdEdytuj" placeholder=" " value="" />
+                                <input  class="" type="time" id="godzinaOdEdytuj" placeholder=" " value="" />
                                 <div class="field-placeholder-zgloszenia"><span>Godzina od</span></div>
                             </div>
                             <div class="errorSuccess"></div>
@@ -626,7 +626,7 @@
 
                         <div>
                             <div class="field-wrapper-zgloszenia" >
-                                <input  class="" type="text" id="godzinaDoEdytuj" placeholder=" " value="" />
+                                <input  class="" type="time" id="godzinaDoEdytuj" placeholder=" " value="" />
                                 <div class="field-placeholder-zgloszenia"><span>Godzina do</span></div>
                             </div>
                             <div class="errorSuccess"></div>
@@ -649,7 +649,7 @@
 
                         <div>
                             <div class="field-wrapper-zgloszenia" >
-                                <textarea  class=""  id="opisEdytuj" placeholder=" " ></textarea>
+                                <textarea  class=""  id="opisEdytuj" placeholder="" ></textarea>
                                 <div class="textarea-field-placeholder-zgloszenia"><span>Opis</span></div>
                             </div>
                             <div class="errorSuccess"></div>
@@ -660,7 +660,7 @@
                         <div>
                             <div class="field-wrapper-zgloszenia" >
                                 <select id="wykonawcaEdytuj" >
-                                    <option selected="selected" disabled>--wybierz--</option>
+                                    <option selected="selected" value="0" disabled>--wybierz--</option>
                                     {% for wykonawca in wykonawcaArr %}
                                         <option value={{ wykonawca.IdUzytkownika }}>{{ wykonawca.Wykonawca }}</option>
                                     {% endfor %}
