@@ -38,9 +38,22 @@ class ZgloszeniaRepository extends ServiceEntityRepository
         $zgloszeniaSQL = "select distinct Z.IdZgloszenia,Z.IdKlienta, K.Nazwa,Z.IdAdres,cast(Z.DataDodania As Date) as DataDodania,
             Z.PlanowanaRealizacjaOd, Z.PlanowanaRealizacjaDo, Z.GodzinaOd, Z.GodzinaDo, Z.DokladnaLokalizacja, Z.Opis, 
             SK.Opis AS Kategoria, SK.IdKategoria, SP.Opis AS Priorytet,SP.IdPriorytet, SS.Opis AS Status, SS.IdStatus,
-            CONCAT (Z.PlanowanaRealizacjaOd,' / ',Z.PlanowanaRealizacjaDo, ' godz.',Z.GodzinaOd, ' - ',Z.GodzinaDo ) AS PlanowanaRealizacja,
-			CONCAT (KA.Miejscowosc, ', ',KA.Ulica,  ', ', KA.NrBudynku, '/', Z.DokladnaLokalizacja) AS Adres,
-            [dbo].[wykonawca] (Z.IdZgloszenia) as Wykonawca
+            [dbo].[wykonawca] (Z.IdZgloszenia) as Wykonawca,
+
+			 PlanowanaRealizacja = 
+			CASE
+				WHEN (Z.PlanowanaRealizacjaOd != '' and Z.PlanowanaRealizacjaDo != '' and Z.GodzinaOd != '' and Z.GodzinaDo != '' ) THEN CONCAT (Z.PlanowanaRealizacjaOd,' / ',Z.PlanowanaRealizacjaDo, ' godz. ',Z.GodzinaOd, ' - ',Z.GodzinaDo ) 
+				WHEN ((Z.PlanowanaRealizacjaOd = '' or Z.PlanowanaRealizacjaDo = '') and (Z.GodzinaOd != '' and Z.GodzinaDo != '') ) THEN CONCAT (Z.PlanowanaRealizacjaOd,Z.PlanowanaRealizacjaDo, ' godz. ',Z.GodzinaOd, ' - ',Z.GodzinaDo ) 
+				WHEN ((Z.PlanowanaRealizacjaOd != '' and Z.PlanowanaRealizacjaDo != '') and (Z.GodzinaOd = '' and Z.GodzinaDo = '') ) THEN CONCAT (Z.PlanowanaRealizacjaOd,' / ',Z.PlanowanaRealizacjaDo,Z.GodzinaOd,Z.GodzinaDo ) 
+				WHEN ((Z.PlanowanaRealizacjaOd != '' and Z.PlanowanaRealizacjaDo != '') and (Z.GodzinaOd = '' or Z.GodzinaDo = '') ) THEN CONCAT (Z.PlanowanaRealizacjaOd,' / ',Z.PlanowanaRealizacjaDo, ' godz. ',Z.GodzinaOd,Z.GodzinaDo ) 
+				ELSE  CONCAT (Z.PlanowanaRealizacjaOd,Z.PlanowanaRealizacjaDo,Z.GodzinaOd,Z.GodzinaDo ) 
+			END,
+			Adres = 
+            CASE
+                WHEN (Z.DokladnaLokalizacja != '') THEN CONCAT (KA.Miejscowosc, ' ',KA.Ulica, ' ', KA.NrBudynku, '/', Z.DokladnaLokalizacja)            
+                ELSE CONCAT (KA.Miejscowosc, ' ',KA.Ulica, ' ', KA.NrBudynku, '', Z.DokladnaLokalizacja)
+            END
+
               from zgloszenia Z
               left join klienci K
               on Z.IdKlienta = K.IdKlienta
@@ -219,9 +232,22 @@ class ZgloszeniaRepository extends ServiceEntityRepository
         $zgloszeniaSQL = "select distinct Z.IdZgloszenia,Z.IdKlienta, K.Nazwa,Z.IdAdres,cast(Z.DataDodania As Date) as DataDodania,
             Z.PlanowanaRealizacjaOd, Z.PlanowanaRealizacjaDo, Z.GodzinaOd, Z.GodzinaDo, Z.DokladnaLokalizacja, Z.Opis, 
             SK.Opis AS Kategoria, SK.IdKategoria, SP.Opis AS Priorytet,SP.IdPriorytet, SS.Opis AS Status, SS.IdStatus,
-            CONCAT (Z.PlanowanaRealizacjaOd,' / ',Z.PlanowanaRealizacjaDo, ' godz.',Z.GodzinaOd, ' - ',Z.GodzinaDo ) AS PlanowanaRealizacja,
-			CONCAT (KA.Miejscowosc, ', ',KA.Ulica,  ', ', KA.NrBudynku, '/ ', Z.DokladnaLokalizacja) AS Adres,
-            [dbo].[wykonawca] (Z.IdZgloszenia) as Wykonawca
+            [dbo].[wykonawca] (Z.IdZgloszenia) as Wykonawca,
+
+			 PlanowanaRealizacja = 
+			CASE
+				WHEN (Z.PlanowanaRealizacjaOd != '' and Z.PlanowanaRealizacjaDo != '' and Z.GodzinaOd != '' and Z.GodzinaDo != '' ) THEN CONCAT (Z.PlanowanaRealizacjaOd,' / ',Z.PlanowanaRealizacjaDo, ' godz. ',Z.GodzinaOd, ' - ',Z.GodzinaDo ) 
+				WHEN ((Z.PlanowanaRealizacjaOd = '' or Z.PlanowanaRealizacjaDo = '') and (Z.GodzinaOd != '' and Z.GodzinaDo != '') ) THEN CONCAT (Z.PlanowanaRealizacjaOd,Z.PlanowanaRealizacjaDo, ' godz. ',Z.GodzinaOd, ' - ',Z.GodzinaDo ) 
+				WHEN ((Z.PlanowanaRealizacjaOd != '' and Z.PlanowanaRealizacjaDo != '') and (Z.GodzinaOd = '' and Z.GodzinaDo = '') ) THEN CONCAT (Z.PlanowanaRealizacjaOd,' / ',Z.PlanowanaRealizacjaDo,Z.GodzinaOd,Z.GodzinaDo ) 
+				WHEN ((Z.PlanowanaRealizacjaOd != '' and Z.PlanowanaRealizacjaDo != '') and (Z.GodzinaOd = '' or Z.GodzinaDo = '') ) THEN CONCAT (Z.PlanowanaRealizacjaOd,' / ',Z.PlanowanaRealizacjaDo, ' godz. ',Z.GodzinaOd,Z.GodzinaDo ) 
+				ELSE  CONCAT (Z.PlanowanaRealizacjaOd,Z.PlanowanaRealizacjaDo,Z.GodzinaOd,Z.GodzinaDo ) 
+			END,
+			Adres = 
+            CASE
+                WHEN (Z.DokladnaLokalizacja != '') THEN CONCAT (KA.Miejscowosc, ' ',KA.Ulica, ' ', KA.NrBudynku, '/', Z.DokladnaLokalizacja)            
+                ELSE CONCAT (KA.Miejscowosc, ' ',KA.Ulica, ' ', KA.NrBudynku, '', Z.DokladnaLokalizacja)
+            END
+  
               from zgloszenia Z
               left join klienci K
               on Z.IdKlienta = K.IdKlienta
@@ -417,9 +443,22 @@ class ZgloszeniaRepository extends ServiceEntityRepository
         $zgloszeniaSQL = "select distinct Z.IdZgloszenia,Z.IdKlienta, K.Nazwa,Z.IdAdres,cast(Z.DataDodania As Date) as DataDodania,
             Z.PlanowanaRealizacjaOd, Z.PlanowanaRealizacjaDo, Z.GodzinaOd, Z.GodzinaDo, Z.DokladnaLokalizacja, Z.Opis, 
             SK.Opis AS Kategoria, SK.IdKategoria, SP.Opis AS Priorytet,SP.IdPriorytet, SS.Opis AS Status, SS.IdStatus,
-            CONCAT (Z.PlanowanaRealizacjaOd,' / ',Z.PlanowanaRealizacjaDo, ' godz.',Z.GodzinaOd, ' - ',Z.GodzinaDo ) AS PlanowanaRealizacja,
-			CONCAT (KA.Miejscowosc, ', ',KA.Ulica,  ', ', KA.NrBudynku, '/ ', Z.DokladnaLokalizacja) AS Adres,
-            [dbo].[wykonawca] (Z.IdZgloszenia) as Wykonawca,DU.Imie,DU.Nazwisko
+            [dbo].[wykonawca] (Z.IdZgloszenia) as Wykonawca,DU.Imie,DU.Nazwisko,
+
+			 PlanowanaRealizacja = 
+			CASE
+				WHEN (Z.PlanowanaRealizacjaOd != '' and Z.PlanowanaRealizacjaDo != '' and Z.GodzinaOd != '' and Z.GodzinaDo != '' ) THEN CONCAT (Z.PlanowanaRealizacjaOd,' / ',Z.PlanowanaRealizacjaDo, ' godz. ',Z.GodzinaOd, ' - ',Z.GodzinaDo ) 
+				WHEN ((Z.PlanowanaRealizacjaOd = '' or Z.PlanowanaRealizacjaDo = '') and (Z.GodzinaOd != '' and Z.GodzinaDo != '') ) THEN CONCAT (Z.PlanowanaRealizacjaOd,Z.PlanowanaRealizacjaDo, ' godz. ',Z.GodzinaOd, ' - ',Z.GodzinaDo ) 
+				WHEN ((Z.PlanowanaRealizacjaOd != '' and Z.PlanowanaRealizacjaDo != '') and (Z.GodzinaOd = '' and Z.GodzinaDo = '') ) THEN CONCAT (Z.PlanowanaRealizacjaOd,' / ',Z.PlanowanaRealizacjaDo,Z.GodzinaOd,Z.GodzinaDo ) 
+				WHEN ((Z.PlanowanaRealizacjaOd != '' and Z.PlanowanaRealizacjaDo != '') and (Z.GodzinaOd = '' or Z.GodzinaDo = '') ) THEN CONCAT (Z.PlanowanaRealizacjaOd,' / ',Z.PlanowanaRealizacjaDo, ' godz. ',Z.GodzinaOd,Z.GodzinaDo ) 
+				ELSE  CONCAT (Z.PlanowanaRealizacjaOd,Z.PlanowanaRealizacjaDo,Z.GodzinaOd,Z.GodzinaDo ) 
+			END,
+			Adres = 
+            CASE
+                WHEN (Z.DokladnaLokalizacja != '') THEN CONCAT (KA.Miejscowosc, ' ',KA.Ulica, ' ', KA.NrBudynku, '/', Z.DokladnaLokalizacja)            
+                ELSE CONCAT (KA.Miejscowosc, ' ',KA.Ulica, ' ', KA.NrBudynku, '', Z.DokladnaLokalizacja)
+            END
+
               from zgloszenia Z
               left join klienci K
               on Z.IdKlienta = K.IdKlienta
@@ -437,39 +476,39 @@ class ZgloszeniaRepository extends ServiceEntityRepository
               on Z.Status = SS.IdStatus where Z.IdZgloszenia is not null and SS.Opis != 'Zrealizowano' and SS.Opis != 'Odrzucono' ";
 
         if (!empty($nrZgloszeniaFiltr)){
-            $zgloszeniaSQL = $zgloszeniaSQL." and Z.IdZgloszenia like '%$nrZgloszeniaFiltr%' ";
+            $zgloszeniaSQL = $zgloszeniaSQL." and (Z.IdZgloszenia like '%$nrZgloszeniaFiltr%') ";
         }
         if (!empty($planowanaRealizacjaFiltr)){
-            $zgloszeniaSQL = $zgloszeniaSQL." and Z.PlanowanaRealizacjaOd like '%$planowanaRealizacjaFiltr%'
-            or Z.PlanowanaRealizacjaDo like '%$planowanaRealizacjaFiltr%' ";
+            $zgloszeniaSQL = $zgloszeniaSQL." and (Z.PlanowanaRealizacjaOd like '%$planowanaRealizacjaFiltr%'
+            or Z.PlanowanaRealizacjaDo like '%$planowanaRealizacjaFiltr%') ";
         }
         if (!empty($adresFiltr)){
-            $zgloszeniaSQL = $zgloszeniaSQL." and KA.Miejscowosc like '%$adresFiltr%' or KA.Ulica like '%$adresFiltr%'
-            or KA.NrBudynku like '%$adresFiltr%' or Z.DokladnaLokalizacja like '%$adresFiltr%' ";
+            $zgloszeniaSQL = $zgloszeniaSQL." and (KA.Miejscowosc like '%$adresFiltr%' or KA.Ulica like '%$adresFiltr%'
+            or KA.NrBudynku like '%$adresFiltr%' or Z.DokladnaLokalizacja like '%$adresFiltr%') ";
         }
         if (!empty($klientFiltr)){
-            $zgloszeniaSQL = $zgloszeniaSQL." and K.Nazwa like '%$klientFiltr%' ";
+            $zgloszeniaSQL = $zgloszeniaSQL." and (K.Nazwa like '%$klientFiltr%') ";
         }
         if (!empty($wykonawcaFiltr)){
-            $zgloszeniaSQL = $zgloszeniaSQL." and DU.Imie like '%$wykonawcaFiltr%' or DU.Nazwisko like '%$wykonawcaFiltr%'";
+            $zgloszeniaSQL = $zgloszeniaSQL." and (DU.Imie like '%$wykonawcaFiltr%' or DU.Nazwisko like '%$wykonawcaFiltr%') ";
         }
         if (!empty($kategoriaFiltr)){
-            $zgloszeniaSQL = $zgloszeniaSQL." and SK.Opis like '%$kategoriaFiltr%'";
+            $zgloszeniaSQL = $zgloszeniaSQL." and (SK.Opis like '%$kategoriaFiltr%') ";
         }
         if (!empty($priorytetFiltr)){
-            $zgloszeniaSQL = $zgloszeniaSQL." and SP.Opis like '%$priorytetFiltr%'";
+            $zgloszeniaSQL = $zgloszeniaSQL." and (SP.Opis like '%$priorytetFiltr%') ";
         }
         if (!empty($statusFiltr)){
-            $zgloszeniaSQL = $zgloszeniaSQL." and SS.Opis like '%$statusFiltr%'";
+            $zgloszeniaSQL = $zgloszeniaSQL." and (SS.Opis like '%$statusFiltr%') ";
         }
         if (!empty($dataDodaniaOdFiltr) && !empty($dataDodaniaDoFiltr) ){
-            $zgloszeniaSQL = $zgloszeniaSQL." and cast(Z.DataDodania As Date) >= '$dataDodaniaOdFiltr' and cast(Z.DataDodania As Date) <= '$dataDodaniaDoFiltr' ";
+            $zgloszeniaSQL = $zgloszeniaSQL." and (cast(Z.DataDodania As Date) >= '$dataDodaniaOdFiltr' and cast(Z.DataDodania As Date) <= '$dataDodaniaDoFiltr') ";
         }
         if (!empty($dataDodaniaOdFiltr) && empty($dataDodaniaDoFiltr) ){
-            $zgloszeniaSQL = $zgloszeniaSQL." and cast(Z.DataDodania As Date) >= '$dataDodaniaOdFiltr' ";
+            $zgloszeniaSQL = $zgloszeniaSQL." and (cast(Z.DataDodania As Date) >= '$dataDodaniaOdFiltr') ";
         }
         if (empty($dataDodaniaOdFiltr) && !empty($dataDodaniaDoFiltr) ){
-            $zgloszeniaSQL = $zgloszeniaSQL." and cast(Z.DataDodania As Date) <= '$dataDodaniaDoFiltr' ";
+            $zgloszeniaSQL = $zgloszeniaSQL." and (cast(Z.DataDodania As Date) <= '$dataDodaniaDoFiltr') ";
         }
 
         $zgloszeniaArr = $this->conn->fetchAllAssociative($zgloszeniaSQL);
@@ -485,9 +524,22 @@ class ZgloszeniaRepository extends ServiceEntityRepository
         $zgloszeniaSQL = "select distinct Z.IdZgloszenia,Z.IdKlienta, K.Nazwa,Z.IdAdres,cast(Z.DataDodania As Date) as DataDodania,
             Z.PlanowanaRealizacjaOd, Z.PlanowanaRealizacjaDo, Z.GodzinaOd, Z.GodzinaDo, Z.DokladnaLokalizacja, Z.Opis, 
             SK.Opis AS Kategoria, SK.IdKategoria, SP.Opis AS Priorytet,SP.IdPriorytet, SS.Opis AS Status, SS.IdStatus as IdStatus,
-            CONCAT (Z.PlanowanaRealizacjaOd,' / ',Z.PlanowanaRealizacjaDo, ' godz.',Z.GodzinaOd, ' - ',Z.GodzinaDo ) AS PlanowanaRealizacja,
-			CONCAT (KA.Miejscowosc, ', ',KA.Ulica,  ', ', KA.NrBudynku, '/ ', Z.DokladnaLokalizacja) AS Adres,
-            [dbo].[wykonawca] (Z.IdZgloszenia) as Wykonawca, Z.DataModyfikacji
+            [dbo].[wykonawca] (Z.IdZgloszenia) as Wykonawca, Z.DataModyfikacji,
+  
+  			 PlanowanaRealizacja = 
+			CASE
+				WHEN (Z.PlanowanaRealizacjaOd != '' and Z.PlanowanaRealizacjaDo != '' and Z.GodzinaOd != '' and Z.GodzinaDo != '' ) THEN CONCAT (Z.PlanowanaRealizacjaOd,' / ',Z.PlanowanaRealizacjaDo, ' godz. ',Z.GodzinaOd, ' - ',Z.GodzinaDo ) 
+				WHEN ((Z.PlanowanaRealizacjaOd = '' or Z.PlanowanaRealizacjaDo = '') and (Z.GodzinaOd != '' and Z.GodzinaDo != '') ) THEN CONCAT (Z.PlanowanaRealizacjaOd,Z.PlanowanaRealizacjaDo, ' godz. ',Z.GodzinaOd, ' - ',Z.GodzinaDo ) 
+				WHEN ((Z.PlanowanaRealizacjaOd != '' and Z.PlanowanaRealizacjaDo != '') and (Z.GodzinaOd = '' and Z.GodzinaDo = '') ) THEN CONCAT (Z.PlanowanaRealizacjaOd,' / ',Z.PlanowanaRealizacjaDo,Z.GodzinaOd,Z.GodzinaDo ) 
+				WHEN ((Z.PlanowanaRealizacjaOd != '' and Z.PlanowanaRealizacjaDo != '') and (Z.GodzinaOd = '' or Z.GodzinaDo = '') ) THEN CONCAT (Z.PlanowanaRealizacjaOd,' / ',Z.PlanowanaRealizacjaDo, ' godz. ',Z.GodzinaOd,Z.GodzinaDo ) 
+				ELSE  CONCAT (Z.PlanowanaRealizacjaOd,Z.PlanowanaRealizacjaDo,Z.GodzinaOd,Z.GodzinaDo ) 
+			END,
+			Adres = 
+            CASE
+                WHEN (Z.DokladnaLokalizacja != '') THEN CONCAT (KA.Miejscowosc, ' ',KA.Ulica, ' ', KA.NrBudynku, '/', Z.DokladnaLokalizacja)            
+                ELSE CONCAT (KA.Miejscowosc, ' ',KA.Ulica, ' ', KA.NrBudynku, '', Z.DokladnaLokalizacja)
+            END
+  
               from zgloszenia Z
               left join klienci K
               on Z.IdKlienta = K.IdKlienta
@@ -592,9 +644,23 @@ class ZgloszeniaRepository extends ServiceEntityRepository
         $zgloszeniaSQL = "select distinct Z.IdZgloszenia,Z.IdKlienta, K.Nazwa,Z.IdAdres,cast(Z.DataDodania As Date) as DataDodania,
             Z.PlanowanaRealizacjaOd, Z.PlanowanaRealizacjaDo, Z.GodzinaOd, Z.GodzinaDo, Z.DokladnaLokalizacja, Z.Opis, 
             SK.Opis AS Kategoria, SK.IdKategoria, SP.Opis AS Priorytet,SP.IdPriorytet, SS.Opis AS Status, SS.IdStatus as IdStatus,
-            CONCAT (Z.PlanowanaRealizacjaOd,' / ',Z.PlanowanaRealizacjaDo, ' godz.',Z.GodzinaOd, ' - ',Z.GodzinaDo ) AS PlanowanaRealizacja,
-			CONCAT (KA.Miejscowosc, ', ',KA.Ulica,  ', ', KA.NrBudynku, '/ ', Z.DokladnaLokalizacja) AS Adres,
-            [dbo].[wykonawca] (Z.IdZgloszenia) as Wykonawca, Z.DataModyfikacji
+            [dbo].[wykonawca] (Z.IdZgloszenia) as Wykonawca, Z.DataModyfikacji,
+  
+  			 PlanowanaRealizacja = 
+			CASE
+				WHEN (Z.PlanowanaRealizacjaOd != '' and Z.PlanowanaRealizacjaDo != '' and Z.GodzinaOd != '' and Z.GodzinaDo != '' ) THEN CONCAT (Z.PlanowanaRealizacjaOd,' / ',Z.PlanowanaRealizacjaDo, ' godz. ',Z.GodzinaOd, ' - ',Z.GodzinaDo ) 
+				WHEN ((Z.PlanowanaRealizacjaOd = '' or Z.PlanowanaRealizacjaDo = '') and (Z.GodzinaOd != '' and Z.GodzinaDo != '') ) THEN CONCAT (Z.PlanowanaRealizacjaOd,Z.PlanowanaRealizacjaDo, ' godz. ',Z.GodzinaOd, ' - ',Z.GodzinaDo ) 
+				WHEN ((Z.PlanowanaRealizacjaOd != '' and Z.PlanowanaRealizacjaDo != '') and (Z.GodzinaOd = '' and Z.GodzinaDo = '') ) THEN CONCAT (Z.PlanowanaRealizacjaOd,' / ',Z.PlanowanaRealizacjaDo,Z.GodzinaOd,Z.GodzinaDo ) 
+				WHEN ((Z.PlanowanaRealizacjaOd != '' and Z.PlanowanaRealizacjaDo != '') and (Z.GodzinaOd = '' or Z.GodzinaDo = '') ) THEN CONCAT (Z.PlanowanaRealizacjaOd,' / ',Z.PlanowanaRealizacjaDo, ' godz. ',Z.GodzinaOd,Z.GodzinaDo ) 
+				ELSE  CONCAT (Z.PlanowanaRealizacjaOd,Z.PlanowanaRealizacjaDo,Z.GodzinaOd,Z.GodzinaDo ) 
+			END,
+			Adres = 
+            CASE
+                WHEN (Z.DokladnaLokalizacja != '') THEN CONCAT (KA.Miejscowosc, ' ',KA.Ulica, ' ', KA.NrBudynku, '/', Z.DokladnaLokalizacja)
+             
+                ELSE CONCAT (KA.Miejscowosc, ' ',KA.Ulica, ' ', KA.NrBudynku, '', Z.DokladnaLokalizacja)
+            END
+  
               from zgloszenia Z
               left join klienci K
               on Z.IdKlienta = K.IdKlienta
@@ -612,39 +678,39 @@ class ZgloszeniaRepository extends ServiceEntityRepository
               on Z.Status = SS.IdStatus where Z.IdZgloszenia is not null and ( SS.Opis like 'Zrealizowano' or SS.Opis like 'Odrzucono') ";
 
         if (!empty($nrZgloszeniaFiltr)){
-            $zgloszeniaSQL = $zgloszeniaSQL." and Z.IdZgloszenia like '%$nrZgloszeniaFiltr%' ";
+            $zgloszeniaSQL = $zgloszeniaSQL." and (Z.IdZgloszenia like '%$nrZgloszeniaFiltr%') ";
         }
         if (!empty($planowanaRealizacjaFiltr)){
-            $zgloszeniaSQL = $zgloszeniaSQL." and Z.PlanowanaRealizacjaOd like '%$planowanaRealizacjaFiltr%'
-            or Z.PlanowanaRealizacjaDo like '%$planowanaRealizacjaFiltr%' ";
+            $zgloszeniaSQL = $zgloszeniaSQL." and (Z.PlanowanaRealizacjaOd like '%$planowanaRealizacjaFiltr%'
+            or Z.PlanowanaRealizacjaDo like '%$planowanaRealizacjaFiltr%') ";
         }
         if (!empty($adresFiltr)){
-            $zgloszeniaSQL = $zgloszeniaSQL." and KA.Miejscowosc like '%$adresFiltr%' or KA.Ulica like '%$adresFiltr%'
-            or KA.NrBudynku like '%$adresFiltr%' or Z.DokladnaLokalizacja like '%$adresFiltr%' ";
+            $zgloszeniaSQL = $zgloszeniaSQL." and (KA.Miejscowosc like '%$adresFiltr%' or KA.Ulica like '%$adresFiltr%'
+            or KA.NrBudynku like '%$adresFiltr%' or Z.DokladnaLokalizacja like '%$adresFiltr%') ";
         }
         if (!empty($klientFiltr)){
-            $zgloszeniaSQL = $zgloszeniaSQL." and K.Nazwa like '%$klientFiltr%' ";
+            $zgloszeniaSQL = $zgloszeniaSQL." and (K.Nazwa like '%$klientFiltr%') ";
         }
         if (!empty($wykonawcaFiltr)){
-            $zgloszeniaSQL = $zgloszeniaSQL." and DU.Imie like '%$wykonawcaFiltr%' or DU.Nazwisko like '%$wykonawcaFiltr%'";
+            $zgloszeniaSQL = $zgloszeniaSQL." and (DU.Imie like '%$wykonawcaFiltr%' or DU.Nazwisko like '%$wykonawcaFiltr%') ";
         }
         if (!empty($kategoriaFiltr)){
-            $zgloszeniaSQL = $zgloszeniaSQL." and SK.Opis like '%$kategoriaFiltr%'";
+            $zgloszeniaSQL = $zgloszeniaSQL." and (SK.Opis like '%$kategoriaFiltr%') ";
         }
         if (!empty($priorytetFiltr)){
-            $zgloszeniaSQL = $zgloszeniaSQL." and SP.Opis like '%$priorytetFiltr%'";
+            $zgloszeniaSQL = $zgloszeniaSQL." and (SP.Opis like '%$priorytetFiltr%') ";
         }
         if (!empty($statusFiltr)){
-            $zgloszeniaSQL = $zgloszeniaSQL." and SS.Opis like '%$statusFiltr%'";
+            $zgloszeniaSQL = $zgloszeniaSQL." and (SS.Opis like '%$statusFiltr%') ";
         }
         if (!empty($dataDodaniaOdFiltr) && !empty($dataDodaniaDoFiltr) ){
-            $zgloszeniaSQL = $zgloszeniaSQL." and cast(Z.DataDodania As Date) >= '$dataDodaniaOdFiltr' and cast(Z.DataDodania As Date) <= '$dataDodaniaDoFiltr' ";
+            $zgloszeniaSQL = $zgloszeniaSQL." and (cast(Z.DataDodania As Date) >= '$dataDodaniaOdFiltr' and cast(Z.DataDodania As Date) <= '$dataDodaniaDoFiltr') ";
         }
         if (!empty($dataDodaniaOdFiltr) && empty($dataDodaniaDoFiltr) ){
-            $zgloszeniaSQL = $zgloszeniaSQL." and cast(Z.DataDodania As Date) >= '$dataDodaniaOdFiltr' ";
+            $zgloszeniaSQL = $zgloszeniaSQL." and (cast(Z.DataDodania As Date) >= '$dataDodaniaOdFiltr') ";
         }
         if (empty($dataDodaniaOdFiltr) && !empty($dataDodaniaDoFiltr) ){
-            $zgloszeniaSQL = $zgloszeniaSQL." and cast(Z.DataDodania As Date) <= '$dataDodaniaDoFiltr' ";
+            $zgloszeniaSQL = $zgloszeniaSQL." and (cast(Z.DataDodania As Date) <= '$dataDodaniaDoFiltr') ";
         }
 
         $filtrHistoriaSQL = $this->conn->fetchAllAssociative($zgloszeniaSQL);
