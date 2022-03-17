@@ -8,7 +8,8 @@
     <link rel="stylesheet"  href="{{ asset('css/elementyWspolne.css') }}" >
     <link rel="stylesheet"  href="{{ asset('css/stronaZgloszenia.css') }}" >
     <link rel="stylesheet"  href="{{ asset('css/ikonki.css') }}" >
-    <script src="{{ asset('js/stronaZgloszenia.js') }}" async></script>
+    <script src="{{ asset('js/stronaZgloszenia/stronaZgloszenia.js') }}" async></script>
+    <script src="{{ asset('js/stronaZgloszenia/zmianyKomentarze.js') }}" async></script>
     <script src="{{ asset('js/global.js') }}" async></script>
 
     <title>Strona Zgłoszenia</title>
@@ -745,6 +746,36 @@
 
                 </form>
             </div>
+
+
+            <div class="zmianyKomentarze" >
+
+                <div class="zamknijSekcje" id="zamknijZmianyKomentarze"> cofnij </div>
+                <input id="idZgloszeniaKomentarze" type="text" value="" style=""/>
+
+                <form>
+                    <div class="sekcjaZmianyKomentarze">
+                        <div>
+                            <textarea id="nowyKomentarz" placeholder="Dodaj komentarz"></textarea>
+                            <button id="dodajKomentarz" type="button" style="display:block; margin-left: 50px; margin-top: 10px; margin-bottom: 20px;">Dodaj</button>
+                            <div class="wszystkieKomentarze" style="border:solid red; height: 300px; width: 80%; margin-left: 50px;overflow-y: scroll">
+
+                                <p class="listaKomentarzy">
+
+                                </p>
+
+                            </div>
+                        </div>
+
+                        <div class="zmianaStatusow" style="border:solid blue; height: 300px; width: 80%; margin-left: 50px;margin-top: 60px;">
+
+                        </div>
+
+                    </div>
+
+                </form>
+            </div>
+
 
         </div>
 

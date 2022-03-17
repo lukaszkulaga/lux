@@ -720,4 +720,22 @@ class ZgloszeniaRepository extends ServiceEntityRepository
         return $zgloszeniaFiltrHistoriaTab;
     }
 
+
+    public function dodawanieKomentarzaRepo($dodawanieKomentarzaArr) {
+
+     $idZgloszenia = $dodawanieKomentarzaArr['idZgloszenia'];
+     $komentarz = $dodawanieKomentarzaArr['komentarz'];
+     $imie= $dodawanieKomentarzaArr['imie'];
+     $nazwisko = $dodawanieKomentarzaArr['nazwisko'];
+     $user = $imie . ' ' . $nazwisko;
+
+        $sql = "insert into zgloszeniaKomentarze (IdZgloszenia,Komentarz,DataDodania,[User]) values ($idZgloszenia,'$komentarz',GETDATE(),'$user')";
+        $this->conn->fetchAllAssociative($sql);
+
+        $sqlSelectArr = "select IdZgloszenia,Komentarz,DataDodania,[User] from zgloszeniaKomentarze where IdZgloszenia = $idZgloszenia";
+        $sqlSelect = $this->conn->fetchAllAssociative($sqlSelectArr);
+
+        return $sqlSelect;
+    }
+
 }
