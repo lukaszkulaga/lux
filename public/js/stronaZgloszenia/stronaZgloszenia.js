@@ -15,6 +15,8 @@ $(document).ready(function () {
     $(".sekcjaButtonHistoria").hide();
     $(".sekcjaFiltrowHistoria").hide();
 
+    $('.zmianyKomentarze').hide();
+
 
 
     /*
@@ -131,10 +133,12 @@ $(document).ready(function () {
     $('.zamknijSekcje').on('click', function(){
         $(".dodawanieZgloszenia").hide();
         $(".edytowanieZgloszenia").hide();
+        $('.zmianyKomentarze').hide();
     });
     $('.dodajZgloszenie').on('click', function(){
         $(".dodawanieZgloszenia").show();
         $(".edytowanieZgloszenia").hide();
+        $('.zmianyKomentarze').hide();
         $('.wykonawcaTbodyTr').remove();
 
         $('#klientDodaj').val(0);
@@ -1078,6 +1082,7 @@ $(document).ready(function () {
 
         $(".edytowanieZgloszenia").show();
         $(".dodawanieZgloszenia").hide();
+        $('.zmianyKomentarze').hide();
         $('.wykonawcaTbodyTr').remove();
 
 
@@ -1086,6 +1091,7 @@ $(document).ready(function () {
         $klientTab = $(this).find('.IdKlientaTab').text();
         // zapis do inputa utworzonego w sekcji edytowania zgłoszenia - potrzebne do edycji danych po kliknieciu przycisku edytuj.
         $('#idZgloszeniaEdycja').val($IdZgloszeniaTab);
+        $('#idZgloszeniaKomentarze').val($IdZgloszeniaTab);
 
 
         // na samym dole wywolujemy zdarzenie do dynamicznej generacji adresu w sekcji edycji zgloszenia a ustawienie
@@ -1431,6 +1437,7 @@ $(document).ready(function () {
         $(".dodawanieZgloszenia").hide();
         $(".edytowanieZgloszenia").hide();
         $(".sekcjaFiltrowHistoria").hide();
+        $('.zmianyKomentarze').hide();
 
         $('#nrZgloszeniaFiltr').val('');
         $('#dataDodaniaOdFiltr').val('');
@@ -1520,6 +1527,7 @@ $(document).ready(function () {
         $(".dodawanieZgloszenia").hide();
         $(".edytowanieZgloszenia").hide();
         $(".sekcjaFiltrow").hide();
+        $('.zmianyKomentarze').hide();
 
         // $('#nrZgloszeniaFiltrHistoria').val('');
         // $('#dataDodaniaOdFiltrHistoria').val('');

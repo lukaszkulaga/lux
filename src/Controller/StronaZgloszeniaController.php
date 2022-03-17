@@ -266,4 +266,23 @@ class StronaZgloszeniaController extends AbstractController
         return new JsonResponse($zgloszeniaFiltrHistoriaTab);
     }
 
+    /**
+     *
+     * dodawanie komentarzy
+     *
+     * @Route("/dodawanieKomentarza/ajax", methods={"POST"})
+     */
+    public function dodawanieKomentarza(Request $request) {
+
+        $dodawanieKomentarzaArr = $request->request->get('tab');
+
+        $this->logger->info('!!!!!!!!!!!!!!!!!!!!   kontroler');
+
+        $dodawanieKomentarza = $this->zgloszeniaService->dodawanieKomentarzaService($dodawanieKomentarzaArr);
+
+        $dodawanieKomentarzaTab = ['dodawanieKomentarzaTab'=>$dodawanieKomentarza];
+
+        return new JsonResponse($dodawanieKomentarzaTab);
+    }
+
 }

@@ -145,4 +145,11 @@ class ZgloszeniaService
         return $this->zgloszeniaRepository->historiaZgloszenFiltrRepo($zgloszeniaFiltrHistoriaArr);
     }
 
+    public function dodawanieKomentarzaService($dodawanieKomentarzaArr) {
+
+        $this->logger->info('???????????????????????   serwis');
+
+        return $this->zgloszeniaRepository->dodawanieKomentarzaRepo($dodawanieKomentarzaArr);
+    }
+
 }
