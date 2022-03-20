@@ -145,11 +145,25 @@ class ZgloszeniaService
         return $this->zgloszeniaRepository->historiaZgloszenFiltrRepo($zgloszeniaFiltrHistoriaArr);
     }
 
+    public function wyswietlKomentarzeService($wyswietlKomentarzeArr) {
+
+        $this->logger->info('???????????????????????   serwis');
+
+        return $this->zgloszeniaRepository->wyswietlKomentarzeRepo($wyswietlKomentarzeArr);
+    }
+
     public function dodawanieKomentarzaService($dodawanieKomentarzaArr) {
 
         $this->logger->info('???????????????????????   serwis');
 
         return $this->zgloszeniaRepository->dodawanieKomentarzaRepo($dodawanieKomentarzaArr);
+    }
+
+    public function wyswietlZmianyService($wyswietlZmianyArr) {
+
+        $this->logger->info('???????????????????????   serwis');
+
+        return $this->zgloszeniaRepository->wyswietlZmianyRepo($wyswietlZmianyArr);
     }
 
 }
