@@ -1,0 +1,89 @@
+
+
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300;400&display=swap");
+
+body {
+    font-family: 'Work Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: rgba(249, 249, 249,1);
+}
+
+section {
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 1fr 12fr;
+    grid-template-rows: 0.5fr 0.5fr 9fr 0.3fr;
+    grid-template-areas:
+        "header header"
+        "nav nav"
+        "aside main"
+        "aside footer";
+    /*   grid-gap: 0.2rem; */
+    font-weight: regular 400;
+    font-size: 12px;
+    text-align: center;
+    row-gap: 0px;
+    /*border:solid red;*/
+}
+
+#glownaSekcjaMain {
+    /*box-shadow: 1px 1px 5px rgba(7, 74, 155,1);*/
+    /*box-shadow: 1px 1px 3px rgba(85, 85, 85,1);*/
+    box-shadow: rgb(0 0 0 / 20%) 0px 15px 35px;
+    width: 96%;
+    /*margin: 1%;*/
+    /*border:solid purple;*/
+}
+
+header {
+    grid-area: header;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    /*border-bottom: solid 0.5px red;*/
+    /*box-shadow: 1px 1px 5px rgba(7, 74, 155,1);*/
+    box-shadow: 1px 1px 15px rgba(85, 85, 85,1);
+    /*border:solid red;*/
+}
+
+nav {
+    grid-area: nav;
+    background: transparent;
+    /*border:solid blue;*/
+}
+
+main {
+    grid-area: main;
+    background: transparent;
+    display: flex;
+    /*align-items: center;*/
+    justify-content: center;
+    /*border:solid orange;*/
+}
+
+aside {
+    grid-area: aside;
+    border: none;
+    /*border:solid purple;*/
+}
+
+footer {
+    grid-area: footer;
+    /*border:solid black;*/
+}
+
+@media only screen and (max-width: 840px) {
+    section {
+        grid-template-columns: 1fr;
+        grid-template-rows: 0.5fr 0.5fr 0.5fr 8fr 0.5fr;
+        grid-template-areas:
+      "header"
+      "nav"
+      "aside"
+      "main"
+      "footer";
+    }
+}
+

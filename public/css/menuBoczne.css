@@ -1,0 +1,107 @@
+
+
+@media only screen and (max-width: 840px) {
+    .aMenuBoczne {
+        font-size: 10px;
+    }
+}
+
+
+/* menu boczne */
+
+.left-menu {
+    position: fixed;
+    left: -7.5%;
+    height: 91vh;
+    background-color: transparent;
+    width: 7.5%;
+    z-index: 1;
+    transition: 1s;
+     /*border-right:solid 1px rgba(0,60,125,0.5);*/
+    /*border: solid red;*/
+}
+
+.left-menu:hover {
+    left: 0;
+}
+
+.left-menu-button {
+    background-color: transparent;
+    box-shadow: 10px 10px 12px 0 rgba(85,85,85,0.3), -6px -6px 8px 0 hsla(0, 0%, 100%, .1);
+    border-radius: 2vh;
+    /*display: flex;*/
+    align-items: center;
+    justify-content: center;
+    height: 10vh;
+    margin-right: 5.5rem;
+    width: 10vh;
+    margin-top: 2vh;
+    margin-left: 2vh;
+    cursor: pointer;
+    font-size: 1.3vh;
+    /*border:solid green;*/
+}
+
+.left-menu-button:hover {
+    box-shadow: 10px 10px 12px 0 rgba(0,60,125,0.2), -6px -6px 8px 0 hsla(0, 0%, 100%, .1);
+}
+
+.left-menu-button svg {
+    margin-top: 10%;
+    width: 2.5vw;
+    height: 5vh;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+.Handler {
+    position: absolute;
+    width: 0vw;
+    height: 0vh;
+    background-color: transparent;
+    top: 0;
+    left: 100%;
+}
+
+.Handler svg{
+    width: 2vw;
+    height: 4vh;
+    cursor: pointer;
+}
+
+.menuIcons {
+    background: url('../icons/menu.svg') no-repeat;
+}
+.daneUzytkownikaIcons {
+    background: url('../icons/daneUzytkownika.svg') no-repeat;
+}
+.kontrahenciIcons {
+    background: url('../icons/ludzie.svg') no-repeat;
+}
+.zgloszeniaIcons {
+    background: url('../icons/teczka.svg') no-repeat;
+}
+.adminIcons {
+    background: url('../icons/czlowiek_krawat.svg') no-repeat;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

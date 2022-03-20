@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="widht=device=widht, initial-scale=1.8">
+    <script type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <link rel="stylesheet"  href="{{ asset('css/logowanieRejestracja.css') }}" media="screen">
+    <link rel="stylesheet"  href="{{ asset('css/uwierzytelnienie.css') }}" media="screen">
+    <link rel="stylesheet"  href="{{ asset('css/przyciski.css') }}" media="screen">
+
+    <script src="{{ asset('js/logowanie.js') }}" async></script>
+
+    <title> panel logowania </title>
+</head>
+
+<body>
+
+    <section>
+        <div class="box">
+            <div class="square" style="--i:0;"></div>
+            <div class="square" style="--i:1;"></div>
+            <div class="square" style="--i:2;"></div>
+            <div class="square" style="--i:3;"></div>
+            <div class="square" style="--i:4;"></div>
+            <div class="container">
+                <div class="form">
+                    <h2> Logowanie</h2>
+                    <form id="formId" name="formName" method="POST" action="{{ baseUrl }}logowanie">
+                        <div class="inputBox">
+                            <input class="daneZFormularza" id="nazwaUzytkownika" type="text" placeholder="Nazwa użytkownika" name="nazwaUzytkownika" required>
+                        </div>
+                        <div class="inputBox">
+                            <input type="password" placeholder="Hasło" name="haslo" required>
+                        </div>
+                        <div class="container1" style="margin-left: -30%">
+                            <div class="btn1">
+                                <button  type ="submit">Zaloguj</button>
+                            </div>
+                        </div>
+
+                        <p class="nawigacjaUwierzytelnienia">Nie pamiętasz hasła? <a href="{{ baseUrl }}przypomnijHaslo"> Kliknij tutaj</a></p>
+                        <p class="nawigacjaUwierzytelnienia">Nie posiadasz konta? <a href="{{ baseUrl }}rejestracja">Zarejestruj</a></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+</body>
+
+</html>
+
+
+

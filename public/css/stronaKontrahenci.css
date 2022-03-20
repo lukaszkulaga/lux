@@ -1,0 +1,353 @@
+.tableRaportKontrahenci{
+    /*border: solid purple;*/
+    max-width: 50%;
+    max-height: 57%;
+    margin-left: 2%;
+    margin-top: 5%;
+    overflow-y: scroll;
+    position: absolute;
+}
+
+.tableDaneAdresowe{
+
+    width:95%;
+    max-height: 70%;
+    margin-left: 2%;
+    margin-top: 5%;
+    overflow-y: scroll;
+    position: absolute;
+}
+.daneAdresowePokaz:hover {
+    background-color: rgba(68,12,94,0.05)!important;
+    cursor: pointer;
+}
+.tableDaneKontaktowe{
+
+    width:95%;
+    max-height: 70%;
+    margin-left: 2%;
+    margin-top: 5%;
+    overflow-y: scroll;
+    position: absolute;
+}
+.daneKontaktowePokaz:hover{
+    background-color: rgba(68,12,94,0.05)!important;
+    cursor: pointer;
+}
+
+.reportTableKontrahenci {
+    background: transparent;
+    font-size:14px;
+    border-collapse: separate;
+    border-spacing: 0;
+    width:100%;
+    border-bottom: solid black 1px;
+}
+.reportTableKontrahenci th,
+.reportTableKontrahenci td {
+    padding: 1vh;
+    text-align: left;
+    /*border:solid yellow;*/
+}
+.reportTableKontrahenci td {
+    border-top: 1px solid rgb(212, 210, 210);
+}
+.reportTableKontrahenci tr:nth-child(2n+1) {
+   background-color: rgba(255,255,255,1);
+}
+
+.reportTableKontrahenci thead th {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+.reportTableKontrahenci tbody th[scope=row] {
+    position: sticky;
+    left: 0;
+    z-index: 9;
+    border-top: 1px solid rgb(212, 210, 210);
+    cursor: pointer;
+}
+.reportTableKontrahenci thead th[scope=row] {
+    position: sticky;
+    left: 0;
+    z-index: 11;
+}
+.reportTableKontrahenci tbody {
+    /* zawijanie wierszy w tabeli !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+    /*overflow-wrap: anywhere;*/
+}
+
+.daneKontrahentaPokaz:hover {
+    background-color: rgba(68,12,94,0.05)!important;
+    cursor: pointer;
+}
+
+.reportTableKontrahenci .daneAdresoweTab,.reportTableKontrahenci .daneKontaktoweTab,.reportTableKontrahenci .usunKontrahentaButton{
+    text-align: center;
+}
+
+.thKontrahenci{
+    background-color: rgba(249,249,249,1);
+    color:rgba(0, 60, 125,0.8);
+    cursor: unset;
+    border-bottom: solid black 1px;
+}
+
+.sekcjaFiltrow{
+    position: absolute;
+    margin-left: 2%;
+}
+
+.filtrButtonWyczysc{
+    margin-left:1vw;
+    width: 3vw;
+    height:4.5vh;
+    margin-top: 2vh;
+    float: left
+}
+
+.dodawanieKontrahenta{
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    border-left:1px solid rgb(212, 210, 210);
+    width: 30%;
+    height:57%;
+    margin-left:56%;
+    margin-top:5%;
+    position: absolute;
+    overflow-y: scroll
+}
+
+#sekcjaDodawaniaKontrahenta{
+    height: 30vh;
+    width:18vw;
+    position: absolute;
+    margin-top: 5vh;
+    margin-left: 13vh
+}
+
+.buttonZapiszDanePodstawowe{
+    margin-left:1vw;
+    width: 10vw;
+    height:4vh;
+    margin-top: 2vh;
+    float: left;
+}
+
+.buttonDodajKontrahenta{
+    margin-left:2vw;
+    width: 30vw;
+    height:4vh;
+    margin-top: 72vh;
+    float: left;
+}
+
+.edycjaKontrahenta{
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    border-left:1px solid rgb(212, 210, 210);
+    width: 30%;
+    height:57%;
+    margin-left:56%;
+    margin-top:5%;
+    position: absolute;
+    overflow-y: scroll
+}
+
+#nazwaKontrahenta{
+    color: rgba(0, 60, 125,0.8);
+    font-size: 14px;
+    margin-top: 2vh
+}
+
+#sekcjaEdycjiKontrahenta{
+    height: 30vh;
+    width:18vw;
+    position: absolute;
+    margin-top: 5vh;
+    margin-left: 13vh
+}
+
+.buttonEdycjaDanychPodstawowych{
+    margin-left:1vw;
+    width: 10vw;
+    height:4vh;
+    margin-top: 2vh;
+}
+
+.dodawanieAdresow{
+    z-index: 1;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    border-left:1px solid rgb(212, 210, 210);
+    width: 30%;
+    height:57%;
+    margin-left:56%;
+    margin-top:5%;
+    position: absolute;
+    overflow-y: scroll
+}
+
+#nazwaKontrahentaAdres{
+    color: rgba(0, 60, 125,0.8);
+    font-size: 14px;
+    margin-top: 2vh
+}
+
+.brakDanych{
+    display:none;
+    margin-top:13vh;
+    font-size: 20px
+}
+
+#dodajDaneAdresowe{
+    margin-left:1vw;
+    width: 10vw;
+    height:4vh;
+    margin-top: 46vh;
+    float: left;
+}
+
+#dodajDaneAdresoweButton{
+    width: 9vw;
+    height: 3vh
+}
+
+#sekcjaDodawaniaAdresu{
+    height: 30vh;
+    width:18vw;
+    position: absolute;
+    margin-top: 5vh;
+    margin-left: 13vh
+}
+
+#zapiszDaneAdresowe{
+    margin-left:1vw;
+    width: 10vw;
+    height:4vh;
+    margin-top: 2vh;
+    float: left;
+}
+
+#zapiszDaneAdresoweButton{
+    width: 9vw;
+    height: 3vh
+}
+
+#sekcjaEdycjiAdresu{
+    height: 30vh;
+    width:18vw;
+    position: absolute;
+    margin-top: 5vh;
+    margin-left: 13vh
+}
+
+#edytujDaneAdresowe{
+    margin-left:1vw;
+    width: 10vw;
+    height:4vh;
+    margin-top: 2vh;
+    float: left;
+}
+
+#edytujDaneAdresoweButton{
+    width: 9vw;
+    height: 3vh
+}
+
+.dodawanieKontaktow{
+    z-index: 1;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    border-left:1px solid rgb(212, 210, 210);
+    width: 30%;
+    height:57%;
+    margin-left:56%;
+    margin-top:5%;
+    position: absolute;
+    overflow-y: scroll
+}
+
+#nazwaKontrahentaKontakt{
+    color: rgba(0, 60, 125,0.8);
+    font-size: 14px;
+    margin-top: 2vh
+}
+
+.tableDaneKontaktowe{
+    width:95%;
+    max-height: 70%
+}
+
+#dodajDaneKontaktowe{
+    margin-left:1vw;
+    width: 10vw;
+    height:4vh;
+    margin-top: 46vh;
+    float: left;
+}
+
+#dodajDaneKontaktoweButton{
+    width: 9vw;
+    height: 3vh
+}
+
+#sekcjaDodawaniaKontaktu{
+    height: 30vh;
+    width:18vw;
+    position: absolute;
+    margin-top: 5vh;
+    margin-left: 13vh
+}
+
+#zapiszDaneKontaktowe{
+    margin-left:1vw;
+    width: 10vw;
+    height:4vh;
+    margin-top: 2vh;
+    float: left;
+}
+
+#zapiszDaneKontaktoweButton{
+    width: 9vw;
+    height: 3vh
+}
+
+#sekcjaEdycjiKontaktu{
+    height: 30vh;
+    width:18vw;
+    position: absolute;
+    margin-top: 5vh;
+    margin-left: 13vh
+}
+
+#edytujDaneKontaktowe{
+    margin-left:1vw;
+    width: 10vw;
+    height:4vh;
+    margin-top: 2vh;
+    float: left;
+}
+
+#edytujDaneKontaktoweButton{
+    width: 9vw;
+    height: 3vh
+}
+
+.zamknijSekcje{
+    font-size: 1vw;
+    cursor:pointer;
+    margin-left:27vw;
+    font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

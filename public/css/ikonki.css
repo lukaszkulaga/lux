@@ -1,0 +1,56 @@
+
+/*ikonka podstawiana dynamicznie w JS -ajax */
+.errorSuccess {
+    width: 1.3vw;
+    height: 2.5vh;
+    margin-left: 15vw;
+    margin-top: -5.4vh;
+    position: absolute;
+    cursor: pointer;
+    /*border: solid yellow;*/
+}
+
+.earthIcon {
+    width: 1.5vw;
+    height: 3vh;
+    margin-top: 0.5vh;
+    /*border:solid red;*/
+    cursor: pointer;
+    background: url('../icons/Earth.svg') no-repeat;
+}
+
+.wyczyscIcons {
+    width: 2vw;
+    height: 3vh;
+    margin-top: 0.5vh;
+    /*border:solid red;*/
+    cursor: pointer;
+    background: url('../icons/wyczysc.svg') no-repeat;
+}
+
+.telefonIcons {
+    width: 1.5vw;
+    height: 3vh;
+    margin-top: 0.5vh;
+    /*border:solid red;*/
+    cursor: pointer;
+    background: url('../icons/telefon.svg') no-repeat;
+}
+
+.koszIcons {
+    width: 1.5vw;
+    height: 3vh;
+    margin-top: 0.5vh;
+    /*border:solid red;*/
+    cursor: pointer;
+    background: url('../icons/kosz.svg') no-repeat;
+}
+
+.edycjaIcons {
+    width: 1.5vw;
+    height: 3vh;
+    margin-top: 0.5vh;
+    /*border:solid red;*/
+    cursor: pointer;
+    background: url('../icons/dokument_olowek.svg') no-repeat;
+}

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet"  href="{{ asset('css/przyciski.css') }}">
+    <link rel="stylesheet"  href="{{ asset('css/budowaStrony.css') }}" >
+    <link rel="stylesheet"  href="{{ asset('css/elementyWspolne.css') }}" >
+    <link rel="stylesheet"  href="{{ asset('css/stronaUzytkownika.css') }}" >
+    <link rel="stylesheet"  href="{{ asset('css/ikonki.css') }}" >
+{#    <link rel="stylesheet"  href="{{ asset('css/uwierzytelnienie.css') }}" media="screen">#}
+    <script src="{{ asset('js/stronaUzytkownika.js') }}" async></script>
+    <script src="{{ asset('js/global.js') }}" async></script>
+    <title>Strona Użytkownika</title>
+
+</head>
+<body>
+
+<section>
+    <header>
+        {% include 'globalHtml/naglowek.html.twig' %}
+    </header>
+    <nav>
+        {% include 'globalHtml/menuGorne.html.twig' %}
+    </nav>
+    <aside>
+        {% include 'globalHtml/menuBoczne.html.twig' %}
+    </aside>
+    <main>
+
+
+        <input style="display: none" id="baseUrl" type="text" value={{ baseUrl }} />
+
+       <div id="glownaSekcjaMain">
+           <form id="formUzytkownik" >
+
+               <div id="dostosujPole">
+                   <div style="width:15vw;float: left">
+                       <div class="field-wrapper">
+                           <input  class="daneUzytkownika" type="text" id="nazwaUzytkownika" placeholder=" " value="{{ daneUzytkownikaArr.NazwaUzytkownika }}" disabled="disabled"/>
+                           <div class="field-placeholder"><span>Nazwa użytkownika</span></div>
+                       </div>
+                   </div>
+                   <div style="width:15vw;float: left">
+                       <div class="field-wrapper">
+                           <input  class="daneUzytkownika" type="text" id="imie" placeholder=" " value="{{ daneUzytkownikaArr.Imie }}" disabled="disabled"/>
+                           <div class="field-placeholder"><span>Imię</span></div>
+                       </div>
+                   </div>
+                   <div style="width:15vw;float: left">
+                       <div class="field-wrapper">
+                           <input  class="daneUzytkownika" type="text" id="nazwisko" placeholder=" " value="{{ daneUzytkownikaArr.Nazwisko }}" disabled="disabled" />
+                           <div class="field-placeholder"><span>Nazwisko</span></div>
+                       </div>
+                   </div>
+                   <div style="width:15vw;float: left">
+                       <div class="field-wrapper">
+                           <input  class="daneUzytkownika" type="email" id="email" placeholder=" " value="{{ daneUzytkownikaArr.Email }}" />
+                           <div class="field-placeholder"><span>e-mail</span></div>
+                       </div>
+                       <p class="errorSuccess"></p>
+                   </div>
+                   <div style="width:15vw;float: left">
+                       <div class="field-wrapper" style =''>
+                           <input  class="numerTelefonu" type="tel" id="telefon" maxlength="11" placeholder=" " value="{{ daneUzytkownikaArr.NumerTelefonu }}" />
+                           <div class="field-placeholder"><span>Numer telefonu</span></div>
+                       </div>
+                       <p class="errorSuccess"></p>
+                   </div>
+                   <div class="container1" style="margin-left:-20%">
+                       <div class="btn1" style="width: 50%">
+                           <button id="edycjaDanych" type ="button">Edytuj dane</button>
+                       </div>
+                   </div>
+               </div>
+
+               <div id="zdjecie">
+
+                   <p id="image_drop_area_text">przeciągnij lub dodaj swoje zdjęcie</p>
+                   <div id="image_drop_area" style="background-image:url('{{ daneUzytkownikaArr.Zdjecie }}')"></div>
+                   <p id="file_name"></p>
+
+                   {# tutajj wpada adres foto drag and drop #}
+                   <input style="display: none" type="text" id="filesDropAndDrag" value = "{{daneUzytkownikaArr.Zdjecie}}" name="filesDropAndDrag"  multiple />
+
+                   <!--
+
+                   html dla opcji wybierz plik
+
+                   {# tutaj wpada adres foto otwórz plik - chyba #}
+                   <input type="file" id="files" name="files[]" multiple />
+                   <output id="list"></output>
+                   -->
+
+               </div>
+
+           </form>
+
+       </div>
+
+    </main>
+    <footer>
+        Footer
+    </footer>
+</section>
+
+</body>
+
+</html>

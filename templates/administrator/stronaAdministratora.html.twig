@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <link rel="stylesheet"  href="{{ asset('css/przyciski.css') }}">
+    <link rel="stylesheet"  href="{{ asset('css/budowaStrony.css') }}" >
+    <link rel="stylesheet"  href="{{ asset('css/elementyWspolne.css') }}" >
+    <link rel="stylesheet"  href="{{ asset('css/administrator.css') }}" >
+    <link rel="stylesheet"  href="{{ asset('css/ikonki.css') }}" >
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
+
+    <script src="{{ asset('js/administrator.js') }}" async></script>
+    <title>administrator</title>
+</head>
+<body>
+    <section>
+        <header>
+            {% include 'globalHtml/naglowek.html.twig' %}
+        </header>
+        <nav>
+            {% include 'globalHtml/menuGorne.html.twig' %}
+        </nav>
+        <aside>
+            {% include 'globalHtml/menuBoczne.html.twig' %}
+        </aside>
+        <main>
+            <input style="display: none" id="baseUrl" type="text" value={{ baseUrl }} />
+
+            <div id="glownaSekcjaMain">
+
+                <div class="tabelaUzytkownicyAdmin">
+
+                    <!-- tak -->
+
+{#                    <table border="0" cellspacing="5" cellpadding="5">#}
+{#                        <tbody><tr>#}
+{#                            <td>id</td>:</td>#}
+{#                            <td><input type="text" id="id" name="id"></td>#}
+{#                        </tr>#}
+{#                        </tbody>#}
+{#                    </table>#}
+
+                    <!-- lub tak -->
+
+                    <input type="text" id="id" name="id">
+
+                    <table id="table_id" class="display">
+                        <thead>
+                        <tr>
+                            <th>IdUzytkownika</th>
+                            <th>Imię</th>
+                            <th>Nazwisko</th>
+                            <th>Nazwa użytkownika</th>
+                            <th>e-mail</th>
+                            <th>Numer telefonu</th>
+                            <th>Status</th>
+                            <th>Administrator</th>
+                        </tr>
+                        </thead>
+                        <tbody class="resultsBody">
+                        {% for uzytkownik in uzytkownicyAdminArr %}
+                            <tr>
+                                <td class="idUzytkownik">{{uzytkownik.IdUzytkownika}}</td>
+                                <td>{{uzytkownik.Imie }}</td>
+                                <td>{{uzytkownik.Nazwisko}}</td>
+                                <td>{{uzytkownik.NazwaUzytkownika}}</td>
+                                <td>{{uzytkownik.Email}}</td>
+                                <td>{{uzytkownik.NumerTelefonu}}</td>
+                                {% if uzytkownik.StatusKonta is same as 1 %}
+                                    <td><input class="statusKonta" type="checkbox" value= "{{ uzytkownik.StatusKonta }}" checked /><p style="">{{ uzytkownik.StatusKonta }}</p></td>
+                                {% else %}
+                                    <td><input class="statusKonta" type="checkbox" value= "{{ uzytkownik.StatusKonta }}" /><p style="">{{ uzytkownik.StatusKonta }}</p></td>
+                                {% endif %}
+                                {% if uzytkownik.Rola is same as 1 %}
+                                    <td><input class="rola" type="checkbox" value= "{{ uzytkownik.Rola }}" checked /><p style="">{{ uzytkownik.Rola }}</p></td>
+                                {% else %}
+                                    <td><input class="rola" type="checkbox" value= "{{ uzytkownik.Rola }}" /><p style="">{{ uzytkownik.Rola }}</p></td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </main>
+        <footer>
+
+        </footer>
+    </section>
+</body>
+</html>
+

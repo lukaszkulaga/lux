@@ -1,0 +1,91 @@
+
+<style>
+
+    #tytulSekcji {
+        height: 5vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        text-transform: uppercase;
+        font-size: 20px;
+        color:rgb(86, 86, 86);
+    }
+
+
+</style>
+
+
+
+<div id="tytulSekcji"></div>
+
+<div class="komunikat">
+    <div class="textKomunikatu"></div>
+    <div class="progressBar">
+    </div>
+</div>
+
+<div class="komunikatError">
+    <div class="textKomunikatu"></div>
+    <div class="progressBarError">
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function(){
+
+        let sciezka = window.location.href;
+        if (sciezka.indexOf("stronaUzytkownika") != -1) {
+            $('#tytulSekcji').html("Użytkownik");
+        };
+        if (sciezka.indexOf("stronaKontrahenci") != -1) {
+            $('#tytulSekcji').html("Kontrahenci");
+        };
+        if (sciezka.indexOf("stronaZgloszenia") != -1) {
+            $('#tytulSekcji').html("Zgłoszenia");
+        };
+        if (sciezka.indexOf("stronaAdministratora") != -1) {
+            $('#tytulSekcji').html("Administrator");
+        };
+        // if (sciezka.indexOf("historiaZgloszen") != -1) {
+        //     $('#tytulSekcji').html("Historia");
+        // };
+
+
+        $('.left-menu').on('mouseenter',function(){
+            $('main,header,nav,footer').css('opacity', '0.5');
+        });
+        $('.left-menu').on('mouseleave',function(){
+            $('main,header,nav,footer').css('opacity', 'unset');
+        });
+
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

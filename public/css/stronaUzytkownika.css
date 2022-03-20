@@ -1,0 +1,28 @@
+
+#dostosujPole {
+    width: 25%;
+    margin-left: 25%;
+    margin-top: 3%;
+    float: left;
+    /*border:solid green;*/
+}
+
+#zdjecie {
+    margin-top: 3%;
+    width: 25%;
+    float: left;
+}
+
+#image_drop_area_text {
+    color: white;
+    padding-bottom: 5%;
+}
+
+#image_drop_area{
+    width: 50%;
+    height: 170px;
+    border:  rgba(7, 74, 155,1) dotted;
+    background-position: center;
+    background-size: cover;
+    box-sizing: border-box;
+}

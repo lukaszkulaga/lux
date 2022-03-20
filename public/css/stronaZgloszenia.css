@@ -1,0 +1,547 @@
+
+
+.sekcjaFiltrow, .sekcjaFiltrowHistoria{
+    position: absolute;
+    margin-left: 1%;
+    width: 60%;
+    height: 15%;
+    /*border:solid red*/
+}
+.filtrButtonWyczysc{
+    margin-left:1vw;
+    width: 3vw;
+    height:4.5vh;
+    margin-top: 2vh;
+    float: left
+}
+
+
+.sekcjaZgloszenia{
+
+    /*border: solid purple;*/
+    width: 60%;
+    height: 60%;
+    margin-left: 1%;
+    margin-top: 9%;
+    overflow-y: scroll;
+    position: absolute;
+    border-bottom: solid black 1px;
+}
+.tabelaZgloszenia, .tabelaZgloszeniaHistoria {
+    background: transparent;
+    font-size:14px;
+    /*border-collapse: separate;*/
+    border-spacing: 0;
+    width:100%;
+}
+.tabelaZgloszenia th,
+.tabelaZgloszenia td,
+.tabelaZgloszeniaHistoria th,
+.tabelaZgloszeniaHistoria td{
+    padding: 0.5vh;
+    text-align: left;
+    /*border:solid yellow;*/
+}
+.tabelaZgloszenia td,
+.tabelaZgloszeniaHistoria td{
+    border-top: 1px solid rgb(212, 210, 210);
+}
+
+
+.zgloszeniaTbodyTr:hover,
+.zgloszeniaHistoriaTbodyTr:hover{
+    background-color: rgba(68,12,94,0.05)!important;
+    cursor: pointer;
+}
+
+/*.tabelaZgloszenia th,*/
+/*.tabelaZgloszeniaHistoria th{*/
+/*    background-color: rgb(248, 248, 248);*/
+
+/*}*/
+.tabelaZgloszenia thead th,
+.tabelaZgloszeniaHistoria thead th{
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    border-bottom: solid black 1px;
+}
+.tabelaZgloszenia tbody th[scope=row],
+.tabelaZgloszeniaHistoria tbody th[scope=row] {
+    position: sticky;
+    left: 0;
+    z-index: 9;
+    border-top: 1px solid rgb(212, 210, 210);
+    cursor: pointer;
+}
+.tabelaZgloszenia thead th[scope=row],
+.tabelaZgloszeniaHistoria thead th[scope=row] {
+    position: sticky;
+    left: 0;
+    z-index: 11;
+}
+.tabelaZgloszenia tbody,
+.tabelaZgloszeniaHistoria tbody {
+    /* zawijanie wierszy w tabeli !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+    /*overflow-wrap: break-word;*/
+
+}
+.tabelaZgloszenia {
+    text-align: center;
+}
+
+.tabelaZgloszenia tr:nth-child(2n+1){
+    background-color: rgba(255,255,255,1);
+}
+.tabelaZgloszeniaHistoria tr:nth-child(2n+1){
+    background-color: rgba(255,255,255,1);
+}
+.thZgloszenia {
+
+    color:rgba(0, 60, 125,0.8);
+    cursor: unset;
+    background-color: rgba(249,249,249,1) !important;
+
+}
+
+
+.sekcjaHistoriaZgloszen{
+
+    /*border: solid purple;*/
+    width: 60%;
+    height: 60%;
+    margin-left: 1%;
+    margin-top: 9%;
+    overflow-y: scroll;
+    position: absolute;
+    border-bottom: solid black 1px;
+}
+
+
+
+.zamknijSekcje{
+    cursor:pointer;
+    margin-left:23vw;
+
+}
+.zamknijSekcjeEdycja{
+    cursor:pointer;
+    margin-left:22vw;
+    margin-top: -2.5vh;
+    float: left;
+
+}
+
+
+.dodawanieZgloszenia{
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    border-left:1px solid rgb(212, 210, 210);
+    width: 25.5%;
+    height:84%;
+    margin-left:62%;
+    margin-top:1%;
+    position: absolute;
+    overflow-y: scroll;
+}
+.sekcjaDodawaniaZgloszenia{
+    height: 77vh;
+    width:23.2vw;
+    position: absolute;
+    margin-top: 1vh;
+    /*border:solid black;*/
+    padding-left: 7%;
+}
+.zapiszZgloszenie{
+    margin-left:1vw;
+    width: 10vw;
+    height:4vh;
+    margin-top: 6vh;
+    float: left;
+}
+
+
+.edytowanieZgloszenia{
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    border-left:1px solid rgb(212, 210, 210);
+    width: 25.5%;
+    height:84%;
+    margin-left:62%;
+    margin-top:1%;
+    position: absolute;
+    overflow-y: scroll;
+}
+.sekcjaEdytowaniaZgloszenia{
+    height: 77vh;
+    width:23.2vw;
+    position: absolute;
+    margin-top: 2vh;
+    /*border:solid black;*/
+    padding-left: 7%;
+}
+.edytujZgloszenie{
+    margin-left:1vw;
+    width: 10vw;
+    height:4vh;
+    margin-top: 1vh;
+    float: left;
+}
+
+.field-wrapper-zgloszenia{
+    position: relative;
+    margin-bottom: 1vh;
+    margin-top: 1vh;
+    text-align:center;
+    width: 46%;
+    /*border:solid red;*/
+    float: left;
+    /*margin-right: 5%;*/
+    /*padding-left: 1%;*/
+}
+.field-wrapper-zgloszenia input{
+    width: 93% !important;
+    height: 3.5vh !important;
+    padding: 0.2vh !important;
+    border: 1px solid rgb(209, 205, 205);
+    border-radius: 8px !important;
+    background: transparent;
+    text-align: left !important;
+    outline: none;
+    box-shadow: none;
+    z-index: 1;
+    position: relative;
+}
+.field-wrapper-zgloszenia select{
+    width: 96% ;
+    height: 4vh!important;
+    padding: 0.2vh !important;
+    border: 1px solid rgb(209, 205, 205);
+    border-radius: 8px !important;
+    background: transparent;
+    text-align: left !important;
+    outline: none;
+    box-shadow: none;
+    z-index: 1;
+    position: relative;
+}
+.field-wrapper-zgloszenia textarea{
+    width: 192% !important;
+    height: 6vh !important;
+    /*padding: 1vh !important;*/
+    border: 1px solid rgb(209, 205, 205);
+    border-radius: 8px !important;
+    background: transparent;
+    text-align: left !important;
+    outline: none;
+    box-shadow: none;
+    margin-left: 0.3vw;
+
+}
+.textarea-field-placeholder-zgloszenia{
+    font-size: 1.3vh;
+    position: absolute;
+    width: 0 !important;
+    height: 0 !important;
+    top: -0.9vh;
+    color: #80868b;
+    left: 7%;
+    z-index: 1 !important;
+}
+.textarea-field-placeholder-zgloszenia span{
+    background: rgb(248, 248, 248) !important;
+    z-index: 2 !important;
+    padding: 0 0.8vh;
+    width: 0;
+}
+.field-wrapper-zgloszenia input:focus,
+.field-wrapper-zgloszenia select:focus,
+.field-wrapper-zgloszenia textarea:focus
+{
+    border: 1px solid rgb(96, 19, 108); ! important;
+}
+.field-wrapper-zgloszenia .field-placeholder-zgloszenia{
+    font-size: 1.5vh;
+    position: absolute;
+    width: 100% !important;
+    bottom: 1.2vh;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #80868b;
+    left: 10%;
+    padding: 0 0.2vh;
+    -webkit-transition: transform 150ms cubic-bezier(0.4,0,0.2,1),opacity 150ms cubic-bezier(0.4,0,0.2,1);
+    transition: transform 150ms cubic-bezier(0.4,0,0.2,1),opacity 150ms cubic-bezier(0.4,0,0.2,1);
+    z-index: 0;
+    text-align: left;
+}
+.field-wrapper-zgloszenia .field-placeholder-zgloszenia span{
+    background: rgb(248, 248, 248) !important;
+    padding: 0 0.2vh;
+    width: 0;
+    z-index: 5;
+    position: relative;
+}
+.field-wrapper-zgloszenia input:not([disabled]):focus~.field-placeholder-zgloszenia,
+.field-wrapper-zgloszenia select:not([disabled]):focus~.field-placeholder-zgloszenia,
+.field-wrapper-zgloszenia textarea:not([disabled]):focus~.textarea-field-placeholder-zgloszenia
+{
+    color:rgb(96, 19, 108);
+}
+.field-wrapper-zgloszenia input:not([disabled]):focus~.field-placeholder-zgloszenia,
+.field-wrapper-zgloszenia input:not(:placeholder-shown)  + .field-placeholder-zgloszenia
+{
+    -webkit-transform: scale(.75) translateY(-2.8vh) translateX(-3.5vw);
+    transform: scale(.75) translateY(-2.9vh) translateX(-2.5vw);
+    z-index: 1;
+}
+.field-wrapper-zgloszenia select:not([disabled]):focus~.field-placeholder-zgloszenia,
+.field-wrapper-zgloszenia select:not(:placeholder-shown)  + .field-placeholder-zgloszenia
+{
+    -webkit-transform: scale(.75) translateY(-2.8vh) translateX(-3.5vw);
+    transform: scale(.75) translateY(-2.9vh) translateX(-2.5vw);
+    z-index: 1;
+}
+
+
+
+
+.sekcjaWykonawca{
+
+    /*border: solid purple;*/
+    width: 90%;
+    height: 15%;
+    margin-left: 1%;
+    margin-top: 5%;
+    overflow-y: scroll;
+    /*position: absolute;*/
+}
+.tabelaWykonawca{
+    background: transparent;
+    font-size:14px;
+    /*border-collapse: separate;*/
+    border-spacing: 0;
+    width:100%;
+}
+.tabelaWykonawca th,
+.tabelaWykonawca td {
+    padding: 0.5vh;
+    text-align: left;
+    /*border:solid yellow;*/
+}
+.tabelaWykonawca td {
+    border-top: 1px solid rgb(212, 210, 210);
+}
+.tabelaWykonawca th {
+    background-color: rgb(248, 248, 248);
+
+}
+.tabelaWykonawca thead th {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+.tabelaWykonawca tbody th[scope=row] {
+    position: sticky;
+    left: 0;
+    z-index: 9;
+    border-top: 1px solid rgb(212, 210, 210);
+    cursor: pointer;
+}
+.tabelaWykonawca thead th[scope=row] {
+    position: sticky;
+    left: 0;
+    z-index: 11;
+}
+.tabelaWykonawca tbody {
+    /* zawijanie wierszy w tabeli !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+    /*overflow-wrap: break-word;*/
+
+}
+.tabelaWykonawca .usunZgloszenieButton{
+    text-align: center;
+}
+.thWykonawca{
+
+    color:rgba(0, 60, 125,0.8);
+    cursor: unset;
+}
+
+
+
+.buttonDodajZgloszenie{
+    margin-left:1vw;
+    width: 10vw;
+    height:4vh;
+    margin-top: 82vh;
+    float: left;
+}
+.buttonHistoriaZgloszen{
+    margin-left:1vw;
+    width: 10vw;
+    height:4vh;
+    margin-top: 82vh;
+    float: left;
+}
+
+
+
+#drop_file_zone {
+    background-color: #EEE;
+    border: #999 1px dashed;
+    width: 9vw;
+    height: 10vh;
+    font-size: 1.6vh;
+    margin-top: 1.5vh;
+    margin-left: 2%;
+    float: left;
+}
+#drag_upload_file {
+    width:50%;
+    margin:0 auto;
+}
+#drag_upload_file p {
+    text-align: center;
+}
+#drag_upload_file #selectfile {
+    display: none;
+}
+.sekcjaZalacznik{
+    float: left;
+    /*border: solid purple;*/
+    width: 46%;
+    height: 15%;
+    margin-left: 2%;
+    margin-top: 5%;
+    overflow-y: scroll;
+    /*position: absolute;*/
+}
+.tabelaZalacznik{
+    background: transparent;
+    font-size:14px;
+    /*border-collapse: separate;*/
+    border-spacing: 0;
+    width:100%;
+}
+.tabelaZalacznik th,
+.tabelaZalacznik td {
+    padding: 0.5vh;
+    text-align: left;
+    /*border:solid yellow;*/
+}
+.tabelaZalacznik td {
+    border-top: 1px solid rgb(212, 210, 210);
+}
+.tabelaZalacznik th {
+    background-color: rgb(248, 248, 248);
+
+}
+.tabelaZalacznik thead th {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+.tabelaZalacznik tbody th[scope=row] {
+    position: sticky;
+    left: 0;
+    z-index: 9;
+    border-top: 1px solid rgb(212, 210, 210);
+    cursor: pointer;
+}
+.tabelaZalacznik thead th[scope=row] {
+    position: sticky;
+    left: 0;
+    z-index: 11;
+}
+.tabelaZalacznik tbody {
+    /* zawijanie wierszy w tabeli !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+    /*overflow-wrap: break-word;*/
+
+}
+.tabelaZalacznik .usunZalacznikButton{
+    text-align: center;
+}
+.thZalacznik{
+    color:rgba(0, 60, 125,0.8);
+    cursor: unset;
+}
+
+#zamknijEdytowanieZgloszenia {
+    float:left;
+    margin-left: 1vw;
+}
+
+.sectionButtonZgloszenia {
+    width:90%;
+    height:3%;
+    /*border:solid red;*/
+    float: left;
+    text-align: left;
+}
+
+#buttonZmianyKomentarze{
+    /*border: solid 1px grey;*/
+    height: 95%;
+    margin-top: 2%;
+    margin-left: 2%;
+    font-size: 1.5vh;
+    color: rgb(96, 19, 108);
+    box-shadow: 0 5px 35px rgba(0,0,0,0.2);
+    border-left:1px solid rgb(212, 210, 210);
+    border-radius: 10%;
+    background-color: rgba(85,85,85,0.2);
+    cursor: pointer;
+}
+
+.zmianyKomentarze {
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    border-left: 1px solid rgb(212, 210, 210);
+    width: 25.5%;
+    height: 84%;
+    margin-left: 62%;
+    margin-top: 1%;
+    position: absolute;
+    overflow-y: scroll;
+}
+
+#sekcjaKomentarze {
+    height: 46vh;
+    /*border:solid red;*/
+    max-width:30vw;
+}
+
+#nowyKomentarz {
+    width: 20vw !important;
+    height: 6vh !important;
+    /*padding: 1vh !important;*/
+    border: 1px solid rgb(209, 205, 205);
+    border-radius: 8px !important;
+    background: transparent;
+    text-align: left !important;
+    outline: none;
+    box-shadow: none;
+    margin-left: -1vw;
+    margin-top: 1.5vw;
+    font-size: 14px;
+}
+
+.wszystkieKomentarze {
+    max-height: 30vh;
+    width: 20vw;
+    margin-left: 2vw;
+    margin-top: 2vh;
+    overflow-y: scroll;
+    /*border: solid yellow;*/
+}
+
+.wszystkieZmiany {
+    border: 1px solid rgba(0,0,0,0.1);
+    height: 30vh;
+    width: 20vw;
+    margin-top: 2vh;
+    margin-left: 2vw;
+    overflow-y: scroll;
+}
+
+
+
+
+
