@@ -135,6 +135,12 @@ $(document).ready(function () {
         $(".edytowanieZgloszenia").hide();
         $('.zmianyKomentarze').hide();
     });
+    $('.zamknijSekcjeEdycja').on('click', function(){
+        $(".edytowanieZgloszenia").hide();
+        $(".dodawanieZgloszenia").hide();
+        $('.zmianyKomentarze').hide();
+    });
+
     $('.dodajZgloszenie').on('click', function(){
         $(".dodawanieZgloszenia").show();
         $(".edytowanieZgloszenia").hide();
@@ -172,11 +178,14 @@ $(document).ready(function () {
 
         $idKlienta = $(this).val();
 
+        // promise
         dynamicznyAdres($idKlienta).then(($result)=> {
 
             if ($result === false) {
+                $('#adresDodaj').css('border', '1px solid rgb(209, 205, 205)');
                 $adresErr = true;
             } else {
+                $('#adresDodaj').css('border', '1px solid red');
                 $adresErr = false;
             }
 
@@ -1002,7 +1011,9 @@ $(document).ready(function () {
             $opisEdycjaErr = true;
         }
 
-        if( $('#terminOdEdytuj').val() !== '' && $('#terminDoEdytuj').val() !== '') {
+        if( ( $('#terminOdEdytuj').val() !== '' && $('#terminDoEdytuj').val() !== '' ) ||
+            ( $('#terminOdEdytuj').val() === '' && $('#terminDoEdytuj').val() === '' ) ) {
+
             $('#terminOdEdytuj').css('border','1px solid rgb(209, 205, 205)');
             $('#terminDoEdytuj').css('border','1px solid rgb(209, 205, 205)');
             $dataOdEdycjaErr = true;

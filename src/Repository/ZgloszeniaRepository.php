@@ -720,6 +720,16 @@ class ZgloszeniaRepository extends ServiceEntityRepository
         return $zgloszeniaFiltrHistoriaTab;
     }
 
+    public function wyswietlKomentarzeRepo($wyswietlKomentarzeArr) {
+
+        $idZgloszenia = $wyswietlKomentarzeArr['idZgloszenia'];
+
+
+        $sql = "select IdZgloszenia,Komentarz,DataDodania,[User] from zgloszeniaKomentarze where IdZgloszenia = $idZgloszenia ORDER BY DataDodania DESC";
+        $sql = $this->conn->fetchAllAssociative($sql);
+
+        return $sql;
+    }
 
     public function dodawanieKomentarzaRepo($dodawanieKomentarzaArr) {
 
@@ -732,10 +742,21 @@ class ZgloszeniaRepository extends ServiceEntityRepository
         $sql = "insert into zgloszeniaKomentarze (IdZgloszenia,Komentarz,DataDodania,[User]) values ($idZgloszenia,'$komentarz',GETDATE(),'$user')";
         $this->conn->fetchAllAssociative($sql);
 
-        $sqlSelectArr = "select IdZgloszenia,Komentarz,DataDodania,[User] from zgloszeniaKomentarze where IdZgloszenia = $idZgloszenia";
+        $sqlSelectArr = "select IdZgloszenia,Komentarz,DataDodania,[User] from zgloszeniaKomentarze where IdZgloszenia = $idZgloszenia ORDER BY DataDodania DESC";
         $sqlSelect = $this->conn->fetchAllAssociative($sqlSelectArr);
 
         return $sqlSelect;
+    }
+
+    public function wyswietlZmianyRepo($wyswietlZmianyArr) {
+
+        $idZgloszenia = $wyswietlZmianyArr['idZgloszenia'];
+
+
+        $sql = "select DataDodania, [User] from zgloszenia where IdZgloszenia = $idZgloszenia";
+        $sql = $this->conn->fetchAllAssociative($sql);
+
+        return $sql;
     }
 
 }

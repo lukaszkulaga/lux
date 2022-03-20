@@ -268,6 +268,27 @@ class StronaZgloszeniaController extends AbstractController
 
     /**
      *
+     * wyswietlanie komentarzy
+     *
+     * @Route("/wyswietlKomentarzeZmiany/ajax", methods={"POST"})
+     */
+    public function wyswietlKomentarzeZmiany(Request $request) {
+
+        $wyswietlKomentarzeZmianyArr = $request->request->get('tab');
+
+        $this->logger->info('!!!!!!!!!!!!!!!!!!!!   kontroler');
+
+        $wyswietlKomentarze = $this->zgloszeniaService->wyswietlKomentarzeService($wyswietlKomentarzeZmianyArr);
+        $wyswietlZmiany = $this->zgloszeniaService->wyswietlZmianyService($wyswietlKomentarzeZmianyArr);
+
+        $wyswietlKomentarzeTab = ['wyswietlKomentarzeTab'=>$wyswietlKomentarze,'wyswietlZmianyTab'=>$wyswietlZmiany];
+
+        return new JsonResponse($wyswietlKomentarzeTab);
+    }
+
+
+    /**
+     *
      * dodawanie komentarzy
      *
      * @Route("/dodawanieKomentarza/ajax", methods={"POST"})

@@ -228,7 +228,7 @@
                 </form>
             </div>
 
-            <div class="sekcjaZgloszenia" >
+            <div class="sekcjaZgloszenia">
                 <table class="tabelaZgloszenia" style="">
                     <thead>
                     <tr>
@@ -350,7 +350,9 @@
 
             <div class="dodawanieZgloszenia" >
 
-                <div class="zamknijSekcje" id="zamknijDodawanieZgloszenia">X</div>
+                <div class ="zamknijSekcje" >
+                    <button style="" id="zamknijDodawanieZgloszenia" type ="reset"><svg class="wyczyscIcons"></svg></button>
+                </div>
 
                 <form>
                     <div class="sekcjaDodawaniaZgloszenia" >
@@ -542,9 +544,11 @@
 
 
                 <div class="sectionButtonZgloszenia" style="">
-                    <button style="" id="buttonZmianyKomentarze" type ="button">Zmiany i komentarze</button>
+                    <button id="buttonZmianyKomentarze" type ="button">Zmiany i komentarze</button>
                 </div>
-                <div class="zamknijSekcje" id="zamknijEdytowanieZgloszenia">X</div>
+                <div class ="zamknijSekcjeEdycja" >
+                    <button style="" id="zamknijEdytowanieZgloszenia" type ="reset"><svg class="wyczyscIcons"></svg></button>
+                </div>
 
                 <div style="clear:both"></div>
 
@@ -750,24 +754,34 @@
 
             <div class="zmianyKomentarze" >
 
-                <div class="zamknijSekcje" id="zamknijZmianyKomentarze"> cofnij </div>
-                <input id="idZgloszeniaKomentarze" type="text" value="" style=""/>
+                <div class="" id="zamknijZmianyKomentarze"> cofnij </div>
+                <input id="idZgloszeniaKomentarze" type="text" value="" style="display:none;"/>
 
                 <form>
                     <div class="sekcjaZmianyKomentarze">
-                        <div>
+                        <div id="sekcjaKomentarze">
                             <textarea id="nowyKomentarz" placeholder="Dodaj komentarz"></textarea>
-                            <button id="dodajKomentarz" type="button" style="display:block; margin-left: 50px; margin-top: 10px; margin-bottom: 20px;">Dodaj</button>
-                            <div class="wszystkieKomentarze" style="border:solid red; height: 300px; width: 80%; margin-left: 50px;overflow-y: scroll">
+
+                            <div class="buttondodajKomentarz" id="dodajKomentarz">
+                                <div class="container1" style="height: 2vh;width: 6vw;margin-top: 1vh;margin-left: 2vw;">
+                                    <div class="btn1" style="width: 100%;height: 3vh">
+                                        <button style="width: 5vw;height: 2vh;font-size: 1.6vh;" class="dodajKomentarzButton" type ="button">Dodaj</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="wszystkieKomentarze">
 
                                 <p class="listaKomentarzy">
-
                                 </p>
 
                             </div>
                         </div>
 
-                        <div class="zmianaStatusow" style="border:solid blue; height: 300px; width: 80%; margin-left: 50px;margin-top: 60px;">
+                        <div class="wszystkieZmiany">
+
+                            <p class="listaZmian">
+                            </p>
 
                         </div>
 
