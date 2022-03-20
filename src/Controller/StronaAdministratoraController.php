@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Route as ROUTING;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
-
+//test
 class StronaAdministratoraController extends AbstractController
 {
     private $daneUzytkownikaService;
