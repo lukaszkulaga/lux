@@ -30,7 +30,8 @@ $(document).ready(function () {
     //
     // })
 
-// przerobic na ajax !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// przerobic na ajax i wpetli wywolac table.draw(); - cos podobnie jak w checkbox administrator i status - nie trzeba 
+//odwzorowywac widoku tabeli w petli tak jak zawsze to robiłem !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     $('#id').keyup( function() {
 
         // alert('1');
@@ -38,7 +39,7 @@ $(document).ready(function () {
         $.fn.dataTable.ext.search.push(
             function aaa ( settings, data, dataIndex ) {
 
-                alert(data);
+                //alert(data);
                 var id = $('#id').val();
                 var searchId = data[6] || 0; // use data for the age column
 
@@ -93,43 +94,46 @@ $(document).ready(function () {
 
                 $('.resultsBody tr').remove();
 
-                json.statusKontaArr.forEach(item=> {
+                table.draw();
 
-                    var id = '<td class="idUzytkownik">' + item.IdUzytkownika + '</td>';
-                    var imie = '<td>' + item.Imie + '</td>';
-                    var nazwisko = '<td>' + item.Nazwisko + '</td>';
-                    var nazwaUzytkownika = '<td>' + item.NazwaUzytkownika + '</td>';
-                    var email = '<td>' + item.Email + '</td>';
-                    var numerTel = '<td>' + item.NumerTelefonu + '</td>';
-                    if( item.StatusKonta === 1){
-                        $status = '<td><input class="statusKonta" type="checkbox" ' +
-                            'value="'+ item.StatusKonta +'" checked /><p>'+item.StatusKonta+'</p></td>';
-                    } else {
-                        $status= '<td><input class="statusKonta" type="checkbox" ' +
-                            'value="'+ item.StatusKonta +'"  /><p >'+item.StatusKonta+'</p></td>';
-                    }
-                    if( item.Rola === 1){
-                        $rola = '<td><input class="rola" type="checkbox" ' +
-                            'value="'+ item.Rola +'" checked /><p style="">'+item.Rola+'</p></td>';
-                    } else {
-                        $rola= '<td><input class="rola" type="checkbox" ' +
-                            'value="'+ item.Rola +'"  /><p style="">'+item.Rola+'</p></td>';
-                    }
+                //json.statusKontaArr.forEach(item=> {
 
-                    $row = "<tr>" +
-                        id +
-                        imie +
-                        nazwisko +
-                        nazwaUzytkownika +
-                        email +
-                        numerTel +
-                        $status +
-                        $rola +
-                        "</tr>";
+                    // var id = '<td class="idUzytkownik">' + item.IdUzytkownika + '</td>';
+                    // var imie = '<td>' + item.Imie + '</td>';
+                    // var nazwisko = '<td>' + item.Nazwisko + '</td>';
+                    // var nazwaUzytkownika = '<td>' + item.NazwaUzytkownika + '</td>';
+                    // var email = '<td>' + item.Email + '</td>';
+                    // var numerTel = '<td>' + item.NumerTelefonu + '</td>';
+                    // if( item.StatusKonta === 1){
+                    //     $status = '<td><input class="statusKonta" type="checkbox" ' +
+                    //         'value="'+ item.StatusKonta +'" checked /></td>';
+                    // } else {
+                    //     $status= '<td><input class="statusKonta" type="checkbox" ' +
+                    //         'value="'+ item.StatusKonta +'"  /></td>';
+                    // }
+                    // if( item.Rola === 1){
+                    //     $rola = '<td><input class="rola" type="checkbox" ' +
+                    //         'value="'+ item.Rola +'" checked /></td>';
+                    // } else {
+                    //     $rola= '<td><input class="rola" type="checkbox" ' +
+                    //         'value="'+ item.Rola +'"  /></td>';
+                    // }
 
-                    $('.resultsBody').append($row);
+                    // $row = "<tr>" +
+                    //     id +
+                    //     imie +
+                    //     nazwisko +
+                    //     nazwaUzytkownika +
+                    //     email +
+                    //     numerTel +
+                    //     $status +
+                    //     $rola +
+                    //     "</tr>";
 
-                });
+                       
+                   // $('.resultsBody').append($row);
+
+               // });
             }
         });
     });
@@ -163,42 +167,45 @@ $(document).ready(function () {
 
                 $('.resultsBody tr').remove();
 
-                json.rolaArr.forEach(item=> {
+                table.draw();
 
-                    var id = '<td class="idUzytkownik">' + item.IdUzytkownika + '</td>';
-                    var imie = '<td>' + item.Imie + '</td>';
-                    var nazwisko = '<td>' + item.Nazwisko + '</td>';
-                    var nazwaUzytkownika = '<td>' + item.NazwaUzytkownika + '</td>';
-                    var email = '<td>' + item.Email + '</td>';
-                    var numerTel = '<td>' + item.NumerTelefonu + '</td>';
-                    if( item.StatusKonta === 1){
-                        $status = '<td><input class="statusKonta" type="checkbox" ' +
-                            'value="'+ item.StatusKonta +'" checked /><p style="">'+item.StatusKonta+'</p></td>';
-                    } else {
-                        $status= '<td><input class="statusKonta" type="checkbox" ' +
-                            'value="'+ item.StatusKonta +'" /><p style="">'+item.StatusKonta+'</p></td>';
-                    }
-                    if( item.Rola === 1){
-                        $rola = '<td><input class="rola" type="checkbox" ' +
-                            'value="'+ item.Rola +'" checked /><p style="">'+item.Rola+'</p></td>';
-                    } else {
-                        $rola= '<td><input class="rola" type="checkbox" ' +
-                            'value="'+ item.Rola +'"  /><p style="">'+item.Rola+'</p></td>';
-                    }
+               // json.rolaArr.forEach(item=> {
 
-                    $row = "<tr>" +
-                        id +
-                        imie +
-                        nazwisko +
-                        nazwaUzytkownika +
-                        email +
-                        numerTel +
-                        $status +
-                        $rola +
-                        "</tr>";
+                    // var id = '<td class="idUzytkownik">' + item.IdUzytkownika + '</td>';
+                    // var imie = '<td>' + item.Imie + '</td>';
+                    // var nazwisko = '<td>' + item.Nazwisko + '</td>';
+                    // var nazwaUzytkownika = '<td>' + item.NazwaUzytkownika + '</td>';
+                    // var email = '<td>' + item.Email + '</td>';
+                    // var numerTel = '<td>' + item.NumerTelefonu + '</td>';
+                    // if( item.StatusKonta === 1){
+                    //     $status = '<td><input class="statusKonta" type="checkbox" ' +
+                    //         'value="'+ item.StatusKonta +'" checked /></td>';
+                    // } else {
+                    //     $status= '<td><input class="statusKonta" type="checkbox" ' +
+                    //         'value="'+ item.StatusKonta +'" /></td>';
+                    // }
+                    // if( item.Rola === 1){
+                    //     $rola = '<td><input class="rola" type="checkbox" ' +
+                    //         'value="'+ item.Rola +'" checked /></td>';
+                    // } else {
+                    //     $rola= '<td><input class="rola" type="checkbox" ' +
+                    //         'value="'+ item.Rola +'"  /></td>';
+                    // }
 
-                    $('.resultsBody').append($row);
-                });
+                    // $row = "<tr>" +
+                    //     id +
+                    //     imie +
+                    //     nazwisko +
+                    //     nazwaUzytkownika +
+                    //     email +
+                    //     numerTel +
+                    //     $status +
+                    //     $rola +
+                    //     "</tr>";
+
+                 
+                   // $('.resultsBody').append($row);
+               // });
             }
         });
     });

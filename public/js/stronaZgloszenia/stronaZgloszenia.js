@@ -233,8 +233,6 @@ $(document).ready(function () {
             $('#priorytetDodaj').css('border','1px solid red');
             $priorytetErr = false;
         }
-
-
     })
 
     $('#opisDodaj').on('change keyup',function() {
@@ -276,6 +274,7 @@ $(document).ready(function () {
         }
 
     });
+
     $('#terminDoDodaj').on('change',function() {
 
         $dataOd = $('#terminOdDodaj').val();
@@ -331,7 +330,7 @@ $(document).ready(function () {
         if($dataOd === '' && $dataDo === ''){
             $('#godzinaDoDodaj').val('');
             $('#godzinaOdDodaj').val('');
-            komunikatProgres('Godzina od nie może być późniejsza od godziny do','error');
+            komunikatProgres('Uzupełnij pole Termin Realizacji od/do','error');
         }
 
     });
@@ -360,7 +359,7 @@ $(document).ready(function () {
         if($dataOd === '' && $dataDo === ''){
             $('#godzinaDoDodaj').val('');
             $('#godzinaOdDodaj').val('');
-            komunikatProgres('Godzina do nie może być wcześniejsza od godziny od','error');
+            komunikatProgres('Uzupełnij pole Termin Realizacji od/do','error');
         }
 
     });
@@ -565,7 +564,7 @@ $(document).ready(function () {
                 }
             })
         }  else {
-            komunikatProgres('Uzupełnij wymagane dane','error');
+            komunikatProgres('Uzupełnij wymagane pola','error');
         }
     });
 
@@ -943,7 +942,7 @@ $(document).ready(function () {
     $('#wykonawcaEdytuj').on('change', function(){
 
         $idWykonawca = $(this).val();
-        alert('idwykon: ' + $idWykonawca);
+        // alert('idwykon: ' + $idWykonawca);
         $wykonawcaText= $('#wykonawcaEdytuj option:selected').text();
 
         $wykonawcaTbodyTr = $('.wykonawcaTbodyTr');
@@ -959,7 +958,7 @@ $(document).ready(function () {
             $wykonawca =  $wykonawcaTbodyTr[$i].children[0].innerHTML;
             console.log($wykonawca);
             if($idWykonawca === $wykonawca) {
-                alert('widze');
+                // alert('widze');
                 $wykonawcaTbodyTr[$i].remove();
                 komunikatProgres('Wybrany wykonawca został już dodany','error');
             }
@@ -1280,13 +1279,13 @@ $(document).ready(function () {
 
                         $('.zgloszeniaTbody').append($row);
                     });
-                    komunikatProgres('Edytowano zgłoszenie','success');
+                    komunikatProgres('Poprawna edycja danych','success');
 
                 }
             })
 
         } else {
-            komunikatProgres('Uzupełnij wymagane dane','error');
+            komunikatProgres('Uzupełnij wymagane pola','error');
         }
 
 

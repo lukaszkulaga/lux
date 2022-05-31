@@ -24,8 +24,6 @@ class LoginRepository extends ServiceEntityRepository
 
         $rezultat = $this->findOneBy(array( 'nazwaUzytkownika'=> $login,'haslo'=>$haslo,'statusKonta'=>1 ));
 
-        $this->logger->info('/////////////////////////////////////// przed rezult');
-
         if ( $rezultat ) {
 
             $rola = $rezultat->getRola();
@@ -33,8 +31,7 @@ class LoginRepository extends ServiceEntityRepository
 
             if ( $rola == 2 ) {
 
-                $this->logger->info('/////////////////////////////////////// rola uzytkownika');
-                //session_start();
+                $this->logger->info('rola uzytkownika');
                 $this->session->start();
                 $this->session->set('uzytkownik',$id);
                 $this->session->set('nazwaUzytkownika',$login);
@@ -43,8 +40,7 @@ class LoginRepository extends ServiceEntityRepository
             }
             if ( $rola == 1 ) {
 
-                $this->logger->info('++++++++++++++++++++++++++++++++++++++ rola admina');
-                //session_start();
+                $this->logger->info('rola administratora');
                 $this->session->start();
                 $this->session->set('admin',$id);
                 $this->session->set('nazwaUzytkownika',$login);

@@ -71,7 +71,7 @@
                                     <option value={{ klient.Nazwa }}>{{ klient.Nazwa }}</option>
                                 {% endfor %}
                             </select>
-                            <div class="field-placeholder"><span>Klient</span></div>
+                            <div class="field-placeholder"><span>Kontrahent</span></div>
                         </div>
                     </div>
 
@@ -170,7 +170,7 @@
                                     <option value={{ klient.Nazwa }}>{{ klient.Nazwa }}</option>
                                 {% endfor %}
                             </select>
-                            <div class="field-placeholder"><span>Klient</span></div>
+                            <div class="field-placeholder"><span>Kontrahent</span></div>
                         </div>
                     </div>
 
@@ -238,7 +238,7 @@
                         <th class="thZgloszenia" scope="row">Data dodania</th>
                         <th class="thZgloszenia" scope="row">Planowana realizacja</th>
                         <th class="thZgloszenia" scope="row">Adres</th>
-                        <th class="thZgloszenia" scope="row">Klient</th>
+                        <th class="thZgloszenia" scope="row">Kontrahent</th>
                         <th class="thZgloszenia" scope="row">Wykonawca</th>
                         <th class="thZgloszenia" scope="row">Kategoria</th>
                         <th class="thZgloszenia" scope="row">Priorytet</th>
@@ -275,7 +275,7 @@
                         <th class="thZgloszenia" scope="row">Data dodania</th>
                         <th class="thZgloszenia" scope="row">Data rozwiązania</th>
                         <th class="thZgloszenia" scope="row">Adres</th>
-                        <th class="thZgloszenia" scope="row">Klient</th>
+                        <th class="thZgloszenia" scope="row">Kontrahent</th>
                         <th class="thZgloszenia" scope="row">Wykonawca</th>
                         <th class="thZgloszenia" scope="row">Kategoria</th>
                         <th class="thZgloszenia" scope="row">Priorytet</th>
@@ -321,6 +321,7 @@
                 </table>
             </div>
 
+        {% if daneUzytkownikaArr.Rola == 1 %}
             <div class="sekcjaButtonZgloszenia">
                 <div class="buttonDodajZgloszenie">
                     <div class="container1" style="height: 3vh;width: 30%;margin-top: 0">
@@ -337,6 +338,7 @@
                     </div>
                 </div>
             </div>
+        {% endif %}
 
             <div class="sekcjaButtonHistoria">
                 <div class="buttonDodajZgloszenie">
@@ -365,7 +367,7 @@
                                             <option value={{ klient.IdKlienta }}>{{ klient.Nazwa }}</option>
                                         {% endfor %}
                                 </select>
-                                <div class="field-placeholder-zgloszenia"><span>Klient</span></div>
+                                <div class="field-placeholder-zgloszenia"><span>Kontrahent</span></div>
                             </div>
                             <p class="errorSuccess"></p>
                         </div>
@@ -452,7 +454,7 @@
                                             <option class="wykonawcaOption" value={{ wykonawca.IdUzytkownika }}>{{ wykonawca.Wykonawca }}</option>
                                         {% endfor %}
                                 </select>
-                                <div class="field-placeholder-zgloszenia"><span>Wybierz wykonawcę</span></div>
+                                <div class="field-placeholder-zgloszenia"><span>Wykonawca</span></div>
                             </div>
                             <p class="errorSuccess"></p>
                         </div>
@@ -541,9 +543,7 @@
 
             <div class="edytowanieZgloszenia" >
 
-
-
-                <div class="sectionButtonZgloszenia" style="">
+                <div class="sectionButtonZgloszenia" style="visibility: hidden">
                     <button id="buttonZmianyKomentarze" type ="button">Zmiany i komentarze</button>
                 </div>
                 <div class ="zamknijSekcjeEdycja" >
@@ -566,7 +566,7 @@
                                         <option value={{ klient.IdKlienta }}>{{ klient.Nazwa }}</option>
                                     {% endfor %}
                                 </select>
-                                <div class="field-placeholder-zgloszenia"><span>Klient</span></div>
+                                <div class="field-placeholder-zgloszenia"><span>Kontrahent</span></div>
                             </div>
                             <p class="errorSuccess"></p>
                         </div>
@@ -670,7 +670,7 @@
                                         <option value={{ wykonawca.IdUzytkownika }}>{{ wykonawca.Wykonawca }}</option>
                                     {% endfor %}
                                 </select>
-                                <div class="field-placeholder-zgloszenia"><span>Wybierz wykonawcę</span></div>
+                                <div class="field-placeholder-zgloszenia"><span>Wykonawca</span></div>
                             </div>
                             <p class="errorSuccess"></p>
                         </div>

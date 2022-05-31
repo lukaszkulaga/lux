@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 
@@ -15,7 +16,7 @@ use App\Entity\DaneUzytkownikaEntity;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 
-class ZgloszeniaRepository extends ServiceEntityRepository
+class ZgloszeniaRepository extends ServiceEntityRepository implements ServiceEntityRepositoryInterface
 {
 
     private $conn;
