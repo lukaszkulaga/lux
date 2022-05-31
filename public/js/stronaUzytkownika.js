@@ -105,7 +105,14 @@ $(document).ready(function () {
             $('#telefon').val($getTel);
         }
 
+
+
+
         let pattern = /[0-9]{3}-[0-9]{3}-[0-9]{3}/;
+
+
+
+        
         let validacjaTelefonuPattern = pattern.test($getTel);
 
 

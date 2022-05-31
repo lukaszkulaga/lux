@@ -48,7 +48,7 @@
 
                     <!-- lub tak -->
 
-                    <input type="text" id="id" name="id">
+                   {#   <input type="text" id="id" name="id"> #}
 
                     <table id="table_id" class="display">
                         <thead>
@@ -73,14 +73,14 @@
                                 <td>{{uzytkownik.Email}}</td>
                                 <td>{{uzytkownik.NumerTelefonu}}</td>
                                 {% if uzytkownik.StatusKonta is same as 1 %}
-                                    <td><input class="statusKonta" type="checkbox" value= "{{ uzytkownik.StatusKonta }}" checked /><p style="">{{ uzytkownik.StatusKonta }}</p></td>
+                                    <td><input class="statusKonta" type="checkbox" value= "{{ uzytkownik.StatusKonta }}" checked /></td>
                                 {% else %}
-                                    <td><input class="statusKonta" type="checkbox" value= "{{ uzytkownik.StatusKonta }}" /><p style="">{{ uzytkownik.StatusKonta }}</p></td>
+                                    <td><input class="statusKonta" type="checkbox" value= "{{ uzytkownik.StatusKonta }}" /></td>
                                 {% endif %}
                                 {% if uzytkownik.Rola is same as 1 %}
-                                    <td><input class="rola" type="checkbox" value= "{{ uzytkownik.Rola }}" checked /><p style="">{{ uzytkownik.Rola }}</p></td>
+                                    <td><input class="rola" type="checkbox" value= "{{ uzytkownik.Rola }}" checked /></td>
                                 {% else %}
-                                    <td><input class="rola" type="checkbox" value= "{{ uzytkownik.Rola }}" /><p style="">{{ uzytkownik.Rola }}</p></td>
+                                    <td><input class="rola" type="checkbox" value= "{{ uzytkownik.Rola }}" /></td>
                                 {% endif %}
                             </tr>
                         {% endfor %}

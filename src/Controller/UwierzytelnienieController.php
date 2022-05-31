@@ -56,8 +56,8 @@ class UwierzytelnienieController extends AbstractController
            $this->logger->info('/////////////////////////////////////// sesja koniec logowanie   ');
            $this->session->invalidate();
         }
-
-        return $this->render('logowanie.html.twig', array() );
+       
+        return $this->render('logowanie.html.twig', array('nieZalogowano'=> '') );
     }
 
     /**
@@ -70,12 +70,15 @@ class UwierzytelnienieController extends AbstractController
 
         $rezultat = $this->loginService->loginService( $login,$haslo );
 
+    
+
         if ( $rezultat ) {
             
             return $this->redirect(parent::getParameter('baseUrl')."stronaUzytkownika");
         } else {
-
-            return $this->redirect(parent::getParameter('baseUrl')."logowanie");
+            $nieZalogowano = "nie zalogowano - niepoprawny login lub/i hasło";
+            // return $this->redirect(parent::getParameter('baseUrl')."logowanie");
+            return $this->render('logowanie.html.twig', array('nieZalogowano'=> $nieZalogowano) );
         }
     }
 

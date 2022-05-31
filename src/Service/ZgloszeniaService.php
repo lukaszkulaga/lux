@@ -7,7 +7,7 @@ use Psr\Log\LoggerInterface;
 use Symfony\Config\Twig\DateConfig;
 
 
-class ZgloszeniaService
+class ZgloszeniaService extends ZgloszeniaRepository
 {
     private $zgloszeniaRepository;
     private $logger;
